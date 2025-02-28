@@ -1,0 +1,29 @@
+.appHeader {
+  width: 100%;
+  padding: 0rem 0rem 0rem 1rem;
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  & h6 {
+    color: var(--border-color);
+    margin: 0;
+  }
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.windowControlButton {
+  border-radius: 0;
+  padding: 0.4rem !important;
+  border: none !important;
+  background: var(--secondary-color);
+  transition: 0.3s ease-in-out;
+  & i {
+    background-color: transparent;
+    display: block;
+    height: 1.5rem;
+    width: 1.5rem;
+    scale: 1.2;
+  }
+}

@@ -8,7 +8,7 @@ body {
 }
 :root {
   --primary-color: #333333; /* Dark Gray */
-  --secondary-color: #4a4a6a; /* Charcoal Gray */
+  --secondary-color: #444455; /* Charcoal Gray */
   --accent-color: #ff6f20; /* Vibrant Orange */
   --background-color: #f4f7fa; /* Soft Light Gray */
   --text-color: #212121; /* Dark Gray (for better readability) */

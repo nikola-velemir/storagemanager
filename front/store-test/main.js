@@ -1,4 +1,4 @@
-const { app, BrowserWindow, protocol } = require("electron");
+const { app, BrowserWindow, protocol, ipcMain } = require("electron");
 const path = require("path");
 const url = require("url");
 
@@ -8,8 +8,14 @@ function createMainWindow() {
     height: 600,
     resizable: false,
     autoHideMenuBar: true,
-    title: "Test",
-    webPreferences: {},
+    title: "Sreto",
+    frame: false,
+    webPreferences: {
+      contextIsolation: true,
+      enableRemoteModule: false,
+      nodeIntegration: false,
+      preload: __dirname + "/preload.js",
+    },
   });
   const isDev = process.env.NODE_ENV === "development";
   const startUrl = "http://localhost:3000";
@@ -20,6 +26,16 @@ function createMainWindow() {
   //         protocol: "file",
   //       });
   mainWindow.loadURL(startUrl);
+
+  ipcMain.on("window-minimize", () => mainWindow.minimize());
+  ipcMain.on("window-maximize", () => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.unmaximize();
+    } else {
+      mainWindow.maximize();
+    }
+  });
+  ipcMain.on("window-close", () => mainWindow.close());
 }
 
 app.on("ready", createMainWindow);
