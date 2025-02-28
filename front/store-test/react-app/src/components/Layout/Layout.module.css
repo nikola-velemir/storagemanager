@@ -1,0 +1,12 @@
+.layout {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-color);
+}
+.myNavbar {
+  padding: 0.5rem 1rem !important;
+  width: 100vw;
+  & .navbar-brand span {
+    color: #fff;
+  }
+}
