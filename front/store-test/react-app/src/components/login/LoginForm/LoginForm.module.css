@@ -1,8 +1,7 @@
 .login {
   width: 100%;
   display: flex;
-  padding: 2rem;
-  height: 80vh;
+  height: 100%;
   justify-content: center;
   align-content: center;
   flex-direction: row;
@@ -23,11 +22,10 @@
 
 .formContainer {
   display: flex;
-  background: rgba(30, 30, 80, 0.7);
-  border-radius: 1rem;
+  background: rgba(30, 30, 80, 0.75);
   border: none;
   height: 100%;
-  width: 70vw;
+  width: 100%;
   z-index: 1;
   justify-content: center;
   align-items: center;
@@ -35,10 +33,9 @@
 .formBackGround {
   content: "";
   position: absolute;
-  width: 70vw;
-  border-radius: 1rem;
-  top: 2rem;
-  bottom: 2rem;
+  width: 100%;
+  top: 0;
+  bottom: 0;
   background-position: center !important;
   background-size: cover !important;
   z-index: 0;

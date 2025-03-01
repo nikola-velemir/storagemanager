@@ -1,7 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import React from "react";
-import { AuthUser } from "../model/user/AuthUser";
 import { useAuth } from "./AuthContext";
 
 type ProtectedRouteProps = {
@@ -10,11 +8,9 @@ type ProtectedRouteProps = {
 
 const ProtectedRoute = ({ redirectPath = "/login" }: ProtectedRouteProps) => {
   const user = useAuth();
-  if (!user.user) {
-    console.log(user);
+  if (!user.getUser()) {
     return <Navigate to={redirectPath} replace />;
   }
-  console.log(user);
   return <Outlet />;
 };
 

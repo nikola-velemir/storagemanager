@@ -11,6 +11,7 @@ interface AuthContextType {
   user: AuthUser | null;
   loading: boolean;
   setUser: (user: AuthUser) => void;
+  getUser: () => AuthUser | null;
   clearUser: () => void;
 }
 
@@ -50,6 +51,16 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
     }
   }, [user]);
 
+  const getUser = (): AuthUser | null => {
+    if (user) {
+      return user;
+    }
+    const savedUserString = localStorage.getItem("user");
+    const savedUser = savedUserString ? JSON.parse(savedUserString) : null;
+    setUserState(savedUser);
+    return user;
+  };
+
   const setUser = (user: AuthUser) => {
     localStorage.setItem("user", JSON.stringify(user));
     setUserState(user);
@@ -58,7 +69,9 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
     setUserState(null);
   };
   return (
-    <AuthUserContext.Provider value={{ user, loading, setUser, clearUser }}>
+    <AuthUserContext.Provider
+      value={{ user, loading, setUser, getUser, clearUser }}
+    >
       {children}
     </AuthUserContext.Provider>
   );
