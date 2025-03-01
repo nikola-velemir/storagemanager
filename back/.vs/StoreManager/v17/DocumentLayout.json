@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\controller\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -34,8 +38,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameService.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Service\\GameService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Service\\GameService.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Service\\GameService.cs",
+              "RelativeToolTip": "StoreManager\\Service\\GameService.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAcwCEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T17:32:14.978Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -44,14 +61,14 @@
               "RelativeDocumentMoniker": "StoreManager\\Controller\\GameController.cs",
               "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Controller\\GameController.cs",
               "RelativeToolTip": "StoreManager\\Controller\\GameController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAAB4AAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAADwvw0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-01T16:50:46.342Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "StoreManager\\Properties\\launchSettings.json",
@@ -59,12 +76,11 @@
               "RelativeToolTip": "StoreManager\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-01T16:45:50.418Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-01T16:45:50.418Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.Development.json",
               "RelativeDocumentMoniker": "StoreManager\\appsettings.Development.json",
@@ -72,12 +88,11 @@
               "RelativeToolTip": "StoreManager\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-01T16:45:43.395Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-01T16:45:43.395Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.json",
               "RelativeDocumentMoniker": "StoreManager\\appsettings.json",
@@ -85,12 +100,11 @@
               "RelativeToolTip": "StoreManager\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-01T16:45:40.307Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-01T16:45:40.307Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "GameDTO.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\DTO\\GameDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\DTO\\GameDTO.cs",
@@ -98,12 +112,11 @@
               "RelativeToolTip": "StoreManager\\DTO\\GameDTO.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAQwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-01T16:32:28.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-01T16:32:28.315Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Program.cs",
               "RelativeDocumentMoniker": "StoreManager\\Program.cs",
@@ -111,8 +124,7 @@
               "RelativeToolTip": "StoreManager\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-01T16:30:18.939Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-01T16:30:18.939Z"
             }
           ]
         }
