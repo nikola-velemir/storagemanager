@@ -4,17 +4,22 @@ const url = require("url");
 
 function createMainWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    resizable: false,
+    width: 1200,
+    height: 800,
+    minHeight: 800,
+    maxHeight: 1200,
+    resizable: true,
     autoHideMenuBar: true,
     title: "Sreto",
+    titleBarStyle: "hiddenInset",
     frame: false,
     webPreferences: {
       contextIsolation: true,
       enableRemoteModule: false,
       nodeIntegration: false,
+      devTools: true,
       preload: __dirname + "/preload.js",
+      devTools: true,
     },
   });
   const isDev = process.env.NODE_ENV === "development";

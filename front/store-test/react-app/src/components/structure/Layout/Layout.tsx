@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import styles from "./Layout.module.css";
 import Navigation from "../Navigation/Navigation";
 import AppHeader from "../AppHeader/AppHeader";
 
-const Layout = () => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOffCanvas = () => {
     setIsOpen(!isOpen);
@@ -24,6 +28,7 @@ const Layout = () => {
             <span className="navbar-toggler-icon"></span>
           </a>
         </nav>
+        <div className={`${styles.mainContent}`}>{children}</div>
         <Navigation
           isOpen={isOpen}
           toggleOffCanvas={toggleOffCanvas}
