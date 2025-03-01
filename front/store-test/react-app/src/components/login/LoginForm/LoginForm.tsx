@@ -1,8 +1,6 @@
-import React, { FormEvent, use, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import styles from "./LoginForm.module.css";
 import login_image from "../../../assets/login-image.jpg";
-import { url } from "inspector";
-import { log } from "console";
 import { AuthUser } from "../../../model/user/AuthUser";
 import { LoginService } from "../../../services/LoginService";
 import { validatePassword, validateUsername } from "./LoginFormValidators";
