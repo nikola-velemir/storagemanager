@@ -1,7 +1,18 @@
 .appHeader {
   width: 100%;
-  padding: 0rem 0rem 0rem 1rem;
+  padding: 0rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 10000;
+  position: relative;
   background-color: var(--secondary-color);
+  justify-content: space-between;
+}
+.mainHeader {
+  -webkit-app-region: drag;
+  width: 100%;
+  padding: 0rem 0rem 0rem 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -9,6 +20,10 @@
     color: var(--border-color);
     margin: 0;
   }
+}
+.controlHeader {
+  display: flex;
+  flex-direction: row;
 }
 .spacer {
   flex: 1 1 auto;

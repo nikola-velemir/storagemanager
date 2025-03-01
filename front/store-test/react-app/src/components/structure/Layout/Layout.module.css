@@ -2,6 +2,8 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
 }
 .myNavbar {
   padding: 0.5rem 1rem !important;
@@ -9,4 +11,10 @@
   & .navbar-brand span {
     color: #fff;
   }
+}
+
+.mainContent {
+  flex-grow: 1;
+  overflow: auto;
+  position: relative;
 }

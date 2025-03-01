@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--background-color) !important;
+  background-color: var(--primary-color) !important;
 }
 :root {
   --primary-color: #333333; /* Dark Gray */

@@ -1,0 +1,53 @@
+.login {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.form {
+  width: 60vw;
+  padding: 10rem 5rem;
+  height: fit-content;
+  background-position: center !important;
+  background-size: cover !important;
+  & label {
+    font-size: 1.3rem;
+  }
+}
+
+.formContainer {
+  display: flex;
+  background: rgba(30, 30, 80, 0.75);
+  border: none;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+}
+.formBackGround {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-position: center !important;
+  background-size: cover !important;
+  z-index: 0;
+}
+.loginButtonContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  & button {
+    background-color: var(--success-color);
+    width: 40%;
+    padding: 0.5rem;
+  }
+}
