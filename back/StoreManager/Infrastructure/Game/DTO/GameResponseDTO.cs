@@ -1,6 +1,6 @@
-﻿namespace StoreManager.DTO
+﻿namespace StoreManager.Infrastructure.Game.DTO
 {
-    public record class GameDTO(
+    public record class GameResponseDTO(
         int Id,
         string Name,
         string Genre, 

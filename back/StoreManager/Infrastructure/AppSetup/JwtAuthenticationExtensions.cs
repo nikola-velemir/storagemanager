@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace StoreManager.Auth
+namespace StoreManager.Infrastructure.Auth
 {
     public static class JwtAuthenticationExtensions
     {
@@ -19,7 +19,7 @@ namespace StoreManager.Auth
 
                     var key = Encoding.UTF8.GetBytes(secret);
 
-                    x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    x.TokenValidationParameters = new TokenValidationParameters
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidIssuer = "vnikola",
