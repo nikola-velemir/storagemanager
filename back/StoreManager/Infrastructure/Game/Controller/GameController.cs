@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Game.DTO;
 using StoreManager.Infrastructure.Game.Service;
 
-namespace StoreManager.Infrastructure.Game.Controller {
+namespace StoreManager.Infrastructure.Game.Controller
+{
+    [Authorize(Roles ="ADMIN")]
+    [Route("api/games")]
     [ApiController]
-    [Route("games")]
     public class GameController : ControllerBase
     {
         private GameService _gameService;

@@ -3,13 +3,16 @@ import { getUser } from "./AuthContext";
 
 const userContext = getUser();
 
-const API_BASE_URL = "http://localhost:5205";
+const API_BASE_URL = "http://localhost:5205/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 5000,
 });
 const getToken = () => {
+  if (!userContext) {
+    return null;
+  }
   console.log(userContext.access_token);
   return userContext.access_token;
 };

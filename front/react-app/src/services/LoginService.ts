@@ -1,7 +1,9 @@
-import { AuthUser } from "../model/user/AuthUser";
+import api from "../infrastructure/Interceptor";
+import { AuthUser } from "../model/User/AuthUser";
+import { LoginRequest } from "../model/User/Request/LoginRequest";
 
 export class LoginService {
-  static login(user: AuthUser): void {
-    localStorage.setItem("user", JSON.stringify(user));
+  static async login(request: LoginRequest) {
+    return api.post<AuthUser>("/auth/login", request);
   }
 }

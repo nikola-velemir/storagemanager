@@ -19,10 +19,9 @@ namespace StoreManager.Infrastructure.Auth.Service
             UserModel user = _userRepository.FindByUsername(username);
             if(user.Password != password) { throw new UnauthorizedAccessException("Invalid password"); }
 
-            
 
-            var token = _tokenGenerator.GenerateToken(username);
-            var role = "admin";
+            var role = user.Role.ToString();
+            var token = _tokenGenerator.GenerateToken(username, role);
 
             return new LoginResponseDTO(token, role);
 

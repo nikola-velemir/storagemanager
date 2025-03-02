@@ -3,5 +3,5 @@ export const validateUsername = (username: string) => {
 };
 
 export const validatePassword = (password: string) => {
-  return password.length >= 8;
+  return password.length >= 1;
 };

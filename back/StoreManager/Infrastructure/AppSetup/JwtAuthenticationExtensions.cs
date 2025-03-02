@@ -8,8 +8,16 @@ namespace StoreManager.Infrastructure.Auth
     {
         public static IServiceCollection AddJwtAuthentications(this IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
+            services.AddAuthentication(
+                options =>
                 {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
                     var secret = Environment.GetEnvironmentVariable("JWT_SECRET", EnvironmentVariableTarget.User);
 
                     if (string.IsNullOrEmpty(secret))
@@ -22,9 +30,11 @@ namespace StoreManager.Infrastructure.Auth
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidIssuer = "vnikola",
+                        ValidIssuer = "storemanager",
+                        ValidAudience = "storemanagers",
                         ValidateLifetime = true,
                         ValidateIssuer = true,
+                        ValidateAudience = true,
                         ValidateIssuerSigningKey = true
                     };
                 });

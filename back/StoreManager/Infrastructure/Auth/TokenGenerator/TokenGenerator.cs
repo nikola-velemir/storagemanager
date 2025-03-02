@@ -8,7 +8,7 @@ namespace StoreManager.Infrastructure.Auth.TokenGenerator
     public class TokenGenerator : ITokenGenerator
     {
 
-        public string GenerateToken(string username)
+        public string GenerateToken(string username, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secret = Environment.GetEnvironmentVariable("JWT_SECRET", EnvironmentVariableTarget.User);
@@ -22,15 +22,17 @@ namespace StoreManager.Infrastructure.Auth.TokenGenerator
 
             var claims = new List<Claim>
             {
-                new (JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new(JwtRegisteredClaimNames.PreferredUsername,username),
+                new(JwtRegisteredClaimNames.Name,username),
+                new(ClaimTypes.Role, role)
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(30),
-                Issuer = "store-manager",
+                Issuer = "storemanager",
+                Audience= "storemanagers",
+
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
