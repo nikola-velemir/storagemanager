@@ -6,26 +6,25 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Layout from "./components/structure/Layout/Layout";
 import LoginForm from "./components/login/LoginForm/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
-import { useContext, useState } from "react";
-import { AuthUser } from "./model/user/AuthUser";
+import { useContext, useEffect } from "react";
 import ProtectedRoute from "./infrastructure/ProtectedRoute";
-import AuthUserContext, {
-  AuthUserProvider,
-} from "./infrastructure/AuthContext";
+import AuthUserContext from "./infrastructure/AuthContext";
+import { GameService } from "./services/GameService";
+import api from "./infrastructure/Interceptor";
 
 function App() {
   const user = useContext(AuthUserContext);
-  const handleLogin = () => {
-    user?.setUser({
-      password: "AAAAAAAAAA",
-      username: "AAAAAAAAAAAAA",
-      role: "admin",
-    });
-  };
-  const handleLogOut = () => {
-    user?.clearUser();
-  };
-
+  const gameService = new GameService();
+  useEffect(() => {
+    gameService
+      .getGames()
+      .then((value) => {
+        console.log(value.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <BrowserRouter>
       <Layout>

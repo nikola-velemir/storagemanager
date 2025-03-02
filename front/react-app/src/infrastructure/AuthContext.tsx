@@ -23,6 +23,12 @@ export const AuthUserContext = createContext<
   AuthContextType | undefined | null
 >(undefined);
 
+export const getUser = (): AuthUser => {
+  const savedUserString = localStorage.getItem("user");
+  const savedUser = savedUserString ? JSON.parse(savedUserString) : null;
+  return savedUser;
+};
+
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthUserContext);
   if (!context) {

@@ -1,0 +1,17 @@
+﻿using StoreManager.Infrastructure.Auth.Service;
+using StoreManager.Infrastructure.Auth.TokenGenerator;
+using StoreManager.Infrastructure.User.Repository;
+
+namespace StoreManager.Infrastructure.AppSetup
+{
+    public static class Injection
+    {
+        public static IServiceCollection InjectDependencies(this IServiceCollection services)
+        {
+            services.AddSingleton<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            return services;
+        }
+    }
+}

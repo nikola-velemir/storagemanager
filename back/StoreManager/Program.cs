@@ -1,19 +1,25 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using StoreManager.Auth;
-using StoreManager.DTO;
-using System.Text;
+using StoreManager.Infrastructure.AppSetup;
+using StoreManager.Infrastructure.Auth;
+using StoreManager.Infrastructure.Auth.TokenGenerator;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.InjectDependencies();
 builder.Services.AddControllers();
-builder.Services.AddSingleton<TokenGenerator>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddJwtAuthentications();
+
+
+builder.Services.AddCoursPolicy();
+
+
 var app = builder.Build();
 
-app.MapGet("/test", (TokenGenerator tokenGenerator) => { return new { access_token = tokenGenerator.GenerateToken("kurac") }; });
+app.UseCors("AllowSpecificOrigin");
+
+
+app.MapGet("/test", (ITokenGenerator tokenGenerator) => { return new { access_token = tokenGenerator.GenerateToken("kurac") }; });
 
 
 app.UseRouting();

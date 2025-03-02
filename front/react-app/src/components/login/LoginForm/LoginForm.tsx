@@ -17,6 +17,7 @@ const LoginForm = () => {
     username: "",
     password: "",
     role: "admin",
+    access_token: "",
   });
   const [errors, setErrors] = useState<LoginErrors>({
     username: "Username cannot be blank",

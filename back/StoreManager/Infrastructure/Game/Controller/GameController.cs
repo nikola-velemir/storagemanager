@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StoreManager.DTO;
-using StoreManager.Service;
+using StoreManager.Infrastructure.Game.DTO;
+using StoreManager.Infrastructure.Game.Service;
 
-namespace StoreManager.Controller
-{
+namespace StoreManager.Infrastructure.Game.Controller {
     [ApiController]
     [Route("games")]
     public class GameController : ControllerBase
@@ -18,13 +17,13 @@ namespace StoreManager.Controller
 
         [HttpGet]
         [Route("")]
-        public ActionResult<List<GameDTO>> getGames()
+        public ActionResult<List<GameResponseDTO>> getGames()
         {
             return Ok(_gameService.getAll());
         }
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<GameDTO> getGame(int id)
+        public ActionResult<GameResponseDTO> getGame(int id)
         {
             return Ok(_gameService.getById(id));
         }

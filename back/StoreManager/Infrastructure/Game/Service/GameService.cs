@@ -1,10 +1,10 @@
-﻿using StoreManager.DTO;
+﻿using StoreManager.Infrastructure.Game.DTO;
 
-namespace StoreManager.Service
+namespace StoreManager.Infrastructure.Game.Service
 {
     public class GameService
     {
-        List<GameDTO> games = [
+        List<GameResponseDTO> games = [
    new (
         1,
         "Street",
@@ -25,12 +25,12 @@ namespace StoreManager.Service
         new DateOnly(1992,1,2)),
 
     ];
-        public List<GameDTO> getAll()
+        public List<GameResponseDTO> getAll()
         {
             return games;
         }
 
-        public GameDTO? getById(int id)
+        public GameResponseDTO? getById(int id)
         {
             return games.FirstOrDefault(game => game.Id == id);
         }
