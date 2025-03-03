@@ -1,6 +1,5 @@
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { getUser } from "./AuthContext";
-import { error } from "console";
 import { AuthUser } from "../model/User/AuthUser";
 import { RefreshRequest } from "../model/User/Request/RefreshRequest";
 
