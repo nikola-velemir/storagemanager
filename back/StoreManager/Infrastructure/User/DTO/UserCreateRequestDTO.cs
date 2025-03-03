@@ -2,7 +2,7 @@
 
 namespace StoreManager.Infrastructure.User.DTO
 {
-    public record class UserCreateRequestDTO(
+    public sealed record class UserCreateRequestDTO(
         string Username, 
         string Password,
         string FirstName,
