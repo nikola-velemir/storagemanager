@@ -3,9 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace StoreManager.Infrastructure.Auth.TokenGenerator
+namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
 {
-    public class TokenGenerator : ITokenGenerator
+    public class AcessTokenGenerator : IAcessTokenGenerator
     {
 
         public string GenerateToken(string username, string role)

@@ -7,7 +7,7 @@ namespace StoreManager.Infrastructure.User.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private WarehouseDbContext _context;
+        private readonly WarehouseDbContext _context;
         private readonly DbSet<UserModel> _users;
         public UserRepository(WarehouseDbContext context)
         {

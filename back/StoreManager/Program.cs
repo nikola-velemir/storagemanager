@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.AppSetup;
 using StoreManager.Infrastructure.Auth;
-using StoreManager.Infrastructure.Auth.TokenGenerator;
 using StoreManager.Infrastructure.DB;
 
 var builder = WebApplication.CreateBuilder(args);

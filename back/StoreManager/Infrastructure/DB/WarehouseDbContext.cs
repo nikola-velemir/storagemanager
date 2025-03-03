@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.User.Model;
 using System.Security.Cryptography.X509Certificates;
 
@@ -9,6 +10,8 @@ namespace StoreManager.Infrastructure.DB
         public WarehouseDbContext() { }
         public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options) { }
         public DbSet<UserModel> Users { get; set; }
+
+        public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
