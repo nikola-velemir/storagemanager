@@ -14,12 +14,9 @@ namespace StoreManager.Infrastructure.Auth.Controller
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly IRedisCacheService _redis;
-        public AuthController(IAuthService loginService, IRedisCacheService redis)
+        public AuthController(IAuthService loginService)
         {
             this._authService = loginService;
-            this._redis = redis;
-
         }
 
         [HttpPost("login")]
