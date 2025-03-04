@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace StoreManager.Infrastructure.Auth.Tokens.RedisCache
 {
-    public class RedisCacheService
+    public class RedisCacheService:IRedisCacheService
     {
         private readonly IDatabase _redisDb;
         public RedisCacheService(IConnectionMultiplexer redis)

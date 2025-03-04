@@ -6,6 +6,7 @@ namespace StoreManager.Infrastructure.Auth.Service
     {
 
         LoginResponseDTO? Authenticate(LoginRequestDTO request);
-        public LoginResponseDTO? RefreshAuthentication(RefreshRequestDTO request);
+        LoginResponseDTO? RefreshAuthentication(RefreshRequestDTO request);
+        Task DeAuthenticate(string authHeader);
     }
 }
