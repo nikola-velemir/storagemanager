@@ -11,8 +11,6 @@
 
 .form {
   width: 50rem;
-  padding: 10rem 5rem;
-  height: fit-content;
   background-position: center !important;
   background-size: cover !important;
   background-color: var(--secondary-color);

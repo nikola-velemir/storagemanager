@@ -1,8 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Await, BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Layout from "./components/structure/Layout/Layout";
 import LoginForm from "./components/login/LoginForm/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -11,32 +9,51 @@ import ProtectedRoute from "./infrastructure/ProtectedRoute";
 import AuthUserContext from "./infrastructure/AuthContext";
 import { GameService } from "./services/GameService";
 import api from "./infrastructure/Interceptor";
-
+import ContentContainer from "./components/structure/ContentContainer/ContentContainer";
+import {
+  useAuthRedirect,
+  useHailFailedRedirect,
+} from "./infrastructure/RedirectHook";
+import HailFailed from "./components/errors/HailFailed";
+const hailApp = async () => {
+  try {
+    await api.get("/hail");
+  } catch (error) {
+    console.error("App is offline", error);
+  }
+};
 function App() {
   const user = useContext(AuthUserContext);
   const gameService = new GameService();
   useEffect(() => {
-    gameService
-      .getGames()
-      .then((value) => {
-        console.log(value.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    const checkOnline = async () => {
+      try {
+        await hailApp();
+      } catch (e) {}
+    };
+    checkOnline();
+  });
+  useAuthRedirect(); // Attach the logout listener
+  useHailFailedRedirect();
   return (
-    <BrowserRouter>
-      <Layout>
+    <Layout>
+      <>
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/"
+              element={
+                <ContentContainer>
+                  <Dashboard />
+                </ContentContainer>
+              }
+            ></Route>
           </Route>
+          <Route path="/hailFailed" element={<HailFailed />} />
         </Routes>
-      </Layout>
-    </BrowserRouter>
+      </>
+    </Layout>
   );
 }
 

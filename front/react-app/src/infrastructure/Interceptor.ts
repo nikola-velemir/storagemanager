@@ -28,15 +28,17 @@ const getRefreshToken = () => {
 
 const refreshAccessToken = async (error: AxiosError) => {
   try {
-    if (!getRefreshToken()) {
+    const refreshToken = getRefreshToken();
+    if (!refreshToken) {
       throw error;
     }
     const response = await api.post<AuthUser>("/refresh", {
-      refresh_token: getRefreshToken(),
+      refresh_token: refreshToken,
     } as RefreshRequest);
     localStorage.setItem("user", JSON.stringify(response.data));
   } catch (e) {
     localStorage.removeItem("user");
+    window.dispatchEvent(new Event("forcedLogout"));
   } finally {
     userContext = getUser();
   }
@@ -57,6 +59,9 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       refreshAccessToken(error);
+    } else if (error.code === "ERR_NETWORK") {
+      console.log("KURCINA");
+      window.dispatchEvent(new Event("hailFailed"));
     }
     throw error;
   }

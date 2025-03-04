@@ -29,7 +29,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
             }
             catch (UnauthorizedAccessException e)
             {
-                return Unauthorized(new { message = e.Message });
+                return NotFound(new { message = e.Message });
             }
         }
         [HttpPost("refresh")]
