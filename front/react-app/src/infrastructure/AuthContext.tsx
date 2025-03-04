@@ -72,6 +72,7 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
     setUserState(user);
   };
   const clearUser = () => {
+    localStorage.removeItem("user");
     setUserState(null);
   };
   return (

@@ -2,7 +2,7 @@ import React, { FormEvent, useContext, useState } from "react";
 import styles from "./LoginForm.module.css";
 import login_image from "../../../assets/login-image.jpg";
 import { AuthUser } from "../../../model/User/AuthUser";
-import { LoginService } from "../../../services/LoginService";
+import { AuthService } from "../../../services/AuthService";
 import { validatePassword, validateUsername } from "./LoginFormValidators";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../../../model/User/Request/LoginRequest";
@@ -77,7 +77,7 @@ const LoginForm = () => {
       return;
     }
     console.log(credentials);
-    LoginService.login(credentials)
+    AuthService.login(credentials)
       .then((next) => {
         userContext.setUser(next.data);
         handleModal(true);
@@ -96,12 +96,12 @@ const LoginForm = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth={1.5}
               className="size-32 stroke-green-500"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
               />
             </svg>
@@ -149,9 +149,9 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleChange}
               />
-              <p style={{ color: "red" }}>
+              <div className="h-6 text-red-600">
                 {errors.username.length > 0 ? errors.username : ""}
-              </p>
+              </div>
             </div>
             <div className="mb-5">
               <label
@@ -170,9 +170,9 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleChange}
               />
-              <p style={{ color: "red" }}>
+              <div className="h-6 text-red-600">
                 {errors.password.length > 0 ? errors.password : ""}
-              </p>
+              </div>
             </div>
             <div className="flex w-full justify-center">
               <SuccessButton

@@ -1,6 +1,13 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { Await, BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  Await,
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Layout from "./components/structure/Layout/Layout";
 import LoginForm from "./components/login/LoginForm/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -15,6 +22,7 @@ import {
   useHailFailedRedirect,
 } from "./infrastructure/RedirectHook";
 import HailFailed from "./components/errors/HailFailed";
+import { AnimatePresence } from "framer-motion";
 const hailApp = async () => {
   try {
     await api.get("/hail");
@@ -35,23 +43,34 @@ function App() {
   });
   useAuthRedirect(); // Attach the logout listener
   useHailFailedRedirect();
+  const location = useLocation();
   return (
     <Layout>
       <>
-        <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path="/"
-              element={
-                <ContentContainer>
-                  <Dashboard />
-                </ContentContainer>
-              }
-            ></Route>
-          </Route>
-          <Route path="/hailFailed" element={<HailFailed />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/login" element={<LoginForm />} />
+            <Route element={<ProtectedRoute />}>
+              <Route
+                path="/"
+                element={
+                  <ContentContainer>
+                    <Dashboard />
+                  </ContentContainer>
+                }
+              ></Route>
+              <Route
+                path="/kurac"
+                element={
+                  <ContentContainer>
+                    <HailFailed />
+                  </ContentContainer>
+                }
+              ></Route>
+            </Route>
+            <Route path="/hailFailed" element={<HailFailed />} />
+          </Routes>
+        </AnimatePresence>
       </>
     </Layout>
   );
