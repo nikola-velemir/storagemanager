@@ -178,8 +178,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Controller\\UserController.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAewBcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T21:39:53.948Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T21:39:53.948Z"
             },
             {
               "$type": "Document",
@@ -191,8 +190,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\DTO\\UserCreateRequestDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T21:41:53.923Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T21:41:53.923Z"
             },
             {
               "$type": "Document",
@@ -204,8 +202,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Model\\UserRole.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T23:41:11.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T23:41:11.099Z"
             },
             {
               "$type": "Document",
@@ -217,8 +214,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Model\\UserModel.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAA2wBwAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:26:45.318Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T15:26:45.318Z"
             },
             {
               "$type": "Document",
@@ -230,8 +226,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Repository\\IUserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:13:32.058Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T15:13:32.058Z"
             },
             {
               "$type": "Document",
@@ -243,8 +238,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Repository\\UserRepository.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:13:42.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T15:13:42.049Z"
             },
             {
               "$type": "Document",
@@ -256,8 +250,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Service\\IUserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:43:53.716Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T15:43:53.716Z"
             },
             {
               "$type": "Document",
@@ -269,8 +262,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\User\\Service\\UserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T15:44:01.836Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T15:44:01.836Z"
             },
             {
               "$type": "Document",
@@ -282,8 +274,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Game\\Controller\\GameController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T22:34:15.993Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T22:34:15.993Z"
             },
             {
               "$type": "Document",
@@ -293,7 +284,7 @@
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Controller\\AuthController.cs",
               "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Controller\\AuthController.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Controller\\AuthController.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAAAEYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-02T14:33:26.614Z",
               "EditorCaption": ""
@@ -308,8 +299,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
               "ViewState": "AgIAAAQAAAAAAAAAAAAAADwAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T22:42:25.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T22:42:25.786Z"
             },
             {
               "$type": "Document",
@@ -321,8 +311,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAYwBIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T12:27:13.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-04T12:27:13.801Z"
             },
             {
               "$type": "Document",
