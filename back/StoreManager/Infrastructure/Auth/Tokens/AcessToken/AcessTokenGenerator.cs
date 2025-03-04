@@ -22,6 +22,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
 
             var claims = new List<Claim>
             {
+                new(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new(JwtRegisteredClaimNames.Name,username),
                 new(ClaimTypes.Role, role)
             };
@@ -31,8 +32,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 Issuer = "storemanager",
-                Audience= "storemanagers",
-
+                Audience = "storemanagers",
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -5,10 +5,8 @@ using StoreManager.Infrastructure.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("PostgresConnection");
-builder.Services.AddDbContext<WarehouseDbContext>(options => options.UseNpgsql(connectionString));
 
-builder.Services.InjectDependencies();
+builder.Services.InjectDependencies(builder.Configuration);
 builder.Services.AddControllers();
 
 
