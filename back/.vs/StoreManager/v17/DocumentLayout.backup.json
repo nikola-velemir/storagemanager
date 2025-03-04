@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "D:\\DropBox\\Dropbox\\sretotest\\back\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\tokenvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\tokenvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\storemanager.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\storemanager.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\jwtauthenticationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\jwtauthenticationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\injection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\injection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\corspolicy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\corspolicy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\refreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\refreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\irefreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\irefreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\controller\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\controller\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,10 +47,6 @@
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\service\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\injection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\injection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\rediscache\\rediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\rediscache\\rediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,16 +55,8 @@
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\rediscache\\irediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\jwtauthenticationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\jwtauthenticationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -45,10 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\tokenvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\tokenvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\acesstoken\\acesstokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -77,14 +93,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\model\\refreshtokenmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\model\\refreshtokenmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\refreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\refreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\irefreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\auth\\tokens\\refreshtoken\\generator\\irefreshtokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\user\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -147,10 +155,6 @@
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\user\\controller\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\middleware\\corspolicy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\middleware\\corspolicy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\warehousedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\warehousedbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -162,75 +166,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IRedisCacheService.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T14:13:47.022Z",
+              "DocumentIndex": 2,
+              "Title": "StoreManager",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\StoreManager.csproj",
+              "RelativeDocumentMoniker": "StoreManager\\StoreManager.csproj",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\StoreManager.csproj",
+              "RelativeToolTip": "StoreManager\\StoreManager.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-04T15:33:38.253Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "JwtAuthenticationExtensions.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAAAC8AAABRAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T22:42:25.786Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "AcessTokenGenerator.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAACIAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:37:16.639Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.json",
-              "RelativeDocumentMoniker": "StoreManager\\appsettings.json",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.json",
-              "RelativeToolTip": "StoreManager\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-02T20:22:41.243Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RedisCacheService.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAYwBIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T12:27:13.801Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Controller\\AuthController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Controller\\AuthController.cs",
@@ -243,7 +196,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Injection.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\Injection.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\Injection.cs",
@@ -256,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Service\\IAuthService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Service\\IAuthService.cs",
@@ -264,12 +217,11 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Service\\IAuthService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:32:21.989Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T14:32:21.989Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "AuthService.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Service\\AuthService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Service\\AuthService.cs",
@@ -277,12 +229,137 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Service\\AuthService.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAIA8wC4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:32:08.542Z",
+              "WhenOpened": "2025-03-02T14:32:08.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IRefreshTokenGenerator.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T00:22:20.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RefreshTokenGenerator.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T00:22:10.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Program.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Program.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Program.cs",
+              "RelativeToolTip": "StoreManager\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:31:08.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TokenValidation.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T12:31:08.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RedisCacheService.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\RedisCacheService.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAYwBIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T12:27:13.801Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "JwtAuthenticationExtensions.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T22:42:25.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CorsPolicy.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:30:53.843Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.json",
+              "RelativeDocumentMoniker": "StoreManager\\appsettings.json",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.json",
+              "RelativeToolTip": "StoreManager\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-02T20:22:41.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AcessTokenGenerator.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAACIAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T14:37:16.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IRedisCacheService.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RedisCache\\IRedisCacheService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T14:13:47.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "IAcessTokenGenerator.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\IAcessTokenGenerator.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\IAcessTokenGenerator.cs",
@@ -294,31 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Program.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Program.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Program.cs",
-              "RelativeToolTip": "StoreManager\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:31:08.193Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "TokenValidation.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\TokenValidation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T12:31:08.13Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "StoreManager\\Properties\\launchSettings.json",
@@ -330,7 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\appsettings.Development.json",
               "RelativeDocumentMoniker": "StoreManager\\appsettings.Development.json",
@@ -342,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "IRefreshTokenRepository.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Repository\\IRefreshTokenRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Repository\\IRefreshTokenRepository.cs",
@@ -354,7 +407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "RefreshTokenRespository.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Repository\\RefreshTokenRespository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Repository\\RefreshTokenRespository.cs",
@@ -366,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "HailController.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Hail\\Controller\\HailController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Hail\\Controller\\HailController.cs",
@@ -378,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "RefreshRequestDTO.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\DTO\\RefreshRequestDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\DTO\\RefreshRequestDTO.cs",
@@ -390,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "RefreshTokenModel.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Model\\RefreshTokenModel.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Model\\RefreshTokenModel.cs",
@@ -402,31 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "RefreshTokenGenerator.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T00:22:10.942Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "IRefreshTokenGenerator.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T00:22:20.178Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "UserRepository.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Repository\\UserRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Repository\\UserRepository.cs",
@@ -438,7 +467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "IUserRepository.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Repository\\IUserRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Repository\\IUserRepository.cs",
@@ -450,7 +479,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "20250303003321_InitialCreate.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Migrations\\20250303003321_InitialCreate.cs",
               "RelativeDocumentMoniker": "StoreManager\\Migrations\\20250303003321_InitialCreate.cs",
@@ -462,7 +491,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "RefreshTokenConfiguration.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\RefreshTokenConfiguration.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\RefreshTokenConfiguration.cs",
@@ -474,7 +503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "WarehouseDbContext.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\WarehouseDbContext.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\WarehouseDbContext.cs",
@@ -486,7 +515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "LoginResponseDTO.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\DTO\\LoginResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\DTO\\LoginResponseDTO.cs",
@@ -498,7 +527,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "UserCreateRequestDTO.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\DTO\\UserCreateRequestDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\DTO\\UserCreateRequestDTO.cs",
@@ -510,7 +539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 35,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Service\\UserService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Service\\UserService.cs",
@@ -522,7 +551,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "GameResponseDTO.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Game\\DTO\\GameResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Game\\DTO\\GameResponseDTO.cs",
@@ -534,7 +563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "GameController.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Game\\Controller\\GameController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Game\\Controller\\GameController.cs",
@@ -546,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "UserModel.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Model\\UserModel.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Model\\UserModel.cs",
@@ -558,7 +587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "UserRole.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Model\\UserRole.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Model\\UserRole.cs",
@@ -570,7 +599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "LoginRequestDTO.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\DTO\\LoginRequestDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\DTO\\LoginRequestDTO.cs",
@@ -582,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 36,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Service\\IUserService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Service\\IUserService.cs",
@@ -594,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 37,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\User\\Controller\\UserController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\User\\Controller\\UserController.cs",
@@ -606,19 +635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "CorsPolicy.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\CorsPolicy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T14:30:53.843Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "WarehouseDbContextFactory.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\WarehouseDbContextFactory.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\WarehouseDbContextFactory.cs",
