@@ -44,15 +44,12 @@ namespace StoreManager.Infrastructure.Auth
                     {
                         OnTokenValidated = async context =>
                         {
-                            // Retrieve the JWT's jti (JWT ID)
                             var jti = context.Principal?.FindFirst("jti")?.Value;
 
                             if (!string.IsNullOrEmpty(jti))
                             {
-                                // Retrieve the RedisCacheService from the HTTP context's service provider
                                 var redisCacheService = context.HttpContext.RequestServices.GetRequiredService<IRedisCacheService>();
 
-                                // Check if the token is revoked using RedisCacheService
                                 var isRevoked = await redisCacheService.IsTokenRevoked(jti);
 
                                 if (isRevoked)

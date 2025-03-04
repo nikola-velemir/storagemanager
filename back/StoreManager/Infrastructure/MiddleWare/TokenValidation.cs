@@ -1,6 +1,5 @@
 ﻿using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
 
 namespace StoreManager.Infrastructure.MiddleWare
 {
