@@ -23,7 +23,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
         }
 
         [HttpPost("login")]
-        public ActionResult Login([FromBody] LoginRequestDTO request)
+        public ActionResult<LoginResponseDTO> Login([FromBody] LoginRequestDTO request)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
         }
 
         [HttpPost("refresh")]
-        public ActionResult Refresh([FromBody] RefreshRequestDTO request)
+        public ActionResult<LoginResponseDTO> Refresh([FromBody] RefreshRequestDTO request)
         {
             try
             {
