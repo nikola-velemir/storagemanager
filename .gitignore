@@ -129,8 +129,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 # User-specific files
-*.suo
-*.user
+**/*.suo
+**/DocumentLayout.backup.json
+**/DocumentLayout.json
+**.*/user
 *.userosscache
 *.sln.docstates
 
