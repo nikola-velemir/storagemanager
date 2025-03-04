@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Service;
+using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
 
 namespace StoreManager.Infrastructure.Auth.Controller
 {
@@ -9,9 +14,11 @@ namespace StoreManager.Infrastructure.Auth.Controller
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        public AuthController(IAuthService loginService)
+        private readonly IRedisCacheService _redis;
+        public AuthController(IAuthService loginService, IRedisCacheService redis)
         {
             this._authService = loginService;
+            this._redis = redis;
 
         }
 
@@ -32,6 +39,31 @@ namespace StoreManager.Infrastructure.Auth.Controller
                 return NotFound(new { message = e.Message });
             }
         }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout()
+        {
+            if (!Request.Headers.TryGetValue("Authorization", out StringValues authHeader))
+            {
+                return BadRequest("Authorization missing");
+            }
+            try
+            {
+
+            var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
+
+            await _authService.DeAuthenticate(accessToken);
+
+            return Ok("Token revoked");
+
+            }
+            catch(BadHttpRequestException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost("refresh")]
         public ActionResult Refresh([FromBody] RefreshRequestDTO request)
         {

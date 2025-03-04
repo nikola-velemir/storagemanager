@@ -1,9 +1,12 @@
-﻿using StoreManager.Infrastructure.Auth.DTO;
+﻿using StackExchange.Redis;
+using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Tokens.AcessToken;
+using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace StoreManager.Infrastructure.Auth.Service
 {
@@ -12,12 +15,18 @@ namespace StoreManager.Infrastructure.Auth.Service
         private readonly IAcessTokenGenerator _tokenGenerator;
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IRedisCacheService _redis;
 
-        public AuthService(IAcessTokenGenerator tokenGenerator, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository)
+        public AuthService(
+            IAcessTokenGenerator tokenGenerator,
+            IUserRepository userRepository, 
+            IRefreshTokenRepository refreshTokenRepository,
+            IRedisCacheService redis)
         {
             _tokenGenerator = tokenGenerator;
             _userRepository = userRepository;
             _refreshTokenRepository = refreshTokenRepository;
+            _redis = redis;
         }
         public LoginResponseDTO? Authenticate(LoginRequestDTO request)
         {
@@ -34,12 +43,30 @@ namespace StoreManager.Infrastructure.Auth.Service
 
         }
 
+        public async Task DeAuthenticate(string accessToken)
+        {
+            var handler = new JwtSecurityTokenHandler();
+
+
+            var jwtToken = handler.ReadJwtToken(accessToken) ?? throw new BadHttpRequestException("Invalid token");
+
+
+            var jti = jwtToken.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Jti)?.Value;
+            if (string.IsNullOrEmpty(jti))
+            {
+                throw new BadHttpRequestException("Invalid token");
+            }
+
+            await _redis.RevokeToken(jti, jwtToken.ValidTo);
+            
+        }
+
         public LoginResponseDTO? RefreshAuthentication(RefreshRequestDTO request)
         {
             RefreshTokenModel refreshToken = _refreshTokenRepository.FindRefreshToken(request.refresh_token)
                 ?? throw new InvalidOperationException("Not found");
 
-            if(refreshToken.ExpiresOnUtc < DateTime.UtcNow)
+            if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)
             {
                 throw new TimeoutException("The refresh token has expired");
             }
