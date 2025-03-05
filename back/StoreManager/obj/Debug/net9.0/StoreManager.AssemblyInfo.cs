@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoreManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec843fa93aa025fa8ede4da26a74938ecc6bbf6e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d504f55cbd5360033af8602ffe492a5f9d4cae35")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoreManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoreManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

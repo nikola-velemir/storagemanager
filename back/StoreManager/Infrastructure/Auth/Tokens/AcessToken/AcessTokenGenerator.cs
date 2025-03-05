@@ -30,7 +30,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 Issuer = "storemanager",
                 Audience = "storemanagers",
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

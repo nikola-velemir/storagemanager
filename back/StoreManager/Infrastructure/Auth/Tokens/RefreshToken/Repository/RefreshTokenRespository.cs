@@ -24,7 +24,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository
         {
             var token = new RefreshTokenModel
             {
-                ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30),
+                ExpiresOnUtc = DateTime.UtcNow.AddDays(7),
                 Token = _refreshTokenGenerator.GenerateRefreshToken(),
                 Id = Guid.NewGuid(),
                 UserId = user.Id,
