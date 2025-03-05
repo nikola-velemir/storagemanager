@@ -6,7 +6,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Generator
     {
         public string GenerateRefreshToken()
         {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(128));   
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
     }
 }
