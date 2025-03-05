@@ -33,7 +33,6 @@ const hailApp = async () => {
 };
 function App() {
   const user = useContext(AuthUserContext);
-  const gameService = new GameService();
   useEffect(() => {
     const checkOnline = async () => {
       try {
@@ -41,7 +40,7 @@ function App() {
       } catch (e) {}
     };
     checkOnline();
-  });
+  }, []);
   useAuthRedirect(); // Attach the logout listener
   useHailFailedRedirect();
   const location = useLocation();
@@ -54,10 +53,4 @@ function App() {
   );
 }
 
-const Navigation = () => (
-  <nav>
-    <Link to="/">Dashboard</Link>
-    <Link to="/login">Login</Link>
-  </nav>
-);
 export default App;

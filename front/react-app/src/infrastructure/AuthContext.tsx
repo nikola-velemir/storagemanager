@@ -51,6 +51,7 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
 
   useEffect(() => {
     if (user) {
+      console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
@@ -68,6 +69,8 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
   };
 
   const setUser = (user: AuthUser) => {
+    localStorage.removeItem("user");
+    console.log(user);
     localStorage.setItem("user", JSON.stringify(user));
     setUserState(user);
   };
