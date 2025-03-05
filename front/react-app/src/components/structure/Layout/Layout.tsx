@@ -4,27 +4,23 @@ import Navigation from "../Navigation/Navigation";
 import AppHeader from "../AppHeader/AppHeader";
 import AppNavbar from "../Navbar/AppNavbar";
 import { motion } from "framer-motion";
+import { transitions } from "../AnimatedRoutes/TransitionVariants";
 
 interface LayoutProps {
   children: ReactNode;
 }
-const pageVariants = {
-  initial: { opacity: 0, x: -50 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-  exit: { opacity: 0, x: 50, transition: { duration: 0.3 } },
-};
+
 const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={styles.layout}>
       <>
         <AppHeader></AppHeader>
-
         <motion.div
-          className={`${styles.mainContent}`}
+          variants={transitions}
           initial="initial"
-          animate="animate"
           exit="exit"
-          variants={pageVariants}
+          animate="animate"
+          className={`${styles.mainContent}`}
         >
           {children}
         </motion.div>

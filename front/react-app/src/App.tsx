@@ -23,6 +23,7 @@ import {
 } from "./infrastructure/RedirectHook";
 import HailFailed from "./components/errors/HailFailed";
 import { AnimatePresence } from "framer-motion";
+import AnimatedRoutes from "./components/structure/AnimatedRoutes/AnimatedRoutes";
 const hailApp = async () => {
   try {
     await api.get("/hail");
@@ -47,30 +48,7 @@ function App() {
   return (
     <Layout>
       <>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/login" element={<LoginForm />} />
-            <Route element={<ProtectedRoute />}>
-              <Route
-                path="/"
-                element={
-                  <ContentContainer>
-                    <Dashboard />
-                  </ContentContainer>
-                }
-              ></Route>
-              <Route
-                path="/kurac"
-                element={
-                  <ContentContainer>
-                    <HailFailed />
-                  </ContentContainer>
-                }
-              ></Route>
-            </Route>
-            <Route path="/hailFailed" element={<HailFailed />} />
-          </Routes>
-        </AnimatePresence>
+        <AnimatedRoutes></AnimatedRoutes>
       </>
     </Layout>
   );
