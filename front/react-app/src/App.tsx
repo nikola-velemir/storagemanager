@@ -1,6 +1,13 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { Await, BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {
+  Await,
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Layout from "./components/structure/Layout/Layout";
 import LoginForm from "./components/login/LoginForm/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -15,6 +22,8 @@ import {
   useHailFailedRedirect,
 } from "./infrastructure/RedirectHook";
 import HailFailed from "./components/errors/HailFailed";
+import { AnimatePresence } from "framer-motion";
+import AnimatedRoutes from "./components/structure/AnimatedRoutes/AnimatedRoutes";
 const hailApp = async () => {
   try {
     await api.get("/hail");
@@ -24,7 +33,6 @@ const hailApp = async () => {
 };
 function App() {
   const user = useContext(AuthUserContext);
-  const gameService = new GameService();
   useEffect(() => {
     const checkOnline = async () => {
       try {
@@ -32,35 +40,17 @@ function App() {
       } catch (e) {}
     };
     checkOnline();
-  });
+  }, []);
   useAuthRedirect(); // Attach the logout listener
   useHailFailedRedirect();
+  const location = useLocation();
   return (
     <Layout>
       <>
-        <Routes>
-          <Route path="/login" element={<LoginForm />} />
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path="/"
-              element={
-                <ContentContainer>
-                  <Dashboard />
-                </ContentContainer>
-              }
-            ></Route>
-          </Route>
-          <Route path="/hailFailed" element={<HailFailed />} />
-        </Routes>
+        <AnimatedRoutes></AnimatedRoutes>
       </>
     </Layout>
   );
 }
 
-const Navigation = () => (
-  <nav>
-    <Link to="/">Dashboard</Link>
-    <Link to="/login">Login</Link>
-  </nav>
-);
 export default App;

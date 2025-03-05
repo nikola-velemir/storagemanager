@@ -39,8 +39,6 @@ const refreshAccessToken = async (error: AxiosError) => {
   } catch (e) {
     localStorage.removeItem("user");
     window.dispatchEvent(new Event("forcedLogout"));
-  } finally {
-    userContext = getUser();
   }
 };
 
@@ -56,9 +54,11 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
     if (error.response && error.response.status === 401) {
-      refreshAccessToken(error);
+      await refreshAccessToken(error);
+      const originalRequest = error.config;
+      originalRequest.headers["Authorization"] = `Bearer ${getAccessToken()}`;
     } else if (error.code === "ERR_NETWORK") {
       console.log("KURCINA");
       window.dispatchEvent(new Event("hailFailed"));

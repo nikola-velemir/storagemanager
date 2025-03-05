@@ -1,14 +1,15 @@
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import styles from "./LoginForm.module.css";
 import login_image from "../../../assets/login-image.jpg";
 import { AuthUser } from "../../../model/User/AuthUser";
-import { LoginService } from "../../../services/LoginService";
+import { AuthService } from "../../../services/AuthService";
 import { validatePassword, validateUsername } from "./LoginFormValidators";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../../../model/User/Request/LoginRequest";
 import { useAuth } from "../../../infrastructure/AuthContext";
 import ResponseModal from "../../common/SuccessModal/ResponseModal";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
+import api from "../../../infrastructure/Interceptor";
 
 interface LoginErrors {
   username: string;
@@ -19,6 +20,13 @@ const LoginForm = () => {
   const userNameErrorText = "Username cannot be blank";
   const passwordErrorText = "Password must be atleast 4 characters long";
   const userContext = useAuth();
+
+  useEffect(() => {
+    const token = userContext.user?.access_token;
+    if (token) {
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+    }
+  }, [userContext]);
   const [credentials, setCredentials] = useState<LoginRequest>({
     username: "",
     password: "",
@@ -77,7 +85,7 @@ const LoginForm = () => {
       return;
     }
     console.log(credentials);
-    LoginService.login(credentials)
+    AuthService.login(credentials)
       .then((next) => {
         userContext.setUser(next.data);
         handleModal(true);
@@ -149,9 +157,9 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleChange}
               />
-              <p style={{ color: "red" }}>
+              <div className="text-red-600">
                 {errors.username.length > 0 ? errors.username : ""}
-              </p>
+              </div>
             </div>
             <div className="mb-5">
               <label
@@ -170,9 +178,9 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleChange}
               />
-              <p style={{ color: "red" }}>
+              <div className="text-red-600">
                 {errors.password.length > 0 ? errors.password : ""}
-              </p>
+              </div>
             </div>
             <div className="flex w-full justify-center">
               <SuccessButton

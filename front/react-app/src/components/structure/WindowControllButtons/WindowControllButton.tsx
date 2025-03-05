@@ -15,7 +15,7 @@ const WindowControllButton = ({
     <button
       type="button"
       onClick={windowHandler}
-      className={`focus:outline-none transition duration-200 rounded-none mx-0 my-0 text-white bg-transparent hover:${transitionColor} font-medium text-sm py-2 px-3`}
+      className={`focus:outline-none transition duration-200 rounded-none mx-0 my-0 text-white bg-transparent ${transitionColor} font-medium text-sm py-2 px-3`}
     >
       {icon}
     </button>
