@@ -31,16 +31,19 @@ const getRefreshToken = () => {
 const refreshAccessToken = async (error: AxiosError) => {
   try {
     const refreshToken = getRefreshToken();
+    console.log(refreshToken);
     if (!refreshToken) {
-      throw error;
+      throw new Error("Token non existant");
     }
     const response = await api.post<AuthUser>("/auth/refresh", {
       refresh_token: refreshToken,
     } as RefreshRequest);
     UserService.setUser(response.data);
   } catch (e) {
+    console.log(e);
     UserService.clearUser();
     window.dispatchEvent(new Event("forcedLogout"));
+    throw e;
   }
 };
 
@@ -58,14 +61,19 @@ api.interceptors.response.use(
   },
   async (error) => {
     if (error.response && error.response.status === 401) {
-      await refreshAccessToken(error);
-      const originalRequest = error.config;
-      originalRequest.headers["Authorization"] = `Bearer ${getAccessToken()}`;
-      return api.request(originalRequest);
+      refreshAccessToken(error)
+        .then(() => {
+          const originalRequest = error.config;
+          originalRequest.headers[
+            "Authorization"
+          ] = `Bearer ${getAccessToken()}`;
+          return api.request(originalRequest);
+        })
+        .catch(() => {});
     } else if (error.code === "ERR_NETWORK") {
       window.dispatchEvent(new Event("hailFailed"));
     }
-    throw error;
+    throw new Error("Refresh failed");
   }
 );
 
