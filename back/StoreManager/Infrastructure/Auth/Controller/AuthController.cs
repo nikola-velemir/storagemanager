@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Service;
-using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
-using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-
 namespace StoreManager.Infrastructure.Auth.Controller
 {
     [ApiController]

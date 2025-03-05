@@ -84,14 +84,12 @@ const LoginForm = () => {
     if (errors.username || errors.password) {
       return;
     }
-    console.log(credentials);
     AuthService.login(credentials)
       .then((next) => {
         userContext.setUser(next.data);
         handleModal(true);
       })
       .catch((error) => {
-        console.log(error);
         handleModal(false);
       });
   };
@@ -157,7 +155,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleChange}
               />
-              <div className="text-red-600">
+              <div className="h-8 text-red-600">
                 {errors.username.length > 0 ? errors.username : ""}
               </div>
             </div>
@@ -178,7 +176,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleChange}
               />
-              <div className="text-red-600">
+              <div className="h-8 text-red-600">
                 {errors.password.length > 0 ? errors.password : ""}
               </div>
             </div>

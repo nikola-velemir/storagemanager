@@ -1,15 +1,21 @@
 [
   {
-    "ContainingType": "StoreManager.Controller.GameController",
-    "Method": "getGames",
-    "RelativePath": "games",
-    "HttpMethod": "GET",
+    "ContainingType": "StoreManager.Infrastructure.Auth.Controller.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/auth/login",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "StoreManager.Infrastructure.Auth.DTO.LoginRequestDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[StoreManager.DTO.GameDTO, StoreManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "StoreManager.Infrastructure.Auth.DTO.LoginResponseDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -20,9 +26,65 @@
     ]
   },
   {
-    "ContainingType": "StoreManager.Controller.GameController",
+    "ContainingType": "StoreManager.Infrastructure.Auth.Controller.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StoreManager.Infrastructure.Auth.Controller.AuthController",
+    "Method": "Refresh",
+    "RelativePath": "api/auth/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "StoreManager.Infrastructure.Auth.DTO.RefreshRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StoreManager.Infrastructure.Auth.DTO.LoginResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StoreManager.Infrastructure.Game.Controller.GameController",
+    "Method": "getGames",
+    "RelativePath": "api/games",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StoreManager.Infrastructure.Game.DTO.GameResponseDTO, StoreManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StoreManager.Infrastructure.Game.Controller.GameController",
     "Method": "getGame",
-    "RelativePath": "games/{id}",
+    "RelativePath": "api/games/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -35,7 +97,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "StoreManager.DTO.GameDTO",
+        "Type": "StoreManager.Infrastructure.Game.DTO.GameResponseDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -46,18 +108,36 @@
     ]
   },
   {
-    "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_0",
-    "RelativePath": "test",
-    "HttpMethod": "GET",
-    "IsController": false,
+    "ContainingType": "StoreManager.Infrastructure.Hail.Controller.HailController",
+    "Method": "HailApp",
+    "RelativePath": "api/hail",
+    "HttpMethod": "",
+    "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StoreManager.Infrastructure.User.Controller.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/users",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "StoreManager.Infrastructure.User.DTO.UserCreateRequestDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "\u003C\u003Ef__AnonymousType0\u00601[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Boolean",
         "MediaTypes": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "StatusCode": 200
       }

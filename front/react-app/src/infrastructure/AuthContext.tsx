@@ -23,7 +23,7 @@ export const AuthUserContext = createContext<
   AuthContextType | undefined | null
 >(undefined);
 
-export const getUser = (): AuthUser => {
+export const getUser = (): AuthUser | null => {
   const savedUserString = localStorage.getItem("user");
   const savedUser = savedUserString ? JSON.parse(savedUserString) : null;
   return savedUser;
@@ -51,7 +51,6 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("user");
@@ -70,7 +69,6 @@ export const AuthUserProvider = ({ children }: AuthUserProviderProps) => {
 
   const setUser = (user: AuthUser) => {
     localStorage.removeItem("user");
-    console.log(user);
     localStorage.setItem("user", JSON.stringify(user));
     setUserState(user);
   };
