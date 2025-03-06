@@ -13,16 +13,19 @@ namespace StoreManager.Infrastructure.AppSetup
 {
     public static class Injection
     {
-        public static IServiceCollection InjectDependencies(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection InjectDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            var redisConnectionString = configuration.GetValue<string>("Redis") 
+            var redisConnectionString = configuration.GetConnectionString("Redis")
                 ?? throw new InvalidProgramException("Redis connection not found");
 
-            var connectionString = configuration.GetConnectionString("PostgresConnection");
+            var connectionString = configuration.GetConnectionString("PostgresConnection") ??
+                throw new InvalidProgramException("Postres connection not found");
 
 
             services.AddDbContext<WarehouseDbContext>(options => options.UseNpgsql(connectionString));
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
+
+            services.AddHostedService<RefreshTokenCleanupService>();
 
             services.AddSingleton<IRedisCacheService, RedisCacheService>();
             services.AddSingleton<IAcessTokenGenerator, AcessTokenGenerator>();
@@ -31,7 +34,7 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-            
+
             return services;
         }
     }
