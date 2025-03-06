@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.css";
-import { AuthService } from "../../../services/AuthService";
-import { useAuth } from "../../../infrastructure/AuthContext";
+import { useAuth } from "../../../../infrastructure/Interceptor/Auth/AuthContext";
+import { AuthService } from "../../../../services/AuthService";
 
 interface OffcanvasProps {
   isOpen: boolean;
   toggleOffCanvas: () => void;
 }
 
-const Navigation = ({ isOpen, toggleOffCanvas }: OffcanvasProps) => {
+const Sidenav = ({ isOpen, toggleOffCanvas }: OffcanvasProps) => {
   const userContext = useAuth();
   const handleLogout = () => {
     AuthService.logout().then(() => userContext.clearUser());
@@ -121,4 +121,4 @@ const Navigation = ({ isOpen, toggleOffCanvas }: OffcanvasProps) => {
   );
 };
 
-export default Navigation;
+export default Sidenav;

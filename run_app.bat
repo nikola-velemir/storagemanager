@@ -1,5 +1,8 @@
 @echo off
 
+net start memurai
+memurai-cli ping
+
 cd back
 cd StoreManager
 start dotnet run
