@@ -6,7 +6,7 @@ import { AuthService } from "../../../services/AuthService";
 import { validatePassword, validateUsername } from "./LoginFormValidators";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../../../model/User/Request/LoginRequest";
-import { useAuth } from "../../../infrastructure/Interceptor/Auth/AuthContext";
+import { useAuth } from "../../../infrastructure/Auth/AuthContext";
 import ResponseModal from "../../common/modals/ResponseModal/ResponseModal";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";
 import api from "../../../infrastructure/Interceptor/Interceptor";

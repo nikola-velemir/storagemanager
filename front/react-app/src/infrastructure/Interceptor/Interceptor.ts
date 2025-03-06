@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
-import { getUser } from "./Auth/AuthContext";
+import { getUser } from "../Auth/AuthContext";
 import { AuthUser } from "../../model/User/AuthUser";
 import { RefreshRequest } from "../../model/User/Request/RefreshRequest";
-import { UserService } from "./Auth/UserService";
+import { UserService } from "../Auth/UserService";
 
 const API_BASE_URL = "http://localhost:5205/api";
 

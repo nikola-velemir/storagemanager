@@ -13,7 +13,7 @@ import LoginForm from "./components/login/LoginForm/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
 import { useContext, useEffect } from "react";
 import ProtectedRoute from "./infrastructure/Routes/ProtectedRoute";
-import AuthUserContext from "./infrastructure/Interceptor/Auth/AuthContext";
+import AuthUserContext from "./infrastructure/Auth/AuthContext";
 import { GameService } from "./services/GameService";
 import api from "./infrastructure/Interceptor/Interceptor";
 import ContentContainer from "./components/structure/ContentContainer/ContentContainer";

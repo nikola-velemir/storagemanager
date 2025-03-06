@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import { useAuth } from "../Interceptor/Auth/AuthContext";
-import { UserService } from "../Interceptor/Auth/UserService";
+import { useAuth } from "../Auth/AuthContext";
+import { UserService } from "../Auth/UserService";
 
 type ProtectedRouteProps = {
   redirectPath?: string;

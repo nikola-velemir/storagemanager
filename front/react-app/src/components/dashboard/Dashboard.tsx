@@ -2,7 +2,7 @@ import React from "react";
 import dummy from "../../assets/Bhpd8.jpg";
 import SuccessButton from "../common/SuccessButton/SuccessButton";
 import { GameService } from "../../services/GameService";
-import { useAuth } from "../../infrastructure/Interceptor/Auth/AuthContext";
+import { useAuth } from "../../infrastructure/Auth/AuthContext";
 import api from "../../infrastructure/Interceptor/Interceptor";
 
 const Dashboard = () => {
