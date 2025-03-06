@@ -8,7 +8,7 @@ namespace StoreManager.Infrastructure.Auth
 {
     public static class JwtAuthenticationExtensions
     {
-        public static IServiceCollection AddJwtAuthentications(this IServiceCollection services)
+        public static IServiceCollection AddJwtAuthentications(this IServiceCollection services, IConfiguration _config)
         {
             services.AddAuthentication(
                 options =>
@@ -29,11 +29,13 @@ namespace StoreManager.Infrastructure.Auth
 
                     var key = Encoding.UTF8.GetBytes(secret);
 
+                    var issuer = _config.GetValue<string>("JwtSettings:Issuer");
+                    var audience = _config.GetValue<string>("JwtSettings:Audience");
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidIssuer = "storemanager",
-                        ValidAudience = "storemanagers",
+                        ValidIssuer = issuer,
+                        ValidAudience = audience,
                         ValidateLifetime = true,
                         ValidateIssuer = true,
                         ValidateAudience = true,

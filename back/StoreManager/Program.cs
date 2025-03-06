@@ -8,7 +8,7 @@ builder.Services.InjectDependencies(builder.Configuration);
 builder.Services.AddControllers();
 
 
-builder.Services.AddJwtAuthentications();
+builder.Services.AddJwtAuthentications(builder.Configuration);
 builder.Services.AddAuthorization();
 
 

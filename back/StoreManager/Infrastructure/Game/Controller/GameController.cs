@@ -19,7 +19,7 @@ namespace StoreManager.Infrastructure.Game.Controller
 
         [HttpGet]
         [Route("")]
-        public ActionResult<List<GameResponseDTO>> getGames()
+        public  ActionResult<List<GameResponseDTO>> getGames()
         {
             return Ok(_gameService.getAll());
         }

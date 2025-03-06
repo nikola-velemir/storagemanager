@@ -28,23 +28,20 @@ const getRefreshToken = () => {
   return user.refresh_token;
 };
 
-const refreshAccessToken = async (error: AxiosError) => {
-  try {
-    const refreshToken = getRefreshToken();
-    console.log(refreshToken);
-    if (!refreshToken) {
-      throw new Error("Token non existant");
-    }
-    const response = await api.post<AuthUser>("/auth/refresh", {
-      refresh_token: refreshToken,
-    } as RefreshRequest);
-    UserService.setUser(response.data);
-  } catch (e) {
-    console.log(e);
-    UserService.clearUser();
-    window.dispatchEvent(new Event("forcedLogout"));
-    throw e;
+const refreshAccessToken = async () => {
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) {
+    throw new Error("Token non existant");
   }
+  const response = await api.post<AuthUser>("/auth/refresh", {
+    refresh_token: refreshToken,
+  } as RefreshRequest);
+  return response.data;
+};
+
+const forceLogoutUser = () => {
+  UserService.clearUser();
+  window.dispatchEvent(new Event("forcedLogout"));
 };
 
 api.interceptors.request.use((request) => {
@@ -55,25 +52,30 @@ api.interceptors.request.use((request) => {
   return request;
 });
 
+const resendRequest = (error: any) => {
+  const originalRequest = error.config;
+  originalRequest.headers["Authorization"] = `Bearer ${getAccessToken()}`;
+  return api.request(originalRequest);
+};
+
 api.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
     if (error.response && error.response.status === 401) {
-      refreshAccessToken(error)
-        .then(() => {
-          const originalRequest = error.config;
-          originalRequest.headers[
-            "Authorization"
-          ] = `Bearer ${getAccessToken()}`;
-          return api.request(originalRequest);
-        })
-        .catch(() => {});
+      try {
+        const newUser = await refreshAccessToken();
+        UserService.setUser(newUser);
+        return resendRequest(error);
+      } catch (e) {
+        forceLogoutUser();
+        return Promise.reject(e);
+      }
     } else if (error.code === "ERR_NETWORK") {
       window.dispatchEvent(new Event("hailFailed"));
     }
-    throw new Error("Refresh failed");
+    return Promise.reject(error);
   }
 );
 

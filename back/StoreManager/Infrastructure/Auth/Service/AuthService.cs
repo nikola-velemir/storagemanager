@@ -7,6 +7,7 @@ using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;
 using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
 
 namespace StoreManager.Infrastructure.Auth.Service
 {
@@ -19,7 +20,7 @@ namespace StoreManager.Infrastructure.Auth.Service
 
         public AuthService(
             IAcessTokenGenerator tokenGenerator,
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             IRefreshTokenRepository refreshTokenRepository,
             IRedisCacheService redis)
         {
@@ -28,16 +29,16 @@ namespace StoreManager.Infrastructure.Auth.Service
             _refreshTokenRepository = refreshTokenRepository;
             _redis = redis;
         }
-        public LoginResponseDTO? Authenticate(LoginRequestDTO request)
+        public async Task<LoginResponseDTO?> Authenticate(LoginRequestDTO request)
         {
-            UserModel user = _userRepository.FindByUsername(request.username);
+            UserModel user = await _userRepository.FindByUsername(request.username);
             if (user.Password != request.password) { throw new UnauthorizedAccessException("Invalid password"); }
 
 
             var role = user.Role.ToString();
-            var accessToken = _tokenGenerator.GenerateToken(request.username, role);
+            var accessToken =  _tokenGenerator.GenerateToken(request.username, role);
 
-            var refreshToken = _refreshTokenRepository.Create(user);
+            var refreshToken = await _refreshTokenRepository.Create(user);
 
             return new LoginResponseDTO(accessToken, refreshToken.Token, role);
 
@@ -58,12 +59,12 @@ namespace StoreManager.Infrastructure.Auth.Service
             }
 
             await _redis.RevokeToken(jti, jwtToken.ValidTo);
-            
+
         }
 
-        public LoginResponseDTO? RefreshAuthentication(RefreshRequestDTO request)
+        public async Task<LoginResponseDTO?> RefreshAuthentication(RefreshRequestDTO request)
         {
-            RefreshTokenModel refreshToken = _refreshTokenRepository.FindRefreshToken(request.refresh_token)
+            RefreshTokenModel refreshToken = await _refreshTokenRepository.FindRefreshToken(request.refresh_token)
                 ?? throw new InvalidOperationException("Not found");
 
             if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)

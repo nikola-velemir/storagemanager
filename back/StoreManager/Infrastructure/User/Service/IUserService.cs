@@ -6,6 +6,6 @@ namespace StoreManager.Infrastructure.User.Service
     public interface IUserService
     {
 
-        public void CreateUser(UserCreateRequestDTO user);
+        public Task CreateUser(UserCreateRequestDTO user);
     }
 }

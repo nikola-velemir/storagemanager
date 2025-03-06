@@ -5,8 +5,8 @@ namespace StoreManager.Infrastructure.Auth.Service
     public interface IAuthService
     {
 
-        LoginResponseDTO? Authenticate(LoginRequestDTO request);
-        LoginResponseDTO? RefreshAuthentication(RefreshRequestDTO request);
+        Task<LoginResponseDTO?> Authenticate(LoginRequestDTO request);
+        Task<LoginResponseDTO?> RefreshAuthentication(RefreshRequestDTO request);
         Task DeAuthenticate(string authHeader);
     }
 }

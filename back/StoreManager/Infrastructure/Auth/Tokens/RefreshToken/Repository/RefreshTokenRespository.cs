@@ -13,18 +13,21 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository
 
         private readonly IRefreshTokenGenerator _refreshTokenGenerator;
 
-        public RefreshTokenRespository(WarehouseDbContext context, IRefreshTokenGenerator refreshTokenGenerator)
+        private readonly IConfiguration _config;
+
+        public RefreshTokenRespository(WarehouseDbContext context, IRefreshTokenGenerator refreshTokenGenerator, IConfiguration config)
         {
             _context = context;
+            _config = config;
             _refreshTokens = _context.RefreshTokens;
             _refreshTokenGenerator = refreshTokenGenerator;
         }
 
-        public RefreshTokenModel Create(UserModel user)
+        public async Task<RefreshTokenModel> Create(UserModel user)
         {
             var token = new RefreshTokenModel
             {
-                ExpiresOnUtc = DateTime.UtcNow.AddMinutes(2),
+                ExpiresOnUtc = DateTime.UtcNow.AddMinutes(_config.GetValue<int>("RefreshTokenSettings:ExpiryIntervalInDays")),
                 Token = _refreshTokenGenerator.GenerateRefreshToken(),
                 Id = Guid.NewGuid(),
                 UserId = user.Id,
@@ -32,14 +35,16 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository
             };
 
             _refreshTokens.Add(token);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return token;
+
+
         }
 
-        public RefreshTokenModel? FindRefreshToken(string token)
+        public async Task<RefreshTokenModel?> FindRefreshToken(string token)
         {
-            return _refreshTokens.Include(r => r.User).FirstOrDefault(r => r.Token == token);
+            return await _refreshTokens.Include(r => r.User).FirstOrDefaultAsync(r => r.Token == token);
 
         }
     }

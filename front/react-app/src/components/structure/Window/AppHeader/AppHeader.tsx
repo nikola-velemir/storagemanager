@@ -5,7 +5,7 @@ const AppHeader = () => {
   return (
     <div className={`${styles.appHeader}`}>
       <div className={`${styles.mainHeader}`}>
-        <h6>Storage manager</h6>
+        <h6 className="font-bold tracking-wider text-lg">Storage manager</h6>
         <div className={`${styles.spacer}`}></div>
       </div>
       <div className={`${styles.controlHeader}`}>
