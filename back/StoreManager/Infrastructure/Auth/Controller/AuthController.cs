@@ -16,11 +16,11 @@ namespace StoreManager.Infrastructure.Auth.Controller
         }
 
         [HttpPost("login")]
-        public ActionResult<LoginResponseDTO> Login([FromBody] LoginRequestDTO request)
+        public async Task<ActionResult<LoginResponseDTO>> Login([FromBody] LoginRequestDTO request)
         {
             try
             {
-                var response = _authService.Authenticate(request);
+                var response = await _authService.Authenticate(request);
                 return Ok(response);
             }
             catch (InvalidOperationException e)
@@ -44,25 +44,25 @@ namespace StoreManager.Infrastructure.Auth.Controller
             try
             {
 
-            var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
+                var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
 
-            await _authService.DeAuthenticate(accessToken);
+                await _authService.DeAuthenticate(accessToken);
 
-            return Ok("Token revoked");
+                return Ok("Token revoked");
 
             }
-            catch(BadHttpRequestException e)
+            catch (BadHttpRequestException e)
             {
                 return BadRequest(e.Message);
             }
         }
 
         [HttpPost("refresh")]
-        public ActionResult<LoginResponseDTO> Refresh([FromBody] RefreshRequestDTO request)
+        public async Task<ActionResult<LoginResponseDTO>> Refresh([FromBody] RefreshRequestDTO request)
         {
             try
             {
-                var response = _authService.RefreshAuthentication(request);
+                var response = await _authService.RefreshAuthentication(request);
                 return Ok(response);
             }
             catch (InvalidOperationException e)

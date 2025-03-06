@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
 import { useAuth } from "../../../../infrastructure/Interceptor/Auth/AuthContext";
 import { AuthService } from "../../../../services/AuthService";
+import { UserService } from "../../../../infrastructure/Interceptor/Auth/UserService";
 
 interface OffcanvasProps {
   isOpen: boolean;
@@ -9,9 +10,12 @@ interface OffcanvasProps {
 }
 
 const Sidenav = ({ isOpen, toggleOffCanvas }: OffcanvasProps) => {
-  const userContext = useAuth();
+  const navigate = useNavigate();
   const handleLogout = () => {
-    AuthService.logout().then(() => userContext.clearUser());
+    AuthService.logout().then(() => {
+      UserService.clearUser();
+      navigate("/login");
+    });
   };
   return (
     <div

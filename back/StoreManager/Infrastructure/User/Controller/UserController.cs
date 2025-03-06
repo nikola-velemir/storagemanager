@@ -15,9 +15,10 @@ namespace StoreManager.Infrastructure.User.Controller
             _userService = userService;
         }
         [HttpPost]
-        public ActionResult<Boolean> CreateUser([FromBody] UserCreateRequestDTO request) {  
-            _userService.CreateUser(request);
-            return true;
+        public async Task<ActionResult<bool>> CreateUser([FromBody] UserCreateRequestDTO request)
+        {
+            await _userService.CreateUser(request);
+            return Ok(true);
         }
     }
 }

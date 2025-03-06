@@ -7,6 +7,11 @@ namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
 {
     public class AcessTokenGenerator : IAcessTokenGenerator
     {
+        private readonly IConfiguration _config;
+        public AcessTokenGenerator(IConfiguration config)
+        {
+            _config = config;
+        }
 
         public string GenerateToken(string username, string role)
         {
@@ -27,12 +32,15 @@ namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
                 new(ClaimTypes.Role, role)
             };
 
+            var expiryTimeInMinutes = _config.GetValue<int>("JwtSettings:ExpiryIntervalInMinutes");
+            var issuer = _config.GetValue<string>("JwtSettings:Issuer");
+            var audience = _config.GetValue<string>("JwtSettings:Audience");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
-                Issuer = "storemanager",
-                Audience = "storemanagers",
+                Expires = DateTime.UtcNow.AddMinutes(expiryTimeInMinutes),
+                Issuer = issuer,
+                Audience = audience,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

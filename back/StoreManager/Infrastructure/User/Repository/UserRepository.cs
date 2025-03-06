@@ -15,16 +15,17 @@ namespace StoreManager.Infrastructure.User.Repository
             _users = context.Users;
         }
 
-        public UserModel Create(UserModel user)
+        public async Task<UserModel> Create(UserModel user)
         {
-             var saved = _users.Add(user);
-            _context.SaveChanges();
+            var saved = await _users.AddAsync(user);
+            await _context.SaveChangesAsync();
             return saved.Entity;
         }
 
-        public UserModel FindByUsername(string username)
+        public async Task<UserModel> FindByUsername(string username)
         {
-            return _context.Users.FirstOrDefault(i => i.Username.Equals(username)) ?? throw new InvalidOperationException("Not found");
+            return await _context.Users.FirstOrDefaultAsync(i => i.Username.Equals(username))
+                ?? throw new InvalidOperationException("Not found");
         }
     }
 }

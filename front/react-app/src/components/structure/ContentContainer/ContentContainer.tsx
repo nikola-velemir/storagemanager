@@ -21,7 +21,7 @@ const ContentContainer = ({ children }: ContentContainerProps) => {
         initial="initial"
         exit="exit"
         animate="animate"
-        style={{ height: "100%" }}
+        style={{ flexGrow: 1 }}
       >
         {children}
       </motion.div>

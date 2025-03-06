@@ -32,7 +32,6 @@ const hailApp = async () => {
   }
 };
 function App() {
-  const user = useContext(AuthUserContext);
   useEffect(() => {
     const checkOnline = async () => {
       try {
@@ -43,12 +42,9 @@ function App() {
   }, []);
   useAuthRedirect(); // Attach the logout listener
   useHailFailedRedirect();
-  const location = useLocation();
   return (
     <Layout>
-      <>
-        <AnimatedRoutes></AnimatedRoutes>
-      </>
+      <AnimatedRoutes></AnimatedRoutes>
     </Layout>
   );
 }

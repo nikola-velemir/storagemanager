@@ -5,8 +5,8 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository
 {
     public interface IRefreshTokenRepository
     {
-        RefreshTokenModel Create(UserModel user);
+        Task<RefreshTokenModel> Create(UserModel user);
 
-        RefreshTokenModel? FindRefreshToken(string token);
+        Task<RefreshTokenModel?> FindRefreshToken(string token);
     }
 }
