@@ -12,15 +12,15 @@ import Layout from "./components/structure/Layout/Layout";
 import LoginForm from "./components/login/LoginForm/LoginForm";
 import Dashboard from "./components/dashboard/Dashboard";
 import { useContext, useEffect } from "react";
-import ProtectedRoute from "./infrastructure/ProtectedRoute";
-import AuthUserContext from "./infrastructure/AuthContext";
+import ProtectedRoute from "./infrastructure/Routes/ProtectedRoute";
+import AuthUserContext from "./infrastructure/Interceptor/Auth/AuthContext";
 import { GameService } from "./services/GameService";
-import api from "./infrastructure/Interceptor";
+import api from "./infrastructure/Interceptor/Interceptor";
 import ContentContainer from "./components/structure/ContentContainer/ContentContainer";
 import {
   useAuthRedirect,
   useHailFailedRedirect,
-} from "./infrastructure/RedirectHook";
+} from "./infrastructure/Routes/RedirectHook";
 import HailFailed from "./components/errors/HailFailed";
 import { AnimatePresence } from "framer-motion";
 import AnimatedRoutes from "./components/structure/AnimatedRoutes/AnimatedRoutes";

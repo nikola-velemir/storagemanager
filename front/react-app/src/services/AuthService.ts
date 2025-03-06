@@ -1,4 +1,4 @@
-import api from "../infrastructure/Interceptor";
+import api from "../infrastructure/Interceptor/Interceptor";
 import { AuthUser } from "../model/User/AuthUser";
 import { LoginRequest } from "../model/User/Request/LoginRequest";
 import { RefreshRequest } from "../model/User/Request/RefreshRequest";

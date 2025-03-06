@@ -1,8 +1,6 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import styles from "./Layout.module.css";
-import Navigation from "../Navigation/Navigation";
-import AppHeader from "../AppHeader/AppHeader";
-import AppNavbar from "../Navbar/AppNavbar";
+import AppHeader from "../Window/AppHeader/AppHeader";
 import { motion } from "framer-motion";
 import { transitions } from "../AnimatedRoutes/TransitionVariants";
 
