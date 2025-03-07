@@ -138,8 +138,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\RefreshTokenGenerator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T16:44:55.968Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T16:44:55.968Z"
             },
             {
               "$type": "Document",
@@ -151,8 +150,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Generator\\IRefreshTokenGenerator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T16:44:57.576Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T16:44:57.576Z"
             },
             {
               "$type": "Document",
@@ -177,8 +175,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Game\\Controller\\GameController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T17:45:51.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T17:45:51.321Z"
             },
             {
               "$type": "Document",
@@ -202,8 +199,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Cleanup\\RefreshTokenCleanupService.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAQwBcAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T16:48:24.205Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T16:48:24.205Z"
             },
             {
               "$type": "Document",
@@ -215,8 +211,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\AcessToken\\AcessTokenGenerator.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAAACIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T16:44:39.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T16:44:39.003Z"
             },
             {
               "$type": "Document",
@@ -228,8 +223,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Tokens\\RefreshToken\\Repository\\IRefreshTokenRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T16:48:40.358Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T16:48:40.358Z"
             },
             {
               "$type": "Document",
@@ -241,8 +235,7 @@
               "RelativeToolTip": "StoreManager\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-02T20:22:41.243Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-02T20:22:41.243Z"
             },
             {
               "$type": "Document",
@@ -254,8 +247,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Controller\\AuthController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAAAD8AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T17:27:59.788Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T17:27:59.788Z"
             },
             {
               "$type": "Document",
@@ -267,8 +259,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\MiddleWare\\JwtAuthenticationExtensions.cs",
               "ViewState": "AgIAABUAAAAAAAAAAAAAACkAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T16:50:41.064Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T16:50:41.064Z"
             },
             {
               "$type": "Document",
@@ -280,8 +271,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Auth\\Service\\AuthService.cs",
               "ViewState": "AgIAADUAAAAAAAAAAAAAAEEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T17:22:00.197Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T17:22:00.197Z"
             },
             {
               "$type": "Document",
@@ -293,8 +283,7 @@
               "RelativeToolTip": "StoreManager\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T18:31:59.01Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-06T18:31:59.01Z"
             },
             {
               "$type": "Document",

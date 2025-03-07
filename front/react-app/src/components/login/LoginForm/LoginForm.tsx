@@ -1,11 +1,11 @@
 import React, { FormEvent, useContext, useEffect, useState } from "react";
 import styles from "./LoginForm.module.css";
 import login_image from "../../../assets/login-image.jpg";
-import { AuthUser } from "../../../model/User/AuthUser";
+import { AuthUser } from "../../../model/userModels/AuthUser";
 import { AuthService } from "../../../services/AuthService";
 import { validatePassword, validateUsername } from "./LoginFormValidators";
 import { useNavigate } from "react-router-dom";
-import { LoginRequest } from "../../../model/User/Request/LoginRequest";
+import { LoginRequest } from "../../../model/userModels/Request/LoginRequest";
 import { useAuth } from "../../../infrastructure/Auth/AuthContext";
 import ResponseModal from "../../common/modals/ResponseModal/ResponseModal";
 import SuccessButton from "../../common/SuccessButton/SuccessButton";

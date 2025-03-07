@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { AuthUser } from "../../model/User/AuthUser";
+import { AuthUser } from "../../model/userModels/AuthUser";
 
 interface AuthContextType {
   user: AuthUser | null;

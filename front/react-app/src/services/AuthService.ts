@@ -1,7 +1,7 @@
 import api from "../infrastructure/Interceptor/Interceptor";
-import { AuthUser } from "../model/User/AuthUser";
-import { LoginRequest } from "../model/User/Request/LoginRequest";
-import { RefreshRequest } from "../model/User/Request/RefreshRequest";
+import { AuthUser } from "../model/userModels/AuthUser";
+import { LoginRequest } from "../model/userModels/Request/LoginRequest";
+import { RefreshRequest } from "../model/userModels/Request/RefreshRequest";
 
 export class AuthService {
   private static baseUrl: string = "/auth";

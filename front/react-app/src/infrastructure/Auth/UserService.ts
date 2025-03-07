@@ -1,4 +1,4 @@
-import { AuthUser } from "../../model/User/AuthUser";
+import { AuthUser } from "../../model/userModels/AuthUser";
 
 export class UserService {
   static getUser = (): AuthUser | null => {
