@@ -5,10 +5,10 @@ using System.Text;
 
 namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
 {
-    public class AcessTokenGenerator : IAcessTokenGenerator
+    public class AccessTokenGenerator : IAccessTokenGenerator
     {
         private readonly IConfiguration _config;
-        public AcessTokenGenerator(IConfiguration config)
+        public AccessTokenGenerator(IConfiguration config)
         {
             _config = config;
         }

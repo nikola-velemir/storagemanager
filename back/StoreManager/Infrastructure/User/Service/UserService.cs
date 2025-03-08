@@ -13,13 +13,15 @@ namespace StoreManager.Infrastructure.User.Service
             _repository = repository;
         }
 
-        public async Task CreateUser(UserCreateRequestDTO request)
+        public async Task<UserCreateResponseDTO> CreateUser(UserCreateRequestDTO request)
         {
             if (!Enum.TryParse<UserRole>(request.Role, true, out var role))
             {
                 throw new BadHttpRequestException("Invalid role");
             }
-            await _repository.Create(new UserModel(request.Username, request.Password, request.FirstName, request.LastName, role));
+            var createdUser = await _repository.Create(new UserModel(request.Username, request.Password, request.FirstName, request.LastName, role));
+            var response = new UserCreateResponseDTO(createdUser.Username, createdUser.Password, createdUser.FirstName, createdUser.LastName, createdUser.Role.ToString());
+            return response;
         }
     }
 }

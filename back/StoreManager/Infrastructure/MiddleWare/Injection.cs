@@ -28,7 +28,7 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddHostedService<RefreshTokenCleanupService>();
 
             services.AddSingleton<IRedisCacheService, RedisCacheService>();
-            services.AddSingleton<IAcessTokenGenerator, AcessTokenGenerator>();
+            services.AddSingleton<IAccessTokenGenerator, AccessTokenGenerator>();
             services.AddSingleton<IRefreshTokenGenerator, RefreshTokenGenerator>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRespository>();
             services.AddScoped<IAuthService, AuthService>();

@@ -13,13 +13,13 @@ namespace StoreManager.Infrastructure.Auth.Service
 {
     public class AuthService : IAuthService
     {
-        private readonly IAcessTokenGenerator _tokenGenerator;
+        private readonly IAccessTokenGenerator _tokenGenerator;
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IRedisCacheService _redis;
 
         public AuthService(
-            IAcessTokenGenerator tokenGenerator,
+            IAccessTokenGenerator tokenGenerator,
             IUserRepository userRepository,
             IRefreshTokenRepository refreshTokenRepository,
             IRedisCacheService redis)

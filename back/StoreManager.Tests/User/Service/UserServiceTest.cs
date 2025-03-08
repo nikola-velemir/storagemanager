@@ -3,11 +3,6 @@ using StoreManager.Infrastructure.User.DTO;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManager.Tests.User.Service
 {
@@ -19,20 +14,17 @@ namespace StoreManager.Tests.User.Service
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         private static readonly string VALID_USERNAME = "TEST";
-        private static readonly UserModel VALID_USER = new(1, "TEST", "TEST", "TEST", "TEST", UserRole.ADMIN);
+        private static readonly  UserModel VALID_USER = new(1, "TEST", "TEST", "TEST", "TEST", UserRole.ADMIN);
         private static readonly UserCreateRequestDTO VALID_CREATE_REQUEST = new(VALID_USERNAME, "TEST", "TEST", "TEST", UserRole.ADMIN.ToString());
+        private static readonly UserCreateResponseDTO VALID_CREATE_RESPONSE = new(VALID_USERNAME, "TEST", "TEST", "TEST", UserRole.ADMIN.ToString());
 
         [Fact(DisplayName = "Create user test")]
         public async Task CreateUser_Test()
         {
-            Exception exception = await Record.ExceptionAsync(async () =>
-            {
-                await _service.CreateUser(VALID_CREATE_REQUEST);
-            });
-            Assert.Null(exception);
-
+            var response = await _service.CreateUser(VALID_CREATE_REQUEST);
+            Assert.Equal(VALID_CREATE_RESPONSE, response);
+            _userRepositoryMock.Verify(repo => repo.Create(It.Is<UserModel>(u=>u.Equals(VALID_USER))), Times.Once);
         }
-
 
         public async Task DisposeAsync()
         {
@@ -47,16 +39,18 @@ namespace StoreManager.Tests.User.Service
         public async Task InitializeAsync()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
-            _service = new UserService(_userRepositoryMock.Object);
 
             MockRepository();
 
+            _service = new UserService(_userRepositoryMock.Object);
             await Task.CompletedTask;
+
         }
 
         private void MockRepository()
         {
             _userRepositoryMock.Setup(repo => repo.FindByUsername(VALID_USERNAME)).ReturnsAsync(VALID_USER);
+            _userRepositoryMock.Setup(repo => repo.Create(It.Is<UserModel>(u=>u.Equals(VALID_USER)))).ReturnsAsync(VALID_USER);
         }
     }
 }
