@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using Moq;
-using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Service;
-using StoreManager.Infrastructure.Auth.Tokens.AcessToken;
+using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoreManager.Tests.Auth.Service
 {
@@ -27,43 +22,19 @@ namespace StoreManager.Tests.Auth.Service
         private AuthService _service;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
-
-
-        private static readonly string VALID_USERNAME = "TEST";
-        private static readonly string VALID_PASSWORD = "TEST";
-        private static readonly string INVALID_USERNAME = "INVALID";
-        private static readonly string INVALID_PASSWORD = "INVALID";
-
-        private static readonly UserModel VALID_USER = new(1, VALID_USERNAME, VALID_PASSWORD, "TEST", "TEST", UserRole.ADMIN);
-        private static readonly string VALID_JWT_TOKEN = "validToken";
-        private static readonly string VALID_JTI = "aaa";
-        private static readonly string VALID_REFRESH_TOKEN = "/ZvvyVtCy+4O5hH5HdgJcYAApL6D1LZpArL8GaO+E6Y=";
-        private static readonly RefreshTokenModel VALID_REFRESH_TOKEN_MODEL = new RefreshTokenModel
-        {
-            Token = VALID_REFRESH_TOKEN,
-            User = VALID_USER,
-            ExpiresOnUtc = DateTime.Now.AddHours(4),
-            Id = Guid.NewGuid(),
-            UserId = VALID_USER.Id
-        };
-        private static readonly LoginResponseDTO VALID_RESPONSE = new LoginResponseDTO(VALID_JWT_TOKEN, VALID_REFRESH_TOKEN, UserRole.ADMIN.ToString());
-        private static readonly LoginRequestDTO VALID_REQUEST = new LoginRequestDTO(VALID_USERNAME, VALID_PASSWORD);
-        private static readonly LoginRequestDTO INVALID_REQUEST_INVALID_USERNAME = new LoginRequestDTO(INVALID_USERNAME, VALID_PASSWORD);
-        private static readonly LoginRequestDTO INVALID_REQUEST_INVALID_PASSWORD = new LoginRequestDTO(VALID_USERNAME, INVALID_PASSWORD);
-
         [Fact(DisplayName = "Authenticate test - Invalid Username")]
         public async Task Authenticate_InvalidUsernameTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                await _service.Authenticate(INVALID_REQUEST_INVALID_USERNAME);
+                await _service.Authenticate(AuthServiceTestData.INVALID_REQUEST_INVALID_USERNAME);
             });
 
 
             Assert.NotNull(exception);
             Assert.IsType<InvalidOperationException>(exception);
             Assert.Equal("Not found", exception.Message);
-            _userRepository.Verify(repo => repo.FindByUsername(INVALID_USERNAME), Times.Once);
+            _userRepository.Verify(repo => repo.FindByUsername(AuthServiceTestData.INVALID_USERNAME), Times.Once);
 
         }
         [Fact(DisplayName = "Authenticate test - Valid")]
@@ -71,11 +42,11 @@ namespace StoreManager.Tests.Auth.Service
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var response = await _service.Authenticate(VALID_REQUEST);
-                Assert.Equal(VALID_RESPONSE, response);
+                var response = await _service.Authenticate(AuthServiceTestData.VALID_REQUEST);
+                Assert.Equal(AuthServiceTestData.VALID_RESPONSE, response);
             });
             Assert.Null(exception);
-            _userRepository.Verify(repo => repo.FindByUsername(VALID_USERNAME), Times.Once);
+            _userRepository.Verify(repo => repo.FindByUsername(AuthServiceTestData.VALID_USERNAME), Times.Once);
 
         }
 
@@ -84,15 +55,95 @@ namespace StoreManager.Tests.Auth.Service
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                await _service.Authenticate(INVALID_REQUEST_INVALID_PASSWORD);
+                await _service.Authenticate(AuthServiceTestData.INVALID_REQUEST_INVALID_PASSWORD);
             });
             Assert.NotNull(exception);
             Assert.IsType<UnauthorizedAccessException>(exception);
             Assert.Equal("Invalid password", exception.Message);
-            _userRepository.Verify(repo => repo.FindByUsername(VALID_USERNAME), Times.Once);
+            _userRepository.Verify(repo => repo.FindByUsername(AuthServiceTestData.VALID_USERNAME), Times.Once);
+        }
+
+        [Fact(DisplayName = "DeAuthenticate test - Invalid Access Token")]
+        public async Task DeAuthenticate_InvalidAccessTokenTest()
+        {
+            Exception ex = await Record.ExceptionAsync(async () =>
+            {
+                await _service.DeAuthenticate(AuthServiceTestData.INVALID_JWT_TOKEN);
+            });
+            Assert.NotNull(ex);
+            Assert.IsType<SecurityTokenMalformedException>(ex);
+        }
+        [Fact(DisplayName = "DeAuthenticate test - Invalid Access Token")]
+        public async Task DeAuthenticate_InvalidAccessTokenNoJtiTest()
+        {
+            Exception ex = await Record.ExceptionAsync(async () =>
+            {
+                await _service.DeAuthenticate(AuthServiceTestData.INVALID_JWT_TOKEN_NO_JTI);
+            });
+            Assert.NotNull(ex);
+            Assert.IsType<BadHttpRequestException>(ex);
+            Assert.Equal("Invalid token", ex.Message);
+        }
+
+        [Fact(DisplayName = "DeAuthenticate test - Valid")]
+        public async Task DeAuthenticate_ValidTest()
+        {
+            Exception ex = await Record.ExceptionAsync(async () =>
+            {
+                await _service.DeAuthenticate(AuthServiceTestData.VALID_JWT_TOKEN);
+            });
+            Assert.Null(ex);
+        }
+
+        [Fact(DisplayName = "RefreshAuthentication test - Invalid Refresh Token")]
+        public async Task RefreshAuthentication_InvalidRefreshTokenTest()
+        {
+            Exception ex = await Record.ExceptionAsync(async () =>
+            {
+                await _service.RefreshAuthentication(AuthServiceTestData.EXPIRED_REFRESH_REQUEST);
+            });
+            Assert.NotNull(ex);
+            Assert.IsType<TimeoutException>(ex);
+            Assert.Equal("The refresh token has expired", ex.Message);
+            _refreshTokenRepository.Verify(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED), Times.Once);
+        }
+
+        [Fact(DisplayName = "RefreshAuthentication test - Expired Token")]
+        public async Task RefreshAuthentication_ExpiredTokenTest()
+        {
+            Exception ex = await Record.ExceptionAsync(async () =>
+            {
+                await _service.RefreshAuthentication(AuthServiceTestData.INVALID_REFRESH_REQUEST);
+            });
+            Assert.NotNull(ex);
+            Assert.IsType<InvalidOperationException>(ex);
+            Assert.Equal("Not found", ex.Message);
+            _refreshTokenRepository.Verify(repo => repo.FindRefreshToken(AuthServiceTestData.INVALID_REFRESH_TOKEN), Times.Once);
+        }
+
+        [Fact(DisplayName = "RefreshAuthentication test - Valid")]
+        public async Task RefreshAuthentication_ValidTest()
+        {
+            Exception ex = await Record.ExceptionAsync(async () =>
+            {
+                var response = await _service.RefreshAuthentication(AuthServiceTestData.VALID_REFRESH_REQUEST);
+                Assert.Equal(AuthServiceTestData.VALID_RESPONSE, response);
+            });
+            Assert.Null(ex);
+            _refreshTokenRepository.Verify(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN), Times.Once);
+            _refreshTokenRepository.Verify(repo => repo.Create(AuthServiceTestData.VALID_USER), Times.Never);
         }
         public async Task DisposeAsync()
         {
+
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            _tokenGenerator = null;
+            _userRepository = null;
+            _refreshTokenRepository = null;
+            _redis = null;
+            _service = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
             await Task.CompletedTask;
         }
 
@@ -105,7 +156,7 @@ namespace StoreManager.Tests.Auth.Service
 
             MockUserRepository();
 
-            _tokenGenerator.Setup(generator => generator.GenerateToken(VALID_USER.Username, VALID_USER.Role.ToString())).Returns(VALID_JWT_TOKEN);
+            _tokenGenerator.Setup(generator => generator.GenerateToken(AuthServiceTestData.VALID_USER.Username, AuthServiceTestData.VALID_USER.Role.ToString())).Returns(AuthServiceTestData.VALID_JWT_TOKEN);
 
             MockRedis();
             MockRefreshTokenRepository();
@@ -116,21 +167,22 @@ namespace StoreManager.Tests.Auth.Service
         }
         private void MockUserRepository()
         {
-            _userRepository.Setup(repo => repo.FindByUsername(VALID_USERNAME)).ReturnsAsync(VALID_USER);
-            _userRepository.Setup(repo => repo.FindByUsername(INVALID_USERNAME)).ThrowsAsync(new InvalidOperationException("Not found"));
+            _userRepository.Setup(repo => repo.FindByUsername(AuthServiceTestData.VALID_USERNAME)).ReturnsAsync(AuthServiceTestData.VALID_USER);
+            _userRepository.Setup(repo => repo.FindByUsername(AuthServiceTestData.INVALID_USERNAME)).ThrowsAsync(new InvalidOperationException("Not found"));
 
         }
         private void MockRedis()
         {
-            _redis.Setup(cache => cache.RevokeToken(VALID_JTI, DateTime.Now.AddHours(2))).Returns(Task.CompletedTask);
-            _redis.Setup(cache => cache.IsTokenRevoked(VALID_JTI)).ReturnsAsync(true);
+            _redis.Setup(cache => cache.RevokeToken(AuthServiceTestData.VALID_JTI, DateTime.Now.AddHours(2))).Returns(Task.CompletedTask);
+            _redis.Setup(cache => cache.IsTokenRevoked(AuthServiceTestData.VALID_JTI)).ReturnsAsync(true);
 
         }
         private void MockRefreshTokenRepository()
         {
-            _refreshTokenRepository.Setup(repo => repo.Create(It.Is<UserModel>(u => u.Equals(VALID_USER)))).ReturnsAsync(VALID_REFRESH_TOKEN_MODEL);
-            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(VALID_REFRESH_TOKEN)).ReturnsAsync(VALID_REFRESH_TOKEN_MODEL);
-
+            _refreshTokenRepository.Setup(repo => repo.Create(It.Is<UserModel>(u => u.Equals(AuthServiceTestData.VALID_USER)))).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
+            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN)).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
+            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(AuthServiceTestData.INVALID_REFRESH_TOKEN)).ReturnsAsync((RefreshTokenModel?)null);
+            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED)).ReturnsAsync(AuthServiceTestData.EXPIRED_REFRESH_TOKEN_MODEL);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
+﻿namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator
 {
     public interface IAccessTokenGenerator
     {

@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 using StoreManager.Infrastructure.Auth.DTO;
-using StoreManager.Infrastructure.Auth.Tokens.AcessToken;
+using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;

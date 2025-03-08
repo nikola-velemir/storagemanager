@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using StoreManager.Infrastructure.Auth.Service;
-using StoreManager.Infrastructure.Auth.Tokens.AcessToken;
+using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;

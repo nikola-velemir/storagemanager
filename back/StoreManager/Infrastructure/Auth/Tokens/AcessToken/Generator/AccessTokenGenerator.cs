@@ -3,7 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken
+namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator
 {
     public class AccessTokenGenerator : IAccessTokenGenerator
     {
