@@ -8,6 +8,4 @@ cd ../../front
 npm start &
 
 cd ../
-
-
 npm start &
