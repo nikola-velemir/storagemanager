@@ -2,7 +2,7 @@
 
 namespace StoreManager.Infrastructure.User.Model
 {
-    public class UserModel
+    public class UserModel : IEquatable<UserModel>
     {
         [Key]
         public int Id { get; set; }
@@ -27,6 +27,32 @@ namespace StoreManager.Infrastructure.User.Model
             FirstName = firstName;
             LastName = lastName;
             Role = role;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is UserModel model &&
+                   Id == model.Id &&
+                   Username == model.Username &&
+                   Password == model.Password &&
+                   FirstName == model.FirstName &&
+                   LastName == model.LastName &&
+                   Role == model.Role;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Username, Password, FirstName, LastName, Role);
+        }
+
+        public bool Equals(UserModel? other)
+        {
+            return other != null &&
+             Username == other.Username &&
+             Password == other.Password &&
+             FirstName == other.FirstName &&
+             LastName == other.LastName &&
+             Role == other.Role;
         }
     }
 }
