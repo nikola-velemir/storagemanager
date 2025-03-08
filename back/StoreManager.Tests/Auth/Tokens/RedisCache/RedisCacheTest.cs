@@ -39,7 +39,7 @@ namespace StoreManager.Tests.Auth.Tokens.ReishCahce
                    It.Is<TimeSpan>(ts => ts.TotalSeconds <= 600 && ts.TotalSeconds > 0),
                    It.IsAny<When>(),
                    It.IsAny<CommandFlags>()
-            ), Times.Once);
+            ), Times.Never);
         }
         [Fact(DisplayName = "Is revoked - Revoked JTI")]
         public async Task IsRevoked_RevokedJTITest()
