@@ -16,7 +16,7 @@ const getAccessToken = () => {
   if (!user) {
     return null;
   }
-  return user.access_token;
+  return user.accessToken;
 };
 
 const getRefreshToken = () => {
@@ -25,7 +25,7 @@ const getRefreshToken = () => {
   if (!user) {
     return null;
   }
-  return user.refresh_token;
+  return user.refreshToken;
 };
 
 const refreshAccessToken = async () => {
