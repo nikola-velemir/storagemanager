@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import dummy from "../../assets/Bhpd8.jpg";
-import SuccessButton from "../common/SuccessButton/SuccessButton";
+import SuccessButton from "../common/buttons/SuccessButton/SuccessButton";
 import { GameService } from "../../services/GameService";
 import { useAuth } from "../../infrastructure/Auth/AuthContext";
 import api from "../../infrastructure/Interceptor/Interceptor";

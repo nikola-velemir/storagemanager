@@ -57,6 +57,8 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
                 "pdf" => "application/pdf",
                 "jpg" => "image/jpeg",
                 "png" => "image/png",
+                "vnd.ms-excel" => "application/vnd.ms-excel",
+                "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 _ => "application/octet-stream"
             };
             return new DocumentDownloadResponseDTO(file, transformedType);

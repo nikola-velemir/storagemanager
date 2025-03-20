@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import api from "../../infrastructure/Interceptor/Interceptor";
 import { strict } from "assert";
-import SuccessButton from "../common/SuccessButton/SuccessButton";
+import SuccessButton from "../common/buttons/SuccessButton/SuccessButton";
+import { DocumentService } from "../../services/DocumentService";
+import { resolve } from "path";
+import DocumentView from "./DocumentView";
 
 interface DocumentModalProps {
   documentName: string;
@@ -14,21 +17,21 @@ const DocumentModal = ({
   isOpen,
   toggleOpen,
 }: DocumentModalProps) => {
-  const [pdfSrc, setPdfSrc] = useState<string | undefined>(undefined);
-
+  const [documentSrc, setDocumentSrc] = useState<Blob | undefined>(undefined);
+  const [fileType, setFileType] = useState("");
   const downloadDoc = () => {
-    api
-      .get(`docs/download/${documentName}`, {
-        responseType: "blob",
-      })
-      .then((resolve) => {
-        console.log(resolve);
-        setPdfSrc(URL.createObjectURL(resolve.data));
-      });
+    DocumentService.GetDocumentByName(documentName).then((response) => {
+      const blob = new Blob([response.data], { type: response.data.type });
+      console.log(blob);
+
+      setDocumentSrc(blob);
+      setFileType(response.data.type);
+    });
   };
   useEffect(() => {
     if (isOpen) {
-      setPdfSrc(undefined);
+      setDocumentSrc(undefined);
+      setFileType("");
       downloadDoc();
     }
   }, [isOpen]);
@@ -72,7 +75,7 @@ const DocumentModal = ({
             </button>
           </div>
           <div className="p-4 md:p-5 space-y-4 h-full overflow-hidden">
-            <iframe className="w-full h-modal" src={pdfSrc}></iframe>
+            <DocumentView fileSrc={documentSrc} fileType={fileType} />
           </div>
         </div>
       </div>

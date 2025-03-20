@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../../../model/userModels/Request/LoginRequest";
 import { useAuth } from "../../../infrastructure/Auth/AuthContext";
 import ResponseModal from "../../common/modals/ResponseModal/ResponseModal";
-import SuccessButton from "../../common/SuccessButton/SuccessButton";
+import SuccessButton from "../../common/buttons/SuccessButton/SuccessButton";
 import api from "../../../infrastructure/Interceptor/Interceptor";
 import { Modal } from "flowbite-react";
 
