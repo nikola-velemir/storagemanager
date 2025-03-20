@@ -5,7 +5,7 @@ using StoreManager.Infrastructure.Document.Service;
 namespace StoreManager.Infrastructure.Document.Controller
 {
     [ApiController]
-    [Route("api/upload")]
+    [Route("api/docs")]
     public class DocumentController : ControllerBase
     {
         private readonly IDocumentService _service;
@@ -13,7 +13,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             _service = service;
         }
-        [HttpPost]
+        [HttpPost("upload")]
         public async Task<ActionResult> UploadFile(IFormFile file)
         {
             try
@@ -25,6 +25,21 @@ namespace StoreManager.Infrastructure.Document.Controller
             catch (BadHttpRequestException ex)
             {
                 return BadRequest(new { ex.Message });
+            }
+        }
+        [HttpGet("download/{fileName}")]
+        public async Task<ActionResult> DownloadFile(string fileName)
+        {
+            try
+            {
+                var response = await _service.DownloadFile(fileName);
+               // return Ok(bytes);
+
+                return File(response.bytes, response.mimeType, fileName);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest("Couldnt find the file");
             }
         }
     }

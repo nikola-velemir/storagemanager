@@ -1,4 +1,6 @@
-﻿using StoreManager.Infrastructure.Document.Repository;
+﻿using StoreManager.Infrastructure.Document.DTO;
+using StoreManager.Infrastructure.Document.Repository;
+using StoreManager.Infrastructure.Document.SupaBase.Service;
 
 namespace StoreManager.Infrastructure.Document.Service
 {
@@ -11,13 +13,19 @@ namespace StoreManager.Infrastructure.Document.Service
             _repository = repository;
             _supaService = new SupabaseService();
         }
-
+        public async Task<DocumentDownloadResponseDTO> DownloadFile(string fileName)
+        {
+            var file =  await _repository.FindByName(fileName);
+            if (file == null) { throw new FileNotFoundException("Could not find the file"); }
+            var response = await _supaService.DownloadFile(file);
+            return response;
+        }
         public async Task UploadFile(IFormFile file)
         {
             try
             {
                 var savedFile = await _repository.SaveFile(file);
-                await _supaService.UploadFile(file,savedFile);
+                await _supaService.UploadFile(file, savedFile);
             }
             catch (Exception)
             {

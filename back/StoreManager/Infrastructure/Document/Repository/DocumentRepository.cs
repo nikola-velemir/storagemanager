@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
+using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Repository
 {
@@ -13,6 +14,12 @@ namespace StoreManager.Infrastructure.Document.Repository
             _context = context;
             _files = context.Documents;
         }
+
+        public Task<DocumentModel?> FindByName(string fileName)
+        {
+            return _files.FirstOrDefaultAsync(doc => doc.FileName == fileName);
+        }
+
         public async Task<DocumentModel> SaveFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -22,7 +29,8 @@ namespace StoreManager.Infrastructure.Document.Repository
 
 
             var fileGuid = Guid.NewGuid();
-            var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(file.FileName)}");
+            var parsedFileName = Regex.Replace(file.FileName, @"[^a-zA-Z0-9]", "");
+            var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(parsedFileName)}");
             var mimeType = MimeMapping.MimeUtility.GetMimeMapping(file.FileName).Split('/').Last();
             var fileRecord = new DocumentModel
             {

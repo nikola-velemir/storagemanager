@@ -6,9 +6,9 @@ using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.Document;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
+using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
