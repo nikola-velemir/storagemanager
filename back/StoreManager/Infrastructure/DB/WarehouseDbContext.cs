@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Infrastructure.Document;
 using StoreManager.Infrastructure.User.Model;
-using System.Security.Cryptography.X509Certificates;
 
 namespace StoreManager.Infrastructure.DB
 {
-    public class WarehouseDbContext:DbContext
+    public class WarehouseDbContext : DbContext
     {
         public WarehouseDbContext() { }
         public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options) { }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<DocumentModel> Documents { get; set; }
 
         public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
 
@@ -30,6 +31,7 @@ namespace StoreManager.Infrastructure.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+            modelBuilder.ApplyConfiguration(new DocumentModelConfiguration());
             modelBuilder.Entity<UserModel>().HasIndex(u => u.Username).IsUnique();
         }
     }

@@ -23,7 +23,7 @@ namespace StoreManager.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.RefreshToken", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,6 +44,32 @@ namespace StoreManager.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.DocumentModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Documents", "public");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.User.Model.UserModel", b =>
@@ -81,7 +107,7 @@ namespace StoreManager.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.RefreshToken", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.HasOne("StoreManager.Infrastructure.User.Model.UserModel", "User")
                         .WithMany()

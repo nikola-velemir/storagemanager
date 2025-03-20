@@ -16,6 +16,22 @@ namespace StoreManager.Migrations
                 name: "public");
 
             migrationBuilder.CreateTable(
+                name: "Documents",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    FileUrl = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "public",
                 columns: table => new
@@ -72,6 +88,10 @@ namespace StoreManager.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Documents",
+                schema: "public");
+
             migrationBuilder.DropTable(
                 name: "RefreshTokens",
                 schema: "public");

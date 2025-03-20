@@ -14,10 +14,13 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
 {
     public sealed class RefreshTokenRepositoryTest : IAsyncLifetime
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         private WarehouseDbContext _context;
         private RefreshTokenRespository _repository;
         private IConfiguration _config;
         private Mock<IRefreshTokenGenerator> _generator;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
         private static readonly UserModel USER = new(1, "test", "testuser", "Test", "Test", UserRole.ADMIN);
         private static readonly RefreshTokenModel EXISTING_TOKEN = new RefreshTokenModel { Token = "asdjasdas", User = USER, ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30), Id = Guid.NewGuid(), UserId = USER.Id };
         [Fact(DisplayName = "Create refresh token")]
@@ -67,7 +70,9 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
                 { "RefreshTokenSettings:ExpiryIntervalInDays", "5" },
                 { "RefreshTokenSettings:Length", "32" }
             };
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
             _config = new ConfigurationBuilder().Add(new MemoryConfigurationSource { InitialData = configValues }).Build();
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
             _generator = new Mock<IRefreshTokenGenerator>();
 
             _generator.Setup(g => g.GenerateRefreshToken()).Returns("hjdjklsahdjalskdhjkasdhjkasdhkas");
