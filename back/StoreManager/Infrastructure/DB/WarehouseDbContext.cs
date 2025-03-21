@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
-using StoreManager.Infrastructure.Document;
+using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Infrastructure.DB
@@ -13,6 +13,7 @@ namespace StoreManager.Infrastructure.DB
         public DbSet<DocumentModel> Documents { get; set; }
 
         public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
+        public DbSet<DocumentChunkModel> DocumentChunks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +33,7 @@ namespace StoreManager.Infrastructure.DB
         {
             modelBuilder.HasDefaultSchema("public");
             modelBuilder.ApplyConfiguration(new DocumentModelConfiguration());
+            modelBuilder.ApplyConfiguration(new DocumentChunkModelConfiguration());
             modelBuilder.Entity<UserModel>().HasIndex(u => u.Username).IsUnique();
         }
     }

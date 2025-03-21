@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250320011736_InitialCreate")]
+    [Migration("20250321005114_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,20 +49,45 @@ namespace StoreManager.Migrations
                     b.ToTable("RefreshTokens", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Document.DocumentModel", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("ChunkNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SupaBasePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
+
+                    b.HasIndex("SupaBasePath")
+                        .IsUnique();
+
+                    b.ToTable("DocumentChunks", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("ChunkCount")
+                        .HasColumnType("bigint");
+
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -119,6 +144,20 @@ namespace StoreManager.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", null)
+                        .WithMany("Chunks")
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
+                {
+                    b.Navigation("Chunks");
                 });
 #pragma warning restore 612, 618
         }

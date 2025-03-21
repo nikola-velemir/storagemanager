@@ -14,11 +14,8 @@ const ExcelViewer = ({ fileSrc }: ExcelViewerProps) => {
       const arrayBuffer = e.target.result;
       const workBook = XLSX.read(arrayBuffer, { type: "array" });
       const sheetName = workBook.SheetNames[0];
-      console.log(sheetName);
       const workSheet = workBook.Sheets[sheetName];
-      console.log("aa", workSheet);
       const jsonData = XLSX.utils.sheet_to_json(workSheet, { header: 0 });
-      console.log(jsonData);
       setData(jsonData);
     };
     reader.readAsArrayBuffer(fileSrc);

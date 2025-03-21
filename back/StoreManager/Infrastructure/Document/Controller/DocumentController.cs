@@ -27,6 +27,20 @@ namespace StoreManager.Infrastructure.Document.Controller
                 return BadRequest(new { ex.Message });
             }
         }
+        [HttpPost("upload-chunks")]
+        public async Task<ActionResult> UploadFileFromChunks([FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
+        {
+            try
+            {
+                await _service.UploadChunk(file,fileName,chunkIndex,totalChunks);
+                return Ok(new { Message = "File uploaded successfully" });
+
+            }
+            catch (BadHttpRequestException ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+        }
         [HttpGet("download/{fileName}")]
         public async Task<ActionResult> DownloadFile(string fileName)
         {

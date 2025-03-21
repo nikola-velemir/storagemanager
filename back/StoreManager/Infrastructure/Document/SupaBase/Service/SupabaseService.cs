@@ -1,5 +1,6 @@
 ﻿using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.DTO;
+using StoreManager.Infrastructure.Document.Model;
 using Supabase;
 using Supabase.Storage;
 using Supabase.Storage.Interfaces;
@@ -20,7 +21,28 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
                 throw new ArgumentException(); ;
             _client = new Supabase.Client(url, key, new SupabaseOptions { AutoConnectRealtime = true });
         }
+        public async Task<string> UploadFileFromChunks(IFormFile file, DocumentModel document)
+        {
+            if (file == null || file.Length == 0)
+            {
+                throw new Exception("No file found");
+            }
 
+            var storage = _client.Storage.From(bucketName);
+            var fileGuid = document.Id;
+            var mimeType = MimeMapping.MimeUtility.GetMimeMapping(file.FileName).Split('/').Last();
+            var pathName = Path.Combine("invoice", document.Date.ToString("yyyy-MM-dd"), $"{fileGuid.ToString()}.{mimeType}");
+            var response = string.Empty;
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                var fileBytes = memoryStream.ToArray();
+
+                response = await storage.Upload(fileBytes, pathName, new Supabase.Storage.FileOptions { ContentType = mimeType });
+
+            }
+            return response;
+        }
         public async Task<string> UploadFile(IFormFile file, DocumentModel document)
         {
             if (file == null || file.Length == 0)

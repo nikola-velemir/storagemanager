@@ -22,8 +22,6 @@ const DocumentModal = ({
   const downloadDoc = () => {
     DocumentService.GetDocumentByName(documentName).then((response) => {
       const blob = new Blob([response.data], { type: response.data.type });
-      console.log(blob);
-
       setDocumentSrc(blob);
       setFileType(response.data.type);
     });
@@ -65,9 +63,9 @@ const DocumentModal = ({
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                 />
               </svg>
