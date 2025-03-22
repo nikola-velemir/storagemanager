@@ -1,6 +1,8 @@
 ﻿using StoreManager.Infrastructure.Document.DTO;
+using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
+using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
 {
@@ -13,29 +15,53 @@ namespace StoreManager.Infrastructure.Document.Service
             _repository = repository;
             _supaService = new SupabaseService();
         }
+
+        public async Task<DocumentDownloadResponseDTO> DownloadDocumentChunk(string fileName)
+        {
+            var file = await _repository.FindByName(fileName);
+
+            if (file == null) throw new FileNotFoundException("Could not find the file");
+
+            return new DocumentDownloadResponseDTO(new byte[0], "kurac");
+        }
+
         public async Task<DocumentDownloadResponseDTO> DownloadFile(string fileName)
         {
             var file = await _repository.FindByName(fileName);
 
             if (file == null) throw new FileNotFoundException("Could not find the file");
 
-            var response = await _supaService.DownloadFile(file);
-
-            return response;
+            ICollection<DocumentChunkModel> sortedChunks = file.Chunks.OrderBy(chunk => chunk.ChunkNumber).ToList();
+            List<byte[]> chunkData = new List<byte[]>();
+            foreach (var chunk in sortedChunks)
+            {
+                var downloadedChunk = await _supaService.DonwloadChunk(chunk);
+                chunkData.Add(downloadedChunk.bytes);
+            }
+            byte[] fullFileData = chunkData.SelectMany(chunk => chunk).ToArray();
+            string transformedType = file.Type switch
+            {
+                "pdf" => "application/pdf",
+                "jpg" => "image/jpeg",
+                "png" => "image/png",
+                "vnd.ms-excel" => "application/vnd.ms-excel",
+                "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                _ => "application/octet-stream"
+            };
+            return new DocumentDownloadResponseDTO(fullFileData, transformedType);
         }
         public async Task UploadChunk(IFormFile file, string fileName, int chunkIndex, int totalChunks)
         {
             try
             {
-                var savedChunk = await _repository.SaveChunk(file, fileName, chunkIndex);
-                if (_repository.AreAllChunksReceived(fileName, totalChunks))
+                var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
+                var foundFile = await _repository.FindByName(parsedFileName);
+                if (foundFile == null)
                 {
-                    var mergedFile = await _repository.MergeChunks(fileName, totalChunks);
-                    var finalFile = new FormFile(new FileStream(mergedFile.FullName, FileMode.Open), 0, mergedFile.Length, fileName, mergedFile.FullName);
-
-                    var savedFile = await _repository.SaveFile(finalFile);
-                    await _supaService.UploadFile(finalFile, savedFile);
+                    foundFile = await _repository.SaveFile(fileName);
                 }
+                var savedChunk = await _repository.SaveChunk(file, fileName, chunkIndex);
+                await _supaService.UploadFileChunk(file, savedChunk);
             }
             catch (Exception)
             {
@@ -47,7 +73,7 @@ namespace StoreManager.Infrastructure.Document.Service
             try
             {
 
-                var savedFile = await _repository.SaveFile(file);
+                var savedFile = await _repository.SaveFile(file.FileName);
                 await _supaService.UploadFile(file, savedFile);
             }
             catch (Exception)

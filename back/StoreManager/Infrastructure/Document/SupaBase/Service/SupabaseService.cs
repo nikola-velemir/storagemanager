@@ -6,6 +6,7 @@ using Supabase.Storage;
 using Supabase.Storage.Interfaces;
 using System.Net.Mime;
 using System.Net.Sockets;
+using System.Reflection.Metadata;
 
 namespace StoreManager.Infrastructure.Document.SupaBase.Service
 {
@@ -20,6 +21,27 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
             var key = Environment.GetEnvironmentVariable("SUPABASE_API_KEY", EnvironmentVariableTarget.User) ??
                 throw new ArgumentException(); ;
             _client = new Supabase.Client(url, key, new SupabaseOptions { AutoConnectRealtime = true });
+        }
+        public async Task<string> UploadFileChunk(IFormFile fileChunk, DocumentChunkModel chunk)
+        {
+            if (fileChunk == null || fileChunk.Length == 0)
+            {
+                throw new Exception("No file found");
+            }
+            var storage = _client.Storage.From(bucketName);
+            var fileGuid = chunk.Id;
+            var pathName = Path.Combine("invoice", chunk.Document.Date.ToString("yyyy-MM-dd"),$"{chunk.Document.Id}", $"{fileGuid.ToString()}");
+            var response = string.Empty;
+            using (var memoryStream = new MemoryStream())
+            {
+                await fileChunk.CopyToAsync(memoryStream);
+                var fileBytes = memoryStream.ToArray();
+
+                response = await storage.Upload(fileBytes, pathName);
+
+            }
+            return response;
+
         }
         public async Task<string> UploadFileFromChunks(IFormFile file, DocumentModel document)
         {
@@ -64,6 +86,25 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
 
             }
             return response;
+        }
+        public async Task<DocumentDownloadResponseDTO> DonwloadChunk(DocumentChunkModel chunk)
+        {
+            var storage = _client.Storage.From(bucketName);
+            var fileGuid = chunk.Id;
+            var mimeType = chunk.Document.Type;
+            var pathName = Path.Combine("invoice", chunk.Document.Date.ToString("yyyy-MM-dd"), chunk.Document.Id.ToString(),chunk.Id.ToString());
+
+            var file = await storage.Download(pathName, new TransformOptions { });
+            string transformedType = mimeType switch
+            {
+                "pdf" => "application/pdf",
+                "jpg" => "image/jpeg",
+                "png" => "image/png",
+                "vnd.ms-excel" => "application/vnd.ms-excel",
+                "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                _ => "application/octet-stream"
+            };
+            return new DocumentDownloadResponseDTO(file, transformedType);
         }
         public async Task<DocumentDownloadResponseDTO> DownloadFile(DocumentModel document)
         {

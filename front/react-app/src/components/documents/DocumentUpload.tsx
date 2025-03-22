@@ -2,15 +2,82 @@ import { s } from "framer-motion/dist/types.d-6pKw1mTI";
 import { useState } from "react";
 import { DocumentService } from "../../services/DocumentService";
 import { resolve } from "path";
+import { progress } from "framer-motion";
+
+enum UPLOADING_STATE {
+  UPLOADING,
+  UPLOADED,
+  FAILED,
+  NOT_UPLOADING,
+}
 
 const DocumentUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploaded, setUploaded] = useState(false);
+  const [uploaded, setUploaded] = useState(UPLOADING_STATE.NOT_UPLOADING);
+  const [uploadProgress, setUploadProgress] = useState(0.0);
+  const renderUploadSection = () => {
+    if (!selectedFile) {
+      return (
+        <button
+          type="button"
+          disabled
+          className="py-2.5 text-lg px-5 w-full font-medium text-slate-200 focus:outline-none bg-gray-700 focus:z-10"
+        >
+          Upload
+        </button>
+      );
+    }
+
+    if (uploaded == UPLOADING_STATE.UPLOADED) {
+      return (
+        <button
+          type="button"
+          disabled
+          className="py-2.5 text-lg px-5 w-full font-medium text-green-400 focus:outline-none bg-gray-700 focus:z-10"
+        >
+          Uploaded successfully
+        </button>
+      );
+    }
+
+    if (uploaded == UPLOADING_STATE.NOT_UPLOADING) {
+      return (
+        <button
+          type="button"
+          onClick={uploadFile}
+          className="w-full text-lg text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium px-5 py-2.5 text-center"
+        >
+          Upload
+        </button>
+      );
+    }
+
+    return (
+      <button
+        type="button"
+        disabled
+        className="py-2.5 text-lg px-5 w-full font-medium text-slate-200 focus:outline-none bg-gray-700 focus:z-10"
+      >
+        {`${uploadProgress}%`}
+      </button>
+    );
+  };
   const uploadFile = () => {
     if (!selectedFile) {
       return;
     }
-    DocumentService.UploadDocumentInChunks(selectedFile).then(() => {});
+    setUploaded(UPLOADING_STATE.UPLOADING);
+    DocumentService.UploadDocumentInChunks(selectedFile, (progress) => {
+      console.log(`Upload Progress: ${progress}%`);
+      setUploadProgress(progress);
+      if (progress == 100) {
+        setUploaded(UPLOADING_STATE.UPLOADED);
+      }
+    })
+      .then(() => {})
+      .catch(() => {
+        setUploadProgress(0.0);
+      });
   };
   const handleFileChange = (event: any) => {
     console.log(event);
@@ -26,7 +93,7 @@ const DocumentUpload = () => {
         className="flex flex-col items-center justify-center w-full h-64 cursor-pointer  hover:bg-gray-800 bg-gray-700 dark:border-gray-600 dark:hover:border-gray-500"
       >
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
-          {selectedFile && uploaded ? (
+          {selectedFile && uploaded === UPLOADING_STATE.UPLOADED ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -40,7 +107,9 @@ const DocumentUpload = () => {
                 d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
               />
             </svg>
-          ) : selectedFile && !uploaded ? (
+          ) : selectedFile &&
+            (uploaded === UPLOADING_STATE.NOT_UPLOADING ||
+              uploaded === UPLOADING_STATE.UPLOADING) ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -73,11 +142,13 @@ const DocumentUpload = () => {
             </svg>
           )}
 
-          {selectedFile && !uploaded ? (
+          {selectedFile &&
+          (uploaded === UPLOADING_STATE.NOT_UPLOADING ||
+            uploaded === UPLOADING_STATE.UPLOADING) ? (
             <p className="mb-2 text-sm text-slate-200 dark:text-gray-400">
               <span className="font-semibold">{selectedFile.name}</span>
             </p>
-          ) : !selectedFile && !uploaded ? (
+          ) : !selectedFile && uploaded === UPLOADING_STATE.NOT_UPLOADING ? (
             <p className="mb-2 text-sm text-slate-200 dark:text-gray-400">
               <span className="font-semibold">Click to upload</span> or drag and
               drop
@@ -89,28 +160,15 @@ const DocumentUpload = () => {
         <input
           id="dropzone-file"
           type="file"
-          disabled={uploaded}
+          disabled={
+            uploaded == UPLOADING_STATE.UPLOADING ||
+            uploaded === UPLOADING_STATE.UPLOADED
+          }
           className="hidden"
           onChange={handleFileChange}
         />
       </label>
-      {selectedFile && !uploaded ? (
-        <button
-          type="button"
-          onClick={uploadFile}
-          className="w-full text-lg text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium px-5 py-2.5 text-center"
-        >
-          Upload
-        </button>
-      ) : (
-        <button
-          type="button"
-          disabled={true}
-          className="py-2.5 text-lg px-5 w-full font-medium text-slate-200 focus:outline-none bg-gray-700 focus:z-10"
-        >
-          Upload
-        </button>
-      )}
+      {renderUploadSection()}
     </div>
   );
 };

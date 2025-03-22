@@ -11,7 +11,8 @@ namespace StoreManager.Infrastructure.DB
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Type).IsRequired();
             builder.Property(r => r.Date).IsRequired();
-            builder.HasMany(r => r.Chunks).WithOne().HasForeignKey(r => r.DocumentId);
+            builder.HasIndex(r => r.FileName).IsUnique();
+            builder.HasMany(r => r.Chunks).WithOne(c=>c.Document).HasForeignKey(r => r.DocumentId);
         }
     }
 }

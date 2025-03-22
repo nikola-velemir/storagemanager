@@ -8,7 +8,7 @@ const API_BASE_URL = "http://localhost:5205/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 5000,
+  // timeout: 5000,
 });
 const getAccessToken = () => {
   const user = UserService.getUser();

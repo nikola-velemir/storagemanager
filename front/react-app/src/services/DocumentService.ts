@@ -1,3 +1,4 @@
+import { progress } from "framer-motion";
 import api from "../infrastructure/Interceptor/Interceptor";
 
 export class DocumentService {
@@ -15,7 +16,7 @@ export class DocumentService {
       },
     });
   }
-  private static getFileChunks(file: File, chunksize = 1 * 1024 * 1024) {
+  private static getFileChunks(file: File, chunksize = 0.5 * 1024 * 1024) {
     const chunks = [];
     let currentPosition = 0;
 
@@ -26,7 +27,10 @@ export class DocumentService {
     }
     return chunks;
   }
-  static async UploadDocumentInChunks(file: File) {
+  static async UploadDocumentInChunks(
+    file: File,
+    onProgress: (progress: number) => void
+  ) {
     const chunks = this.getFileChunks(file);
     const totalChunks = chunks.length;
 
@@ -43,8 +47,8 @@ export class DocumentService {
             "Content-Type": "multipart/form-data",
           },
         });
-
-        console.log(`Chunk ${i + 1} uploaded successfully!`);
+        const progress = ((i + 1) / totalChunks) * 100;
+        onProgress(progress);
       } catch (error) {
         console.error(`Error uploading chunk ${i + 1}:`, error);
       }

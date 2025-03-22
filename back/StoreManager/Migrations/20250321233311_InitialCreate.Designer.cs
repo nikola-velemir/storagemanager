@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250321005114_InitialCreate")]
+    [Migration("20250321233311_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -97,6 +97,9 @@ namespace StoreManager.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FileName")
+                        .IsUnique();
+
                     b.ToTable("Documents", "public");
                 });
 
@@ -148,11 +151,13 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", null)
+                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
                         .WithMany("Chunks")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Document");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>

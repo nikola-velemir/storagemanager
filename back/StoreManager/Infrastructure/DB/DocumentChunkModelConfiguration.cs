@@ -10,6 +10,7 @@ namespace StoreManager.Infrastructure.DB
         {
             builder.HasKey(d => d.Id);
             builder.HasIndex(d => d.SupaBasePath).IsUnique();
+            builder.HasOne(d => d.Document).WithMany(d=>d.Chunks).HasForeignKey(d => d.DocumentId);
         }
     }
 }

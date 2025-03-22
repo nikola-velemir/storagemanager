@@ -94,6 +94,9 @@ namespace StoreManager.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FileName")
+                        .IsUnique();
+
                     b.ToTable("Documents", "public");
                 });
 
@@ -145,11 +148,13 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", null)
+                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
                         .WithMany("Chunks")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Document");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>

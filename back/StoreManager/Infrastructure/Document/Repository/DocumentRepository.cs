@@ -10,11 +10,13 @@ namespace StoreManager.Infrastructure.Document.Repository
     {
         private WarehouseDbContext _context;
         private DbSet<DocumentModel> _files;
+        private DbSet<DocumentChunkModel> _chunks;
         private IWebHostEnvironment _env; private string _uploadPath;
         public DocumentRepository(WarehouseDbContext context, IWebHostEnvironment env)
         {
             _context = context;
             _files = context.Documents;
+            _chunks = context.DocumentChunks;
             _env = env;
             _uploadPath = Path.Combine(_env.WebRootPath, "uploads");
 
@@ -54,46 +56,78 @@ namespace StoreManager.Infrastructure.Document.Repository
             return new FileInfo(finalPath);
         }
 
-        public async Task<string> SaveChunk(IFormFile file, string fileName, int chunkIndex)
+        public async Task<DocumentChunkModel> SaveChunk(IFormFile file, string fileName, int chunkIndex)
         {
+            var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
             if (file == null || file.Length == 0)
             {
                 throw new Exception("Invalid chunk");
             }
-
-            var chunkPath = Path.Combine(_uploadPath, $"{fileName}.part{chunkIndex}");
-
-            using (var stream = new FileStream(chunkPath, FileMode.Create))
+            var foundDoc = await FindByName(processedFileName);
+            if (foundDoc == null)
             {
-                await file.CopyToAsync(stream);
+                throw new Exception("Invalid file");
             }
-            return chunkPath;
+
+            var chunk = new DocumentChunkModel
+            {
+                ChunkNumber = chunkIndex,
+                DocumentId = foundDoc.Id,
+                Id = Guid.NewGuid(),
+                SupaBasePath = Guid.NewGuid().ToString(),
+                Document = foundDoc
+            };
+            var savedChunk = await _chunks.AddAsync(chunk);
+            await _context.SaveChangesAsync();
+            return savedChunk.Entity;
         }
+        //public async Task<DocumentModel> SaveFile(IFormFile file)
+        //{
+        //    if (file == null || file.Length == 0)
+        //    {
+        //        throw new Exception("No file found");
+        //    }
 
-        public async Task<DocumentModel> SaveFile(IFormFile file)
+
+        //    var fileGuid = Guid.NewGuid();
+        //    var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(file.FileName), @"[^a-zA-Z0-9]", "");
+
+        //    //  var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(parsedFileName)}");
+        //    var fileName = parsedFileName;
+        //    var mimeType = MimeMapping.MimeUtility.GetMimeMapping(file.FileName).Split('/').Last();
+        //    var filePath = Path.Combine(_uploadPath, fileName);
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        await file.CopyToAsync(stream);
+        //    }
+
+        //    var fileRecord = new DocumentModel
+        //    {
+        //        Date = DateOnly.FromDateTime(DateTime.UtcNow),
+        //        FileName = fileName,
+        //        Type = mimeType,
+        //        Id = Guid.NewGuid()
+        //    };
+
+        //    var savedInstance = await _files.AddAsync(fileRecord);
+        //    await _context.SaveChangesAsync();
+
+        //    return savedInstance.Entity;
+        //}
+        public async Task<DocumentModel> SaveFile(string fileName)
         {
-            if (file == null || file.Length == 0)
-            {
-                throw new Exception("No file found");
-            }
-
-
             var fileGuid = Guid.NewGuid();
-            var parsedFileName = Regex.Replace(file.FileName, @"[^a-zA-Z0-9]", "");
+            var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
 
-            var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(parsedFileName)}");
+            //  var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(parsedFileName)}");
+            var mimeType = MimeMapping.MimeUtility.GetMimeMapping(fileName).Split('/').Last();
+            var filePath = Path.Combine(_uploadPath, parsedFileName);
 
-            var mimeType = MimeMapping.MimeUtility.GetMimeMapping(file.FileName).Split('/').Last();
-            var filePath = Path.Combine(_uploadPath, fileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
 
             var fileRecord = new DocumentModel
             {
                 Date = DateOnly.FromDateTime(DateTime.UtcNow),
-                FileName = fileName,
+                FileName = parsedFileName,
                 Type = mimeType,
                 Id = Guid.NewGuid()
             };

@@ -107,6 +107,13 @@ namespace StoreManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Documents_FileName",
+                schema: "public",
+                table: "Documents",
+                column: "FileName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 schema: "public",
                 table: "RefreshTokens",

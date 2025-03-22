@@ -3,28 +3,52 @@
   "WorkspaceRootPath": "D:\\DropBox\\Dropbox\\sretotest\\back\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\controller\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\controller\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\repository\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\repository\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\supabase\\service\\supabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\supabase\\service\\supabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\warehousedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\warehousedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\documentmodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\documentmodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\documentchunkmodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\documentchunkmodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\model\\documentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\model\\documentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\model\\documentchunkmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\model\\documentchunkmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\documentmodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\documentmodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\repository\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\repository\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\repository\\idocumentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\repository\\idocumentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\document\\service\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\service\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\refreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\refreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\dropbox\\dropbox\\sretotest\\back\\storemanager\\infrastructure\\db\\warehousedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\warehousedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,37 +58,154 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "DocumentChunkModelConfiguration.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T00:46:22.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RefreshTokenConfiguration.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\RefreshTokenConfiguration.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\RefreshTokenConfiguration.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\RefreshTokenConfiguration.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\RefreshTokenConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T23:04:44.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DocumentModel.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Model\\DocumentModel.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Model\\DocumentModel.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Model\\DocumentModel.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Model\\DocumentModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T23:03:52.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IDocumentRepository.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Repository\\IDocumentRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Repository\\IDocumentRepository.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Repository\\IDocumentRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Repository\\IDocumentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T22:04:49.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DocumentChunkModel.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T00:48:44.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SupabaseService.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\SupaBase\\Service\\SupabaseService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\SupaBase\\Service\\SupabaseService.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\SupaBase\\Service\\SupabaseService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\SupaBase\\Service\\SupabaseService.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAAAFsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T22:24:15.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "DocumentService.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
               "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAAA0AAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-21T00:56:43.34Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "DocumentModelConfiguration.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T00:46:29.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IDocumentService.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T22:21:28.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DocumentController.cs",
+              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Controller\\DocumentController.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Controller\\DocumentController.cs",
+              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Controller\\DocumentController.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Controller\\DocumentController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACIAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T22:23:15.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "DocumentRepository.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Repository\\DocumentRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Repository\\DocumentRepository.cs",
               "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Repository\\DocumentRepository.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Repository\\DocumentRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAACIAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAIwCIAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-21T00:54:30.303Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "WarehouseDbContext.cs",
               "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\WarehouseDbContext.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\WarehouseDbContext.cs",
@@ -72,47 +213,7 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\WarehouseDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T00:50:02.647Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DocumentModelConfiguration.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\DocumentModelConfiguration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T00:46:29.856Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DocumentChunkModelConfiguration.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\DocumentChunkModelConfiguration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T00:46:22.697Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DocumentChunkModel.cs",
-              "DocumentMoniker": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
-              "ToolTip": "D:\\DropBox\\Dropbox\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Model\\DocumentChunkModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T00:48:44.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-21T00:50:02.647Z"
             }
           ]
         }
