@@ -28,4 +28,8 @@
     <ProjectReference Include="..\StoreManager\StoreManager.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Document\" />
+  </ItemGroup>
+
 </Project>
