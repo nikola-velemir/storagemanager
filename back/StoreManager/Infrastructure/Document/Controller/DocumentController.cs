@@ -13,20 +13,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             _service = service;
         }
-        [HttpPost("upload")]
-        public async Task<ActionResult> UploadFile(IFormFile file)
-        {
-            try
-            {
-                await _service.UploadFile(file);
-                return Ok(new { Message = "File uploaded successfully" });
-
-            }
-            catch (BadHttpRequestException ex)
-            {
-                return BadRequest(new { ex.Message });
-            }
-        }
+        
         [HttpPost("upload-chunks")]
         public async Task<ActionResult> UploadFileFromChunks([FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
         {
@@ -66,17 +53,6 @@ namespace StoreManager.Infrastructure.Document.Controller
             {
                 return NotFound(new { message = ex.Message });
             }
-        }
-        [HttpGet("download/{fileName}")]
-        public async Task DownloadFile(string fileName, CancellationToken cancellation)
-        {
-
-            Response.Headers.Append("Content-Type", "application/octet-stream");
-            Response.Headers.Append("Cache-Control", "no-store");
-
-            Response.StatusCode = StatusCodes.Status200OK;
-
-            await _service.DownloadFile(Response, cancellation, fileName);
         }
     }
 }

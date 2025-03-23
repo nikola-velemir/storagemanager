@@ -11,20 +11,11 @@ namespace StoreManager.Infrastructure.Document.Repository
         private WarehouseDbContext _context;
         private DbSet<DocumentModel> _files;
         private DbSet<DocumentChunkModel> _chunks;
-        private IWebHostEnvironment _env;
-        private string _uploadPath;
-        public DocumentRepository(WarehouseDbContext context, IWebHostEnvironment env)
+        public DocumentRepository(WarehouseDbContext context)
         {
             _context = context;
             _files = context.Documents;
             _chunks = context.DocumentChunks;
-            _env = env;
-            _uploadPath = Path.Combine(_env.WebRootPath, "uploads");
-
-            if (!Directory.Exists(_uploadPath))
-            {
-                Directory.CreateDirectory(_uploadPath);
-            }
         }
 
         public Task<DocumentModel?> FindByName(string fileName)
@@ -32,17 +23,17 @@ namespace StoreManager.Infrastructure.Document.Repository
             return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
 
-        public async Task<DocumentChunkModel> SaveChunk(IFormFile file, string fileName, int chunkIndex)
+        public async Task<DocumentChunkModel> SaveChunk(IFormFile? file, string fileName, int chunkIndex)
         {
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
             if (file == null || file.Length == 0)
             {
-                throw new Exception("Invalid chunk");
+                throw new FileNotFoundException("Invalid chunk");
             }
             var foundDoc = await FindByName(processedFileName);
             if (foundDoc == null)
             {
-                throw new Exception("Invalid file");
+                throw new EntryPointNotFoundException("Invalid file");
             }
 
             var chunk = new DocumentChunkModel
@@ -65,7 +56,6 @@ namespace StoreManager.Infrastructure.Document.Repository
 
             //  var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(parsedFileName)}");
             var mimeType = MimeMapping.MimeUtility.GetMimeMapping(fileName).Split('/').Last();
-            var filePath = Path.Combine(_uploadPath, parsedFileName);
 
 
             var fileRecord = new DocumentModel

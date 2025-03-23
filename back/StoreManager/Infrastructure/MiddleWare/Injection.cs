@@ -30,7 +30,7 @@ namespace StoreManager.Infrastructure.AppSetup
 
             services.AddHostedService<RefreshTokenCleanupService>();
 
-            services.AddScoped<SupabaseService>();
+            services.AddScoped<ICloudStorageService,SupabaseService>();
 
             services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IDocumentService, DocumentService>();
