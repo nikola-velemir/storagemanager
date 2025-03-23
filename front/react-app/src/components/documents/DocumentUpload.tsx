@@ -28,7 +28,7 @@ const DocumentUpload = () => {
       );
     }
 
-    if (uploaded == UPLOADING_STATE.UPLOADED) {
+    if (uploaded === UPLOADING_STATE.UPLOADED) {
       return (
         <button
           type="button"
@@ -40,7 +40,7 @@ const DocumentUpload = () => {
       );
     }
 
-    if (uploaded == UPLOADING_STATE.NOT_UPLOADING) {
+    if (uploaded === UPLOADING_STATE.NOT_UPLOADING) {
       return (
         <button
           type="button"
@@ -58,7 +58,7 @@ const DocumentUpload = () => {
         disabled
         className="py-2.5 text-lg px-5 w-full font-medium text-slate-200 focus:outline-none bg-gray-700 focus:z-10"
       >
-        {`${uploadProgress}%`}
+        {`${Math.trunc(uploadProgress)}%`}
       </button>
     );
   };
@@ -68,9 +68,8 @@ const DocumentUpload = () => {
     }
     setUploaded(UPLOADING_STATE.UPLOADING);
     DocumentService.UploadDocumentInChunks(selectedFile, (progress) => {
-      console.log(`Upload Progress: ${progress}%`);
       setUploadProgress(progress);
-      if (progress == 100) {
+      if (progress === 100) {
         setUploaded(UPLOADING_STATE.UPLOADED);
       }
     })
@@ -80,7 +79,6 @@ const DocumentUpload = () => {
       });
   };
   const handleFileChange = (event: any) => {
-    console.log(event);
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
@@ -161,7 +159,7 @@ const DocumentUpload = () => {
           id="dropzone-file"
           type="file"
           disabled={
-            uploaded == UPLOADING_STATE.UPLOADING ||
+            uploaded === UPLOADING_STATE.UPLOADING ||
             uploaded === UPLOADING_STATE.UPLOADED
           }
           className="hidden"

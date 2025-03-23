@@ -1,4 +1,6 @@
-﻿using StoreManager.Infrastructure.Document.DTO;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
@@ -24,32 +26,62 @@ namespace StoreManager.Infrastructure.Document.Service
 
             return new DocumentDownloadResponseDTO(new byte[0], "kurac");
         }
-
-        public async Task<DocumentDownloadResponseDTO> DownloadFile(string fileName)
+        public async Task<RequestDocumentDownloadResponseDTO> RequestDownload(string fileName) 
         {
             var file = await _repository.FindByName(fileName);
+            if(file == null)
+            {
+                throw new FileNotFoundException("File not found");
+            }
+            return new RequestDocumentDownloadResponseDTO(file.FileName, GetMimeType(file.Type),file.Chunks.Count);
+        }
 
+        public async Task<DocumentDownloadResponseDTO> DownloadChunk(string fileName, int chunkIndex)
+        {
+            var file = await _repository.FindByName(fileName) 
+                ?? throw new FileNotFoundException("File not found");
+
+            var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == chunkIndex) 
+                ?? throw new EntryPointNotFoundException("Chunk not found");
+
+            return await _supaService.DownloadChunk(chunk);
+            
+        }
+
+        public async Task DownloadFile(HttpResponse response, CancellationToken cancellationToken, string fileName)
+        {
+            var file = await _repository.FindByName(fileName);
             if (file == null) throw new FileNotFoundException("Could not find the file");
 
-            ICollection<DocumentChunkModel> sortedChunks = file.Chunks.OrderBy(chunk => chunk.ChunkNumber).ToList();
-            List<byte[]> chunkData = new List<byte[]>();
+            var sortedChunks = file.Chunks.OrderBy(chunk => chunk.ChunkNumber).ToList();
+
+            response.Headers.Append("Content-Type", GetMimeType(file.Type));
+        //    response.Headers.Append("Transfer-Encoding", "chunked");
+            response.Headers.Append("Cache-Control", "no-store");
+
+            await using var responseStream = response.BodyWriter.AsStream();
+
             foreach (var chunk in sortedChunks)
             {
-                var downloadedChunk = await _supaService.DonwloadChunk(chunk);
-                chunkData.Add(downloadedChunk.bytes);
+                var downloadedChunk = await _supaService.DownloadChunk(chunk);
+
+                if (downloadedChunk == null || downloadedChunk.bytes.Length == 0)
+                    continue;
+
+                await responseStream.WriteAsync(downloadedChunk.bytes, cancellationToken);
+                await responseStream.FlushAsync(cancellationToken); // 🔥 Ensures each chunk is sent immediately
             }
-            byte[] fullFileData = chunkData.SelectMany(chunk => chunk).ToArray();
-            string transformedType = file.Type switch
-            {
-                "pdf" => "application/pdf",
-                "jpg" => "image/jpeg",
-                "png" => "image/png",
-                "vnd.ms-excel" => "application/vnd.ms-excel",
-                "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                _ => "application/octet-stream"
-            };
-            return new DocumentDownloadResponseDTO(fullFileData, transformedType);
         }
+        private string GetMimeType(string fileType) => fileType switch
+        {
+            "pdf" => "application/pdf",
+            "jpg" => "image/jpeg",
+            "png" => "image/png",
+            "vnd.ms-excel" => "application/vnd.ms-excel",
+            "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            _ => "application/octet-stream"
+        };
+
         public async Task UploadChunk(IFormFile file, string fileName, int chunkIndex, int totalChunks)
         {
             try

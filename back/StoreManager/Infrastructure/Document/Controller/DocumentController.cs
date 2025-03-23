@@ -32,7 +32,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             try
             {
-                await _service.UploadChunk(file,fileName,chunkIndex,totalChunks);
+                await _service.UploadChunk(file, fileName, chunkIndex, totalChunks);
                 return Ok(new { Message = "File uploaded successfully" });
 
             }
@@ -41,20 +41,42 @@ namespace StoreManager.Infrastructure.Document.Controller
                 return BadRequest(new { ex.Message });
             }
         }
-        [HttpGet("download/{fileName}")]
-        public async Task<ActionResult> DownloadFile(string fileName)
+        [HttpGet("request-download/{fileName}")]
+        public async Task<ActionResult> RequestDownload(string fileName)
         {
             try
             {
-                var response = await _service.DownloadFile(fileName);
-               // return Ok(bytes);
 
-                return File(response.bytes, response.mimeType, fileName);
-            }catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return BadRequest("Couldnt find the file");
+                return Ok(await _service.RequestDownload(fileName));
             }
+            catch (FileNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+        [HttpGet("download-chunk")]
+        public async Task<ActionResult> DownloadChunk([FromQuery] string fileName, [FromQuery] int chunkIndex)
+        {
+            try
+            {
+                var fileResponse = await _service.DownloadChunk(fileName, chunkIndex);
+                return new FileContentResult(fileResponse.bytes, fileResponse.mimeType);
+            }
+            catch (FileNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+        [HttpGet("download/{fileName}")]
+        public async Task DownloadFile(string fileName, CancellationToken cancellation)
+        {
+
+            Response.Headers.Append("Content-Type", "application/octet-stream");
+            Response.Headers.Append("Cache-Control", "no-store");
+
+            Response.StatusCode = StatusCodes.Status200OK;
+
+            await _service.DownloadFile(Response, cancellation, fileName);
         }
     }
 }

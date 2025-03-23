@@ -87,7 +87,7 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
             }
             return response;
         }
-        public async Task<DocumentDownloadResponseDTO> DonwloadChunk(DocumentChunkModel chunk)
+        public async Task<DocumentDownloadResponseDTO> DownloadChunk(DocumentChunkModel chunk)
         {
             var storage = _client.Storage.From(bucketName);
             var fileGuid = chunk.Id;

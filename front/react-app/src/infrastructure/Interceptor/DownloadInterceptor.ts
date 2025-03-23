@@ -6,9 +6,8 @@ import { UserService } from "../Auth/UserService";
 
 const API_BASE_URL = "http://localhost:5205/api";
 
-const api = axios.create({
+const downloadApi = axios.create({
   baseURL: API_BASE_URL,
-  //timeout: 5000,
 });
 const getAccessToken = () => {
   const user = UserService.getUser();
@@ -33,7 +32,7 @@ const refreshAccessToken = async () => {
   if (!refreshToken) {
     throw new Error("Token non existant");
   }
-  const response = await api.post<AuthUser>("/auth/refresh", {
+  const response = await downloadApi.post<AuthUser>("/auth/refresh", {
     refresh_token: refreshToken,
   } as RefreshRequest);
   return response.data;
@@ -44,7 +43,7 @@ const forceLogoutUser = () => {
   window.dispatchEvent(new Event("forcedLogout"));
 };
 
-api.interceptors.request.use((request) => {
+downloadApi.interceptors.request.use((request) => {
   const token = getAccessToken();
   if (token) {
     request.headers["Authorization"] = `Bearer ${token}`;
@@ -55,10 +54,10 @@ api.interceptors.request.use((request) => {
 const resendRequest = (error: any) => {
   const originalRequest = error.config;
   originalRequest.headers["Authorization"] = `Bearer ${getAccessToken()}`;
-  return api.request(originalRequest);
+  return downloadApi.request(originalRequest);
 };
 
-api.interceptors.response.use(
+downloadApi.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -79,4 +78,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default downloadApi;

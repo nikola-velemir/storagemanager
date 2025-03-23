@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from "react";
-import api from "../../infrastructure/Interceptor/Interceptor";
-import { strict } from "assert";
-import SuccessButton from "../common/buttons/SuccessButton/SuccessButton";
+import { useEffect, useState } from "react";
 import { DocumentService } from "../../services/DocumentService";
-import { resolve } from "path";
 import DocumentView from "./DocumentView";
 
 interface DocumentModalProps {
@@ -17,14 +13,29 @@ const DocumentModal = ({
   isOpen,
   toggleOpen,
 }: DocumentModalProps) => {
+  const [progress, setProgress] = useState(0.0);
+  const [isDownloading, setIsDownloading] = useState(true);
   const [documentSrc, setDocumentSrc] = useState<Blob | undefined>(undefined);
   const [fileType, setFileType] = useState("");
   const downloadDoc = () => {
-    DocumentService.GetDocumentByName(documentName).then((response) => {
-      const blob = new Blob([response.data], { type: response.data.type });
-      setDocumentSrc(blob);
-      setFileType(response.data.type);
-    });
+    setIsDownloading(true);
+    setProgress(0);
+    DocumentService.DownloadFile(documentName, (percentage) => {
+      setProgress(percentage);
+    })
+      .then((doc) => {
+        setDocumentSrc(doc);
+        setFileType(doc.type);
+        setIsDownloading(false);
+      })
+      .catch(() => {
+        setIsDownloading(false);
+      });
+    // DocumentService.GetDocumentByName(documentName).then((response) => {
+    //   const blob = new Blob([response.data], { type: response.data.type });
+    //   setDocumentSrc(blob);
+    //   setFileType(response.data.type);
+    // });
   };
   useEffect(() => {
     if (isOpen) {
@@ -73,7 +84,11 @@ const DocumentModal = ({
             </button>
           </div>
           <div className="p-4 md:p-5 space-y-4 h-full overflow-hidden">
-            <DocumentView fileSrc={documentSrc} fileType={fileType} />
+            <DocumentView
+              downloadProgress={progress}
+              fileSrc={documentSrc}
+              fileType={fileType}
+            />
           </div>
         </div>
       </div>

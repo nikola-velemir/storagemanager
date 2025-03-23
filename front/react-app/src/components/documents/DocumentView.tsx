@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import FullSpinner from "../common/spinners/FullSpinner";
+import FullProgress from "../common/spinners/FullProgress";
 import ExcelViewer from "./ExcelViewer";
 
 interface DocumentViewProps {
   fileSrc: Blob | undefined;
   fileType: string | undefined;
+  downloadProgress: number;
 }
 
-const DocumentView = ({ fileSrc, fileType }: DocumentViewProps) => {
-  if (!fileSrc) return <FullSpinner />;
+const DocumentView = ({
+  fileSrc,
+  fileType,
+  downloadProgress,
+}: DocumentViewProps) => {
+  if (!fileSrc) return <FullProgress progress={downloadProgress} />;
   if (fileType?.includes("pdf")) {
     const objectUrl = URL.createObjectURL(fileSrc);
     return <iframe className="w-full h-modal" src={objectUrl}></iframe>;
