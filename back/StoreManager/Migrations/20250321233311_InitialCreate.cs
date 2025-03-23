@@ -16,6 +16,22 @@ namespace StoreManager.Migrations
                 name: "public");
 
             migrationBuilder.CreateTable(
+                name: "Documents",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    FileName = table.Column<string>(type: "text", nullable: false),
+                    ChunkCount = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "public",
                 columns: table => new
@@ -31,6 +47,28 @@ namespace StoreManager.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DocumentChunks",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DocumentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ChunkNumber = table.Column<int>(type: "integer", nullable: false),
+                    SupaBasePath = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocumentChunks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DocumentChunks_Documents_DocumentId",
+                        column: x => x.DocumentId,
+                        principalSchema: "public",
+                        principalTable: "Documents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,6 +94,26 @@ namespace StoreManager.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_DocumentChunks_DocumentId",
+                schema: "public",
+                table: "DocumentChunks",
+                column: "DocumentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DocumentChunks_SupaBasePath",
+                schema: "public",
+                table: "DocumentChunks",
+                column: "SupaBasePath",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_FileName",
+                schema: "public",
+                table: "Documents",
+                column: "FileName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 schema: "public",
                 table: "RefreshTokens",
@@ -73,7 +131,15 @@ namespace StoreManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "DocumentChunks",
+                schema: "public");
+
+            migrationBuilder.DropTable(
                 name: "RefreshTokens",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Documents",
                 schema: "public");
 
             migrationBuilder.DropTable(

@@ -10,9 +10,12 @@ namespace StoreManager.Tests.Auth.Tokens.AccessToken.Generator
 {
     public sealed class AccessTokenGeneratorTest : IAsyncLifetime
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         private Microsoft.Extensions.Configuration.IConfiguration _mockConfig;
         private AccessTokenGenerator _generator;
         private MockValidator _validator;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
         private static readonly string USERNAME = "test";
         private static readonly UserRole ROLE = UserRole.ADMIN;
 
@@ -55,8 +58,10 @@ namespace StoreManager.Tests.Auth.Tokens.AccessToken.Generator
             { "JwtSettings:Issuer", "test-issuer" },
             { "JwtSettings:Audience", "test-audience" }
             };
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
             _mockConfig = new ConfigurationBuilder().Add(new MemoryConfigurationSource { InitialData = configValues }).Build();
-            
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
+
             _generator = new AccessTokenGenerator(_mockConfig);
             var secret = Environment.GetEnvironmentVariable("JWT_SECRET", EnvironmentVariableTarget.User) ?? throw new Exception();
             _validator = new MockValidator(secret, _mockConfig);
@@ -65,9 +70,12 @@ namespace StoreManager.Tests.Auth.Tokens.AccessToken.Generator
 
         public async Task DisposeAsync()
         {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             _mockConfig = null;
             _generator = null;
             _validator = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
             await Task.CompletedTask;
         }
     }

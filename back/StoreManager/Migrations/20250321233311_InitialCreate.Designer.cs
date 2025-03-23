@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250303003321_InitialCreate")]
+    [Migration("20250321233311_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace StoreManager.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.RefreshToken", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,6 +47,60 @@ namespace StoreManager.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ChunkNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SupaBasePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
+
+                    b.HasIndex("SupaBasePath")
+                        .IsUnique();
+
+                    b.ToTable("DocumentChunks", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("ChunkCount")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileName")
+                        .IsUnique();
+
+                    b.ToTable("Documents", "public");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.User.Model.UserModel", b =>
@@ -84,7 +138,7 @@ namespace StoreManager.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.RefreshToken", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.HasOne("StoreManager.Infrastructure.User.Model.UserModel", "User")
                         .WithMany()
@@ -93,6 +147,22 @@ namespace StoreManager.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
+                        .WithMany("Chunks")
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Document");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
+                {
+                    b.Navigation("Chunks");
                 });
 #pragma warning restore 612, 618
         }

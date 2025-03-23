@@ -6,6 +6,9 @@ using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.DB;
+using StoreManager.Infrastructure.Document.Repository;
+using StoreManager.Infrastructure.Document.Service;
+using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
@@ -27,11 +30,20 @@ namespace StoreManager.Infrastructure.AppSetup
 
             services.AddHostedService<RefreshTokenCleanupService>();
 
+            services.AddScoped<ICloudStorageService,SupabaseService>();
+
+            services.AddScoped<IDocumentRepository, DocumentRepository>();
+            services.AddScoped<IDocumentService, DocumentService>();
+
             services.AddSingleton<IRedisCacheService, RedisCacheService>();
+
             services.AddSingleton<IAccessTokenGenerator, AccessTokenGenerator>();
+
             services.AddSingleton<IRefreshTokenGenerator, RefreshTokenGenerator>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRespository>();
+
             services.AddScoped<IAuthService, AuthService>();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 

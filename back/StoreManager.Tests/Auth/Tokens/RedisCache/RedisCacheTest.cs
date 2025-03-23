@@ -7,8 +7,11 @@ namespace StoreManager.Tests.Auth.Tokens.ReishCahce
 {
     public sealed class RedisCacheTest : IAsyncLifetime
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         private Mock<IDatabase> _db;
         private RedisCacheService _redis;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
         private static readonly string REVOKED_JTI = "12345";
         private static readonly string JTI = "sdjaksl";
         private static readonly DateTime VALID_EXPIRY = DateTime.UtcNow.AddMinutes(-10);
@@ -78,8 +81,11 @@ namespace StoreManager.Tests.Auth.Tokens.ReishCahce
         }
         public async Task DisposeAsync()
         {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             _db = null;
             _redis = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
             await Task.CompletedTask;
         }
     }
