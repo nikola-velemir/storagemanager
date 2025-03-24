@@ -20,7 +20,7 @@ const DocumentModal = ({
   const downloadDoc = () => {
     setIsDownloading(true);
     setProgress(0);
-    DocumentService.DownloadFile(documentName, (percentage) => {
+    DocumentService.downloadFile(documentName, (percentage) => {
       setProgress(percentage);
     })
       .then((doc) => {

@@ -67,7 +67,7 @@ const DocumentUpload = () => {
       return;
     }
     setUploaded(UPLOADING_STATE.UPLOADING);
-    DocumentService.UploadDocumentInChunks(selectedFile, (progress) => {
+    DocumentService.uploadDocumentInChunks(selectedFile, (progress) => {
       setUploadProgress(progress);
       if (progress === 100) {
         setUploaded(UPLOADING_STATE.UPLOADED);

@@ -1,29 +1,14 @@
-import downloadApi from "../infrastructure/Interceptor/DownloadInterceptor";
 import api from "../infrastructure/Interceptor/Interceptor";
 import { AxiosResponse } from "axios";
 import { RequestDownloadResponse } from "../model/document/RequestDownloadResponse";
-import { ChunkDownloadResponse } from "../model/document/ChunkDownloadResponse";
 
 export class DocumentService {
-  private static getContentFile(response: AxiosResponse) {
-    let contentType: string = "application/octet-stream";
-    if (response.headers && response.headers["content-type"]) {
-      const type = response.headers["content-type"];
-
-      if (typeof type === "string") {
-        contentType = type;
-      } else if (Array.isArray(type)) {
-        contentType = type[0];
-      }
-    }
-    return contentType;
-  }
-  static async RequestDownload(fileName: string) {
+  static async requestDownload(fileName: string) {
     return api.get<RequestDownloadResponse>(
       `docs/request-download/${fileName}`
     );
   }
-  static async DownloadChunk(fileName: string, chunkIndex: number) {
+  static async downloadChunk(fileName: string, chunkIndex: number) {
     return api.get(`docs/download-chunk`, {
       params: {
         fileName: fileName,
@@ -48,26 +33,26 @@ export class DocumentService {
 
     return combined;
   }
-  static async DownloadFile(
+  static async downloadFile(
     fileName: string,
     onProgress: (progress: number) => void
   ) {
-    const response = await this.RequestDownload(fileName);
+    const response = await this.requestDownload(fileName);
     const totalChunks = response.data.totalChunks;
     const allChunks: Blob[] = [];
     for (let i = 0; i < totalChunks; ++i) {
-      const chunk = await this.DownloadChunk(fileName, i);
+      const chunk = await this.downloadChunk(fileName, i);
       allChunks.push(chunk.data);
       onProgress(Math.trunc(((i + 1) / totalChunks) * 100));
     }
     return new Blob(allChunks, { type: response.data.type });
   }
-  static async GetDocumentByName(name: string) {
+  static async getDocumentByName(name: string) {
     return api.get(`docs/download/${name}`, {
       responseType: "blob",
     });
   }
-  static async UploadDocument(file: File) {
+  static async uploadDocument(file: File) {
     const formData = new FormData();
     formData.append("file", file);
     return api.post("docs/upload", formData, {
@@ -87,7 +72,7 @@ export class DocumentService {
     }
     return chunks;
   }
-  static async UploadDocumentInChunks(
+  static async uploadDocumentInChunks(
     file: File,
     onProgress: (progress: number) => void
   ) {
@@ -102,7 +87,7 @@ export class DocumentService {
       formData.append("chunkIndex", "" + i);
       formData.append("totalChunks", "" + totalChunks);
       try {
-        const response = await api.post("/docs/upload-chunks", formData, {
+        await api.post("/docs/upload-chunks", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
