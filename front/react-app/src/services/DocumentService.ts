@@ -1,6 +1,6 @@
 import api from "../infrastructure/Interceptor/Interceptor";
 import { AxiosResponse } from "axios";
-import { RequestDownloadResponse } from "../model/document/RequestDownloadResponse";
+import { RequestDownloadResponse } from "../model/document/Response/RequestDownloadResponse";
 
 export class DocumentService {
   static async requestDownload(fileName: string) {
