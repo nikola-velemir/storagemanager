@@ -1,28 +1,11 @@
-import logo from "./logo.svg";
 import "./App.css";
-import {
-  Await,
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
 import Layout from "./components/structure/Layout/Layout";
-import LoginForm from "./components/login/LoginForm/LoginForm";
-import Dashboard from "./components/dashboard/Dashboard";
-import { useContext, useEffect } from "react";
-import ProtectedRoute from "./infrastructure/Routes/ProtectedRoute";
-import AuthUserContext from "./infrastructure/Auth/AuthContext";
-import { GameService } from "./services/GameService";
+import { useEffect } from "react";
 import api from "./infrastructure/Interceptor/Interceptor";
-import ContentContainer from "./components/structure/ContentContainer/ContentContainer";
 import {
   useAuthRedirect,
   useHailFailedRedirect,
 } from "./infrastructure/Routes/RedirectHook";
-import HailFailed from "./components/errors/HailFailed";
-import { AnimatePresence } from "framer-motion";
 import AnimatedRoutes from "./components/structure/AnimatedRoutes/AnimatedRoutes";
 const hailApp = async () => {
   try {
