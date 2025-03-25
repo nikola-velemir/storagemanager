@@ -1,6 +1,5 @@
 import api from "../infrastructure/Interceptor/Interceptor";
-import { AxiosResponse } from "axios";
-import { RequestDownloadResponse } from "../model/document/RequestDownloadResponse";
+import { RequestDownloadResponse } from "../model/document/Response/RequestDownloadResponse";
 
 export class DocumentService {
   static async requestDownload(fileName: string) {
@@ -18,21 +17,6 @@ export class DocumentService {
     });
   }
 
-  static concatenateByteArrays(byteArrays: Uint8Array[]): Uint8Array {
-    let totalLength = byteArrays.reduce(
-      (sum, byteArray) => sum + byteArray.length,
-      0
-    );
-    let combined = new Uint8Array(totalLength);
-    let offset = 0;
-
-    for (let byteArray of byteArrays) {
-      combined.set(byteArray, offset);
-      offset += byteArray.length;
-    }
-
-    return combined;
-  }
   static async downloadFile(
     fileName: string,
     onProgress: (progress: number) => void

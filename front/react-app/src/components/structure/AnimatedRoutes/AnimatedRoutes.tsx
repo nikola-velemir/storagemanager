@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "../../../infrastructure/Routes/ProtectedRoute";
 import Dashboard from "../../dashboard/Dashboard";
@@ -6,6 +5,7 @@ import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
+import InvoiceUpload from "../../InvoiceUpload/InvoiceUpload";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -19,6 +19,14 @@ const AnimatedRoutes = () => {
             element={
               <ContentContainer>
                 <Dashboard />
+              </ContentContainer>
+            }
+          ></Route>
+          <Route
+            path="/invoice-upload"
+            element={
+              <ContentContainer>
+                <InvoiceUpload />
               </ContentContainer>
             }
           ></Route>

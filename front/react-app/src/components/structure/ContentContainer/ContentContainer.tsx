@@ -21,6 +21,7 @@ const ContentContainer = ({ children }: ContentContainerProps) => {
         initial="initial"
         exit="exit"
         animate="animate"
+        className="bg-slate-800"
         style={{ flexGrow: 1 }}
       >
         {children}
