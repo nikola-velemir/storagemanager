@@ -4,22 +4,26 @@ using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
+using StoreManager.Infrastructure.Invoice.Model;
+using StoreManager.Infrastructure.Invoice.Repository;
 using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
 {
     public sealed class DocumentService : IDocumentService
     {
-        private readonly IDocumentRepository _repository;
+        private readonly IDocumentRepository _documentRepository;
         private readonly ICloudStorageService _supaService;
-        public DocumentService(IDocumentRepository repository, ICloudStorageService supabase)
+        private readonly IInvoiceRepository _invoiceRepository;
+        public DocumentService(IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository)
         {
-            _repository = repository;
+            _documentRepository = repository;
             _supaService = supabase;
+            _invoiceRepository = invoiceRepository;
         }
         public async Task<RequestDocumentDownloadResponseDTO> RequestDownload(string fileName)
         {
-            var file = await _repository.FindByName(fileName);
+            var file = await _documentRepository.FindByName(fileName);
             if (file == null)
             {
                 throw new FileNotFoundException("File not found");
@@ -29,7 +33,7 @@ namespace StoreManager.Infrastructure.Document.Service
 
         public async Task<DocumentDownloadResponseDTO> DownloadChunk(string fileName, int chunkIndex)
         {
-            var file = await _repository.FindByName(fileName)
+            var file = await _documentRepository.FindByName(fileName)
                 ?? throw new FileNotFoundException("File not found");
 
             var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == chunkIndex)
@@ -44,7 +48,7 @@ namespace StoreManager.Infrastructure.Document.Service
             "pdf" => "application/pdf",
             "jpg" => "image/jpeg",
             "png" => "image/png",
-            "txt"=>"text/plain",
+            "txt" => "text/plain",
             "vnd.ms-excel" => "application/vnd.ms-excel",
             "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             _ => "application/octet-stream"
@@ -55,12 +59,20 @@ namespace StoreManager.Infrastructure.Document.Service
             try
             {
                 var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
-                var foundFile = await _repository.FindByName(parsedFileName);
+                var foundFile = await _documentRepository.FindByName(parsedFileName);
                 if (foundFile == null)
                 {
-                    foundFile = await _repository.SaveFile(fileName);
+                    foundFile = await _documentRepository.SaveFile(fileName);
+                    await _invoiceRepository.Save(new InvoiceModel
+                    {
+                        DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
+                        Document = foundFile,
+                        DocumentId = foundFile.Id,
+                        Id = Guid.NewGuid()
+                    });
+
                 }
-                var savedChunk = await _repository.SaveChunk(file, fileName, chunkIndex);
+                var savedChunk = await _documentRepository.SaveChunk(file, fileName, chunkIndex);
                 await _supaService.UploadFileChunk(file, savedChunk);
             }
             catch (Exception)

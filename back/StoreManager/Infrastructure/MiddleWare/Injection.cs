@@ -9,6 +9,7 @@ using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
+using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
@@ -30,10 +31,12 @@ namespace StoreManager.Infrastructure.AppSetup
 
             services.AddHostedService<RefreshTokenCleanupService>();
 
-            services.AddScoped<ICloudStorageService,SupabaseService>();
+            services.AddScoped<ICloudStorageService, SupabaseService>();
 
             services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IDocumentService, DocumentService>();
+
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
             services.AddSingleton<IRedisCacheService, RedisCacheService>();
 

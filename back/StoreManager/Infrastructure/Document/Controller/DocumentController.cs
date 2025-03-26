@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
 
 namespace StoreManager.Infrastructure.Document.Controller
 {
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     [Route("api/docs")]
     public class DocumentController : ControllerBase
     {
@@ -13,7 +15,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             _service = service;
         }
-        
+
         [HttpPost("upload-chunks")]
         public async Task<ActionResult> UploadFileFromChunks([FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
         {
@@ -54,5 +56,6 @@ namespace StoreManager.Infrastructure.Document.Controller
                 return NotFound(new { message = ex.Message });
             }
         }
+
     }
 }

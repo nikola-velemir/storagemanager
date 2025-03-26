@@ -72,6 +72,27 @@ namespace StoreManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Invoices",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DateIssued = table.Column<DateOnly>(type: "date", nullable: false),
+                    DocumentId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Documents_DocumentId",
+                        column: x => x.DocumentId,
+                        principalSchema: "public",
+                        principalTable: "Documents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RefreshTokens",
                 schema: "public",
                 columns: table => new
@@ -114,6 +135,13 @@ namespace StoreManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Invoices_DocumentId",
+                schema: "public",
+                table: "Invoices",
+                column: "DocumentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 schema: "public",
                 table: "RefreshTokens",
@@ -132,6 +160,10 @@ namespace StoreManager.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DocumentChunks",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Invoices",
                 schema: "public");
 
             migrationBuilder.DropTable(

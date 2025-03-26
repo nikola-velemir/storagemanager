@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250321233311_InitialCreate")]
+    [Migration("20250326170818_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -103,6 +103,26 @@ namespace StoreManager.Migrations
                     b.ToTable("Documents", "public");
                 });
 
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("DateIssued")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId")
+                        .IsUnique();
+
+                    b.ToTable("Invoices", "public");
+                });
+
             modelBuilder.Entity("StoreManager.Infrastructure.User.Model.UserModel", b =>
                 {
                     b.Property<int>("Id")
@@ -154,6 +174,17 @@ namespace StoreManager.Migrations
                     b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
                         .WithMany("Chunks")
                         .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Document");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
+                        .WithOne()
+                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", "DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

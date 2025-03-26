@@ -1,0 +1,33 @@
+﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Infrastructure.DB;
+using StoreManager.Infrastructure.Invoice.Model;
+
+namespace StoreManager.Infrastructure.Invoice.Repository
+{
+    public sealed class InvoiceRepository : IInvoiceRepository
+    {
+        private readonly WarehouseDbContext _context;
+        private readonly DbSet<InvoiceModel> _invoices;
+        public InvoiceRepository(WarehouseDbContext context)
+        {
+            _context = context;
+            _invoices = context.Invoices;
+        }
+        public async Task<InvoiceModel> Save(InvoiceModel invoice)
+        {
+            var savedInstance = await _invoices.AddAsync(invoice);
+            await _context.SaveChangesAsync();
+            return savedInstance.Entity;
+        }
+        public async Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindAllByDate(DateOnly date, int pageNumber, int pageSize)
+        {
+            var query = _invoices.Where(i => i.DateIssued == date);
+            var totalCount = await query.CountAsync();
+            var items = await query.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+        }
+    }
+}
