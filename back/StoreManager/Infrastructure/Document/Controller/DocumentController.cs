@@ -6,7 +6,6 @@ using StoreManager.Infrastructure.Document.Service;
 namespace StoreManager.Infrastructure.Document.Controller
 {
     [ApiController]
-    [Authorize(Roles = "ADMIN")]
     [Route("api/docs")]
     public class DocumentController : ControllerBase
     {

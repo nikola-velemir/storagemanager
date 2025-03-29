@@ -39,7 +39,7 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
 
         }
        
-        public async Task<DocumentDownloadResponseDTO> DownloadChunk(DocumentChunkModel chunk)
+        public async Task<byte[]> DownloadChunk(DocumentChunkModel chunk)
         {
             var storage = _client.Storage.From(bucketName);
             var fileGuid = chunk.Id;
@@ -47,16 +47,8 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
             var pathName = Path.Combine("invoice", chunk.Document.Date.ToString("yyyy-MM-dd"), chunk.Document.Id.ToString(),chunk.Id.ToString());
 
             var file = await storage.Download(pathName, new TransformOptions { });
-            string transformedType = mimeType switch
-            {
-                "pdf" => "application/pdf",
-                "jpg" => "image/jpeg",
-                "png" => "image/png",
-                "vnd.ms-excel" => "application/vnd.ms-excel",
-                "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                _ => "application/octet-stream"
-            };
-            return new DocumentDownloadResponseDTO(file, transformedType);
+            
+            return file;
         }
     }
 }

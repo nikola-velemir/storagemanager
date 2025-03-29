@@ -32,6 +32,22 @@ namespace StoreManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MechanicalComponents",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Identifier = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MechanicalComponents", x => x.Id);
+                    table.UniqueConstraint("AK_MechanicalComponents_Identifier", x => x.Identifier);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "public",
                 columns: table => new
@@ -114,6 +130,34 @@ namespace StoreManager.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "InvoiceItems",
+                schema: "public",
+                columns: table => new
+                {
+                    InvoiceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ComponentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvoiceItems", x => new { x.InvoiceId, x.ComponentId });
+                    table.ForeignKey(
+                        name: "FK_InvoiceItems_Invoices_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalSchema: "public",
+                        principalTable: "Invoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InvoiceItems_MechanicalComponents_ComponentId",
+                        column: x => x.ComponentId,
+                        principalSchema: "public",
+                        principalTable: "MechanicalComponents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DocumentChunks_DocumentId",
                 schema: "public",
@@ -133,6 +177,12 @@ namespace StoreManager.Migrations
                 table: "Documents",
                 column: "FileName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InvoiceItems_ComponentId",
+                schema: "public",
+                table: "InvoiceItems",
+                column: "ComponentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_DocumentId",
@@ -163,7 +213,7 @@ namespace StoreManager.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Invoices",
+                name: "InvoiceItems",
                 schema: "public");
 
             migrationBuilder.DropTable(
@@ -171,11 +221,19 @@ namespace StoreManager.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Documents",
+                name: "Invoices",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "MechanicalComponents",
                 schema: "public");
 
             migrationBuilder.DropTable(
                 name: "Users",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Documents",
                 schema: "public");
         }
     }

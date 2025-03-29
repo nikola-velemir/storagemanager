@@ -8,5 +8,6 @@ namespace StoreManager.Infrastructure.Invoice.Model
         public required DocumentModel Document { get; set; }
         public required DateOnly DateIssued { get; set; }
         public required Guid DocumentId { get; set; }
+        public ICollection<InvoiceItemModel> Items { get; set; } = new List<InvoiceItemModel>();
     }
 }

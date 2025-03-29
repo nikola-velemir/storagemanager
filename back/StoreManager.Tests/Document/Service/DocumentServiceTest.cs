@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
@@ -22,7 +24,7 @@ namespace StoreManager.Tests.Document.Service
         private static readonly string VALID_FILE_NAME = "file";
 
         private static readonly string INVALID_FILE_NAME = "INVALID";
-        private static readonly string VALID_FILE_EXTENSION = "txt";
+        private static readonly string VALID_FILE_EXTENSION = "text/plain";
         private static readonly string VALID_FILE_CONTENT = "Hello World!";
         private static readonly Guid VALID_FILE_ID = Guid.NewGuid();
         private static readonly RequestDocumentDownloadResponseDTO VALID_DOWNLOAD_REQUEST_RESPONSE = new RequestDocumentDownloadResponseDTO(VALID_FILE_NAME, "text/plain", 1);
@@ -69,6 +71,9 @@ namespace StoreManager.Tests.Document.Service
         [Fact(DisplayName = "Request download - valid file name")]
         public async Task RequestDownload_ValidFileNameTest()
         {
+            var documentService = new Mock<DocumentService>(_documentRepository.Object, _supaService.Object, _invoiceRepository.Object, new Mock<IWebHostEnvironment>().Object);
+            documentService.Setup(service => service.LoadAndSaveFile(It.IsAny<string>())).Returns(Task.CompletedTask);
+            _service = documentService.Object;
             Exception exception = await Record.ExceptionAsync(async () =>
             {
                 var result = await _service.RequestDownload(VALID_FILE_NAME);
@@ -147,7 +152,7 @@ namespace StoreManager.Tests.Document.Service
         }
         private void MockSupabase()
         {
-            _supaService.Setup(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>())).ReturnsAsync(VALID_RESPONSE);
+            _supaService.Setup(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>())).ReturnsAsync(VALID_RESPONSE.bytes);
             _supaService.Setup(supa => supa.UploadFileChunk(VALID_FILE, VALID_CHUNK)).ReturnsAsync(string.Empty);
             //  _supaService.Setup(supa=>supa.)
         }
@@ -158,7 +163,6 @@ namespace StoreManager.Tests.Document.Service
 
             _documentRepository.Setup(repo => repo.SaveFile(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
             _documentRepository.Setup(repo => repo.SaveChunk(VALID_FILE, VALID_FILE_NAME, 0)).ReturnsAsync(VALID_CHUNK);
-
             _invoiceRepository.Setup(repo => repo.Save(VALID_INVOICE)).ReturnsAsync(VALID_INVOICE);
 
             return Task.CompletedTask;
@@ -170,7 +174,8 @@ namespace StoreManager.Tests.Document.Service
             _invoiceRepository = new Mock<IInvoiceRepository>();
             await MockRepository();
             MockSupabase();
-            _service = new DocumentService(_documentRepository.Object, _supaService.Object, _invoiceRepository.Object);
+
+            _service = new DocumentService(_documentRepository.Object, _supaService.Object, _invoiceRepository.Object, new Mock<IWebHostEnvironment>().Object);
         }
         public static IFormFile GenerateValidMockFile()
         {

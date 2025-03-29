@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Infrastructure.DB.Document;
+using StoreManager.Infrastructure.DB.Invoice;
+using StoreManager.Infrastructure.DB.MechanicalComponent;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Model;
+using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Infrastructure.DB
@@ -16,6 +20,8 @@ namespace StoreManager.Infrastructure.DB
         public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
         public DbSet<DocumentChunkModel> DocumentChunks { get; set; }
         public DbSet<InvoiceModel> Invoices { get; set; }
+        public DbSet<InvoiceItemModel> InvoiceItems { get; set; }
+        public DbSet<MechanicalComponentModel> MechanicalComponents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,6 +43,8 @@ namespace StoreManager.Infrastructure.DB
             modelBuilder.ApplyConfiguration(new DocumentModelConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentChunkModelConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceModelConfiguration());
+            modelBuilder.ApplyConfiguration(new InvoiceItemModelConfiguration());
+            modelBuilder.ApplyConfiguration(new MechanicalComponentModelConfiguration());
             modelBuilder.Entity<UserModel>().HasIndex(u => u.Username).IsUnique();
         }
     }

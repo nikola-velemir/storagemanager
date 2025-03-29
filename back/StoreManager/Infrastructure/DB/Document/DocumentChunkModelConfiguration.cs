@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.Document.Model;
 
-namespace StoreManager.Infrastructure.DB
+namespace StoreManager.Infrastructure.DB.Document
 {
     public class DocumentChunkModelConfiguration : IEntityTypeConfiguration<DocumentChunkModel>
     {
