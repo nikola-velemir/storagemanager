@@ -7,7 +7,9 @@ namespace StoreManager.Infrastructure.Document.Service
     {
         Task<RequestDocumentDownloadResponseDTO> RequestDownload(string fileName);
         Task<DocumentDownloadResponseDTO> DownloadChunk(string fileName, int chunkIndex);
-        Task UploadChunk(IFormFile file, string fileName, int chunkIndex, int totalChunks); public Task LoadAndSaveFile(string fileName);
+        Task AppendChunk(IFormFile file, DocumentModel foundFile);
+
+        Task UploadChunk(IFormFile file, string fileName, int chunkIndex, int totalChunks);
 
     }
 }

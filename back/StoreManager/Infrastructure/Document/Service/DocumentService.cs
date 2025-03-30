@@ -1,4 +1,5 @@
 ﻿using StoreManager.Infrastructure.Document.DTO;
+using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
@@ -28,31 +29,6 @@ namespace StoreManager.Infrastructure.Document.Service
                 throw new FileNotFoundException("File not found");
             }
             return new RequestDocumentDownloadResponseDTO(file.FileName, GetPresentationalMimeType(file.Type), file.Chunks.Count);
-        }
-        public virtual async Task LoadAndSaveFile(string fileName)
-        {
-            var file = await _documentRepository.FindByName(fileName);
-            if (file == null)
-            {
-                throw new FileNotFoundException("Not found!");
-            }
-            var sortedChunks = file.Chunks.OrderBy(r => r.ChunkNumber).ToList();
-            var allChunks = new List<byte[]>();
-            foreach (var chunk in sortedChunks)
-            {
-                var response = await DownloadChunk(fileName, chunk.ChunkNumber);
-                allChunks.Add(response.bytes);
-            }
-            var finalBytes = allChunks.SelectMany(b => b).ToArray();
-            var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice", $"{file.Id.ToString()}");
-            if (!Directory.Exists(webRootPath))
-            {
-                Directory.CreateDirectory(webRootPath);
-
-            }
-            var finalFilePath = Path.Combine(webRootPath, $"{file.Id.ToString()}.{GetRawMimeType(file.Type)}");
-            await File.WriteAllBytesAsync(finalFilePath, finalBytes);
-
         }
         public async Task<DocumentDownloadResponseDTO> DownloadChunk(string fileName, int chunkIndex)
         {
@@ -87,7 +63,33 @@ namespace StoreManager.Infrastructure.Document.Service
             "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             _ => "application/octet-stream"
         };
+        public virtual async Task AppendChunk(IFormFile file, DocumentModel foundFile)
+        {
+            var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+            if (!Directory.Exists(webRootPath))
+            {
+                Directory.CreateDirectory(webRootPath);
 
+            }
+
+            var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");  // Set the correct file extension
+
+            // For new files
+            if (!File.Exists(filePath))
+            {
+                using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                return;
+            }
+
+            // For appending to existing files
+            using (var fileStream = new FileStream(filePath, FileMode.Append, FileAccess.Write))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+        }
         public async Task UploadChunk(IFormFile file, string fileName, int chunkIndex, int totalChunks)
         {
             try
@@ -109,20 +111,21 @@ namespace StoreManager.Infrastructure.Document.Service
                 var savedChunk = await _documentRepository.SaveChunk(file, fileName, chunkIndex);
                 await _supaService.UploadFileChunk(file, savedChunk);
 
-                // var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice", $"{foundFile.Id.ToString()}");
-                // if (!Directory.Exists(webRootPath))
-                // {
-                //     Directory.CreateDirectory(webRootPath);
-                //     using (var fileStream = new FileStream(webRootPath, FileMode.Create, FileAccess.Write))
-                //     {
-                //         await file.CopyToAsync(fileStream);
-                //     }
-                //     return ;
-                // }
-                // using(var fileSteam = new FileStream(webRootPath, FileMode.Append, FileAccess.Write))
-                // {
-                //     await file.CopyToAsync(fileSteam);
-                // }
+                await AppendChunk(file, foundFile);
+
+                IDocumentReaderService documentReader;
+                //if (GetRawMimeType(foundFile.Type).Equals("xlsx"))
+                //{
+                documentReader = new ExcelService();
+                //}
+
+                var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+
+                var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");  // Set the correct file extension
+
+                var json = documentReader.ExtractDataFromDocument(filePath);
+
+                Console.WriteLine(json);
             }
             catch (Exception)
             {
