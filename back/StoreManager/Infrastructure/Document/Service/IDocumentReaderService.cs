@@ -1,7 +1,9 @@
-﻿namespace StoreManager.Infrastructure.Document.Service
+﻿using StoreManager.Infrastructure.Document.Model;
+
+namespace StoreManager.Infrastructure.Document.Service
 {
     public interface IDocumentReaderService
     {
-        public string ExtractDataFromDocument(string filePath);
+        public List<ExtractionMetadata> ExtractDataFromDocument(string filePath);
     }
 }

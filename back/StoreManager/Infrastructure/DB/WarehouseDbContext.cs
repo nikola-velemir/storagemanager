@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Infrastructure.DB.Auth;
 using StoreManager.Infrastructure.DB.Document;
 using StoreManager.Infrastructure.DB.Invoice;
 using StoreManager.Infrastructure.DB.MechanicalComponent;
+using StoreManager.Infrastructure.DB.Users;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
@@ -16,7 +18,6 @@ namespace StoreManager.Infrastructure.DB
         public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options) { }
         public DbSet<UserModel> Users { get; set; }
         public DbSet<DocumentModel> Documents { get; set; }
-
         public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
         public DbSet<DocumentChunkModel> DocumentChunks { get; set; }
         public DbSet<InvoiceModel> Invoices { get; set; }
@@ -40,12 +41,13 @@ namespace StoreManager.Infrastructure.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+            modelBuilder.ApplyConfiguration(new UserModelConfiguration());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentModelConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentChunkModelConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceModelConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceItemModelConfiguration());
             modelBuilder.ApplyConfiguration(new MechanicalComponentModelConfiguration());
-            modelBuilder.Entity<UserModel>().HasIndex(u => u.Username).IsUnique();
         }
     }
 }

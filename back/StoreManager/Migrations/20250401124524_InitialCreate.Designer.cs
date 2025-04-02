@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250326210248_InitialCreate")]
+    [Migration("20250401124524_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -37,12 +37,16 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("Token")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -111,6 +115,9 @@ namespace StoreManager.Migrations
                     b.Property<Guid>("ComponentId")
                         .HasColumnType("uuid");
 
+                    b.Property<double>("PricePerPiece")
+                        .HasColumnType("double precision");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
@@ -146,10 +153,6 @@ namespace StoreManager.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Identifier")
                         .IsRequired()

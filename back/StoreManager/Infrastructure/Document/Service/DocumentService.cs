@@ -1,9 +1,13 @@
-﻿using StoreManager.Infrastructure.Document.DTO;
+﻿using Newtonsoft.Json;
+using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
+using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Tests.Document.Service;
 using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
@@ -13,9 +17,11 @@ namespace StoreManager.Infrastructure.Document.Service
         private readonly IDocumentRepository _documentRepository;
         private readonly ICloudStorageService _supaService;
         private readonly IInvoiceRepository _invoiceRepository;
+        private readonly IInvoiceService _invoiceService;
         private readonly IWebHostEnvironment _env;
-        public DocumentService(IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env)
+        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env)
         {
+            _invoiceService = invoiceService;
             _documentRepository = repository;
             _supaService = supabase;
             _invoiceRepository = invoiceRepository;
@@ -114,18 +120,27 @@ namespace StoreManager.Infrastructure.Document.Service
                 await AppendChunk(file, foundFile);
 
                 IDocumentReaderService documentReader;
-                //if (GetRawMimeType(foundFile.Type).Equals("xlsx"))
-                //{
-                documentReader = new ExcelService();
-                //}
+                if (GetRawMimeType(foundFile.Type).Equals("xlsx"))
+                {
+                    documentReader = new ExcelService();
+                }
+                else if (GetRawMimeType(foundFile.Type).Equals("pdf"))
+                {
+                    documentReader = new PDFService();
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
 
                 var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
 
-                var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");  // Set the correct file extension
+                var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");
 
-                var json = documentReader.ExtractDataFromDocument(filePath);
+                var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                Console.WriteLine(json);
+                await _invoiceService.Create(foundFile.Id, metadata);
+
             }
             catch (Exception)
             {

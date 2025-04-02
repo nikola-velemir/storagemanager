@@ -19,6 +19,8 @@ namespace StoreManager.Infrastructure.User.Service
             {
                 throw new BadHttpRequestException("Invalid role");
             }
+            
+
             var createdUser = await _repository.Create(new UserModel(request.Username, request.Password, request.FirstName, request.LastName, role));
             var response = new UserCreateResponseDTO(createdUser.Username, createdUser.Password, createdUser.FirstName, createdUser.LastName, createdUser.Role.ToString());
             return response;

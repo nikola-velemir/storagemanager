@@ -29,5 +29,10 @@ namespace StoreManager.Infrastructure.Invoice.Repository
 
             return (items, totalCount);
         }
+
+        public Task<InvoiceModel?> FindByDocumentId(Guid documentId)
+        {
+            return _invoices.FirstOrDefaultAsync(i => i.DocumentId.Equals(documentId));
+        }
     }
 }

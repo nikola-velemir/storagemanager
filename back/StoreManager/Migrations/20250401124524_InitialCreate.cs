@@ -38,8 +38,7 @@ namespace StoreManager.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Identifier = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,7 +113,7 @@ namespace StoreManager.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Token = table.Column<string>(type: "text", nullable: false),
+                    Token = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     ExpiresOnUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -137,7 +136,8 @@ namespace StoreManager.Migrations
                 {
                     InvoiceId = table.Column<Guid>(type: "uuid", nullable: false),
                     ComponentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    PricePerPiece = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,6 +189,13 @@ namespace StoreManager.Migrations
                 schema: "public",
                 table: "Invoices",
                 column: "DocumentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_Token",
+                schema: "public",
+                table: "RefreshTokens",
+                column: "Token",
                 unique: true);
 
             migrationBuilder.CreateIndex(

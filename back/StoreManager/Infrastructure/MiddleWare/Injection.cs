@@ -10,6 +10,8 @@ using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Repository;
+using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
@@ -49,6 +51,10 @@ namespace StoreManager.Infrastructure.AppSetup
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IMechanicalComponentRepository, MechanicalComponentRepository>();
+            services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
 
             return services;
         }
