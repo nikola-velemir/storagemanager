@@ -4,7 +4,6 @@ using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
-using System.Threading.Tasks;
 
 namespace StoreManager.Tests.Invoice.Repository
 {

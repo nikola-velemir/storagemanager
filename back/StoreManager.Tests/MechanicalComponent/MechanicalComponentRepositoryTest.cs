@@ -1,11 +1,8 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
-using System.Threading.Tasks;
 
 namespace StoreManager.Tests.MechanicalComponent
 {
@@ -36,7 +33,7 @@ namespace StoreManager.Tests.MechanicalComponent
             foreach (var component in components)
             {
                 var matchingComponent = foundComponets.FirstOrDefault(c => c.Identifier == component.Identifier);
-                Assert.NotNull(matchingComponent); // Ensure component is found
+                Assert.NotNull(matchingComponent);
                 Assert.Equal(component.Identifier, matchingComponent.Identifier);
                 Assert.Equal(component.Name, matchingComponent.Name);
                 Assert.Equal(component.Id, matchingComponent.Id);
