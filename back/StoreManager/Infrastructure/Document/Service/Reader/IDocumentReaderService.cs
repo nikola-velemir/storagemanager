@@ -1,6 +1,6 @@
 ﻿using StoreManager.Infrastructure.Document.Model;
 
-namespace StoreManager.Infrastructure.Document.Service
+namespace StoreManager.Infrastructure.Document.Service.Reader
 {
     public interface IDocumentReaderService
     {

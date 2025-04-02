@@ -13,7 +13,7 @@ namespace StoreManager.Infrastructure.Invoice.Repository
             _context = context;
             _invoices = context.Invoices;
         }
-        public async Task<InvoiceModel> Save(InvoiceModel invoice)
+        public async Task<InvoiceModel> Create(InvoiceModel invoice)
         {
             var savedInstance = await _invoices.AddAsync(invoice);
             await _context.SaveChangesAsync();

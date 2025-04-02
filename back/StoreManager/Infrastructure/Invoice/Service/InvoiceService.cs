@@ -24,7 +24,7 @@ namespace StoreManager.Infrastructure.Invoice.Service
             var components = await _mechanicalComponentRepository.CreateFromExtractionMetadata(metadata);
             foreach (var data in metadata)
             {
-                var component = await _mechanicalComponentRepository.FindByIndentifier(data.Identifier);
+                var component = await _mechanicalComponentRepository.FindByIdentifier(data.Identifier);
                 if (component is null) { continue; }
                 await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }

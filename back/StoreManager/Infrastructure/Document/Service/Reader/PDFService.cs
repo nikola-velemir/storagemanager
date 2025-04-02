@@ -1,13 +1,12 @@
 ﻿using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Document.Service;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 
-namespace StoreManager.Tests.Document.Service
+namespace StoreManager.Infrastructure.Document.Service.Reader
 {
     public class PDFService : IDocumentReaderService
     {
-        public List<ExtractionMetadata> ExtractDataFromDocument(string filePath)
+        public virtual List<ExtractionMetadata> ExtractDataFromDocument(string filePath)
         {
             var tableData = new List<ExtractionMetadata>();
 
@@ -26,8 +25,8 @@ namespace StoreManager.Tests.Document.Service
 
                             var obj = new ExtractionMetadata(segments[0],
                                  string.Join(" ", segments, 1, segments.Length - 4),
-                                 Int32.Parse(segments[^3]),
-                                 Double.Parse(segments[^2].Replace('.', ',')));
+                                 int.Parse(segments[^3]),
+                                 double.Parse(segments[^2].Replace('.', ',')));
 
                             tableData.Add(obj);
                         }

@@ -8,6 +8,7 @@ using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
+using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
@@ -55,6 +56,10 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddScoped<IMechanicalComponentRepository, MechanicalComponentRepository>();
             services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
             services.AddScoped<IInvoiceService, InvoiceService>();
+
+            services.AddScoped<IDocumentReaderFactory, DocumentReaderFactory>();
+            services.AddScoped<PDFService>();
+            services.AddScoped<ExcelService>();
 
             return services;
         }

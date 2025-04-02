@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreManager.Tests.Document.Service
 {
-    class PdfService
+    class PdfServiceTest
     {
     }
 }

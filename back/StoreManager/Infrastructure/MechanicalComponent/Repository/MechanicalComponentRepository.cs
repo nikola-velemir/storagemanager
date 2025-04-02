@@ -26,7 +26,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
         {
             var component = new MechanicalComponentModel { Id = Guid.NewGuid(), Identifier = metadata.Identifier, Name = metadata.Name };
 
-            var foundComponent = await FindByIndentifier(metadata.Identifier);
+            var foundComponent = await FindByIdentifier(metadata.Identifier);
 
             if (foundComponent != null) { return foundComponent; }
 
@@ -46,7 +46,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
         }
 
 
-        public Task<MechanicalComponentModel?> FindByIndentifier(string identifier)
+        public Task<MechanicalComponentModel?> FindByIdentifier(string identifier)
         {
             return _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier));
         }

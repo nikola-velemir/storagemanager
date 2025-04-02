@@ -5,7 +5,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
 {
     public interface IMechanicalComponentRepository
     {
-        Task<MechanicalComponentModel?> FindByIndentifier(string identifier);
+        Task<MechanicalComponentModel?> FindByIdentifier(string identifier);
         Task<MechanicalComponentModel?> Create(MechanicalComponentModel component);
         Task<MechanicalComponentModel> CreateFromExtractionMetadata(ExtractionMetadata metadata);
         Task<List<MechanicalComponentModel>> CreateFromExtractionMetadata(List<ExtractionMetadata> metadata);

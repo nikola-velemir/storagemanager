@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using StoreManager.Infrastructure.Document.DTO;
+﻿using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
+using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
-using StoreManager.Infrastructure.MechanicalComponent.Repository;
-using StoreManager.Tests.Document.Service;
 using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
@@ -19,13 +17,15 @@ namespace StoreManager.Infrastructure.Document.Service
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly IInvoiceService _invoiceService;
         private readonly IWebHostEnvironment _env;
-        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env)
+        private readonly IDocumentReaderFactory _readerFactory;
+        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory)
         {
             _invoiceService = invoiceService;
             _documentRepository = repository;
             _supaService = supabase;
             _invoiceRepository = invoiceRepository;
             _env = env;
+            _readerFactory = readerFactory;
         }
         public async Task<RequestDocumentDownloadResponseDTO> RequestDownload(string fileName)
         {
@@ -105,7 +105,7 @@ namespace StoreManager.Infrastructure.Document.Service
                 if (foundFile == null)
                 {
                     foundFile = await _documentRepository.SaveFile(fileName);
-                    await _invoiceRepository.Save(new InvoiceModel
+                    await _invoiceRepository.Create(new InvoiceModel
                     {
                         DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
                         Document = foundFile,
@@ -119,19 +119,7 @@ namespace StoreManager.Infrastructure.Document.Service
 
                 await AppendChunk(file, foundFile);
 
-                IDocumentReaderService documentReader;
-                if (GetRawMimeType(foundFile.Type).Equals("xlsx"))
-                {
-                    documentReader = new ExcelService();
-                }
-                else if (GetRawMimeType(foundFile.Type).Equals("pdf"))
-                {
-                    documentReader = new PDFService();
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                var documentReader = _readerFactory.GetReader(GetRawMimeType(foundFile.Type));
 
                 var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
 
