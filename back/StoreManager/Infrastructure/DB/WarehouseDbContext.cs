@@ -4,10 +4,12 @@ using StoreManager.Infrastructure.DB.Auth;
 using StoreManager.Infrastructure.DB.Document;
 using StoreManager.Infrastructure.DB.Invoice;
 using StoreManager.Infrastructure.DB.MechanicalComponent;
+using StoreManager.Infrastructure.DB.Provider;
 using StoreManager.Infrastructure.DB.Users;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
+using StoreManager.Infrastructure.Provider.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Infrastructure.DB
@@ -23,7 +25,7 @@ namespace StoreManager.Infrastructure.DB
         public DbSet<InvoiceModel> Invoices { get; set; }
         public DbSet<InvoiceItemModel> InvoiceItems { get; set; }
         public DbSet<MechanicalComponentModel> MechanicalComponents { get; set; }
-
+        public DbSet<ProviderModel> Providers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -45,6 +47,7 @@ namespace StoreManager.Infrastructure.DB
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentModelConfiguration());
             modelBuilder.ApplyConfiguration(new DocumentChunkModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ProviderModelConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceModelConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceItemModelConfiguration());
             modelBuilder.ApplyConfiguration(new MechanicalComponentModelConfiguration());

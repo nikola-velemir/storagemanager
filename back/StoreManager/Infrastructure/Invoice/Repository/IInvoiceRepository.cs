@@ -8,5 +8,6 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         Task<InvoiceModel> Create(InvoiceModel invoice);
         Task<InvoiceModel?> FindByDocumentId(Guid documentId);
         Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindAllByDate(DateOnly date, int pageNumber, int pageSize);
+        Task<List<InvoiceModel>> FindAll();
     }
 }

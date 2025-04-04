@@ -13,6 +13,8 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.Provider.Repository;
+using StoreManager.Infrastructure.Provider.Service;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
@@ -60,6 +62,10 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddScoped<IDocumentReaderFactory, DocumentReaderFactory>();
             services.AddScoped<PDFService>();
             services.AddScoped<ExcelService>();
+
+            services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IProviderService, ProviderService>();
 
             return services;
         }

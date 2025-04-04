@@ -6,6 +6,7 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.Provider.Model;
 using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
@@ -18,6 +19,7 @@ namespace StoreManager.Infrastructure.Document.Service
         private readonly IInvoiceService _invoiceService;
         private readonly IWebHostEnvironment _env;
         private readonly IDocumentReaderFactory _readerFactory;
+        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
         public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory)
         {
             _invoiceService = invoiceService;
@@ -107,11 +109,14 @@ namespace StoreManager.Infrastructure.Document.Service
                     foundFile = await _documentRepository.SaveFile(fileName);
                     await _invoiceRepository.Create(new InvoiceModel
                     {
+                        Provider = provider,
+                        ProviderId = provider.Id,
                         DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
                         Document = foundFile,
                         DocumentId = foundFile.Id,
                         Id = Guid.NewGuid()
                     });
+
 
                 }
                 var savedChunk = await _documentRepository.SaveChunk(file, fileName, chunkIndex);

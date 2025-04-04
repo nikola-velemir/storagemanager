@@ -4,13 +4,25 @@ using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
+using StoreManager.Infrastructure.Provider.Model;
 
 namespace StoreManager.Tests.Invoice.Repository
 {
     public class InvoiceRepositoryTest : IAsyncLifetime
     {
+        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
+
         private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel { ChunkCount = 0, Chunks = new List<DocumentChunkModel>(), Type = "pdf", Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid() };
-        private static readonly InvoiceModel VALID_INVOICE = new InvoiceModel { DateIssued = DateOnly.FromDateTime(DateTime.UtcNow), Document = VALID_DOCUMENT, DocumentId = VALID_DOCUMENT.Id, Id = Guid.NewGuid(), Items = new List<InvoiceItemModel>() };
+        private static readonly InvoiceModel VALID_INVOICE = new InvoiceModel
+        {
+            Provider = provider,
+            ProviderId = provider.Id,
+            DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
+            Document = VALID_DOCUMENT,
+            DocumentId = VALID_DOCUMENT.Id,
+            Id = Guid.NewGuid(),
+            Items = new List<InvoiceItemModel>()
+        };
         private InvoiceRepository _repository;
         private WarehouseDbContext _context;
 

@@ -1,8 +1,9 @@
 import { s } from "framer-motion/dist/types.d-6pKw1mTI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DocumentService } from "../../services/DocumentService";
 import { resolve } from "path";
 import { progress } from "framer-motion";
+import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
 
 enum UPLOADING_STATE {
   UPLOADING,
@@ -11,8 +12,17 @@ enum UPLOADING_STATE {
   NOT_UPLOADING,
 }
 
-const DocumentUpload = () => {
+interface DocumentUploadProps {
+  provider: ProviderGetResponse | null;
+}
+
+const DocumentUpload = ({ provider }: DocumentUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadingProvider, setUploadingProvider] =
+    useState<ProviderGetResponse | null>(null);
+  useEffect(() => {
+    setUploadingProvider(provider);
+  }, [provider]);
   const [uploaded, setUploaded] = useState(UPLOADING_STATE.NOT_UPLOADING);
   const [uploadProgress, setUploadProgress] = useState(0.0);
   const renderUploadSection = () => {
@@ -24,6 +34,7 @@ const DocumentUpload = () => {
           className="py-2.5 text-lg px-5 w-full font-medium text-slate-200 focus:outline-none bg-gray-700 focus:z-10"
         >
           Upload
+          {uploadingProvider?.name}
         </button>
       );
     }

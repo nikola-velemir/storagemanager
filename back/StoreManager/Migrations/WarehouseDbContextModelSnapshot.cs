@@ -137,10 +137,15 @@ namespace StoreManager.Migrations
                     b.Property<Guid>("DocumentId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("ProviderId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentId")
                         .IsUnique();
+
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Invoices", "public");
                 });
@@ -164,6 +169,29 @@ namespace StoreManager.Migrations
                     b.HasAlternateKey("Identifier");
 
                     b.ToTable("MechanicalComponents", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Provider.Model.ProviderModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Providers", "public");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.User.Model.UserModel", b =>
@@ -250,7 +278,15 @@ namespace StoreManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StoreManager.Infrastructure.Provider.Model.ProviderModel", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Document");
+
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>

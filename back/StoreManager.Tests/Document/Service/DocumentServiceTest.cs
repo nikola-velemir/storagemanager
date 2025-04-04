@@ -11,6 +11,7 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.Provider.Model;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace StoreManager.Tests.Document.Service
 {
     public sealed class DocumentServiceTest : IAsyncLifetime
     {
+        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
+
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<ICloudStorageService> _supaService;
         private Mock<IInvoiceRepository> _invoiceRepository;
@@ -55,6 +58,8 @@ namespace StoreManager.Tests.Document.Service
         };
         private static readonly InvoiceModel VALID_INVOICE = new InvoiceModel
         {
+            ProviderId = provider.Id,
+            Provider = provider,
             DateIssued = VALID_DOCUMENT.Date,
             Document = VALID_DOCUMENT,
             DocumentId = VALID_DOCUMENT.Id,

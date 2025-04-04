@@ -19,6 +19,12 @@ namespace StoreManager.Infrastructure.Invoice.Repository
             await _context.SaveChangesAsync();
             return savedInstance.Entity;
         }
+
+        public Task<List<InvoiceModel>> FindAll()
+        {
+            return _invoices.ToListAsync();
+        }
+
         public async Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindAllByDate(DateOnly date, int pageNumber, int pageSize)
         {
             var query = _invoices.Where(i => i.DateIssued == date);

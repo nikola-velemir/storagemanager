@@ -1,4 +1,5 @@
 ﻿using StoreManager.Infrastructure.Document.Model;
+using StoreManager.Infrastructure.Invoice.DTO;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
@@ -28,6 +29,14 @@ namespace StoreManager.Infrastructure.Invoice.Service
                 if (component is null) { continue; }
                 await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
+        }
+
+        public async Task<InvoiceSearchResponsesDTO> FindAll()
+        {
+
+            var invoices = await _invoiceRepository.FindAll();
+            var responses = invoices.Select(invoice => new InvoiceSearchResponseDTO(invoice.Id, invoice.DateIssued)).ToList();
+            return new InvoiceSearchResponsesDTO(responses);
         }
     }
 }
