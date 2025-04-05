@@ -6,6 +6,7 @@ import LoginForm from "../../login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
 import InvoiceUpload from "../../InvoiceUpload/InvoiceUpload";
+import InvoiceSearch from "../../InvoiceSearch/InvoiceSearch";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -19,6 +20,14 @@ const AnimatedRoutes = () => {
             element={
               <ContentContainer>
                 <Dashboard />
+              </ContentContainer>
+            }
+          ></Route>
+          <Route
+            path="/invoice-search"
+            element={
+              <ContentContainer>
+                <InvoiceSearch></InvoiceSearch>
               </ContentContainer>
             }
           ></Route>

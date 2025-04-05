@@ -8,5 +8,6 @@ namespace StoreManager.Infrastructure.Document.Repository
         Task<DocumentModel> SaveFile(string fileName);
 
         Task<DocumentChunkModel> SaveChunk(IFormFile file, string fileName, int chunkIndex);
+
     }
 }

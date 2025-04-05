@@ -1,12 +1,12 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
+
 using StoreManager.Infrastructure.Document.Model;
 using System.Text.RegularExpressions;
-
 namespace StoreManager.Infrastructure.Document.Repository
 {
-    public sealed class DocumentRepository : IDocumentRepository
+    public class DocumentRepository : IDocumentRepository
     {
         private WarehouseDbContext _context;
         private DbSet<DocumentModel> _files;
@@ -22,7 +22,6 @@ namespace StoreManager.Infrastructure.Document.Repository
         {
             return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
-
         public async Task<DocumentChunkModel> SaveChunk(IFormFile? file, string fileName, int chunkIndex)
         {
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
@@ -35,7 +34,6 @@ namespace StoreManager.Infrastructure.Document.Repository
             {
                 throw new EntryPointNotFoundException("Invalid file");
             }
-
             var chunk = new DocumentChunkModel
             {
                 ChunkNumber = chunkIndex,
@@ -45,6 +43,7 @@ namespace StoreManager.Infrastructure.Document.Repository
                 Document = foundDoc
             };
             var savedChunk = await _chunks.AddAsync(chunk);
+
             await _context.SaveChangesAsync();
             return savedChunk.Entity;
         }
@@ -54,9 +53,7 @@ namespace StoreManager.Infrastructure.Document.Repository
             var fileGuid = Guid.NewGuid();
             var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
 
-            //  var fileName = Path.GetFileNameWithoutExtension($"{fileGuid}_{Path.GetFileName(parsedFileName)}");
             var mimeType = MimeMapping.MimeUtility.GetMimeMapping(fileName).Split('/').Last();
-
 
             var fileRecord = new DocumentModel
             {

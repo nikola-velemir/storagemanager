@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
@@ -98,12 +100,12 @@ namespace StoreManager.Tests.Document.Repository
         public async Task SaveChunk_ValidTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
-            {
-                var result = await _repository.SaveChunk(GenerateValidMockFile(), $"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
-                Assert.Equal(VALID_DOCUMENT, result.Document);
-                Assert.Equal(VALID_FILE_ID, result.DocumentId);
-                Assert.Equal(0, result.ChunkNumber);
-            });
+          {
+              var result = await _repository.SaveChunk(GenerateValidMockFile(), $"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
+              Assert.Equal(VALID_DOCUMENT, result.Document);
+              Assert.Equal(VALID_FILE_ID, result.DocumentId);
+              Assert.Equal(0, result.ChunkNumber);
+          });
             Assert.Null(exception);
 
 

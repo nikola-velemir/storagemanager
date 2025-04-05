@@ -85,7 +85,6 @@ const Dashboard = () => {
         isOpen={isDocumentModalOpen}
         toggleOpen={toggleDocumentModal}
       />
-      <DocumentUpload />
     </div>
   );
 };

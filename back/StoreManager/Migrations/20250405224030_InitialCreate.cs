@@ -32,6 +32,36 @@ namespace StoreManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MechanicalComponents",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Identifier = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MechanicalComponents", x => x.Id);
+                    table.UniqueConstraint("AK_MechanicalComponents_Identifier", x => x.Identifier);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Providers",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Adress = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Providers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "public",
                 columns: table => new
@@ -72,12 +102,41 @@ namespace StoreManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Invoices",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DateIssued = table.Column<DateOnly>(type: "date", nullable: false),
+                    DocumentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProviderId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Documents_DocumentId",
+                        column: x => x.DocumentId,
+                        principalSchema: "public",
+                        principalTable: "Documents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Providers_ProviderId",
+                        column: x => x.ProviderId,
+                        principalSchema: "public",
+                        principalTable: "Providers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RefreshTokens",
                 schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Token = table.Column<string>(type: "text", nullable: false),
+                    Token = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     ExpiresOnUtc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -89,6 +148,35 @@ namespace StoreManager.Migrations
                         column: x => x.UserId,
                         principalSchema: "public",
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvoiceItems",
+                schema: "public",
+                columns: table => new
+                {
+                    InvoiceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ComponentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    PricePerPiece = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvoiceItems", x => new { x.InvoiceId, x.ComponentId });
+                    table.ForeignKey(
+                        name: "FK_InvoiceItems_Invoices_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalSchema: "public",
+                        principalTable: "Invoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InvoiceItems_MechanicalComponents_ComponentId",
+                        column: x => x.ComponentId,
+                        principalSchema: "public",
+                        principalTable: "MechanicalComponents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -114,6 +202,32 @@ namespace StoreManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_InvoiceItems_ComponentId",
+                schema: "public",
+                table: "InvoiceItems",
+                column: "ComponentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoices_DocumentId",
+                schema: "public",
+                table: "Invoices",
+                column: "DocumentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoices_ProviderId",
+                schema: "public",
+                table: "Invoices",
+                column: "ProviderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_Token",
+                schema: "public",
+                table: "RefreshTokens",
+                column: "Token",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 schema: "public",
                 table: "RefreshTokens",
@@ -135,7 +249,23 @@ namespace StoreManager.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
+                name: "InvoiceItems",
+                schema: "public");
+
+            migrationBuilder.DropTable(
                 name: "RefreshTokens",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Invoices",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "MechanicalComponents",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Users",
                 schema: "public");
 
             migrationBuilder.DropTable(
@@ -143,7 +273,7 @@ namespace StoreManager.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Users",
+                name: "Providers",
                 schema: "public");
         }
     }

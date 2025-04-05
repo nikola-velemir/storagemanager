@@ -8,7 +8,13 @@ using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
+using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
+using StoreManager.Infrastructure.Invoice.Repository;
+using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.Provider.Repository;
+using StoreManager.Infrastructure.Provider.Service;
 using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
@@ -30,10 +36,12 @@ namespace StoreManager.Infrastructure.AppSetup
 
             services.AddHostedService<RefreshTokenCleanupService>();
 
-            services.AddScoped<ICloudStorageService,SupabaseService>();
+            services.AddScoped<ICloudStorageService, SupabaseService>();
 
             services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IDocumentService, DocumentService>();
+
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
             services.AddSingleton<IRedisCacheService, RedisCacheService>();
 
@@ -46,6 +54,18 @@ namespace StoreManager.Infrastructure.AppSetup
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IMechanicalComponentRepository, MechanicalComponentRepository>();
+            services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+
+            services.AddScoped<IDocumentReaderFactory, DocumentReaderFactory>();
+            services.AddScoped<PDFService>();
+            services.AddScoped<ExcelService>();
+
+            services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IProviderService, ProviderService>();
 
             return services;
         }

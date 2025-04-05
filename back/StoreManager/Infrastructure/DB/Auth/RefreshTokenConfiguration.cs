@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
 
-namespace StoreManager.Infrastructure.DB
+namespace StoreManager.Infrastructure.DB.Auth
 {
     internal sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshTokenModel>
     {
