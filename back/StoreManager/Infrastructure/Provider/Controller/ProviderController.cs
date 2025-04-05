@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Service;
 
 namespace StoreManager.Infrastructure.Provider.Controller
 {
     [ApiController]
+    [Authorize]
     [Route("api/providers")]
     public class ProviderController : ControllerBase
     {

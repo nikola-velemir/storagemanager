@@ -1,5 +1,5 @@
 ﻿namespace StoreManager.Infrastructure.Invoice.DTO
 {
-    public record class InvoiceSearchResponseDTO(Guid id, DateOnly date);
+    public sealed record class InvoiceSearchResponseDTO(Guid id, DateOnly date, InvoiceSearchProviderDTO provider, List<InvoiceSearchComponentDTO> components);
 
 }

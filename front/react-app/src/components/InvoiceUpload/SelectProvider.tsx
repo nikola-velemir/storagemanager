@@ -41,9 +41,10 @@ const SelectProvider = ({ emitProvider }: SelectProviderProps) => {
       <select
         onChange={handleProviderSelect}
         id="countries"
+        defaultValue={"Choose a provider"}
         className="bg-gray-50 border text-base border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
-        <option selected>Choose a provider</option>
+        <option>Choose a provider</option>
         {providers.map((provider) => {
           return (
             <option key={provider.id} value={provider.id}>

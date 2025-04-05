@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import DocumentUpload, { UPLOADING_STATE } from "../documents/DocumentUpload";
 import SelectProvider from "./SelectProvider";
 import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
 import CreateProviderForm, {
   CreateProviderFormRef,
 } from "./CreateProviderForm";
-import { ProviderService } from "../../services/ProviderService";
 import { DocumentService } from "../../services/DocumentService";
-import { ProviderCreateRequest } from "../../model/provider/ProviderCreateRequest";
 
 enum ProviderState {
   SELECTION,

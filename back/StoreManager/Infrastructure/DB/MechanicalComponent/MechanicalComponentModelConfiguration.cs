@@ -9,6 +9,7 @@ namespace StoreManager.Infrastructure.DB.MechanicalComponent
         {
             builder.HasKey(mc => mc.Id);
             builder.HasAlternateKey(mc => mc.Identifier);
+            builder.HasMany(mc => mc.Items).WithOne(i => i.Component);
         }
     }
 }

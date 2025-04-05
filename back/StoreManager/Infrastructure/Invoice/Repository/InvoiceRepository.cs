@@ -20,9 +20,12 @@ namespace StoreManager.Infrastructure.Invoice.Repository
             return savedInstance.Entity;
         }
 
-        public Task<List<InvoiceModel>> FindAll()
+        public async Task<List<InvoiceModel>> FindAll()
         {
-            return _invoices.ToListAsync();
+            return await _invoices
+                .Include(invoice=>invoice.Provider)
+                .Include(invoice=>invoice.Items)
+                .ThenInclude(item=>item.Component).ToListAsync();
         }
 
         public async Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindAllByDate(DateOnly date, int pageNumber, int pageSize)

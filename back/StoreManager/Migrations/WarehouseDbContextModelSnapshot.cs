@@ -254,7 +254,7 @@ namespace StoreManager.Migrations
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceItemModel", b =>
                 {
                     b.HasOne("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", "Component")
-                        .WithMany()
+                        .WithMany("Items")
                         .HasForeignKey("ComponentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -295,6 +295,11 @@ namespace StoreManager.Migrations
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", b =>
                 {
                     b.Navigation("Items");
                 });

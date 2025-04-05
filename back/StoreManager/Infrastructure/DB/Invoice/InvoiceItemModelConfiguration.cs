@@ -10,7 +10,7 @@ namespace StoreManager.Infrastructure.DB.Invoice
         {
             builder.HasKey(ii => new { ii.InvoiceId, ii.ComponentId });
             builder.HasOne(ii => ii.Invoice).WithMany(i => i.Items).HasForeignKey(ii => ii.InvoiceId);
-            builder.HasOne(ii => ii.Component).WithMany().HasForeignKey(ii => ii.ComponentId);
+            builder.HasOne(ii => ii.Component).WithMany(mc=>mc.Items).HasForeignKey(ii => ii.ComponentId);
         }
     }
 }

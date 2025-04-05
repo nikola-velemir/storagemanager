@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Invoice.Service;
 
 namespace StoreManager.Infrastructure.Invoice.Controller
 {
     [ApiController]
-    [Route("api/invoice")]
+    [Authorize]
+    [Route("api/invoices")]
     public class InvoiceController : ControllerBase
     {
         private readonly IInvoiceService _service;

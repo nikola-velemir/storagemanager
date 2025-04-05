@@ -35,7 +35,18 @@ namespace StoreManager.Infrastructure.Invoice.Service
         {
 
             var invoices = await _invoiceRepository.FindAll();
-            var responses = invoices.Select(invoice => new InvoiceSearchResponseDTO(invoice.Id, invoice.DateIssued)).ToList();
+            var responses = invoices.Select(invoice =>
+            new InvoiceSearchResponseDTO(
+                invoice.Id,
+                invoice.DateIssued,
+                new InvoiceSearchProviderDTO(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
+                invoice.Items.Select(
+                    item => new InvoiceSearchComponentDTO(
+                        item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
+                        )
+                    ).ToList()
+                )
+            ).ToList();
             return new InvoiceSearchResponsesDTO(responses);
         }
     }
