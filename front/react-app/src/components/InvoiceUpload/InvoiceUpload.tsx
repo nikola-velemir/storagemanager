@@ -1,18 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import DocumentUpload from "../documents/DocumentUpload";
+import DocumentUpload, { UPLOADING_STATE } from "../documents/DocumentUpload";
 import SelectProvider from "./SelectProvider";
 import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
 import CreateProviderForm, {
   CreateProviderFormRef,
 } from "./CreateProviderForm";
 import { ProviderService } from "../../services/ProviderService";
+import { DocumentService } from "../../services/DocumentService";
+import { ProviderCreateRequest } from "../../model/provider/ProviderCreateRequest";
 
 enum ProviderState {
   SELECTION,
   CREATION,
 }
 
-interface InvoiceUploadFormData {
+export interface InvoiceUploadFormData {
+  providerId: string | null;
   providerName: string | null;
   providerAddress: string | null;
   providerPhoneNumber: string | null;
@@ -20,13 +23,42 @@ interface InvoiceUploadFormData {
 
 const InvoiceUpload = () => {
   const formRef = useRef<CreateProviderFormRef>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null | undefined>(
+    null
+  );
+  const [uploaded, setUploaded] = useState(UPLOADING_STATE.NOT_UPLOADING);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const handleFileChange = (file: File) => {
+    setSelectedFile(file);
+    setUploaded(UPLOADING_STATE.NOT_UPLOADING);
+  };
+  const uploadFile = () => {
+    console.log(formData);
+    if (!selectedFile) {
+      return;
+    }
+    setUploaded(UPLOADING_STATE.UPLOADING);
+    DocumentService.uploadDocumentInChunks(
+      formData,
+      selectedFile,
+      (progress) => {
+        setUploadProgress(progress);
+        if (progress === 100) {
+          setUploaded(UPLOADING_STATE.UPLOADED);
+        }
+      }
+    )
+      .then(() => {})
+      .catch(() => {
+        setUploadProgress(0.0);
+      });
+  };
   const [providerState, setProviderState] = useState(ProviderState.SELECTION);
-  const [uploadingProvider, setUploadingProvider] =
-    useState<ProviderGetResponse | null>(null);
   const [selectedProvider, setSelectedProvider] = useState<
     ProviderGetResponse | null | undefined
   >(null);
   const [formData, setFormData] = useState<InvoiceUploadFormData>({
+    providerId: null,
     providerAddress: null,
     providerName: null,
     providerPhoneNumber: null,
@@ -46,6 +78,7 @@ const InvoiceUpload = () => {
     phone: string;
   }) => {
     setFormData({
+      providerId: null,
       providerAddress: provider.address,
       providerName: provider.name,
       providerPhoneNumber: provider.phone,
@@ -54,7 +87,12 @@ const InvoiceUpload = () => {
   const validateProvider = () => {
     if (providerState === ProviderState.SELECTION) {
       if (selectedProvider !== null && selectedProvider !== undefined) {
-        setUploadingProvider(selectedProvider);
+        setFormData({
+          providerId: selectedProvider.id,
+          providerAddress: null,
+          providerName: null,
+          providerPhoneNumber: null,
+        });
         changeStep();
       }
     } else {
@@ -65,14 +103,8 @@ const InvoiceUpload = () => {
           formData.providerName &&
           formData.providerPhoneNumber
         )
-          ProviderService.Create({
-            address: formData.providerAddress,
-            name: formData.providerName,
-            phoneNumber: formData.providerPhoneNumber,
-          }).then((resolve) => {
-            formRef.current?.triggerLock();
-            setUploadingProvider(resolve.data);
-          });
+          formRef.current?.triggerLock();
+
         changeStep();
       }
     }
@@ -166,19 +198,35 @@ const InvoiceUpload = () => {
           step === 2 ? "" : "hidden"
         } h-64 w-full flex justify-center`}
       >
-        <DocumentUpload provider={uploadingProvider}></DocumentUpload>
+        <DocumentUpload
+          onFileChange={handleFileChange}
+          onUpload={uploadFile}
+          selectedFile={selectedFile}
+          uploadProgress={uploadProgress}
+          uploaded={uploaded}
+        ></DocumentUpload>
       </div>
-      <div className={`w-full flex justify-end`}>
-        {step === 1 && (
-          <button
-            onClick={validateProvider}
-            type="button"
-            className="text-white font-medium text-base bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            {step === 1 ? "Next" : "Finish"}
-          </button>
-        )}
-      </div>
+      {uploaded !== UPLOADING_STATE.UPLOADED && (
+        <div className={`w-full flex justify-end`}>
+          {step === 1 ? (
+            <button
+              onClick={validateProvider}
+              type="button"
+              className="text-white font-medium text-base bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              onClick={uploadFile}
+              type="button"
+              className="text-white font-medium text-base bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Finish
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

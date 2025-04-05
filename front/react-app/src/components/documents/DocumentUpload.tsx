@@ -1,11 +1,8 @@
-import { s } from "framer-motion/dist/types.d-6pKw1mTI";
 import { useEffect, useState } from "react";
 import { DocumentService } from "../../services/DocumentService";
-import { resolve } from "path";
-import { progress } from "framer-motion";
 import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
 
-enum UPLOADING_STATE {
+export enum UPLOADING_STATE {
   UPLOADING,
   UPLOADED,
   FAILED,
@@ -13,18 +10,24 @@ enum UPLOADING_STATE {
 }
 
 interface DocumentUploadProps {
-  provider: ProviderGetResponse | null;
+  selectedFile: File | undefined | null;
+  uploadProgress: number;
+  uploaded: UPLOADING_STATE;
+  onFileChange: (file: File) => void;
+  onUpload: () => void;
 }
 
-const DocumentUpload = ({ provider }: DocumentUploadProps) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploadingProvider, setUploadingProvider] =
-    useState<ProviderGetResponse | null>(null);
-  useEffect(() => {
-    setUploadingProvider(provider);
-  }, [provider]);
-  const [uploaded, setUploaded] = useState(UPLOADING_STATE.NOT_UPLOADING);
-  const [uploadProgress, setUploadProgress] = useState(0.0);
+const DocumentUpload = ({
+  selectedFile,
+  uploadProgress,
+  uploaded,
+  onFileChange,
+  onUpload,
+}: DocumentUploadProps) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) onFileChange(file);
+  };
   const renderUploadSection = () => {
     if (!selectedFile) {
       return (
@@ -34,7 +37,6 @@ const DocumentUpload = ({ provider }: DocumentUploadProps) => {
           className="py-2.5 text-lg px-5 w-full font-medium text-slate-200 focus:outline-none bg-gray-700 focus:z-10"
         >
           Upload
-          {uploadingProvider?.name}
         </button>
       );
     }
@@ -55,7 +57,7 @@ const DocumentUpload = ({ provider }: DocumentUploadProps) => {
       return (
         <button
           type="button"
-          onClick={uploadFile}
+          onClick={onUpload}
           className="w-full text-lg text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium px-5 py-2.5 text-center"
         >
           Upload
@@ -73,28 +75,7 @@ const DocumentUpload = ({ provider }: DocumentUploadProps) => {
       </button>
     );
   };
-  const uploadFile = () => {
-    if (!selectedFile) {
-      return;
-    }
-    setUploaded(UPLOADING_STATE.UPLOADING);
-    DocumentService.uploadDocumentInChunks(selectedFile, (progress) => {
-      setUploadProgress(progress);
-      if (progress === 100) {
-        setUploaded(UPLOADING_STATE.UPLOADED);
-      }
-    })
-      .then(() => {})
-      .catch(() => {
-        setUploadProgress(0.0);
-      });
-  };
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
+
   return (
     <div className="flex w-2/3 overflow-hidden flex-col items-center justify-center border-2 border-gray-300 rounded-xl">
       <label

@@ -7,7 +7,4 @@ export class ProviderService {
   public static async FindAll() {
     return api.get<ProviderGetResponses>("/providers");
   }
-  public static async Create(request: ProviderCreateRequest) {
-    return api.post<ProviderGetResponse>("/providers", request);
-  }
 }
