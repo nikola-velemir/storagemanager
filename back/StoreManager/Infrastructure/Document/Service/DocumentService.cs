@@ -1,4 +1,5 @@
-﻿using StoreManager.Infrastructure.Document.DTO;
+﻿using Newtonsoft.Json;
+using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service.Reader;
@@ -6,7 +7,10 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Model;
+using StoreManager.Infrastructure.Provider.Repository;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
@@ -18,9 +22,10 @@ namespace StoreManager.Infrastructure.Document.Service
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly IInvoiceService _invoiceService;
         private readonly IWebHostEnvironment _env;
+        private readonly IProviderRepository _providerRepository;
         private readonly IDocumentReaderFactory _readerFactory;
         private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
-        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory)
+        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory, IProviderRepository providerRepository)
         {
             _invoiceService = invoiceService;
             _documentRepository = repository;
@@ -28,6 +33,7 @@ namespace StoreManager.Infrastructure.Document.Service
             _invoiceRepository = invoiceRepository;
             _env = env;
             _readerFactory = readerFactory;
+            _providerRepository = providerRepository;
         }
         public async Task<RequestDocumentDownloadResponseDTO> RequestDownload(string fileName)
         {
@@ -98,10 +104,32 @@ namespace StoreManager.Infrastructure.Document.Service
                 await file.CopyToAsync(fileStream);
             }
         }
-        public async Task UploadChunk(IFormFile file, string fileName, int chunkIndex, int totalChunks)
+        public async Task UploadChunk(string providerFormData, IFormFile file, string fileName, int chunkIndex, int totalChunks)
         {
             try
             {
+                var parsedProvider = JsonConvert.DeserializeObject<ProviderFormDataRequestDTO>(providerFormData);
+                if (parsedProvider is null)
+                {
+                    throw new ArgumentNullException("provider is null");
+                }
+                ProviderModel? provider;
+                if (!string.IsNullOrEmpty(parsedProvider.providerId))
+                {
+                    provider = await _providerRepository.FindById(Guid.Parse(parsedProvider.providerId));
+                    if (provider is null) throw new ArgumentNullException("provider is null");
+
+                }
+                else
+                {
+                    provider = await _providerRepository.Create(new ProviderModel
+                    {
+                        Adress = parsedProvider.providerAddress,
+                        Id = Guid.NewGuid(),
+                        Name = parsedProvider.providerName,
+                        PhoneNumber = parsedProvider.providerPhoneNumber
+                    });
+                }
                 var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
                 var foundFile = await _documentRepository.FindByName(parsedFileName);
                 if (foundFile == null)

@@ -16,11 +16,11 @@ namespace StoreManager.Infrastructure.Document.Controller
         }
 
         [HttpPost("upload-chunks")]
-        public async Task<ActionResult> UploadFileFromChunks([FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
+        public async Task<ActionResult> UploadFileFromChunks([FromForm] string provider, [FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
         {
             try
             {
-                await _service.UploadChunk(file, fileName, chunkIndex, totalChunks);
+                await _service.UploadChunk(provider, file, fileName, chunkIndex, totalChunks);
                 return Ok(new { Message = "File uploaded successfully" });
 
             }
