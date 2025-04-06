@@ -5,8 +5,9 @@ import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
-import InvoiceUpload from "../../InvoiceUpload/InvoiceUpload";
-import InvoiceSearch from "../../InvoiceSearch/InvoiceSearch";
+import InvoiceSearch from "../../invoice/search/InvoiceSearch";
+import InvoiceUpload from "../../invoice/upload/InvoiceUpload";
+import ComponentsSearch from "../../common/component/ComponentsSearch";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -24,13 +25,21 @@ const AnimatedRoutes = () => {
             }
           ></Route>
           <Route
+            path="/components-search"
+            element={
+              <ContentContainer>
+                <ComponentsSearch />
+              </ContentContainer>
+            }
+          />
+          <Route
             path="/invoice-search"
             element={
               <ContentContainer>
                 <InvoiceSearch></InvoiceSearch>
               </ContentContainer>
             }
-          ></Route>
+          />
           <Route
             path="/invoice-upload"
             element={
@@ -38,7 +47,7 @@ const AnimatedRoutes = () => {
                 <InvoiceUpload />
               </ContentContainer>
             }
-          ></Route>
+          />
           <Route
             path="/kurac"
             element={
@@ -46,7 +55,7 @@ const AnimatedRoutes = () => {
                 <HailFailed />
               </ContentContainer>
             }
-          ></Route>
+          />
         </Route>
         <Route path="/hailFailed" element={<HailFailed />} />
       </Routes>

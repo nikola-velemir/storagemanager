@@ -1,6 +1,6 @@
 import React from "react";
-import SelectBox from "../../common/inputs/SelectBox";
-import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
+import SelectBox from "../../../common/inputs/SelectBox";
+import { ProviderGetResponse } from "../../../../model/provider/ProviderGetResponse";
 
 interface SelectProviderBoxProps {
   providers: ProviderGetResponse[];

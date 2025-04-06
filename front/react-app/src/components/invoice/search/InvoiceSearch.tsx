@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import InvoiceSearchCard from "./Cards/InvoiceSearchCard";
-import { InvoiceSearchResponse } from "../../model/invoice/InvoiceSearchResponse";
-import { InvoiceService } from "../../services/InvoiceService";
-import InvoiceSearchPagination from "../common/inputs/Paginator";
+import InvoiceSearchCard from "./cards/InvoiceSearchCard";
+import { InvoiceSearchResponse } from "../../../model/invoice/InvoiceSearchResponse";
+import { InvoiceService } from "../../../services/InvoiceService";
+import InvoiceSearchPagination from "../../common/inputs/Paginator";
 import { Datepicker } from "flowbite-react";
-import DatePickerComponent from "../common/inputs/DatePickerComponent";
+import DatePickerComponent from "../../common/inputs/DatePickerComponent";
 import { data } from "react-router-dom";
-import { ProviderService } from "../../services/ProviderService";
-import SelectBox from "../common/inputs/SelectBox";
-import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
-import SearchBox from "../common/inputs/SearchBox";
-import SelectProvider from "../InvoiceUpload/SelectProvider";
-import SelectProviderBox from "./Cards/SelectProviderBox";
+import { ProviderService } from "../../../services/ProviderService";
+import SelectBox from "../../common/inputs/SelectBox";
+import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
+import SearchBox from "../../common/inputs/SearchBox";
+import SelectProvider from "../upload/SelectProvider";
+import SelectProviderBox from "./cards/SelectProviderBox";
 
 export const convertDateToString = (date: Date | null) => {
   if (!date) {
