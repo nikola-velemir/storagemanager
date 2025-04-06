@@ -11,7 +11,7 @@ const InvoiceSearchPagination = ({
   onPageNumberChange,
   totalItems,
 }: InvoiceSearchPaginationProps) => {
-  const pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const pageSizes = [5, 6, 7, 8, 9, 10];
   const [pageSize, setPageSize] = useState(pageSizes[0]);
   const [pageNumber, setPageNumber] = useState(1);
   useEffect(() => {

@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import InvoiceSearchCard from "./Cards/InvoiceSearchCard";
 import { InvoiceSearchResponse } from "../../model/invoice/InvoiceSearchResponse";
 import { InvoiceService } from "../../services/InvoiceService";
-import InvoiceSearchPagination from "./InvoiceSearchPagination";
+import InvoiceSearchPagination from "../common/inputs/Paginator";
 import { Datepicker } from "flowbite-react";
-import DatePickerComponent from "./DatePickerComponent";
+import DatePickerComponent from "../common/inputs/DatePickerComponent";
 import { data } from "react-router-dom";
 import { ProviderService } from "../../services/ProviderService";
-import SelectProvider from "./SelectProvider";
+import SelectBox from "../common/inputs/SelectBox";
 import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
-import SearchBox from "./SearchBox";
+import SearchBox from "../common/inputs/SearchBox";
+import SelectProvider from "../InvoiceUpload/SelectProvider";
+import SelectProviderBox from "./Cards/SelectProviderBox";
 
 export const convertDateToString = (date: Date | null) => {
   if (!date) {
@@ -24,7 +26,7 @@ export const convertDateToString = (date: Date | null) => {
 const InvoiceSearch = () => {
   const [invoices, setInvoices] = useState<InvoiceSearchResponse[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
   const [pageNumber, setPageNumber] = useState(1);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [providers, setProviders] = useState<ProviderGetResponse[]>([]);
@@ -45,7 +47,6 @@ const InvoiceSearch = () => {
   };
   const fetchProviders = () => {
     ProviderService.FindAll().then((response) => {
-      console.log(response.data);
       setProviders(response.data.providers);
     });
   };
@@ -74,7 +75,7 @@ const InvoiceSearch = () => {
     setComponentInfo(text.trim().length > 0 ? text.trim() : null);
   };
   return (
-    <div className="h-screen r w-full p-8">
+    <div className="h-screen w-full p-8">
       <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
         <SearchBox onInput={handleInputChange} />
         <DatePickerComponent onDateChange={handleDateChange} />
@@ -83,7 +84,7 @@ const InvoiceSearch = () => {
           onPageNumberChange={handlePageNumberChange}
           onPageSizeChange={handlePageSizeChange}
         />
-        <SelectProvider
+        <SelectProviderBox
           emitProviderChange={handleProviderChange}
           providers={providers}
         />
