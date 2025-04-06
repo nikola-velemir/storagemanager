@@ -1,5 +1,10 @@
 import { InvoiceSearchResponse } from "./InvoiceSearchResponse";
 
 export interface InvoiceSearchResponses {
-  responses: InvoiceSearchResponse[];
+  responses: {
+    items: InvoiceSearchResponse[];
+    pageNumber: number;
+    pageSize: number;
+    totalCount: number;
+  };
 }

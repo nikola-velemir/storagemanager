@@ -151,6 +151,7 @@ namespace StoreManager.Tests.Document.Service
             //      public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env)
 
             serviceMock.Setup(s => s.AppendChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
+            serviceMock.Setup(s => s.DeleteAllChunks(It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
             _service = serviceMock.Object;
             Exception exception = await Record.ExceptionAsync(async () =>
             {

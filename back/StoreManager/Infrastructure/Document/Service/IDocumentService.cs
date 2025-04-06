@@ -10,6 +10,6 @@ namespace StoreManager.Infrastructure.Document.Service
         Task AppendChunk(IFormFile file, DocumentModel foundFile);
 
         Task UploadChunk(string provider, IFormFile file, string fileName, int chunkIndex, int totalChunks);
-
+        Task DeleteAllChunks(DocumentModel file);
     }
 }

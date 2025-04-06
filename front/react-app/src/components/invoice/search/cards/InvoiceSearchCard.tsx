@@ -1,6 +1,6 @@
 import React from "react";
 import InvoiceSearchCardAccordion from "./InvoiceSearchCardAccordion";
-import { InvoiceSearchComponentResponse } from "../../../model/invoice/InvoiceSearchComponentResponse";
+import { InvoiceSearchComponentResponse } from "../../../../model/invoice/InvoiceSearchComponentResponse";
 
 interface InvoiceSearchCardProps {
   id: string;

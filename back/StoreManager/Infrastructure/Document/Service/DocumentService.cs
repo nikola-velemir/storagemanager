@@ -77,6 +77,26 @@ namespace StoreManager.Infrastructure.Document.Service
             "vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             _ => "application/octet-stream"
         };
+
+        public virtual async Task DeleteAllChunks(DocumentModel file)
+        {
+
+            var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+            var filePath = Path.Combine(webRootPath, $"{file.Id.ToString()}.{GetRawMimeType(file.Type)}");
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (Exception)
+                {
+                    throw new IOException("Failed to delete file");
+                }
+
+            }
+            await Task.CompletedTask;
+        }
         public virtual async Task AppendChunk(IFormFile file, DocumentModel foundFile)
         {
             var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
@@ -86,9 +106,8 @@ namespace StoreManager.Infrastructure.Document.Service
 
             }
 
-            var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");  // Set the correct file extension
+            var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");
 
-            // For new files
             if (!File.Exists(filePath))
             {
                 using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
@@ -98,7 +117,6 @@ namespace StoreManager.Infrastructure.Document.Service
                 return;
             }
 
-            // For appending to existing files
             using (var fileStream = new FileStream(filePath, FileMode.Append, FileAccess.Write))
             {
                 await file.CopyToAsync(fileStream);
@@ -152,15 +170,21 @@ namespace StoreManager.Infrastructure.Document.Service
 
                 await AppendChunk(file, foundFile);
 
-                var documentReader = _readerFactory.GetReader(GetRawMimeType(foundFile.Type));
+                if (chunkIndex == totalChunks - 1)
+                {
+                    var documentReader = _readerFactory.GetReader(GetRawMimeType(foundFile.Type));
 
-                var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+                    var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
 
-                var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");
+                    var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{GetRawMimeType(foundFile.Type)}");
 
-                var metadata = documentReader.ExtractDataFromDocument(filePath);
+                    var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                await _invoiceService.Create(foundFile.Id, metadata);
+                    await _invoiceService.Create(foundFile.Id, metadata);
+
+                    await DeleteAllChunks(foundFile);
+                }
+
 
             }
             catch (Exception)

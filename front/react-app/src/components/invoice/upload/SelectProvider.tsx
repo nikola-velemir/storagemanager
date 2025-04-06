@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ProviderService } from "../../services/ProviderService";
-import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
+import { ProviderService } from "../../../services/ProviderService";
+import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
 
 interface SelectProviderProps {
   emitProvider: (provider: ProviderGetResponse | null) => void;

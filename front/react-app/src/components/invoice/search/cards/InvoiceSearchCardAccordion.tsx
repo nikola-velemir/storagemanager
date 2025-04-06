@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { InvoiceSearchComponentResponse } from "../../../model/invoice/InvoiceSearchComponentResponse";
+import { InvoiceSearchComponentResponse } from "../../../../model/invoice/InvoiceSearchComponentResponse";
 import InvoiceSearchComponentItem from "./InvoiceSearchComponentItem";
 
 export interface InvoiceSearchCardAccordionProps {

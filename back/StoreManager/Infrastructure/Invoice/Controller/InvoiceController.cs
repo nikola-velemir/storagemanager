@@ -15,10 +15,10 @@ namespace StoreManager.Infrastructure.Invoice.Controller
             _service = service;
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> FindAll()
+        [HttpGet("find-filtered")]
+        public async Task<IActionResult> FindAll([FromQuery] string? componentInfo,[FromQuery] string? providerId, [FromQuery] string? date, [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
-            return Ok(await _service.FindAll());
+            return Ok(await _service.FindFilteredInvoices(componentInfo, providerId, date, pageNumber, pageSize));
         }
     }
 }
