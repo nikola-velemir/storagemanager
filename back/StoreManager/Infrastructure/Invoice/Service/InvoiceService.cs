@@ -30,24 +30,37 @@ namespace StoreManager.Infrastructure.Invoice.Service
                 await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
-
-        public async Task<InvoiceSearchResponsesDTO> FindAll()
+        public async Task<InvoiceSearchResponsesDTO> FindFilteredInvoices(string? providerId, string? dateIssued, int pageNumber, int pageSize)
         {
-
-            var invoices = await _invoiceRepository.FindAll();
-            var responses = invoices.Select(invoice =>
-            new InvoiceSearchResponseDTO(
-                invoice.Id,
-                invoice.DateIssued,
-                new InvoiceSearchProviderDTO(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
-                invoice.Items.Select(
-                    item => new InvoiceSearchComponentDTO(
-                        item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
+            Guid? id = null;
+            if(Guid.TryParse(providerId, out var tempId))
+            {
+                id = tempId; 
+            }
+            DateOnly? date = null;
+            if(DateOnly.TryParse(dateIssued, out var tempDate))
+            {
+                date = tempDate;
+            }
+            var result = await _invoiceRepository.FindFiltered(id, date, pageNumber, pageSize);
+            return new InvoiceSearchResponsesDTO(new Shared.PaginatedResult<InvoiceSearchResponseDTO>
+            {
+                Items = result.Items.Select(invoice =>
+                    new InvoiceSearchResponseDTO(
+                        invoice.Id,
+                        invoice.DateIssued,
+                        new InvoiceSearchProviderDTO(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
+                        invoice.Items.Select(
+                            item => new InvoiceSearchComponentDTO(
+                                item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
+                                )
+                            ).ToList()
                         )
-                    ).ToList()
-                )
-            ).ToList();
-            return new InvoiceSearchResponsesDTO(responses);
+                    ).ToList(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = result.TotalCount
+            });
         }
     }
 }
