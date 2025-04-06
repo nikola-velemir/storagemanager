@@ -45,10 +45,24 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return components;
         }
 
+        public Task<List<MechanicalComponentModel>> FindAll()
+        {
+            return _components.Select(c => c).ToListAsync();
+        }
 
         public Task<MechanicalComponentModel?> FindByIdentifier(string identifier)
         {
             return _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier));
+        }
+
+        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(int pageNumber, int pageSize)
+        {
+            var query = _components.AsQueryable();
+            var count = await query.CountAsync();
+            int skip = (pageNumber - 1) * pageSize;
+            var items = await query.Skip(skip).Take(pageSize).ToListAsync();
+
+            return (items, count);
         }
     }
 }
