@@ -30,5 +30,6 @@ namespace StoreManager.Infrastructure.Provider.Controller
         {
             return Ok(await _service.FindAll());
         }
+        
     }
 }

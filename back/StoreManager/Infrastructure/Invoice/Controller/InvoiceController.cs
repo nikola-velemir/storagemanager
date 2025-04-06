@@ -16,9 +16,9 @@ namespace StoreManager.Infrastructure.Invoice.Controller
         }
 
         [HttpGet("find-filtered")]
-        public async Task<IActionResult> FindAll([FromQuery] string? providerId, [FromQuery] string? date, [FromQuery] int pageNumber, [FromQuery] int pageSize)
+        public async Task<IActionResult> FindAll([FromQuery] string? componentInfo,[FromQuery] string? providerId, [FromQuery] string? date, [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
-            return Ok(await _service.FindFilteredInvoices(providerId, date, pageNumber, pageSize));
+            return Ok(await _service.FindFilteredInvoices(componentInfo, providerId, date, pageNumber, pageSize));
         }
     }
 }

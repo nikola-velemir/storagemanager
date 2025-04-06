@@ -19,5 +19,10 @@ namespace StoreManager.Infrastructure.Invoice.Repository
             await _context.SaveChangesAsync();
             return savedInstance.Entity;
         }
+
+        public Task<InvoiceItemModel?> FindByInvoiceAndComponentId(Guid invoiceId, Guid componentId)
+        {
+            return _invoiceItems.FirstOrDefaultAsync(ii => ii.InvoiceId.Equals(invoiceId) && ii.ComponentId.Equals(componentId));
+        }
     }
 }

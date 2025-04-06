@@ -28,10 +28,13 @@ namespace StoreManager.Infrastructure.Invoice.Repository
                 .ThenInclude(item => item.Component).ToListAsync();
         }
 
-        public async Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindFiltered(Guid? providerId, DateOnly? dateIssued, int pageNumber, int pageSize)
+        public async Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindFiltered(string? componentInfo, Guid? providerId, DateOnly? dateIssued, int pageNumber, int pageSize)
         {
             var query = _invoices.Include(i => i.Provider).Include(i => i.Items).ThenInclude(item => item.Component).AsQueryable();
-
+            if (!string.IsNullOrEmpty(componentInfo))
+            {
+                query = query.Where(i => i.Items.Any(ii => ii.Component.Name.ToLower().Contains(componentInfo) || ii.Component.Identifier.Contains(componentInfo)));
+            }
             if (providerId.HasValue)
             {
                 query = query.Where(i => i.Provider.Id.Equals(providerId));

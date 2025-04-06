@@ -27,22 +27,24 @@ namespace StoreManager.Infrastructure.Invoice.Service
             {
                 var component = await _mechanicalComponentRepository.FindByIdentifier(data.Identifier);
                 if (component is null) { continue; }
-                await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
+                var foundItem = await _invoiceItemRepository.FindByInvoiceAndComponentId(invoice.Id, component.Id);
+                if (foundItem is null)
+                    await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
-        public async Task<InvoiceSearchResponsesDTO> FindFilteredInvoices(string? providerId, string? dateIssued, int pageNumber, int pageSize)
+        public async Task<InvoiceSearchResponsesDTO> FindFilteredInvoices(string? componentInfo,string? providerId, string? dateIssued, int pageNumber, int pageSize)
         {
             Guid? id = null;
-            if(Guid.TryParse(providerId, out var tempId))
+            if (Guid.TryParse(providerId, out var tempId))
             {
-                id = tempId; 
+                id = tempId;
             }
             DateOnly? date = null;
-            if(DateOnly.TryParse(dateIssued, out var tempDate))
+            if (DateOnly.TryParse(dateIssued, out var tempDate))
             {
                 date = tempDate;
             }
-            var result = await _invoiceRepository.FindFiltered(id, date, pageNumber, pageSize);
+            var result = await _invoiceRepository.FindFiltered(componentInfo, id, date, pageNumber, pageSize);
             return new InvoiceSearchResponsesDTO(new Shared.PaginatedResult<InvoiceSearchResponseDTO>
             {
                 Items = result.Items.Select(invoice =>
