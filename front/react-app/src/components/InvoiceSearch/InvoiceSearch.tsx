@@ -3,26 +3,94 @@ import InvoiceSearchCard from "./Cards/InvoiceSearchCard";
 import { InvoiceSearchResponse } from "../../model/invoice/InvoiceSearchResponse";
 import { InvoiceService } from "../../services/InvoiceService";
 import InvoiceSearchPagination from "./InvoiceSearchPagination";
+import { Datepicker } from "flowbite-react";
+import DatePickerComponent from "./DatePickerComponent";
+import { data } from "react-router-dom";
+import { ProviderService } from "../../services/ProviderService";
+import SelectProvider from "./SelectProvider";
+import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
+import SearchBox from "./SearchBox";
+
+export const convertDateToString = (date: Date | null) => {
+  if (!date) {
+    return null;
+  }
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 const InvoiceSearch = () => {
   const [invoices, setInvoices] = useState<InvoiceSearchResponse[]>([]);
-  useEffect(() => {
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const [pageSize, setPageSize] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [providers, setProviders] = useState<ProviderGetResponse[]>([]);
+  const [selectedProvider, setSelectedProvider] =
+    useState<ProviderGetResponse | null>(null);
+  const [componentInfo, setComponentInfo] = useState<string | null>(null);
+  const fetchInvoices = () => {
     InvoiceService.findFiltered({
-      date: null,
-      id: null,
-      pageNumber: 1,
-      pageSize: 1,
+      componentInfo: componentInfo,
+      date: convertDateToString(selectedDate),
+      id: selectedProvider ? selectedProvider.id : null,
+      pageNumber: pageNumber,
+      pageSize: pageSize,
     }).then((response) => {
-      console.log(response.data);
       setInvoices(response.data.responses.items);
+      setTotalItems(response.data.responses.totalCount);
     });
+  };
+  const fetchProviders = () => {
+    ProviderService.FindAll().then((response) => {
+      console.log(response.data);
+      setProviders(response.data.providers);
+    });
+  };
+  useEffect(() => {
+    fetchProviders();
   }, []);
+  useEffect(() => {
+    fetchInvoices();
+  }, [pageSize, pageNumber, selectedDate, selectedProvider, componentInfo]);
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    setPageNumber(1);
+  };
+  const handlePageNumberChange = (newPageNumber: number) => {
+    setPageNumber(newPageNumber);
+  };
+  const handleDateChange = (e: Date | null) => {
+    setSelectedDate(e);
+    setPageNumber(1);
+  };
+  const handleProviderChange = (p: ProviderGetResponse | null) => {
+    setSelectedProvider(p);
+    setPageNumber(1);
+  };
+  const handleInputChange = (text: string) => {
+    setComponentInfo(text.trim().length > 0 ? text.trim() : null);
+  };
   return (
-    <div className="h-screen r w-full p-8 ">
-      <InvoiceSearchPagination></InvoiceSearchPagination>
+    <div className="h-screen r w-full p-8">
+      <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
+        <SearchBox onInput={handleInputChange} />
+        <DatePickerComponent onDateChange={handleDateChange} />
+        <InvoiceSearchPagination
+          totalItems={totalItems}
+          onPageNumberChange={handlePageNumberChange}
+          onPageSizeChange={handlePageSizeChange}
+        />
+        <SelectProvider
+          emitProviderChange={handleProviderChange}
+          providers={providers}
+        />
+      </div>
+
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">
         {invoices.map((invoice: InvoiceSearchResponse) => {
-          console.log(invoice);
           return (
             <InvoiceSearchCard
               key={invoice.id}

@@ -1,69 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const InvoiceSearchPagination = () => {
+interface InvoiceSearchPaginationProps {
+  onPageSizeChange: (pageSize: number) => void;
+  onPageNumberChange: (pageNumber: number) => void;
+  totalItems: number;
+}
+
+const InvoiceSearchPagination = ({
+  onPageSizeChange,
+  onPageNumberChange,
+  totalItems,
+}: InvoiceSearchPaginationProps) => {
+  const pageSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [pageSize, setPageSize] = useState(pageSizes[0]);
+  const [pageNumber, setPageNumber] = useState(1);
+  useEffect(() => {
+    onPageNumberChange(pageNumber);
+  }, [pageNumber]);
+  const handleNext = () => {
+    if (pageNumber < Math.ceil(totalItems / pageSize))
+      setPageNumber(pageNumber + 1);
+  };
+  const handlePrevious = () => {
+    if (pageNumber - 1 === 0) {
+      return;
+    }
+    setPageNumber(pageNumber - 1);
+    onPageNumberChange(pageNumber);
+  };
+  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newPageSize = parseInt(e?.target.value);
+    setPageNumber(1);
+    setPageSize(newPageSize);
+    onPageSizeChange(newPageSize);
+  };
   return (
-    <div className="w-full flex justify-center">
-      <nav aria-label="Page navigation example">
-        <ul className="inline-flex -space-x-px text-sm">
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+    <div className="flex flex-col items-center">
+      <form className="max-w-sm flex flex-col items-center">
+        <label
+          htmlFor="countries"
+          className="block mb-2 text-sm font-medium text-white"
+        >
+          Page size
+        </label>
+        <div className="flex flex-row items-center h-10">
+          <button
+            onClick={handlePrevious}
+            type="button"
+            className="h-full py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="size-4"
             >
-              Previous
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+              />
+            </svg>
+          </button>
+          <select
+            onChange={handlePageSizeChange}
+            id="pageSize"
+            value={pageSize}
+            className="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            {pageSizes.map((page: number) => {
+              return (
+                <option key={page} value={page}>
+                  {page}
+                </option>
+              );
+            })}
+          </select>
+          <button
+            onClick={handleNext}
+            type="button"
+            className="h-full py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-r-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-4"
             >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

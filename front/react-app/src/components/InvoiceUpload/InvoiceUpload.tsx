@@ -31,7 +31,6 @@ const InvoiceUpload = () => {
     setUploaded(UPLOADING_STATE.NOT_UPLOADING);
   };
   const uploadFile = () => {
-    console.log(formData);
     if (!selectedFile) {
       return;
     }
