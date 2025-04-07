@@ -6,7 +6,7 @@ interface InvoiceSearchPaginationProps {
   totalItems: number;
 }
 
-const InvoiceSearchPagination = ({
+const Paginator = ({
   onPageSizeChange,
   onPageNumberChange,
   totalItems,
@@ -104,4 +104,4 @@ const InvoiceSearchPagination = ({
   );
 };
 
-export default InvoiceSearchPagination;
+export default Paginator;

@@ -1,5 +1,6 @@
 ﻿using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Repository;
+using StoreManager.Infrastructure.Shared;
 using UglyToad.PdfPig.Graphics.Operations.PathConstruction;
 
 namespace StoreManager.Infrastructure.Provider.Service
@@ -36,6 +37,27 @@ namespace StoreManager.Infrastructure.Provider.Service
             if (provider is null) { return null; }
 
             return new ProviderFindResponseDTO(provider.Id, provider.Name, provider.Adress, provider.PhoneNumber);
+        }
+
+        public async Task<PaginatedResult<ProviderSearchResponseDTO>> FindFiltered(string? providerName, int pageNumber, int pageSize)
+        {
+            var pr = await _repository.FindById(Guid.Parse("2a2986ec-3206-4379-a26e-5f06b58b90aa"));
+            var result = await _repository.FindFiltered(providerName, pageNumber, pageSize);
+            return new PaginatedResult<ProviderSearchResponseDTO>
+            {
+                Items = result.Items.Select(p =>
+                new ProviderSearchResponseDTO(
+                    p.Id,
+                    p.Name,
+                    p.Adress,
+                    p.PhoneNumber,
+                    p.Invoices.Select(i => new ProviderInvoiceSearchResponseDTO(
+                        i.Id, 
+                        i.DateIssued)
+                    ).ToList()
+                )
+            ).ToList()
+            };
         }
     }
 }

@@ -24,7 +24,6 @@ namespace StoreManager.Infrastructure.Document.Service
         private readonly IWebHostEnvironment _env;
         private readonly IProviderRepository _providerRepository;
         private readonly IDocumentReaderFactory _readerFactory;
-        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
         public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory, IProviderRepository providerRepository)
         {
             _invoiceService = invoiceService;
@@ -153,7 +152,7 @@ namespace StoreManager.Infrastructure.Document.Service
                 if (foundFile == null)
                 {
                     foundFile = await _documentRepository.SaveFile(fileName);
-                    await _invoiceRepository.Create(new InvoiceModel
+                    var invoice = await _invoiceRepository.Create(new InvoiceModel
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
@@ -162,8 +161,7 @@ namespace StoreManager.Infrastructure.Document.Service
                         DocumentId = foundFile.Id,
                         Id = Guid.NewGuid()
                     });
-
-
+                    await _providerRepository.AddInvoice(provider, invoice);
                 }
                 var savedChunk = await _documentRepository.SaveChunk(file, fileName, chunkIndex);
                 await _supaService.UploadFileChunk(file, savedChunk);

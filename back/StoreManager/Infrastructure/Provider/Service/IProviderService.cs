@@ -1,4 +1,5 @@
 ﻿using StoreManager.Infrastructure.Provider.DTO;
+using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Provider.Service
 {
@@ -8,5 +9,6 @@ namespace StoreManager.Infrastructure.Provider.Service
 
         Task<ProviderFindResponsesDTO> FindAll();
         Task<ProviderFindResponseDTO> Create(ProviderCreateRequestDTO request);
+        Task<PaginatedResult<ProviderSearchResponseDTO>> FindFiltered(string? providerName, int pageNumber, int pageSize);
     }
 }

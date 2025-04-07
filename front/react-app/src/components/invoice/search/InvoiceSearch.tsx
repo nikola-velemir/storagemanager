@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import InvoiceSearchCard from "./cards/InvoiceSearchCard";
 import { InvoiceSearchResponse } from "../../../model/invoice/InvoiceSearchResponse";
 import { InvoiceService } from "../../../services/InvoiceService";
-import InvoiceSearchPagination from "../../common/inputs/Paginator";
+import Paginator from "../../common/inputs/Paginator";
 import DatePickerComponent from "../../common/inputs/DatePickerComponent";
 import { ProviderService } from "../../../services/ProviderService";
 import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
@@ -78,7 +78,7 @@ const InvoiceSearch = () => {
           placeholderText="Component info"
         />
         <DatePickerComponent onDateChange={handleDateChange} />
-        <InvoiceSearchPagination
+        <Paginator
           totalItems={totalItems}
           onPageNumberChange={handlePageNumberChange}
           onPageSizeChange={handlePageSizeChange}

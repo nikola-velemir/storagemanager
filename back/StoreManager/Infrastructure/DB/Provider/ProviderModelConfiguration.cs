@@ -10,7 +10,7 @@ namespace StoreManager.Infrastructure.DB.Provider
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.PhoneNumber).IsRequired();
-
+            builder.HasMany(p => p.Invoices).WithOne(i => i.Provider).HasForeignKey(i => i.ProviderId);
         }
     }
 }

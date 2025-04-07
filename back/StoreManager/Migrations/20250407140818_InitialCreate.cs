@@ -109,7 +109,8 @@ namespace StoreManager.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     DateIssued = table.Column<DateOnly>(type: "date", nullable: false),
                     DocumentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProviderId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProviderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProviderModelId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -128,6 +129,12 @@ namespace StoreManager.Migrations
                         principalTable: "Providers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Providers_ProviderModelId",
+                        column: x => x.ProviderModelId,
+                        principalSchema: "public",
+                        principalTable: "Providers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -219,6 +226,12 @@ namespace StoreManager.Migrations
                 schema: "public",
                 table: "Invoices",
                 column: "ProviderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoices_ProviderModelId",
+                schema: "public",
+                table: "Invoices",
+                column: "ProviderModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_Token",
