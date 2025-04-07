@@ -3,24 +3,72 @@
   "WorkspaceRootPath": "D:\\sretotest\\back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\repository\\mechanicalcomponentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\repository\\mechanicalcomponentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\repository\\iproviderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\repository\\iproviderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\repository\\providerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\repository\\providerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\service\\providerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\service\\providerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\service\\iproviderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\service\\iproviderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\controller\\providercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\controller\\providercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\repository\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\repository\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\db\\provider\\providermodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\db\\provider\\providermodelconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\document\\service\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\service\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\model\\providermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\model\\providermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\dto\\providersearchresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\dto\\providersearchresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\dto\\providerinvoicesearchresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\dto\\providerinvoicesearchresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\service\\mechanicalcomponentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\service\\mechanicalcomponentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\shared\\paginatedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\shared\\paginatedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\repository\\imechanicalcomponentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\repository\\imechanicalcomponentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\service\\imechanicalcomponentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\service\\imechanicalcomponentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\controller\\mechanicalcomponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\controller\\mechanicalcomponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\service\\imechanicalcomponentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\service\\imechanicalcomponentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\service\\invoiceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,37 +110,206 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "DocumentService.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAAAKMAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T14:30:35.399Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IDocumentService.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Service\\IDocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T14:30:34.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProviderRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:37:08.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProviderModelConfiguration.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\Provider\\ProviderModelConfiguration.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\DB\\Provider\\ProviderModelConfiguration.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\DB\\Provider\\ProviderModelConfiguration.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\DB\\Provider\\ProviderModelConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:39:24.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProviderController.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Controller\\ProviderController.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Controller\\ProviderController.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Controller\\ProviderController.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Controller\\ProviderController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:47:28.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IProviderService.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\IProviderService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Service\\IProviderService.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\IProviderService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Service\\IProviderService.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAtwAsAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:43:56.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProviderService.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwCwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:43:26.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IProviderRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:37:09.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InvoiceRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T14:31:25.969Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ProviderSearchResponseDTO.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\ProviderSearchResponseDTO.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\DTO\\ProviderSearchResponseDTO.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\ProviderSearchResponseDTO.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\DTO\\ProviderSearchResponseDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:44:42.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ProviderInvoiceSearchResponseDTO.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\ProviderInvoiceSearchResponseDTO.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\DTO\\ProviderInvoiceSearchResponseDTO.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\ProviderInvoiceSearchResponseDTO.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\DTO\\ProviderInvoiceSearchResponseDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T14:22:05.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ProviderModel.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Model\\ProviderModel.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Model\\ProviderModel.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Model\\ProviderModel.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Model\\ProviderModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:39:25.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "MechanicalComponentService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Service\\MechanicalComponentService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Service\\MechanicalComponentService.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Service\\MechanicalComponentService.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\Service\\MechanicalComponentService.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAABcAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-06T22:34:50.182Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 13,
+              "Title": "PaginatedResult.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Shared\\PaginatedResult.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Shared\\PaginatedResult.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Shared\\PaginatedResult.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Shared\\PaginatedResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T13:37:55.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "IMechanicalComponentRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\IMechanicalComponentRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\IMechanicalComponentRepository.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\IMechanicalComponentRepository.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\IMechanicalComponentRepository.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-06T22:35:47.944Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 17,
               "Title": "InvoiceService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Service\\InvoiceService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Service\\InvoiceService.cs",
@@ -100,12 +317,11 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Service\\InvoiceService.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAAAAkAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T22:38:30.15Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T22:38:30.15Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 16,
               "Title": "IMechanicalComponentService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Service\\IMechanicalComponentService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Service\\IMechanicalComponentService.cs",
@@ -113,38 +329,24 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\Service\\IMechanicalComponentService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T22:34:42.1Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T22:34:42.1Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MechanicalComponentRepository.cs",
-              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\MechanicalComponentRepository.cs",
-              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\MechanicalComponentRepository.cs",
-              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\MechanicalComponentRepository.cs",
-              "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\MechanicalComponentRepository.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAAAEIAAACaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T22:36:01.757Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
               "Title": "MechanicalComponentController.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Controller\\MechanicalComponentController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Controller\\MechanicalComponentController.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Controller\\MechanicalComponentController.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\Controller\\MechanicalComponentController.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAlwBIAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAIA3wBIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-06T22:49:43.681Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 18,
               "Title": "MechanicalComponentInvoiceResponseDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentInvoiceResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentInvoiceResponseDTO.cs",
@@ -152,12 +354,11 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentInvoiceResponseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T11:28:00.036Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T11:28:00.036Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 19,
               "Title": "MechanicalComponentProviderResponseDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentProviderResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentProviderResponseDTO.cs",
@@ -165,12 +366,11 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentProviderResponseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAB3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T11:37:42.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T11:37:42.818Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 20,
               "Title": "MechanicalComponentFindResponseDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentFindResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentFindResponseDTO.cs",
@@ -178,12 +378,11 @@
               "RelativeToolTip": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\MechanicalComponentFindResponseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-06T22:37:10.447Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-06T22:37:10.447Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 23,
               "Title": "IInvoiceRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceRepository.cs",
@@ -195,7 +394,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 21,
               "Title": "IInvoiceService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Service\\IInvoiceService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Service\\IInvoiceService.cs",
@@ -207,7 +406,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 22,
               "Title": "Injection.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MiddleWare\\Injection.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MiddleWare\\Injection.cs",
@@ -219,7 +418,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 24,
               "Title": "MechanicalComponentModel.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Model\\MechanicalComponentModel.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Model\\MechanicalComponentModel.cs",

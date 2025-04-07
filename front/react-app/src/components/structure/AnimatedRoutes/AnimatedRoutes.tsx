@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import InvoiceSearch from "../../invoice/search/InvoiceSearch";
 import InvoiceUpload from "../../invoice/upload/InvoiceUpload";
 import ComponentsSearch from "../../common/component/ComponentsSearch";
+import ProviderSearch from "../../provider/ProviderSearch";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -45,6 +46,14 @@ const AnimatedRoutes = () => {
             element={
               <ContentContainer>
                 <InvoiceUpload />
+              </ContentContainer>
+            }
+          />
+          <Route
+            path="/providers-search"
+            element={
+              <ContentContainer>
+                <ProviderSearch />
               </ContentContainer>
             }
           />

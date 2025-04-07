@@ -30,6 +30,11 @@ namespace StoreManager.Infrastructure.Provider.Controller
         {
             return Ok(await _service.FindAll());
         }
+        [HttpGet("filtered")]
+        public async Task<IActionResult> FindFiltered([FromQuery] string? providerName, [FromQuery] int pageNumber, [FromQuery] int pageSize)
+        {
+            return Ok(await _service.FindFiltered(providerName, pageNumber, pageSize));
+        }
         
     }
 }

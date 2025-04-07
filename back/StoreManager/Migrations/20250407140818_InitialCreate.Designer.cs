@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250405224030_InitialCreate")]
+    [Migration("20250407140818_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -143,12 +143,17 @@ namespace StoreManager.Migrations
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ProviderModelId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentId")
                         .IsUnique();
 
                     b.HasIndex("ProviderId");
+
+                    b.HasIndex("ProviderModelId");
 
                     b.ToTable("Invoices", "public");
                 });
@@ -287,6 +292,10 @@ namespace StoreManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StoreManager.Infrastructure.Provider.Model.ProviderModel", null)
+                        .WithMany("Invoices")
+                        .HasForeignKey("ProviderModelId");
+
                     b.Navigation("Document");
 
                     b.Navigation("Provider");
@@ -305,6 +314,11 @@ namespace StoreManager.Migrations
             modelBuilder.Entity("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Provider.Model.ProviderModel", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }

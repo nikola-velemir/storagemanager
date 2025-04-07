@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MechanicalComponentService } from "../../../services/MechanicalComponentService";
 import { MechanicalComponentSearchResponse } from "../../../model/components/MechanicalComponentSearchResponse";
 import ComponentCard from "./cards/ComponentCard";
-import InvoiceSearchPagination from "../inputs/Paginator";
+import Paginator from "../inputs/Paginator";
 import SearchBox from "../inputs/SearchBox";
 import SelectProviderBox from "../../invoice/search/cards/SelectProviderBox";
 import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
@@ -54,7 +54,7 @@ const ComponentsSearch = () => {
           onInput={handleSearchTextChange}
           placeholderText={"Component info"}
         />
-        <InvoiceSearchPagination
+        <Paginator
           totalItems={totalItems}
           onPageSizeChange={handlePageSizeChange}
           onPageNumberChange={handlePageNumberChange}
