@@ -13,10 +13,10 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
             _repository = repository;
         }
 
-        public async Task<MechanicalComponentSearchResponsesDTO> FindFiltered(int pageNumber, int pageSize)
+        public async Task<PaginatedResult<MechanicalComponentFindResponseDTO>> FindFiltered(int pageNumber, int pageSize)
         {
             var result = await _repository.FindFiltered(pageNumber, pageSize);
-            return new MechanicalComponentSearchResponsesDTO(new PaginatedResult<MechanicalComponentFindResponseDTO>
+            return new PaginatedResult<MechanicalComponentFindResponseDTO>
             {
                 Items = result.Items.Select(mc =>
                 new MechanicalComponentFindResponseDTO(mc.Id, mc.Identifier, mc.Name))
@@ -24,7 +24,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 TotalCount = result.TotalCount
-            });
+            };
         }
     }
 }

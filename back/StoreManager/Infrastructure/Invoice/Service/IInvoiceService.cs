@@ -7,6 +7,6 @@ namespace StoreManager.Infrastructure.Invoice.Service
     public interface IInvoiceService
     {
         Task Create(Guid id, List<ExtractionMetadata> metadata);
-        Task<InvoiceSearchResponsesDTO> FindFilteredInvoices(string? componentInfo, string? providerId, string? date1, int pageNumber, int pageSize);
+        Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo, string? providerId, string? date1, int pageNumber, int pageSize);
     }
 }

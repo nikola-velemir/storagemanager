@@ -3,6 +3,7 @@ using StoreManager.Infrastructure.Invoice.DTO;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Invoice.Service
 {
@@ -32,7 +33,7 @@ namespace StoreManager.Infrastructure.Invoice.Service
                     await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
-        public async Task<InvoiceSearchResponsesDTO> FindFilteredInvoices(string? componentInfo,string? providerId, string? dateIssued, int pageNumber, int pageSize)
+        public async Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo,string? providerId, string? dateIssued, int pageNumber, int pageSize)
         {
             Guid? id = null;
             if (Guid.TryParse(providerId, out var tempId))
@@ -45,7 +46,7 @@ namespace StoreManager.Infrastructure.Invoice.Service
                 date = tempDate;
             }
             var result = await _invoiceRepository.FindFiltered(componentInfo, id, date, pageNumber, pageSize);
-            return new InvoiceSearchResponsesDTO(new Shared.PaginatedResult<InvoiceSearchResponseDTO>
+            return new Shared.PaginatedResult<InvoiceSearchResponseDTO>
             {
                 Items = result.Items.Select(invoice =>
                     new InvoiceSearchResponseDTO(
@@ -62,7 +63,7 @@ namespace StoreManager.Infrastructure.Invoice.Service
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 TotalCount = result.TotalCount
-            });
+            };
         }
     }
 }

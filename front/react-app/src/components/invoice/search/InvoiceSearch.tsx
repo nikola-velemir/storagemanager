@@ -37,12 +37,12 @@ const InvoiceSearch = () => {
       pageNumber: pageNumber,
       pageSize: pageSize,
     }).then((response) => {
-      setInvoices(response.data.responses.items);
-      setTotalItems(response.data.responses.totalCount);
+      setInvoices(response.data.items);
+      setTotalItems(response.data.totalCount);
     });
   };
   const fetchProviders = () => {
-    ProviderService.FindAll().then((response) => {
+    ProviderService.findAll().then((response) => {
       setProviders(response.data.providers);
     });
   };

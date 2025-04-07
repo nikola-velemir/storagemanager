@@ -10,7 +10,7 @@ const SelectProvider = ({ emitProvider }: SelectProviderProps) => {
   const [selectedProvider, setSelectedProvider] =
     useState<ProviderGetResponse | null>(null);
   useEffect(() => {
-    ProviderService.FindAll()
+    ProviderService.findAll()
       .then((value) => {
         setProviders(value.data.providers);
       })
