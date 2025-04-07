@@ -13,6 +13,7 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.MechanicalComponent.Service;
 using StoreManager.Infrastructure.Provider.Repository;
 using StoreManager.Infrastructure.Provider.Service;
 using StoreManager.Infrastructure.User.Repository;
@@ -56,6 +57,8 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IMechanicalComponentRepository, MechanicalComponentRepository>();
+            services.AddScoped<IMechanicalComponentService, MechanicalComponentService>();
+
             services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
             services.AddScoped<IInvoiceService, InvoiceService>();
 

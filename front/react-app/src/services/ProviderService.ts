@@ -4,7 +4,7 @@ import { ProviderGetResponse } from "../model/provider/ProviderGetResponse";
 import { ProviderGetResponses } from "../model/provider/ProviderGetResponses";
 
 export class ProviderService {
-  public static async FindAll() {
+  public static async findAll() {
     return api.get<ProviderGetResponses>("/providers");
   }
 }
