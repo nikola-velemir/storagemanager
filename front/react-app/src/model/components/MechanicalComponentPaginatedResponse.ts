@@ -1,3 +1,0 @@
-export interface MechanicalComponentPaginatedResponse {
-  responses: [];
-}

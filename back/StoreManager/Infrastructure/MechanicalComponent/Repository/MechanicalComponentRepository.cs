@@ -55,9 +55,18 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier));
         }
 
-        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(int pageNumber, int pageSize)
+        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(Guid? providerId, string? componentInfo, int pageNumber, int pageSize)
         {
-            var query = _components.AsQueryable();
+            var query = _components.Include(mc => mc.Items).ThenInclude(ii => ii.Invoice).ThenInclude(i => i.Provider).AsQueryable();
+            if (providerId.HasValue)
+            {
+                query = query.Where(mc => mc.Items.Any(ii => ii.Invoice.Provider.Id == providerId.Value));
+            }
+            if (!string.IsNullOrEmpty(componentInfo))
+            {
+                query = query.Where(mc => mc.Name.ToLower().Contains(componentInfo.ToLower()) || mc.Identifier.ToLower().Contains(componentInfo.ToLower()));
+            }
+
             var count = await query.CountAsync();
             int skip = (pageNumber - 1) * pageSize;
             var items = await query.Skip(skip).Take(pageSize).ToListAsync();

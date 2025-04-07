@@ -5,6 +5,6 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
 {
     public interface IMechanicalComponentService
     {
-        Task<PaginatedResult<MechanicalComponentFindResponseDTO>> FindFiltered(int pageNumber, int pageSize);
+        Task<PaginatedResult<MechanicalComponentFindResponseDTO>> FindFiltered(string? providerId,string? componentInfo, int pageNumber, int pageSize);
     }
 }

@@ -73,7 +73,10 @@ const InvoiceSearch = () => {
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
-        <SearchBox onInput={handleInputChange} />
+        <SearchBox
+          onInput={handleInputChange}
+          placeholderText="Component info"
+        />
         <DatePickerComponent onDateChange={handleDateChange} />
         <InvoiceSearchPagination
           totalItems={totalItems}

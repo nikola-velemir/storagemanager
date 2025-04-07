@@ -14,9 +14,9 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Controller
             _service = service;
         }
         [HttpGet("filtered")]
-        public async Task<IActionResult> FindFiltered([FromQuery] int pageSize, [FromQuery] int pageNumber)
+        public async Task<IActionResult> FindFiltered([FromQuery] string? providerId, [FromQuery] string? componentInfo, [FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-            return Ok(await _service.FindFiltered(pageNumber, pageSize));
+            return Ok(await _service.FindFiltered(providerId, componentInfo, pageNumber, pageSize));
         }
     }
 }
