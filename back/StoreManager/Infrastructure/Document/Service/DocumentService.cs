@@ -34,19 +34,42 @@ namespace StoreManager.Infrastructure.Document.Service
             _readerFactory = readerFactory;
             _providerRepository = providerRepository;
         }
-        public async Task<RequestDocumentDownloadResponseDTO> RequestDownload(string fileName)
+        public async Task<RequestDocumentDownloadResponseDTO> RequestDownload(string invoiceId)
         {
-            var file = await _documentRepository.FindByName(fileName);
+            if (!Guid.TryParse(invoiceId, out var tempId))
+            {
+                throw new InvalidCastException("Guid cannot be parsed");
+            }
+            Guid invoiceGuid = Guid.Parse(invoiceId);
+
+            var invoice = await _invoiceRepository.FindById(invoiceGuid);
+            if (invoice is null)
+            {
+                throw new EntryPointNotFoundException("Invoice not found");
+            }
+            var file = await _documentRepository.FindByName(invoice.Document.FileName);
             if (file == null)
             {
                 throw new FileNotFoundException("File not found");
             }
             return new RequestDocumentDownloadResponseDTO(file.FileName, GetPresentationalMimeType(file.Type), file.Chunks.Count);
         }
-        public async Task<DocumentDownloadResponseDTO> DownloadChunk(string fileName, int chunkIndex)
+        public async Task<DocumentDownloadResponseDTO> DownloadChunk(string invoiceId, int chunkIndex)
         {
-            var file = await _documentRepository.FindByName(fileName)
-                ?? throw new FileNotFoundException("File not found");
+            if (!Guid.TryParse(invoiceId, out var tempId))
+            {
+                throw new InvalidCastException("Guid cannot be parsed");
+            }
+            Guid invoiceGuid = Guid.Parse(invoiceId);
+            var invoice = await _invoiceRepository.FindById(invoiceGuid);
+            if (invoice is null)
+            {
+                throw new EntryPointNotFoundException("Invoice not found");
+            }
+
+            var file = await _documentRepository.FindByName(invoice.Document.FileName) ?? throw new FileNotFoundException("File not found");
+            
+                
 
             var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == chunkIndex)
                 ?? throw new EntryPointNotFoundException("Chunk not found");

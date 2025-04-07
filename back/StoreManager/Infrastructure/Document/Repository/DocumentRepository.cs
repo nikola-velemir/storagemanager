@@ -18,6 +18,11 @@ namespace StoreManager.Infrastructure.Document.Repository
             _chunks = context.DocumentChunks;
         }
 
+        public Task<DocumentModel?> FindByDocumentId(Guid id)
+        {
+            return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.Id.Equals(id));
+        }
+
         public Task<DocumentModel?> FindByName(string fileName)
         {
             return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.FileName == fileName);

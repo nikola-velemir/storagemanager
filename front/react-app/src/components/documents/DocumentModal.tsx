@@ -3,13 +3,13 @@ import { DocumentService } from "../../services/DocumentService";
 import DocumentView from "./DocumentView";
 
 interface DocumentModalProps {
-  documentName: string;
+  invoiceId: string;
   isOpen: boolean;
   toggleOpen: () => void;
 }
 
 const DocumentModal = ({
-  documentName,
+  invoiceId,
   isOpen,
   toggleOpen,
 }: DocumentModalProps) => {
@@ -20,7 +20,7 @@ const DocumentModal = ({
   const downloadDoc = () => {
     setIsDownloading(true);
     setProgress(0);
-    DocumentService.downloadFile(documentName, (percentage) => {
+    DocumentService.downloadFile(invoiceId, (percentage) => {
       setProgress(percentage);
     })
       .then((doc) => {
@@ -31,11 +31,6 @@ const DocumentModal = ({
       .catch(() => {
         setIsDownloading(false);
       });
-    // DocumentService.GetDocumentByName(documentName).then((response) => {
-    //   const blob = new Blob([response.data], { type: response.data.type });
-    //   setDocumentSrc(blob);
-    //   setFileType(response.data.type);
-    // });
   };
   useEffect(() => {
     if (isOpen) {

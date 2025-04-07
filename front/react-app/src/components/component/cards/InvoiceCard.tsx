@@ -1,5 +1,5 @@
 import React from "react";
-import { MechanicalComponentProviderResponse } from "../../../../model/components/MechanicalComponentProviderResponse";
+import { MechanicalComponentProviderResponse } from "../../../model/components/MechanicalComponentProviderResponse";
 
 interface InvoiceCardProps {
   id: string;

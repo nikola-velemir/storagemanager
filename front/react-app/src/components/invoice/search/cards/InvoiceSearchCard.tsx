@@ -7,6 +7,7 @@ interface InvoiceSearchCardProps {
   date: string;
   providerName: string;
   components: InvoiceSearchComponentResponse[];
+  emitInvoiceId: (id: string) => void;
 }
 
 const InvoiceSearchCard = ({
@@ -14,7 +15,11 @@ const InvoiceSearchCard = ({
   date,
   providerName,
   components,
+  emitInvoiceId,
 }: InvoiceSearchCardProps) => {
+  const handleMoreInfoClick = () => {
+    emitInvoiceId(id);
+  };
   return (
     <div className="w-11/12 my-8 flex flex-col bg-slate-700 border border-gray-200 rounded-xl shadow-sm">
       <div className="w-full flex flex-row justify-between p-8 items-center">
@@ -35,6 +40,7 @@ const InvoiceSearchCard = ({
 
           <button
             type="button"
+            onClick={handleMoreInfoClick}
             className="w-full my-8 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
             More info

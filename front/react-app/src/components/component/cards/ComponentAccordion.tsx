@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { InvoiceSearchComponentResponse } from "../../../../model/invoice/InvoiceSearchComponentResponse";
-import InvoiceSearchComponentItem from "../../../invoice/search/cards/InvoiceSearchComponentItem";
-import { MechanicalComponentInvoiceResponse } from "../../../../model/components/MechanicalComponentInvoiceResponse";
+import { InvoiceSearchComponentResponse } from "../../../model/invoice/InvoiceSearchComponentResponse";
+import InvoiceSearchComponentItem from "../../invoice/search/cards/InvoiceSearchComponentItem";
+import { MechanicalComponentInvoiceResponse } from "../../../model/components/MechanicalComponentInvoiceResponse";
 import InvoiceCard from "./InvoiceCard";
 
 interface ComponentAccordionProps {

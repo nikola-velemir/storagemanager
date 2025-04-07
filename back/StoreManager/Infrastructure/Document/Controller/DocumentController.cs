@@ -30,13 +30,13 @@ namespace StoreManager.Infrastructure.Document.Controller
                 return BadRequest(new { ex.Message });
             }
         }
-        [HttpGet("request-download/{fileName}")]
-        public async Task<ActionResult> RequestDownload(string fileName)
+        [HttpGet("request-download/{invoiceId}")]
+        public async Task<ActionResult> RequestDownload(string invoiceId)
         {
             try
             {
 
-                return Ok(await _service.RequestDownload(fileName));
+                return Ok(await _service.RequestDownload(invoiceId));
             }
             catch (FileNotFoundException ex)
             {

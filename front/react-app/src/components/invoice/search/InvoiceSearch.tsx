@@ -8,6 +8,8 @@ import { ProviderService } from "../../../services/ProviderService";
 import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
 import SearchBox from "../../common/inputs/SearchBox";
 import SelectProviderBox from "./cards/SelectProviderBox";
+import DocumentView from "../../documents/DocumentView";
+import DocumentModal from "../../documents/DocumentModal";
 
 export const convertDateToString = (date: Date | null) => {
   if (!date) {
@@ -29,6 +31,8 @@ const InvoiceSearch = () => {
   const [selectedProvider, setSelectedProvider] =
     useState<ProviderGetResponse | null>(null);
   const [componentInfo, setComponentInfo] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [invoiceIdForModal, setInvoiceIdForModal] = useState<string>("");
   const fetchInvoices = () => {
     InvoiceService.findFiltered({
       componentInfo: componentInfo,
@@ -70,6 +74,14 @@ const InvoiceSearch = () => {
   const handleInputChange = (text: string) => {
     setComponentInfo(text.trim().length > 0 ? text.trim() : null);
   };
+  const handleInvoiceModalOpen = (id: string) => {
+    setInvoiceIdForModal(id);
+    setIsModalOpen(true);
+  };
+  const handleInvoiceModalClose = () => {
+    setInvoiceIdForModal("");
+    setIsModalOpen(false);
+  };
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
@@ -93,6 +105,7 @@ const InvoiceSearch = () => {
         {invoices.map((invoice: InvoiceSearchResponse) => {
           return (
             <InvoiceSearchCard
+              emitInvoiceId={handleInvoiceModalOpen}
               key={invoice.id}
               id={invoice.id}
               components={invoice.components}
@@ -102,6 +115,12 @@ const InvoiceSearch = () => {
           );
         })}
       </div>
+
+      <DocumentModal
+        invoiceId={invoiceIdForModal}
+        isOpen={isModalOpen}
+        toggleOpen={handleInvoiceModalClose}
+      />
     </div>
   );
 };

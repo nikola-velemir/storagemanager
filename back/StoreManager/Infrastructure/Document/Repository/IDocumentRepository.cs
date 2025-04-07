@@ -4,6 +4,7 @@ namespace StoreManager.Infrastructure.Document.Repository
 {
     public interface IDocumentRepository
     {
+        Task<DocumentModel?> FindByDocumentId(Guid id);
         Task<DocumentModel?> FindByName(string fileName);
         Task<DocumentModel> SaveFile(string fileName);
 

@@ -21,14 +21,14 @@ export class DocumentService {
   }
 
   static async downloadFile(
-    fileName: string,
+    invoiceId: string,
     onProgress: (progress: number) => void
   ) {
-    const response = await this.requestDownload(fileName);
+    const response = await this.requestDownload(invoiceId);
     const totalChunks = response.data.totalChunks;
     const allChunks: Blob[] = [];
     for (let i = 0; i < totalChunks; ++i) {
-      const chunk = await this.downloadChunk(fileName, i);
+      const chunk = await this.downloadChunk(invoiceId, i);
       allChunks.push(chunk.data);
       onProgress(Math.trunc(((i + 1) / totalChunks) * 100));
     }

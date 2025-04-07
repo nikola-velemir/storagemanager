@@ -55,5 +55,10 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         {
             return _invoices.FirstOrDefaultAsync(i => i.DocumentId.Equals(documentId));
         }
+
+        public Task<InvoiceModel?> FindById(Guid id)
+        {
+            return _invoices.Include(i=>i.Document).FirstOrDefaultAsync(i => i.Id.Equals(id));
+        }
     }
 }

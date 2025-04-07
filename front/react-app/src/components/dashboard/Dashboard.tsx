@@ -81,7 +81,7 @@ const Dashboard = () => {
       </form>
       <SuccessButton text="Send Document" onClick={toggleDocumentModal} />
       <DocumentModal
-        documentName={fileName}
+        invoiceId={fileName}
         isOpen={isDocumentModalOpen}
         toggleOpen={toggleDocumentModal}
       />

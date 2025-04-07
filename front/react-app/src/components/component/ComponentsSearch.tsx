@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { MechanicalComponentService } from "../../../services/MechanicalComponentService";
-import { MechanicalComponentSearchResponse } from "../../../model/components/MechanicalComponentSearchResponse";
+import { MechanicalComponentService } from "../../services/MechanicalComponentService";
+import { MechanicalComponentSearchResponse } from "../../model/components/MechanicalComponentSearchResponse";
 import ComponentCard from "./cards/ComponentCard";
-import Paginator from "../inputs/Paginator";
-import SearchBox from "../inputs/SearchBox";
-import SelectProviderBox from "../../invoice/search/cards/SelectProviderBox";
-import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
-import { ProviderService } from "../../../services/ProviderService";
+import Paginator from "../common/inputs/Paginator";
+import SearchBox from "../common/inputs/SearchBox";
+import SelectProviderBox from "../invoice/search/cards/SelectProviderBox";
+import { ProviderGetResponse } from "../../model/provider/ProviderGetResponse";
+import { ProviderService } from "../../services/ProviderService";
 
 const ComponentsSearch = () => {
   const [components, setComponents] = useState<

@@ -7,7 +7,7 @@ import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
 import InvoiceSearch from "../../invoice/search/InvoiceSearch";
 import InvoiceUpload from "../../invoice/upload/InvoiceUpload";
-import ComponentsSearch from "../../common/component/ComponentsSearch";
+import ComponentsSearch from "../../component/ComponentsSearch";
 import ProviderSearch from "../../provider/ProviderSearch";
 
 const AnimatedRoutes = () => {

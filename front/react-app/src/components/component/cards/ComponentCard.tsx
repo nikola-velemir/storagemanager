@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ComponentAccordion from "./ComponentAccordion";
-import { MechanicalComponentInvoiceResponse } from "../../../../model/components/MechanicalComponentInvoiceResponse";
+import { MechanicalComponentInvoiceResponse } from "../../../model/components/MechanicalComponentInvoiceResponse";
 
 interface ComponentCardProps {
   id: string;
