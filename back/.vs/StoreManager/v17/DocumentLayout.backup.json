@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\sretotest\\back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\repository\\iproviderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\repository\\iproviderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\repository\\providerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\repository\\providerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\repository\\iproviderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\repository\\iproviderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\service\\providerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\service\\providerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\document\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\service\\iproviderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -110,17 +110,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "DocumentService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Document\\Service\\DocumentService.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAAAKMAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAALAAAAAAAAAAAAAMwL8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T14:30:35.399Z",
               "EditorCaption": ""
@@ -140,13 +140,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "ProviderRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAQwC8AAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T13:37:08.973Z",
               "EditorCaption": ""
@@ -192,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ProviderService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
@@ -205,13 +205,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "IProviderRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAArwAwAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-07T13:37:09.461Z",
               "EditorCaption": ""
