@@ -12,7 +12,7 @@ namespace StoreManager.Infrastructure.Document.Controller
     public class DocumentController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public DocumentController(IMediator mediator)
+        public DocumentController(IMediator mediator) 
         {
             _mediator = mediator;
         }

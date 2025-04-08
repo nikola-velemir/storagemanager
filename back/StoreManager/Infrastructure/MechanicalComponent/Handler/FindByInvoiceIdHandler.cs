@@ -16,11 +16,11 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Handler
 
         public async Task<MechanicalComponentFindResponsesDTO> Handle(FindComponentByInvoiceIdQuery request, CancellationToken cancellationToken)
         {
-            if (!Guid.TryParse(request.invoiceId, out _))
+            if (!Guid.TryParse(request.InvoiceId, out _))
             {
                 throw new InvalidCastException("Guid cannot be parsed");
             }
-            Guid invoiceGuid = Guid.Parse(request.invoiceId);
+            Guid invoiceGuid = Guid.Parse(request.InvoiceId);
             var result = await _repository.FindByInvoiceId(invoiceGuid);
 
             return new MechanicalComponentFindResponsesDTO(

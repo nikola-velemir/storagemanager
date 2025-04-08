@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using StoreManager.Infrastructure.Auth.Command;
 using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Service;
 namespace StoreManager.Infrastructure.Auth.Controller
@@ -9,10 +11,10 @@ namespace StoreManager.Infrastructure.Auth.Controller
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
-        public AuthController(IAuthService loginService)
+        private readonly IMediator _mediator;
+        public AuthController(IMediator mediator)
         {
-            this._authService = loginService;
+            _mediator = mediator;
         }
 
         [HttpPost("login")]
@@ -20,7 +22,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
         {
             try
             {
-                var response = await _authService.Authenticate(request);
+                var response = await _mediator.Send(new LoginQuery(request.username, request.password));
                 return Ok(response);
             }
             catch (InvalidOperationException e)
@@ -46,7 +48,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
 
                 var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
 
-                await _authService.DeAuthenticate(accessToken);
+                await _mediator.Send(new DeAuthenticateCommand(accessToken));
 
                 return Ok("Token revoked");
 
@@ -62,7 +64,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
         {
             try
             {
-                var response = await _authService.RefreshAuthentication(request);
+                var response = await _mediator.Send(new RefreshAuthentificationQuery(request.refresh_token));
                 return Ok(response);
             }
             catch (InvalidOperationException e)

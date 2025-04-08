@@ -17,10 +17,10 @@ namespace StoreManager.Infrastructure.Provider.Handler
         {
             var saved = await _providerRepository.Create(new Model.ProviderModel
             {
-                Adress = request.Request.address,
+                Adress = request.Address,
                 Id = new Guid(),
-                Name = request.Request.name,
-                PhoneNumber = request.Request.phoneNumber
+                Name = request.Name,
+                PhoneNumber = request.PhoneNumber
             });
             return new ProviderFindResponseDTO(saved.Id, saved.Name, saved.Adress, saved.PhoneNumber);
         }

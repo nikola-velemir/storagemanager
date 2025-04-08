@@ -3,5 +3,5 @@ using StoreManager.Infrastructure.MechanicalComponent.DTO.Find;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Command
 {
-    public record FindComponentByInvoiceIdQuery(string invoiceId): IRequest<MechanicalComponentFindResponsesDTO>;
+    public record FindComponentByInvoiceIdQuery(string InvoiceId) : IRequest<MechanicalComponentFindResponsesDTO>;
 }

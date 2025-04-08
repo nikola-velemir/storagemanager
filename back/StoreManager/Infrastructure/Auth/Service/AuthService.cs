@@ -62,7 +62,7 @@ namespace StoreManager.Infrastructure.Auth.Service
 
         public async Task<LoginResponseDTO?> RefreshAuthentication(RefreshRequestDTO request)
         {
-            RefreshTokenModel refreshToken = await _refreshTokenRepository.FindRefreshToken(request.refresh_token)
+            var refreshToken = await _refreshTokenRepository.FindRefreshToken(request.refresh_token)
                 ?? throw new InvalidOperationException("Not found");
 
             if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)

@@ -1,9 +1,10 @@
 using StoreManager.Infrastructure.AppSetup;
 using StoreManager.Infrastructure.Auth;
+using StoreManager.Infrastructure.MiddleWare;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.WebHost.SetupKestrel();
 builder.Services.InjectDependencies(builder.Configuration);
 builder.Services.AddControllers();
 

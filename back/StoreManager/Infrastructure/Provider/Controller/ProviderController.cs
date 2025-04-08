@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Provider.Command;
 using StoreManager.Infrastructure.Provider.DTO;
-using StoreManager.Infrastructure.Provider.Service;
 
 namespace StoreManager.Infrastructure.Provider.Controller
 {
@@ -20,7 +19,7 @@ namespace StoreManager.Infrastructure.Provider.Controller
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] ProviderCreateRequestDTO request)
         {
-            return Ok(await _mediator.Send(new CreateProviderCommand(request)));
+            return Ok(await _mediator.Send(new CreateProviderCommand(request.name, request.address, request.phoneNumber)));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> FindById([FromRoute] string id)
