@@ -33,7 +33,7 @@ namespace StoreManager.Infrastructure.Invoice.Service
                     await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
-        public async Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo,string? providerId, string? dateIssued, int pageNumber, int pageSize)
+        public async Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo, string? providerId, string? dateIssued, int pageNumber, int pageSize)
         {
             Guid? id = null;
             if (Guid.TryParse(providerId, out var tempId))
@@ -55,7 +55,7 @@ namespace StoreManager.Infrastructure.Invoice.Service
                         new InvoiceSearchProviderDTO(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
                         invoice.Items.Select(
                             item => new InvoiceSearchComponentDTO(
-                                item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
+                                item.Component.Id, item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
                                 )
                             ).ToList()
                         )

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using StoreManager.Infrastructure.Auth.Service;
 using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
@@ -8,6 +9,7 @@ using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
+using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Repository;
@@ -69,6 +71,10 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddScoped<IProviderRepository, ProviderRepository>();
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IProviderService, ProviderService>();
+
+            services.AddScoped<IFileService, FileService>();
+
+            services.AddMediatR(typeof(Program));
 
             return services;
         }

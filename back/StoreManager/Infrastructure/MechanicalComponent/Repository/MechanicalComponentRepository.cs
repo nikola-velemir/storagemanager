@@ -15,6 +15,15 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             _components = context.MechanicalComponents;
         }
 
+        public async Task<int> CountQuantity(MechanicalComponentModel componentModel)
+        {
+            var query = _components
+                .Where(mc => mc.Id.Equals(componentModel.Id))
+                .SelectMany(mc => mc.Items)
+                .SumAsync(i => i.Quantity);
+            return await query;
+        }
+
         public async Task<MechanicalComponentModel?> Create(MechanicalComponentModel component)
         {
             var savedInstance = await _components.AddAsync(component);
@@ -50,9 +59,28 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return _components.Select(c => c).ToListAsync();
         }
 
+        public Task<MechanicalComponentModel?> FindById(Guid componentGuid)
+        {
+            return _components.Include(mc => mc.Items).ThenInclude(ii => ii.Invoice).ThenInclude(i=>i.Provider).FirstOrDefaultAsync(mc => mc.Id.Equals(componentGuid));
+        }
+
         public Task<MechanicalComponentModel?> FindByIdentifier(string identifier)
         {
             return _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier));
+        }
+
+        public Task<List<MechanicalComponentModel>> FindByInvoiceId(Guid invoiceId)
+        {
+            return _components.Include(mc => mc.Items).Where(mc => mc.Items.Any(ii => ii.InvoiceId.Equals(invoiceId))).ToListAsync();
+        }
+
+        public async Task<List<MechanicalComponentModel>> FindByProviderId(Guid id)
+        {
+            var query = _components
+                .Include(mc => mc.Items)
+                .ThenInclude(ii => ii.Invoice)
+                .ThenInclude(i => i.Provider).Where(mc => mc.Items.Any(ii => ii.Invoice.Provider.Id.Equals(id)));
+            return await query.ToListAsync();
         }
 
         public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(Guid? providerId, string? componentInfo, int pageNumber, int pageSize)

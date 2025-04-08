@@ -1,8 +1,6 @@
-import { InvoiceUploadFormData } from "../components/invoice/upload/InvoiceUpload";
+import { InvoiceUploadFormData } from "../components/features/invoice/upload/InvoiceUpload";
 import api from "../infrastructure/Interceptor/Interceptor";
 import { RequestDownloadResponse } from "../model/document/Response/RequestDownloadResponse";
-import { ProviderCreateRequest } from "../model/provider/ProviderCreateRequest";
-import { ProviderGetResponse } from "../model/provider/ProviderGetResponse";
 
 export class DocumentService {
   static async requestDownload(fileName: string) {
@@ -10,10 +8,10 @@ export class DocumentService {
       `docs/request-download/${fileName}`
     );
   }
-  static async downloadChunk(fileName: string, chunkIndex: number) {
+  static async downloadChunk(invoiceId: string, chunkIndex: number) {
     return api.get(`docs/download-chunk`, {
       params: {
-        fileName: fileName,
+        invoiceId: invoiceId,
         chunkIndex: chunkIndex,
       },
       responseType: "blob",
@@ -21,14 +19,14 @@ export class DocumentService {
   }
 
   static async downloadFile(
-    fileName: string,
+    invoiceId: string,
     onProgress: (progress: number) => void
   ) {
-    const response = await this.requestDownload(fileName);
+    const response = await this.requestDownload(invoiceId);
     const totalChunks = response.data.totalChunks;
     const allChunks: Blob[] = [];
     for (let i = 0; i < totalChunks; ++i) {
-      const chunk = await this.downloadChunk(fileName, i);
+      const chunk = await this.downloadChunk(invoiceId, i);
       allChunks.push(chunk.data);
       onProgress(Math.trunc(((i + 1) / totalChunks) * 100));
     }

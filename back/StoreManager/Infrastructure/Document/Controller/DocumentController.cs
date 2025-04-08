@@ -1,19 +1,20 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StoreManager.Infrastructure.Document.Command;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
 
 namespace StoreManager.Infrastructure.Document.Controller
 {
     [ApiController]
-    [Authorize]
     [Route("api/docs")]
     public class DocumentController : ControllerBase
     {
-        private readonly IDocumentService _service;
-        public DocumentController(IDocumentService service)
+        private readonly IMediator _mediator;
+        public DocumentController(IMediator mediator) 
         {
-            _service = service;
+            _mediator = mediator;
         }
 
         [HttpPost("upload-chunks")]
@@ -21,7 +22,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             try
             {
-                await _service.UploadChunk(provider, file, fileName, chunkIndex, totalChunks);
+                await _mediator.Send(new UploadChunkCommand(provider, file, fileName, chunkIndex, totalChunks));
                 return Ok(new { Message = "File uploaded successfully" });
 
             }
@@ -30,13 +31,13 @@ namespace StoreManager.Infrastructure.Document.Controller
                 return BadRequest(new { ex.Message });
             }
         }
-        [HttpGet("request-download/{fileName}")]
-        public async Task<ActionResult> RequestDownload(string fileName)
+        [HttpGet("request-download/{invoiceId}")]
+        public async Task<ActionResult> RequestDownload(string invoiceId)
         {
             try
             {
-
-                return Ok(await _service.RequestDownload(fileName));
+                var result = await _mediator.Send(new RequestDownloadQuery(invoiceId));
+                return Ok(result);
             }
             catch (FileNotFoundException ex)
             {
@@ -44,11 +45,11 @@ namespace StoreManager.Infrastructure.Document.Controller
             }
         }
         [HttpGet("download-chunk")]
-        public async Task<ActionResult> DownloadChunk([FromQuery] string fileName, [FromQuery] int chunkIndex)
+        public async Task<ActionResult> DownloadChunk([FromQuery] string invoiceId, [FromQuery] int chunkIndex)
         {
             try
             {
-                var fileResponse = await _service.DownloadChunk(fileName, chunkIndex);
+                var fileResponse = await _mediator.Send(new DownloadChunkQuery(invoiceId, chunkIndex));
                 return new FileContentResult(fileResponse.bytes, fileResponse.mimeType);
             }
             catch (FileNotFoundException ex)

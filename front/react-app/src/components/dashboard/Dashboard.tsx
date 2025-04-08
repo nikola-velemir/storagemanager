@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import SuccessButton from "../common/buttons/SuccessButton/SuccessButton";
 import { GameService } from "../../services/GameService";
 import { useAuth } from "../../infrastructure/Auth/AuthContext";
-import DocumentModal from "../documents/DocumentModal";
-import DocumentUpload from "../documents/DocumentUpload";
 
 const Dashboard = () => {
   const userContext = useAuth();
@@ -80,11 +78,6 @@ const Dashboard = () => {
         </button>
       </form>
       <SuccessButton text="Send Document" onClick={toggleDocumentModal} />
-      <DocumentModal
-        documentName={fileName}
-        isOpen={isDocumentModalOpen}
-        toggleOpen={toggleDocumentModal}
-      />
     </div>
   );
 };
