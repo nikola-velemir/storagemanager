@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Paginator from "../common/inputs/Paginator";
-import SearchBox from "../common/inputs/SearchBox";
-import { ProviderService } from "../../services/ProviderService";
-import { ProviderSearchResponse } from "../../model/provider/ProviderSearchResponse";
+import Paginator from "../../common/inputs/Paginator";
+import SearchBox from "../../common/inputs/SearchBox";
+import { ProviderService } from "../../../services/ProviderService";
+import { ProviderSearchResponse } from "../../../model/provider/ProviderSearchResponse";
 import ProviderCard from "./cards/ProviderCard";
 
 const ProviderSearch = () => {

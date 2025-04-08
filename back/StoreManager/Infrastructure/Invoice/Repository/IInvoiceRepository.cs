@@ -10,5 +10,6 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         Task<(ICollection<InvoiceModel> Items, int TotalCount)> FindFiltered(string? componentInfo, Guid? providerId, DateOnly? dateIssued, int pageNumber, int pageSize);
         Task<List<InvoiceModel>> FindAll();
         Task<InvoiceModel?> FindById(Guid guid);
+        Task<List<InvoiceModel>> FindByProviderId(Guid id);
     }
 }

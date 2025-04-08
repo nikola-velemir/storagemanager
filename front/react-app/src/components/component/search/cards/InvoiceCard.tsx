@@ -1,10 +1,9 @@
-import React from "react";
-import { MechanicalComponentProviderResponse } from "../../../model/components/MechanicalComponentProviderResponse";
+import { MechanicalComponentSearchProviderResponse } from "../../../../model/components/search/MechanicalComponentSearchProviderResponse";
 
 interface InvoiceCardProps {
   id: string;
   date: string;
-  provider: MechanicalComponentProviderResponse;
+  provider: MechanicalComponentSearchProviderResponse;
 }
 
 const InvoiceCard = ({ id, date, provider }: InvoiceCardProps) => {
@@ -41,6 +40,9 @@ const InvoiceCard = ({ id, date, provider }: InvoiceCardProps) => {
           Name:
           <span className="ms-2 font-medium text-base text-white">{date}</span>
         </div>
+        <button className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+          More info
+        </button>
       </div>
       <div className="mt-4 flex flex-row w-full">
         <span className="w-10"></span>

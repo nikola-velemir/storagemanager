@@ -11,6 +11,9 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
         Task<List<MechanicalComponentModel>> CreateFromExtractionMetadata(List<ExtractionMetadata> metadata);
         Task<List<MechanicalComponentModel>> FindAll();
         Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(Guid? providerId,string? componentInfo, int pageNumber, int pageSize);
-
+        Task<List<MechanicalComponentModel>> FindByInvoiceId(Guid invoiceId);
+        Task<List<MechanicalComponentModel>> FindByProviderId(Guid id);
+        Task<MechanicalComponentModel?> FindById(Guid componentGuid);
+        Task<int> CountQuantity(MechanicalComponentModel componentModel);
     }
 }

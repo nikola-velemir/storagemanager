@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { ProviderInvoiceResponse } from "../../../model/provider/ProviderInvoiceResponse";
-import ProviderCardInvoice from "./ProviderCardInvoice";
+import React, { useState } from "react";
+import InvoiceCard from "./InvoiceCard";
+import { MechanicalComponentSearchInvoiceResponse } from "../../../../model/components/search/MechanicalComponentSearchInvoiceResponse";
 
-interface ProviderCardAccordionProps {
-  invoices: ProviderInvoiceResponse[];
+interface ComponentAccordionProps {
+  invoiceArray: MechanicalComponentSearchInvoiceResponse[];
 }
 
-const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
+const ComponentAccordion = ({ invoiceArray }: ComponentAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -48,17 +48,20 @@ const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
         } w-full flex justify-center items-center flex-col`}
         aria-labelledby="accordion-collapse-heading-1"
       >
-        {invoices.map((invoice: ProviderInvoiceResponse) => {
-          return (
-            <ProviderCardInvoice
-              dateIssued={invoice.dateIssued}
-              id={invoice.id}
-            />
-          );
-        })}
+        {invoiceArray.map(
+          (invoice: MechanicalComponentSearchInvoiceResponse) => {
+            return (
+              <InvoiceCard
+                date={invoice.dateIssued}
+                id={invoice.id}
+                provider={invoice.provider}
+              />
+            );
+          }
+        )}
       </div>
     </div>
   );
 };
 
-export default ProviderCardAccordion;
+export default ComponentAccordion;

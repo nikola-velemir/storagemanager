@@ -7,8 +7,11 @@ import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
 import InvoiceSearch from "../../invoice/search/InvoiceSearch";
 import InvoiceUpload from "../../invoice/upload/InvoiceUpload";
-import ComponentsSearch from "../../component/ComponentsSearch";
-import ProviderSearch from "../../provider/ProviderSearch";
+import ProviderSearch from "../../provider/search/ProviderSearch";
+import ProviderProfile from "../../provider/profile/ProviderProfile";
+import InvoiceInfo from "../../invoice/info/InvoiceInfo";
+import ComponentsSearch from "../../component/search/ComponentsSearch";
+import ComponentInfo from "../../component/info/ComponentInfo";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -34,6 +37,14 @@ const AnimatedRoutes = () => {
             }
           />
           <Route
+            path="/component-info/:id"
+            element={
+              <ContentContainer>
+                <ComponentInfo />
+              </ContentContainer>
+            }
+          />
+          <Route
             path="/invoice-search"
             element={
               <ContentContainer>
@@ -46,6 +57,22 @@ const AnimatedRoutes = () => {
             element={
               <ContentContainer>
                 <InvoiceUpload />
+              </ContentContainer>
+            }
+          />
+          <Route
+            path="/provider-profile/:id"
+            element={
+              <ContentContainer>
+                <ProviderProfile />
+              </ContentContainer>
+            }
+          />
+          <Route
+            path="/invoice-info/:id"
+            element={
+              <ContentContainer>
+                <InvoiceInfo />
               </ContentContainer>
             }
           />

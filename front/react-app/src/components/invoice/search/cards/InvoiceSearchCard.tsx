@@ -1,13 +1,13 @@
 import React from "react";
 import InvoiceSearchCardAccordion from "./InvoiceSearchCardAccordion";
 import { InvoiceSearchComponentResponse } from "../../../../model/invoice/InvoiceSearchComponentResponse";
+import { useNavigate } from "react-router-dom";
 
 interface InvoiceSearchCardProps {
   id: string;
   date: string;
   providerName: string;
   components: InvoiceSearchComponentResponse[];
-  emitInvoiceId: (id: string) => void;
 }
 
 const InvoiceSearchCard = ({
@@ -15,10 +15,10 @@ const InvoiceSearchCard = ({
   date,
   providerName,
   components,
-  emitInvoiceId,
 }: InvoiceSearchCardProps) => {
+  const navigate = useNavigate();
   const handleMoreInfoClick = () => {
-    emitInvoiceId(id);
+    navigate("/invoice-info/" + id);
   };
   return (
     <div className="w-11/12 my-8 flex flex-col bg-slate-700 border border-gray-200 rounded-xl shadow-sm">

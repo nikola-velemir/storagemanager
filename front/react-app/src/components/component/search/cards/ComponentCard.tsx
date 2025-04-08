@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MechanicalComponentSearchInvoiceResponse } from "../../../../model/components/search/MechanicalComponentSearchInvoiceResponse";
 import ComponentAccordion from "./ComponentAccordion";
-import { MechanicalComponentInvoiceResponse } from "../../../model/components/MechanicalComponentInvoiceResponse";
 
 interface ComponentCardProps {
   id: string;
   name: string;
   identifier: string;
-  invoices: MechanicalComponentInvoiceResponse[]; // Array of invoice names or IDs
+  invoices: MechanicalComponentSearchInvoiceResponse[]; // Array of invoice names or IDs
 }
 
 const ComponentCard = ({
@@ -15,6 +15,10 @@ const ComponentCard = ({
   identifier,
   invoices,
 }: ComponentCardProps) => {
+  const navigate = useNavigate();
+  const handleMoreInfoClick = () => {
+    navigate("/component-info/" + id);
+  };
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
       <div className="flex justify-between items-center">
@@ -59,7 +63,10 @@ const ComponentCard = ({
           </div>
         </div>
 
-        <button className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+        <button
+          onClick={handleMoreInfoClick}
+          className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+        >
           More info
         </button>
       </div>

@@ -53,6 +53,7 @@ const InvoiceSearchCardAccordion = ({
         {components.map((component: InvoiceSearchComponentResponse) => {
           return (
             <InvoiceSearchComponentItem
+              id={component.id}
               name={component.name}
               identifier={component.identifier}
               price={component.price}

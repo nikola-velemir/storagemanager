@@ -1,4 +1,4 @@
-export interface MechanicalComponentProviderResponse {
+export interface MechanicalComponentSearchProviderResponse {
   id: string;
   name: string;
   address: string;

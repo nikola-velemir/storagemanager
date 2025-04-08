@@ -16,7 +16,7 @@ const DocumentView = ({
   if (!fileSrc) return <FullProgress progress={downloadProgress} />;
   if (fileType?.includes("pdf")) {
     const objectUrl = URL.createObjectURL(fileSrc);
-    return <iframe className="w-full h-modal" src={objectUrl}></iframe>;
+    return <iframe className="w-full h-full" src={objectUrl}></iframe>;
   } else if (
     fileType?.includes("msword") ||
     fileType?.includes("vnd.openxmlformats-officedocument")

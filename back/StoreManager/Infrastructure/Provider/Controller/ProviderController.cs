@@ -35,6 +35,11 @@ namespace StoreManager.Infrastructure.Provider.Controller
         {
             return Ok(await _service.FindFiltered(providerName, pageNumber, pageSize));
         }
+        [HttpGet("profile/{providerId}")]
+        public async Task<IActionResult> FindProfile([FromRoute] string providerId)
+        {
+            return Ok(await _service.FindProfile(providerId));
+        }
         
     }
 }

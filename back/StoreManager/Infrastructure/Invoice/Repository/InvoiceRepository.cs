@@ -48,7 +48,7 @@ namespace StoreManager.Infrastructure.Invoice.Repository
             var totalCount = await query.CountAsync();
             var items = await query.Skip(skip).Take(pageSize).ToListAsync();
 
-            return (items, totalCount); 
+            return (items, totalCount);
         }
 
         public Task<InvoiceModel?> FindByDocumentId(Guid documentId)
@@ -58,7 +58,13 @@ namespace StoreManager.Infrastructure.Invoice.Repository
 
         public Task<InvoiceModel?> FindById(Guid id)
         {
-            return _invoices.Include(i=>i.Document).FirstOrDefaultAsync(i => i.Id.Equals(id));
+            return _invoices.Include(i => i.Document).FirstOrDefaultAsync(i => i.Id.Equals(id));
+        }
+
+        public async Task<List<InvoiceModel>> FindByProviderId(Guid id)
+        {
+            var query = _invoices.Include(i => i.Provider).Where(i => i.Provider.Id.Equals(id)).AsQueryable();
+            return await query.ToListAsync();
         }
     }
 }
