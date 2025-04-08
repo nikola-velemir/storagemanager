@@ -7,6 +7,7 @@ using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service;
+using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
@@ -31,6 +32,7 @@ namespace StoreManager.Tests.Document.Service
         private Mock<IDocumentReaderFactory> _readerFactory;
         private Mock<IWebHostEnvironment> _env;
         private Mock<IProviderRepository> _providerRepository;
+        private Mock<IFileService> _fileService;
         private DocumentService _service;
 
         private static readonly string VALID_FILE_NAME = "file";
@@ -46,7 +48,7 @@ namespace StoreManager.Tests.Document.Service
             DocumentId = VALID_FILE_ID,
             ChunkNumber = 0,
             SupaBasePath = "your/path/here",
-            Document = null!
+            Document = null
         };
         private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
         {
@@ -71,33 +73,8 @@ namespace StoreManager.Tests.Document.Service
         };
         private static readonly IFormFile VALID_FILE = GenerateValidMockFile();
         private static readonly DocumentDownloadResponseDTO VALID_RESPONSE = new DocumentDownloadResponseDTO(Encoding.UTF8.GetBytes(VALID_FILE_CONTENT), VALID_FILE_EXTENSION);
-        [Fact(DisplayName = "Request download - invalid file name", Skip = "true")]
-        public async Task RequestDownload_InvalidFileNameTest()
-        {
-            Exception exception = await Record.ExceptionAsync(async () =>
-            {
-                var result = await _service.RequestDownload(INVALID_FILE_NAME);
-            });
-            Assert.NotNull(exception);
 
-            _documentRepository.Verify(repo => repo.FindByName(INVALID_FILE_NAME), Times.Once);
-        }
-        [Fact(DisplayName = "Request download - valid file name", Skip = "true")]
-        public async Task RequestDownload_ValidFileNameTest()
-        {
-            var documentService = new Mock<DocumentService>(_invoiceService.Object, _documentRepository.Object, _supaService.Object, _invoiceRepository.Object, _env.Object, _readerFactory.Object,_providerRepository.Object);
-            _service = documentService.Object;
-            Exception exception = await Record.ExceptionAsync(async () =>
-            {
-                var result = await _service.RequestDownload(VALID_FILE_NAME);
-                Assert.NotNull(result);
-                Assert.Equal(VALID_DOWNLOAD_REQUEST_RESPONSE, result);
-            });
-            Assert.Null(exception);
-
-            _documentRepository.Verify(repo => repo.FindByName(VALID_FILE_NAME), Times.Once);
-        }
-        [Fact(DisplayName = "Download chunk - invalid file name", Skip = "true")]
+        [Fact(DisplayName = "Download chunk - invalid file name")]
         public async Task DownloadChunk_InvalidFileNameTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
@@ -106,13 +83,13 @@ namespace StoreManager.Tests.Document.Service
 
             });
             Assert.NotNull(exception);
-            Assert.Equal("File not found", exception.Message);
-            Assert.IsType<FileNotFoundException>(exception);
+            Assert.Equal("Guid cannot be parsed", exception.Message);
+            Assert.IsType<InvalidCastException>(exception);
 
-            _documentRepository.Verify(repo => repo.FindByName(INVALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindByName(INVALID_FILE_NAME), Times.Never);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Never);
         }
-        [Fact(DisplayName = "Download chunk - invalid chunk index", Skip ="true")]
+        [Fact(DisplayName = "Download chunk - invalid chunk index")]
         public async Task DownloadChunk_InvalidChunkIndexTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
@@ -127,12 +104,12 @@ namespace StoreManager.Tests.Document.Service
             _documentRepository.Verify(repo => repo.FindByName(VALID_FILE_NAME), Times.Once);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Never);
         }
-        [Fact(DisplayName = "Download chunk - valid test", Skip = "true")]
+        [Fact(DisplayName = "Download chunk - valid test")]
         public async Task DownloadChunk_ValidTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var response = await _service.DownloadChunk(VALID_FILE_NAME, 0);
+                var response = await _service.DownloadChunk(VALID_INVOICE.Id.ToString(), 0);
                 Assert.NotNull(response);
                 Assert.Equal(VALID_RESPONSE, response);
             });
@@ -147,12 +124,6 @@ namespace StoreManager.Tests.Document.Service
         public async Task UploadChunk_ValidTest()
         {
 
-            var serviceMock = new Mock<DocumentService>(_invoiceService.Object, _documentRepository.Object, _supaService.Object, _invoiceRepository.Object, _env.Object, _readerFactory.Object,_providerRepository.Object);
-            //      public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env)
-
-            serviceMock.Setup(s => s.AppendChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
-            serviceMock.Setup(s => s.DeleteAllChunks(It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
-            _service = serviceMock.Object;
             Exception exception = await Record.ExceptionAsync(async () =>
             {
                 await _service.UploadChunk(JsonConvert.SerializeObject(providerFormRequest), GenerateValidMockFile(), $"{VALID_FILE_NAME}", 0, VALID_DOCUMENT.Chunks.Count);
@@ -174,6 +145,8 @@ namespace StoreManager.Tests.Document.Service
             _supaService.Setup(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>())).ReturnsAsync(VALID_RESPONSE.bytes);
             _supaService.Setup(supa => supa.UploadFileChunk(VALID_FILE, VALID_CHUNK)).ReturnsAsync(string.Empty);
             _invoiceService.Setup(s => s.Create(It.IsAny<Guid>(), It.IsAny<List<ExtractionMetadata>>())).Returns(Task.CompletedTask);
+            _fileService.Setup(s => s.DeleteAllChunks(It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
+            _fileService.Setup(s => s.AppendChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
             //  _supaService.Setup(supa=>supa.)
         }
         private Task MockFactory()
@@ -191,6 +164,7 @@ namespace StoreManager.Tests.Document.Service
             _documentRepository.Setup(repo => repo.SaveFile(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
             _documentRepository.Setup(repo => repo.SaveChunk(VALID_FILE, VALID_FILE_NAME, 0)).ReturnsAsync(VALID_CHUNK);
             _invoiceRepository.Setup(repo => repo.Create(VALID_INVOICE)).ReturnsAsync(VALID_INVOICE);
+            _invoiceRepository.Setup(repo => repo.FindById(VALID_INVOICE.Id)).ReturnsAsync(VALID_INVOICE);
 
             _providerRepository.Setup(repo => repo.FindById(It.IsAny<Guid>())).ReturnsAsync(provider);
             _providerRepository.Setup(repo => repo.Create(It.IsAny<ProviderModel>())).ReturnsAsync(provider);
@@ -198,6 +172,8 @@ namespace StoreManager.Tests.Document.Service
         }
         public async Task InitializeAsync()
         {
+            VALID_INVOICE.Document = VALID_DOCUMENT;
+           
             _documentRepository = new Mock<IDocumentRepository>();
             _supaService = new Mock<ICloudStorageService>();
             _invoiceRepository = new Mock<IInvoiceRepository>();
@@ -205,12 +181,13 @@ namespace StoreManager.Tests.Document.Service
             _readerFactory = new Mock<IDocumentReaderFactory>();
             _env = new Mock<IWebHostEnvironment>();
             _providerRepository = new Mock<IProviderRepository>();
+            _fileService = new Mock<IFileService>();
             await MockRepository();
             MockService();
             await MockFactory();
             _env.Setup(env => env.WebRootPath)
            .Returns("C:\\FakeRoot");
-            _service = new DocumentService(_invoiceService.Object, _documentRepository.Object, _supaService.Object, _invoiceRepository.Object, _env.Object, _readerFactory.Object, _providerRepository.Object);
+            _service = new DocumentService(_invoiceService.Object, _documentRepository.Object, _supaService.Object, _invoiceRepository.Object, _env.Object, _readerFactory.Object, _providerRepository.Object, _fileService.Object);
         }
         public static IFormFile GenerateValidMockFile()
         {

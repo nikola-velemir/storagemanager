@@ -1,5 +1,4 @@
-﻿using StackExchange.Redis;
-using StoreManager.Infrastructure.Auth.DTO;
+﻿using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
@@ -7,7 +6,6 @@ using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
 
 namespace StoreManager.Infrastructure.Auth.Service
 {

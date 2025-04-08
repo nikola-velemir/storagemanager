@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using StoreManager.Infrastructure.Document.DTO;
-using StoreManager.Infrastructure.Document.Model;
+﻿using MediatR;
+using Newtonsoft.Json;
+using StoreManager.Infrastructure.Document.Command;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
@@ -13,59 +13,36 @@ using StoreManager.Infrastructure.Provider.Model;
 using StoreManager.Infrastructure.Provider.Repository;
 using System.Text.RegularExpressions;
 
-namespace StoreManager.Infrastructure.Document.Service
+namespace StoreManager.Infrastructure.Document.Handler
 {
-    public class DocumentService : IDocumentService
+    public class UploadChunkHandler : IRequestHandler<UploadChunkCommand>
     {
-        private readonly IDocumentRepository _documentRepository;
-        private readonly ICloudStorageService _supaService;
-        private readonly IInvoiceRepository _invoiceRepository;
-        private readonly IInvoiceService _invoiceService;
-        private readonly IWebHostEnvironment _env;
-        private readonly IProviderRepository _providerRepository;
-        private readonly IDocumentReaderFactory _readerFactory;
-        private readonly IFileService _fileService;
-        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory, IProviderRepository providerRepository, IFileService fileService)
+        private IProviderRepository _providerRepository;
+        private IDocumentRepository _documentRepository;
+        private IInvoiceRepository _invoiceRepository;
+        private ICloudStorageService _supaService;
+        private IFileService _fileService;
+        private IDocumentReaderFactory _readerFactory;
+        private IWebHostEnvironment _env;
+        private IInvoiceService _invoiceService;
+
+        public UploadChunkHandler(IProviderRepository providerRepository, IDocumentRepository documentRepository, IInvoiceRepository invoiceRepository, ICloudStorageService supaService, IFileService fileService, IDocumentReaderFactory readerFactory, IWebHostEnvironment env, IInvoiceService invoiceService)
         {
-            _invoiceService = invoiceService;
-            _documentRepository = repository;
-            _supaService = supabase;
-            _fileService = fileService;
-            _invoiceRepository = invoiceRepository;
-            _env = env;
-            _readerFactory = readerFactory;
             _providerRepository = providerRepository;
+            _documentRepository = documentRepository;
+            _invoiceRepository = invoiceRepository;
+            _supaService = supaService;
+            _fileService = fileService;
+            _readerFactory = readerFactory;
+            _env = env;
+            _invoiceService = invoiceService;
         }
 
-        public async Task<DocumentDownloadResponseDTO> DownloadChunk(string invoiceId, int chunkIndex)
-        {
-            if (!Guid.TryParse(invoiceId, out var tempId))
-            {
-                throw new InvalidCastException("Guid cannot be parsed");
-            }
-            Guid invoiceGuid = Guid.Parse(invoiceId);
-            var invoice = await _invoiceRepository.FindById(invoiceGuid);
-            if (invoice is null)
-            {
-                throw new EntryPointNotFoundException("Invoice not found");
-            }
-
-            var file = await _documentRepository.FindByName(invoice.Document.FileName) ?? throw new FileNotFoundException("File not found");
-
-
-
-            var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == chunkIndex)
-                ?? throw new EntryPointNotFoundException("Chunk not found");
-
-            var response = new DocumentDownloadResponseDTO(await _supaService.DownloadChunk(chunk), DocumentUtils.GetPresentationalMimeType(file.Type));
-            return response;
-
-        }
-        public async Task UploadChunk(string providerFormData, IFormFile file, string fileName, int chunkIndex, int totalChunks)
+        public async Task<Unit> Handle(UploadChunkCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var parsedProvider = JsonConvert.DeserializeObject<ProviderFormDataRequestDTO>(providerFormData);
+                var parsedProvider = JsonConvert.DeserializeObject<ProviderFormDataRequestDTO>(request.ProviderFormData);
                 if (parsedProvider is null)
                 {
                     throw new ArgumentNullException("provider is null");
@@ -87,11 +64,11 @@ namespace StoreManager.Infrastructure.Document.Service
                         PhoneNumber = parsedProvider.providerPhoneNumber
                     });
                 }
-                var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
+                var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(request.FileName), @"[^a-zA-Z0-9]", "");
                 var foundFile = await _documentRepository.FindByName(parsedFileName);
                 if (foundFile == null)
                 {
-                    foundFile = await _documentRepository.SaveFile(fileName);
+                    foundFile = await _documentRepository.SaveFile(request.FileName);
                     var invoice = await _invoiceRepository.Create(new InvoiceModel
                     {
                         Provider = provider,
@@ -103,12 +80,12 @@ namespace StoreManager.Infrastructure.Document.Service
                     });
                     await _providerRepository.AddInvoice(provider, invoice);
                 }
-                var savedChunk = await _documentRepository.SaveChunk(file, fileName, chunkIndex);
-                await _supaService.UploadFileChunk(file, savedChunk);
+                var savedChunk = await _documentRepository.SaveChunk(request.File, request.FileName, request.ChunkIndex);
+                await _supaService.UploadFileChunk(request.File, savedChunk);
 
-                await _fileService.AppendChunk(file, foundFile);
+                await _fileService.AppendChunk(request.File, foundFile);
 
-                if (chunkIndex == totalChunks - 1)
+                if (request.ChunkIndex == request.TotalChunks - 1)
                 {
                     var documentReader = _readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundFile.Type));
 
@@ -123,7 +100,7 @@ namespace StoreManager.Infrastructure.Document.Service
                     await _fileService.DeleteAllChunks(foundFile);
                 }
 
-
+                return Unit.Value;
             }
             catch (Exception)
             {
