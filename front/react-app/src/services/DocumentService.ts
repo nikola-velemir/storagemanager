@@ -1,4 +1,4 @@
-import { InvoiceUploadFormData } from "../components/invoice/upload/InvoiceUpload";
+import { InvoiceUploadFormData } from "../components/features/invoice/upload/InvoiceUpload";
 import api from "../infrastructure/Interceptor/Interceptor";
 import { RequestDownloadResponse } from "../model/document/Response/RequestDownloadResponse";
 
