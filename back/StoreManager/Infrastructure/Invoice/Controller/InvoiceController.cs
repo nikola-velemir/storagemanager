@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StoreManager.Infrastructure.Invoice.Command.Query;
+using StoreManager.Infrastructure.Invoice.Command.Search;
+using StoreManager.Infrastructure.Invoice.Command.Statistics;
 
 namespace StoreManager.Infrastructure.Invoice.Controller
 {

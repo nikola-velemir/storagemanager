@@ -110,7 +110,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
             foreach (var r in result)
             {
                 var quantity = await _repository.CountQuantity(r);
-                responses.Add(new MechanicalComponentTopFiveQuantityResponseDTO(r.Name, r.Identifier, quantity));
+                responses.Add(new MechanicalComponentTopFiveQuantityResponseDTO(r.Id,r.Name, r.Identifier, quantity));
             }
             return new MechanicalComponentTopFiveQuantityResponsesDTO(responses);
         }

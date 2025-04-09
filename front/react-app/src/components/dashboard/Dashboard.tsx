@@ -1,25 +1,8 @@
-import React, { useState } from "react";
-import SuccessButton from "../common/buttons/SuccessButton/SuccessButton";
-import { GameService } from "../../services/GameService";
-import { useAuth } from "../../infrastructure/Auth/AuthContext";
 import InvoicesThisWeek from "./containers/invoice/InvoicesThisWeek";
 import MechanicalComponentCount from "./containers/component/MechanicalComponentCount";
 import ProviderInvolvement from "./containers/provider/ProviderInvolvement";
 
 const Dashboard = () => {
-  const userContext = useAuth();
-  const fetchGames = () => {
-    GameService.getGames()
-      .then((resolve) => {
-        console.log(resolve.data);
-      })
-      .catch(() => {});
-  };
-
-  const [isDocumentModalOpen, setIsDocumentModalOpen] = useState(false);
-  const toggleDocumentModal = () => {
-    setIsDocumentModalOpen(!isDocumentModalOpen);
-  };
   return (
     <div className="w-full h-screen p-8">
       <div className="w-full h-5/6 overflow-y-scroll">

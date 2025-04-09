@@ -21,7 +21,7 @@ const DashBoardCard = ({
         </div>
         <span className="mt-2 text-lg font-medium">{title}</span>
       </div>
-      <div className="w-full flex justify-center p-4 pt-2 text-white text-lg font-medium">
+      <div className="w-full h-full flex items-center justify-center p-4 pt-2 text-white text-lg font-medium">
         {value !== 0 && maxValue !== 0 && value === maxValue && chart}
       </div>
     </div>

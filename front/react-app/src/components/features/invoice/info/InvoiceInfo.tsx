@@ -29,7 +29,6 @@ const InvoiceInfo = () => {
     if (!id || id.trim().length == 0) return;
     downloadDoc();
     MechanicalComponentService.findByInvoiceId(id).then((response) => {
-      console.log(response.data);
       setComponents(response.data.responses);
     });
   }, [id]);

@@ -1,5 +1,6 @@
 ﻿using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Invoice.DTO;
+using StoreManager.Infrastructure.Invoice.DTO.Search;
+using StoreManager.Infrastructure.Invoice.DTO.Statistics;
 using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Invoice.Service

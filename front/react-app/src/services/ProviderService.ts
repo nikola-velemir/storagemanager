@@ -1,8 +1,8 @@
 import api from "../infrastructure/Interceptor/Interceptor";
 import { PaginatedResponse } from "../model/PaginatedResponse";
+import { ProviderComponentInvolvementResponses } from "../model/provider/ProviderComponentInvolvementResponses";
 import { ProviderGetResponses } from "../model/provider/ProviderGetResponses";
-import { ProviderInvolvementResponse } from "../model/provider/ProviderInvolvementResponse";
-import { ProviderInvolvementResponses } from "../model/provider/ProviderInvolvementResponses";
+import { ProviderInvoiceInvolvementResponses } from "../model/provider/ProviderInvoiceInvolvementResponses";
 import { ProviderProfileResponse } from "../model/provider/ProviderProfileResponse";
 import { ProviderSearchResponse } from "../model/provider/ProviderSearchResponse";
 
@@ -14,9 +14,14 @@ interface ProviderFilterRequest {
 
 export class ProviderService {
   private static BASE_URL: string = "/providers";
-  public static async findProviderInvolvement() {
-    return api.get<ProviderInvolvementResponses>(
-      this.BASE_URL + "/find-involvement"
+  public static async findProviderInvoiceInvolvement() {
+    return api.get<ProviderInvoiceInvolvementResponses>(
+      this.BASE_URL + "/find-invoice-involvement"
+    );
+  }
+  public static async findProviderComponentInvolvement() {
+    return api.get<ProviderComponentInvolvementResponses>(
+      this.BASE_URL + "/find-component-involvement"
     );
   }
   public static async findProviderProfile(providerId: string) {

@@ -2,19 +2,22 @@ import { useEffect } from "react";
 import DashBoardCard from "../cards/DashBoardCard";
 import ProviderInvolvementPieChart from "./ProviderInvolvementPieChart";
 import { useProviderStats } from "./useProviderStats";
+import ProviderInvolvementCarousel from "./ProviderInvolvementCarousel";
 
 const ProviderInvolvement = () => {
-  const { count, maxCount, providers } = useProviderStats();
-  useEffect(() => {
-    console.log(count);
-    console.log(maxCount);
-  }, [count, maxCount]);
+  const { count, maxCount, invoiceInvolvements, componentInvolvements } =
+    useProviderStats();
   return (
     <DashBoardCard
       maxValue={maxCount}
       title={"Registered providers"}
       value={count}
-      chart={<ProviderInvolvementPieChart data={providers} />}
+      chart={
+        <ProviderInvolvementCarousel
+          invoice={invoiceInvolvements}
+          components={componentInvolvements}
+        />
+      }
     />
   );
 };

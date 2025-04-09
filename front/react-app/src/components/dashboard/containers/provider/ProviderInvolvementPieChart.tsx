@@ -4,8 +4,9 @@ import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { ProviderInvolvementResponse } from "../../../../model/provider/ProviderInvolvementResponse";
+import { ProviderInvoiceInvolvementResponse } from "../../../../model/provider/ProviderInvoiceInvolvementResponse";
 import { useNavigate } from "react-router-dom";
+import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
 
 const CustomTooltip = ({
   active,
@@ -41,18 +42,22 @@ const CustomTooltip = ({
   return null;
 };
 interface ProviderInvolvementPieChartProps {
-  data: ProviderInvolvementResponse[];
+  data:
+    | ProviderInvoiceInvolvementResponse[]
+    | ProviderComponentInvolvementResponse[];
+  dataKey: string;
 }
 const generateRandomColor = () => {
   const blue = Math.floor(Math.random() * 76) + 180;
 
   const red = Math.floor(Math.random() * 70);
-  const green = Math.floor(Math.random() * 200);
+  const green = Math.floor(Math.random() * 50) + 150;
 
   return `rgb(${red}, ${green}, ${blue})`;
 };
 const ProviderInvolvementPieChart = ({
   data,
+  dataKey,
 }: ProviderInvolvementPieChartProps) => {
   const navigate = useNavigate();
   const handlePieSliceClick = (data: any) => {
@@ -61,16 +66,17 @@ const ProviderInvolvementPieChart = ({
   return (
     <PieChart height={400} width={800}>
       <Pie
-        dataKey="invoiceCount"
+        dataKey={dataKey}
         data={data.map((entry) => ({
           ...entry,
           fill: generateRandomColor(),
         }))}
         cx="50%"
         cy="50%"
-        innerRadius={80}
-        outerRadius={200}
+        innerRadius={90}
+        outerRadius={220}
         fill="#82ca9d"
+        stroke="oklch(44.6% 0.043 257.281)"
         onClick={handlePieSliceClick}
         label={({ name }) => name}
       />

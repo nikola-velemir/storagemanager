@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using StoreManager.Infrastructure.Provider.DTO;
+using StoreManager.Infrastructure.Provider.DTO.Search;
 
 namespace StoreManager.Infrastructure.Provider.Command
 {

@@ -1,6 +1,9 @@
 ﻿using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.Provider.DTO;
+using StoreManager.Infrastructure.Provider.DTO.Info;
+using StoreManager.Infrastructure.Provider.DTO.Search;
+using StoreManager.Infrastructure.Provider.DTO.Statistics;
 using StoreManager.Infrastructure.Provider.Repository;
 using StoreManager.Infrastructure.Shared;
 
@@ -90,16 +93,29 @@ namespace StoreManager.Infrastructure.Provider.Service
                 );
         }
 
-        public async Task<ProviderInvolvementResponsesDTO> FindProviderInvolements()
+        public async Task<ProviderComponentInvolvementResponsesDTO> FindProviderComponentInvolements()
         {
             var providers = await _providerRepository.FindAll();
-            var responses = new List<ProviderInvolementResponseDTO>();
+            var responses = new List<ProviderComponentInvolvementResponseDTO>();
+            foreach(var provider in providers)
+            {
+                var count = await _providerRepository.FindComponentCountForProvider(provider);
+                responses.Add(new ProviderComponentInvolvementResponseDTO(provider.Id, provider.Name, count));
+
+            }
+            return new ProviderComponentInvolvementResponsesDTO(responses);
+        }
+
+        public async Task<ProviderInvoiceInvolvementResponsesDTO> FindProviderInvoiceInvolements()
+        {
+            var providers = await _providerRepository.FindAll();
+            var responses = new List<ProviderInvoiceInvolementResponseDTO>();
             foreach(var provider in providers)
             {
                 var count = await _providerRepository.FindInvoiceCountForProvider(provider);
-                responses.Add(new ProviderInvolementResponseDTO(provider.Id, provider.Name, count));
+                responses.Add(new ProviderInvoiceInvolementResponseDTO(provider.Id, provider.Name, count));
             }
-            return new ProviderInvolvementResponsesDTO(responses);
+            return new ProviderInvoiceInvolvementResponsesDTO(responses);
         }
     }
 }

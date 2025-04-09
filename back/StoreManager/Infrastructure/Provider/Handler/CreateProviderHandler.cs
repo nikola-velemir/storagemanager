@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using StoreManager.Infrastructure.Provider.Command;
-using StoreManager.Infrastructure.Provider.DTO;
+using StoreManager.Infrastructure.Provider.DTO.Search;
 using StoreManager.Infrastructure.Provider.Repository;
 
 namespace StoreManager.Infrastructure.Provider.Handler

@@ -62,6 +62,15 @@ namespace StoreManager.Infrastructure.Provider.Repository
             return query?.Invoices.Count ?? 0;
         }
 
+        public async Task<int> FindComponentCountForProvider(ProviderModel provider)
+        {
+            var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Invoices).ThenInclude(i => i.Items).ThenInclude(ii => ii.Component).FirstOrDefaultAsync();
+            if (query is null) return 0;
+
+            var components = query.Invoices.SelectMany(i => i.Items).Sum(ii => ii.Quantity);
+            return components;
+        }
+
         public async Task<ProviderModel> Update(ProviderModel provider)
         {
             var savedEntity = _providers.Update(provider);

@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Provider.Command;
+using StoreManager.Infrastructure.Provider.Command.Info;
+using StoreManager.Infrastructure.Provider.Command.Search;
+using StoreManager.Infrastructure.Provider.Command.Statistics;
 using StoreManager.Infrastructure.Provider.DTO;
 
 namespace StoreManager.Infrastructure.Provider.Controller
@@ -41,10 +44,15 @@ namespace StoreManager.Infrastructure.Provider.Controller
         {
             return Ok(await _mediator.Send(new FindProviderProfileQuery(providerId)));
         }
-        [HttpGet("find-involvement")]
-        public async Task<IActionResult> FindInvolvement()
+        [HttpGet("find-invoice-involvement")]
+        public async Task<IActionResult> FindInvoiceInvolvement()
         {
-            return Ok(await _mediator.Send(new FindProviderInvolementsQuery()));
+            return Ok(await _mediator.Send(new FindProviderInvoiceInvolementsQuery()));
+        }
+        [HttpGet("find-component-involvement")]
+        public async Task<IActionResult> FindComponentInvolvement()
+        {
+            return Ok(await _mediator.Send(new FindProviderComponentInvolvementsQuery()));
         }
     }
 }

@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.MechanicalComponent.Command;
+using StoreManager.Infrastructure.MechanicalComponent.Command.Info;
+using StoreManager.Infrastructure.MechanicalComponent.Command.Search;
+using StoreManager.Infrastructure.MechanicalComponent.Command.Statistics;
 using StoreManager.Infrastructure.MechanicalComponent.Service;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Controller
