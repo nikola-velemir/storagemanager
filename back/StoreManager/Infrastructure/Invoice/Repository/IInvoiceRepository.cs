@@ -11,5 +11,7 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         Task<List<InvoiceModel>> FindAll();
         Task<InvoiceModel?> FindById(Guid guid);
         Task<List<InvoiceModel>> FindByProviderId(Guid id);
+        Task<int> CountInvoicesThisWeek();
+        Task<int> FindCountForTheDate(DateOnly date);
     }
 }

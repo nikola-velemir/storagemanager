@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Document.Command;
-using StoreManager.Infrastructure.Document.Repository;
-using StoreManager.Infrastructure.Document.Service;
 
 namespace StoreManager.Infrastructure.Document.Controller
 {
     [ApiController]
+    [Authorize]
     [Route("api/docs")]
     public class DocumentController : ControllerBase
     {

@@ -1,7 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using MediatR;
+using StoreManager.Infrastructure.Invoice.Command.Query;
 using StoreManager.Infrastructure.Invoice.DTO;
-using StoreManager.Infrastructure.Invoice.Query;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Shared;
 using static Supabase.Gotrue.Constants;

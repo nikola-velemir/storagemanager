@@ -1,10 +1,10 @@
-﻿
-using StoreManager.Infrastructure.MechanicalComponent.DTO;
-using StoreManager.Infrastructure.MechanicalComponent.DTO.Find;
+﻿using StoreManager.Infrastructure.MechanicalComponent.DTO.Find;
 using StoreManager.Infrastructure.MechanicalComponent.DTO.Info;
+using StoreManager.Infrastructure.MechanicalComponent.DTO.Quantity;
 using StoreManager.Infrastructure.MechanicalComponent.DTO.Search;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.Shared;
+using System.Collections.Generic;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Service
 {
@@ -96,6 +96,23 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                     new MechanicalComponentInfoProviderResponseDTO(ii.Invoice.Provider.Id, ii.Invoice.Provider.Name, ii.Invoice.Provider.Adress, ii.Invoice.Provider.PhoneNumber))
                 ).ToList()
             );
+        }
+
+        public async Task<MechanicalComponentQuantitySumResponseDTO> FindQuantitySum()
+        {
+            return new MechanicalComponentQuantitySumResponseDTO(await _repository.FindQuantitySum());
+        }
+
+        public async Task<MechanicalComponentTopFiveQuantityResponsesDTO> FindTopFiveInQuantity()
+        {
+            var result = await _repository.FindTopFiveInQuantity();
+            var responses = new List<MechanicalComponentTopFiveQuantityResponseDTO>();
+            foreach (var r in result)
+            {
+                var quantity = await _repository.CountQuantity(r);
+                responses.Add(new MechanicalComponentTopFiveQuantityResponseDTO(r.Name, r.Identifier, quantity));
+            }
+            return new MechanicalComponentTopFiveQuantityResponsesDTO(responses);
         }
     }
 }

@@ -2,7 +2,7 @@
 using StoreManager.Infrastructure.Invoice.DTO;
 using StoreManager.Infrastructure.Shared;
 
-namespace StoreManager.Infrastructure.Invoice.Query
+namespace StoreManager.Infrastructure.Invoice.Command.Query
 {
     public record FilterInvoicesQuery(
         string? ComponentInfo,

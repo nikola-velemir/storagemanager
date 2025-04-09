@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StoreManager.Infrastructure.Invoice.Query;
-using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.Invoice.Command.Query;
 
 namespace StoreManager.Infrastructure.Invoice.Controller
 {
@@ -21,6 +20,18 @@ namespace StoreManager.Infrastructure.Invoice.Controller
         public async Task<IActionResult> FindAll([FromQuery] string? componentInfo, [FromQuery] string? providerId, [FromQuery] string? date, [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
             var result = await _mediator.Send(new FilterInvoicesQuery(componentInfo, providerId, date, pageNumber, pageSize));
+            return Ok(result);
+        }
+        [HttpGet("find-counts-this-week")]
+        public async Task<IActionResult> FindCountsThisWeek()
+        {
+            var result = await _mediator.Send(new FindCountsThisWeekQuery());
+            return Ok(result);
+        }
+        [HttpGet("count-this-week")]
+        public async Task<IActionResult> CountInvoicesThisWeek()
+        {
+            var result = await _mediator.Send(new CountInvoicesThisWeekQuery());
             return Ok(result);
         }
     }

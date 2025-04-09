@@ -36,5 +36,17 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Controller
             var result = await _mediator.Send(new FindComponentInfoQuery(componentId));
             return Ok(result);
         }
+        [HttpGet("find-quantity")]
+        public async Task<IActionResult> FindQuantity()
+        {
+            var result = await _mediator.Send(new FindComponentQuantitySumQuery());
+            return Ok(result);
+        }
+        [HttpGet("find-top-five-quantity")]
+        public async Task<IActionResult> FindTopFiveInQuantity()
+        {
+            var result = await _mediator.Send(new FindTopFiveInQuantityQuery());
+            return Ok(result);
+        }
     }
 }

@@ -19,6 +19,11 @@ namespace StoreManager.Infrastructure.Invoice.Service
             _invoiceItemRepository = invoiceItemRepository;
         }
 
+        public async Task<ThisWeekInvoiceCountResponseDTO> CountInvoicesThisWeek()
+        {
+            return new ThisWeekInvoiceCountResponseDTO(await _invoiceRepository.CountInvoicesThisWeek());
+        }
+
         public async Task Create(Guid id, List<ExtractionMetadata> metadata)
         {
             var invoice = await _invoiceRepository.FindByDocumentId(id);
@@ -33,6 +38,20 @@ namespace StoreManager.Infrastructure.Invoice.Service
                     await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
+
+        public async Task<FindCountsForWeekResponseDTO> FindCountsForWeek()
+        {
+            var startOfWeek = DateOnly.FromDateTime((DateTime.Now.StartOfWeek()));
+            var endOfWeek = startOfWeek.AddDays(7);
+            var counts = new List<FindCountForDayResponseDTO>();
+            for (var date = startOfWeek; date < endOfWeek; date.AddDays(1))
+            {
+                int count = await _invoiceRepository.FindCountForTheDate(date);
+                counts.Add(new FindCountForDayResponseDTO(date.DayOfWeek.ToString(), count));
+            }
+            return new FindCountsForWeekResponseDTO(counts);
+        }
+
         public async Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo, string? providerId, string? dateIssued, int pageNumber, int pageSize)
         {
             Guid? id = null;

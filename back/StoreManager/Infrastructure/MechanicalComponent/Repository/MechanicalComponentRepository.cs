@@ -61,7 +61,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
 
         public Task<MechanicalComponentModel?> FindById(Guid componentGuid)
         {
-            return _components.Include(mc => mc.Items).ThenInclude(ii => ii.Invoice).ThenInclude(i=>i.Provider).FirstOrDefaultAsync(mc => mc.Id.Equals(componentGuid));
+            return _components.Include(mc => mc.Items).ThenInclude(ii => ii.Invoice).ThenInclude(i => i.Provider).FirstOrDefaultAsync(mc => mc.Id.Equals(componentGuid));
         }
 
         public Task<MechanicalComponentModel?> FindByIdentifier(string identifier)
@@ -100,6 +100,22 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             var items = await query.Skip(skip).Take(pageSize).ToListAsync();
 
             return (items, count);
+        }
+
+        public Task<int> FindQuantitySum()
+        {
+            return _components.Include(mc => mc.Items).SelectMany(mc => mc.Items).Where(i => i.Quantity > 0).SumAsync(i => i.Quantity);
+
+        }
+        public Task<List<MechanicalComponentModel>> FindTopFiveInQuantity()
+        {
+
+            return _components
+                .Include(mc => mc.Items)
+
+                .OrderByDescending(x => x.Items.Sum(i => i.Quantity))
+                .Take(5)
+                .ToListAsync();
         }
     }
 }

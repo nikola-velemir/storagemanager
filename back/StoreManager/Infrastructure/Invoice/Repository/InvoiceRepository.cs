@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
+using StoreManager.Infrastructure.Invoice.DTO;
 using StoreManager.Infrastructure.Invoice.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Repository
@@ -65,6 +66,20 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         {
             var query = _invoices.Include(i => i.Provider).Where(i => i.Provider.Id.Equals(id)).AsQueryable();
             return await query.ToListAsync();
+        }
+        public Task<int> CountInvoicesThisWeek()
+        {
+            var startOfWeek = DateOnly.FromDateTime((DateTime.Now.StartOfWeek()));
+            var endOfWeek = startOfWeek.AddDays(7);
+
+            var query = _invoices.Where(i => i.DateIssued >= startOfWeek && i.DateIssued < endOfWeek);
+            return query.CountAsync();
+        }
+
+        public Task<int> FindCountForTheDate(DateOnly date)
+        {
+            var query = _invoices.Where(i => i.DateIssued.Equals(date));
+            return query.CountAsync();
         }
     }
 }
