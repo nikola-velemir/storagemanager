@@ -4,7 +4,6 @@ import {
   BarChart,
   CartesianGrid,
   Rectangle,
-  ResponsiveContainer,
   XAxis,
   YAxis,
 } from "recharts";

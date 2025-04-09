@@ -1,6 +1,8 @@
 import api from "../infrastructure/Interceptor/Interceptor";
 import { PaginatedResponse } from "../model/PaginatedResponse";
 import { ProviderGetResponses } from "../model/provider/ProviderGetResponses";
+import { ProviderInvolvementResponse } from "../model/provider/ProviderInvolvementResponse";
+import { ProviderInvolvementResponses } from "../model/provider/ProviderInvolvementResponses";
 import { ProviderProfileResponse } from "../model/provider/ProviderProfileResponse";
 import { ProviderSearchResponse } from "../model/provider/ProviderSearchResponse";
 
@@ -12,6 +14,11 @@ interface ProviderFilterRequest {
 
 export class ProviderService {
   private static BASE_URL: string = "/providers";
+  public static async findProviderInvolvement() {
+    return api.get<ProviderInvolvementResponses>(
+      this.BASE_URL + "/find-involvement"
+    );
+  }
   public static async findProviderProfile(providerId: string) {
     return api.get<ProviderProfileResponse>(
       this.BASE_URL + "/profile/" + providerId

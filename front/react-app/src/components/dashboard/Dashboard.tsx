@@ -4,6 +4,7 @@ import { GameService } from "../../services/GameService";
 import { useAuth } from "../../infrastructure/Auth/AuthContext";
 import InvoicesThisWeek from "./containers/invoice/InvoicesThisWeek";
 import MechanicalComponentCount from "./containers/component/MechanicalComponentCount";
+import ProviderInvolvement from "./containers/provider/ProviderInvolvement";
 
 const Dashboard = () => {
   const userContext = useAuth();
@@ -27,7 +28,7 @@ const Dashboard = () => {
             <InvoicesThisWeek />
           </div>
           <div className="flex w-1/2 p-4">
-            <MechanicalComponentCount />
+            <ProviderInvolvement />
           </div>
         </div>
         <div className="w-full flex flex-row">

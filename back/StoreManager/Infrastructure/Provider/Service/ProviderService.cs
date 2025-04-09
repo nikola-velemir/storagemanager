@@ -3,7 +3,6 @@ using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Repository;
 using StoreManager.Infrastructure.Shared;
-using UglyToad.PdfPig.Graphics.Operations.PathConstruction;
 
 namespace StoreManager.Infrastructure.Provider.Service
 {
@@ -89,6 +88,18 @@ namespace StoreManager.Infrastructure.Provider.Service
                     components.Select(c => new ProviderProfileComponentResponseDTO(c.Id,c.Name,c.Identifier)).ToList(),
                     invoices.Select(i => new ProviderProfileInvoiceResponseDTO(i.Id, i.DateIssued)).ToList()
                 );
+        }
+
+        public async Task<ProviderInvolvementResponsesDTO> FindProviderInvolements()
+        {
+            var providers = await _providerRepository.FindAll();
+            var responses = new List<ProviderInvolementResponseDTO>();
+            foreach(var provider in providers)
+            {
+                var count = await _providerRepository.FindInvoiceCountForProvider(provider);
+                responses.Add(new ProviderInvolementResponseDTO(provider.Id, provider.Name, count));
+            }
+            return new ProviderInvolvementResponsesDTO(responses);
         }
     }
 }

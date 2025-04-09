@@ -43,9 +43,9 @@ namespace StoreManager.Infrastructure.Provider.Repository
             var query = _providers.Include(p => p.Invoices).AsQueryable();
             if (!string.IsNullOrEmpty(providerInfo))
             {
-                query = query.Where(p => 
-                p.Name.ToLower().Contains(providerInfo.ToLower()) || 
-                p.Adress.ToLower().Contains(providerInfo.ToLower()) || 
+                query = query.Where(p =>
+                p.Name.ToLower().Contains(providerInfo.ToLower()) ||
+                p.Adress.ToLower().Contains(providerInfo.ToLower()) ||
                 p.PhoneNumber.ToLower().Contains(providerInfo.ToLower()));
             }
             var count = await query.CountAsync();
@@ -54,6 +54,14 @@ namespace StoreManager.Infrastructure.Provider.Repository
 
             return (items, count);
         }
+
+        public async Task<int> FindInvoiceCountForProvider(ProviderModel provider)
+        {
+            var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Invoices)
+                .FirstOrDefaultAsync();
+            return query?.Invoices.Count ?? 0;
+        }
+
         public async Task<ProviderModel> Update(ProviderModel provider)
         {
             var savedEntity = _providers.Update(provider);

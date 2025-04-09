@@ -41,6 +41,10 @@ namespace StoreManager.Infrastructure.Provider.Controller
         {
             return Ok(await _mediator.Send(new FindProviderProfileQuery(providerId)));
         }
-
+        [HttpGet("find-involvement")]
+        public async Task<IActionResult> FindInvolvement()
+        {
+            return Ok(await _mediator.Send(new FindProviderInvolementsQuery()));
+        }
     }
 }
