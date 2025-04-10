@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  AreaChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Area,
-} from "recharts";
+import { useEffect, useState } from "react";
+import { AreaChart, CartesianGrid, XAxis, YAxis, Area } from "recharts";
 import { InventoryValueByDay } from "../../../../services/InvoiceService";
 
 interface InventoryValueChartProps {

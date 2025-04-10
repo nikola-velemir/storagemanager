@@ -3,17 +3,8 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace StoreManager.Infrastructure.MiddleWare
 {
-    public class TokenValidation
+    public class TokenValidation(RequestDelegate next, RedisCacheService redisCacheService)
     {
-        private readonly RequestDelegate _next;
-        private readonly RedisCacheService _redisCacheService;
-
-        public TokenValidation(RequestDelegate next, RedisCacheService redisCacheService)
-        {
-            _next = next;
-            _redisCacheService = redisCacheService;
-        }
-
         public async Task Invoke(HttpContext context)
         {
             var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
@@ -24,14 +15,14 @@ namespace StoreManager.Infrastructure.MiddleWare
                 var jwtToken = handler.ReadJwtToken(token);
                 var jti = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
 
-                if (jti != null && await _redisCacheService.IsTokenRevoked(jti))
+                if (jti != null && await redisCacheService.IsTokenRevoked(jti))
                 {
                     context.Response.StatusCode = 401;
                     await context.Response.WriteAsync("Token has been revoked");
                     return;
                 }
             }
-            await _next(context);
+            await next(context);
         }
     }
 }

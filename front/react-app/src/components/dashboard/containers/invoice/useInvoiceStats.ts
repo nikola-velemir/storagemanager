@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { InvoiceFindCountForDayResponse } from "../../../../model/invoice/InvoiceFindCountForDayResponse";
-import { animate, AnimationPlaybackControls } from "framer-motion";
+import { animate } from "framer-motion";
 import { InvoiceService } from "../../../../services/InvoiceService";
 
 export const useInvoiceStats = () => {

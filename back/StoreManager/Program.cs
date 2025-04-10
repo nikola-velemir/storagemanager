@@ -1,4 +1,3 @@
-using StoreManager.Infrastructure.AppSetup;
 using StoreManager.Infrastructure.Auth;
 using StoreManager.Infrastructure.MiddleWare;
 

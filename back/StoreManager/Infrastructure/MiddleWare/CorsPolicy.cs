@@ -1,4 +1,4 @@
-﻿namespace StoreManager.Infrastructure.Auth
+﻿namespace StoreManager.Infrastructure.MiddleWare
 {
     public static class CorsPolicy
     {

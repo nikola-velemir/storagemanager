@@ -2,7 +2,6 @@ import {
   CartesianGrid,
   Line,
   LineChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -18,9 +17,6 @@ const WeeklyInvoiceChart = ({ data }: WeeklyInvoiceChartProps) => {
   const [invoices, setInvoices] = useState<InvoiceFindCountForDayResponse[]>(
     []
   );
-  const handleClick = (e: any) => {
-    console.log(e);
-  };
   useEffect(() => {
     const updatedData = data.map((item) => ({
       ...item,

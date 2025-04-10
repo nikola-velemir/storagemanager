@@ -176,6 +176,43 @@ namespace StoreManager.Migrations
                     b.ToTable("MechanicalComponents", "public");
                 });
 
+            modelBuilder.Entity("StoreManager.Infrastructure.Product.Model.ProductComponentsModel", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ComponentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("UsedQuantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductId", "ComponentId");
+
+                    b.HasIndex("ComponentId");
+
+                    b.ToTable("ProductComponents", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Product.Model.ProductModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products", "public");
+                });
+
             modelBuilder.Entity("StoreManager.Infrastructure.Provider.Model.ProviderModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -298,6 +335,25 @@ namespace StoreManager.Migrations
                     b.Navigation("Provider");
                 });
 
+            modelBuilder.Entity("StoreManager.Infrastructure.Product.Model.ProductComponentsModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", "Component")
+                        .WithMany("Products")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreManager.Infrastructure.Product.Model.ProductModel", "Product")
+                        .WithMany("Components")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Component");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
                 {
                     b.Navigation("Chunks");
@@ -311,6 +367,13 @@ namespace StoreManager.Migrations
             modelBuilder.Entity("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", b =>
                 {
                     b.Navigation("Items");
+
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Product.Model.ProductModel", b =>
+                {
+                    b.Navigation("Components");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Provider.Model.ProviderModel", b =>

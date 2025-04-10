@@ -3,7 +3,6 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { useLocation } from "react-router-dom";

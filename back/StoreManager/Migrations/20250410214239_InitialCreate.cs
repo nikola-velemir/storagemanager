@@ -47,6 +47,20 @@ namespace StoreManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Providers",
                 schema: "public",
                 columns: table => new
@@ -97,6 +111,34 @@ namespace StoreManager.Migrations
                         column: x => x.DocumentId,
                         principalSchema: "public",
                         principalTable: "Documents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductComponents",
+                schema: "public",
+                columns: table => new
+                {
+                    ComponentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UsedQuantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductComponents", x => new { x.ProductId, x.ComponentId });
+                    table.ForeignKey(
+                        name: "FK_ProductComponents_MechanicalComponents_ComponentId",
+                        column: x => x.ComponentId,
+                        principalSchema: "public",
+                        principalTable: "MechanicalComponents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductComponents_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "public",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -234,6 +276,12 @@ namespace StoreManager.Migrations
                 column: "ProviderModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductComponents_ComponentId",
+                schema: "public",
+                table: "ProductComponents",
+                column: "ComponentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_Token",
                 schema: "public",
                 table: "RefreshTokens",
@@ -266,6 +314,10 @@ namespace StoreManager.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
+                name: "ProductComponents",
+                schema: "public");
+
+            migrationBuilder.DropTable(
                 name: "RefreshTokens",
                 schema: "public");
 
@@ -275,6 +327,10 @@ namespace StoreManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "MechanicalComponents",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Products",
                 schema: "public");
 
             migrationBuilder.DropTable(

@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
 import { MechanicalComponentInfoResponse } from "../../../../model/components/info/MechanicalComponentInfoResponse";
 import { MechanicalComponentInfoInvoiceResponse } from "../../../../model/components/info/MechanicalComponentInfoInvoiceResponse";
-import InvoiceSearchCard from "../../invoice/search/cards/InvoiceSearchCard";
-import InvoiceCard from "../search/cards/InvoiceCard";
 import ComponentInfoInvoiceCard from "./cards/ComponentInfoInvoiceCard";
 
 const ComponentInfo = () => {
@@ -12,7 +10,7 @@ const ComponentInfo = () => {
   const [component, setComponent] =
     useState<MechanicalComponentInfoResponse | null>(null);
   useEffect(() => {
-    if (!id || id.trim().length == 0) return;
+    if (!id || id.trim().length === 0) return;
     MechanicalComponentService.findInfo(id).then((response) => {
       setComponent(response.data);
     });
