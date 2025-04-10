@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProviderInvolvementPieChart from "./ProviderInvolvementPieChart";
-import { ProviderInvoiceInvolvementResponse as ProviderInvoiceInvolvementResponse } from "../../../../model/provider/ProviderInvoiceInvolvementResponse";
 import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
+import { ProviderInvoiceInvolvementResponse } from "../../../../model/provider/ProviderInvoiceInvolvementResponse";
 interface ProviderInvolvementCarouselProps {
   invoice: ProviderInvoiceInvolvementResponse[];
   components: ProviderComponentInvolvementResponse[];
@@ -24,24 +24,26 @@ const ProviderInvolvementCarousel = ({
     setPage((page + 1) % 2);
   };
   const handlePrevious = () => {
-    setPage((page - 1) % 2);
+    setPage(Math.abs(page - 1) % 2);
   };
   return (
     <div
       id="default-carousel"
-      className="relative w-full"
+      className="relative w-full h-full"
       data-carousel="slide"
     >
-      <div className="relative h-fit overflow-hidden rounded-lg">
+      <div className="relative h-full overflow-hidden rounded-lg">
         <div
-          className={`duration-700 ease-in-out ${page === 0 ? "" : "hidden"}`}
+          className={`duration-700 h-full ease-in-out ${
+            page === 0 ? "" : "hidden"
+          }`}
           data-carousel-item
         >
-          <div className="flex flex-col w-full h-fit">
+          <div className="flex flex-col h-full w-full">
             <span className="text-base font-medium w-full flex justify-start">
               Invoice involvement
             </span>
-            <div className="w-full h-fit flex justify-center p-4 pt-2 text-white text-lg font-medium">
+            <div className="w-full h-full flex justify-center p-4 pt-2 text-white text-lg font-medium">
               <ProviderInvolvementPieChart
                 dataKey="invoiceCount"
                 data={displayedProvidersByInvoice}
@@ -50,13 +52,15 @@ const ProviderInvolvementCarousel = ({
           </div>
         </div>
         <div
-          className={`duration-700 ease-in-out ${page === 1 ? "" : "hidden"}`}
+          className={`duration-700 h-full ease-in-out ${
+            page === 1 ? "" : "hidden"
+          }`}
         >
-          <div className="flex flex-col w-full h-fit">
+          <div className="flex flex-col h-full w-full">
             <span className="text-base font-medium w-full flex justify-start">
               Component involvement
             </span>
-            <div className="w-full h-fit flex justify-center p-4 pt-2 text-white text-lg font-medium">
+            <div className="w-full h-full flex justify-center p-4 pt-2 text-white text-lg font-medium">
               <ProviderInvolvementPieChart
                 dataKey="componentCount"
                 data={displayedProvidersByComponents}

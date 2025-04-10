@@ -12,89 +12,92 @@ import ProviderProfile from "../../features/provider/profile/ProviderProfile";
 import InvoiceInfo from "../../features/invoice/info/InvoiceInfo";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
+import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackContext";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
     <AnimatePresence>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/login" element={<LoginForm />} />
-        <Route element={<ProtectedRoute />}>
-          <Route
-            path="/"
-            element={
-              <ContentContainer>
-                <Dashboard />
-              </ContentContainer>
-            }
-          ></Route>
-          <Route
-            path="/components-search"
-            element={
-              <ContentContainer>
-                <ComponentsSearch />
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/component-info/:id"
-            element={
-              <ContentContainer>
-                <ComponentInfo />
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/invoice-search"
-            element={
-              <ContentContainer>
-                <InvoiceSearch></InvoiceSearch>
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/invoice-upload"
-            element={
-              <ContentContainer>
-                <InvoiceUpload />
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/provider-profile/:id"
-            element={
-              <ContentContainer>
-                <ProviderProfile />
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/invoice-info/:id"
-            element={
-              <ContentContainer>
-                <InvoiceInfo />
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/providers-search"
-            element={
-              <ContentContainer>
-                <ProviderSearch />
-              </ContentContainer>
-            }
-          />
-          <Route
-            path="/kurac"
-            element={
-              <ContentContainer>
-                <HailFailed />
-              </ContentContainer>
-            }
-          />
-        </Route>
-        <Route path="/hailFailed" element={<HailFailed />} />
-      </Routes>
+      <RouteStackProvider>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/login" element={<LoginForm />} />
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/"
+              element={
+                <ContentContainer>
+                  <Dashboard />
+                </ContentContainer>
+              }
+            ></Route>
+            <Route
+              path="/components-search"
+              element={
+                <ContentContainer>
+                  <ComponentsSearch />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/component-info/:id"
+              element={
+                <ContentContainer>
+                  <ComponentInfo />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/invoice-search"
+              element={
+                <ContentContainer>
+                  <InvoiceSearch></InvoiceSearch>
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/invoice-upload"
+              element={
+                <ContentContainer>
+                  <InvoiceUpload />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/provider-profile/:id"
+              element={
+                <ContentContainer>
+                  <ProviderProfile />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/invoice-info/:id"
+              element={
+                <ContentContainer>
+                  <InvoiceInfo />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/providers-search"
+              element={
+                <ContentContainer>
+                  <ProviderSearch />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/kurac"
+              element={
+                <ContentContainer>
+                  <HailFailed />
+                </ContentContainer>
+              }
+            />
+          </Route>
+          <Route path="/hailFailed" element={<HailFailed />} />
+        </Routes>
+      </RouteStackProvider>
     </AnimatePresence>
   );
 };

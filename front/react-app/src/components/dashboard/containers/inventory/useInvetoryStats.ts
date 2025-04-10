@@ -7,6 +7,7 @@ import { animate } from "framer-motion";
 
 export const useInventoryStats = () => {
   const [total, setTotal] = useState(0);
+  const [currentValue, setCurrentValue] = useState(0);
   const [prices, setPrices] = useState<InventoryValueByDay[]>([]);
   useEffect(() => {
     InvoiceService.findTotalInventoryValue().then((res) => {
@@ -17,11 +18,11 @@ export const useInventoryStats = () => {
         duration: 2,
         ease: "easeInOut",
         onUpdate: (latest) => {
-          setTotal(parseFloat(latest.toFixed(2)));
+          setCurrentValue(parseFloat(latest.toFixed(2)));
         },
       });
       return () => controls.stop();
     });
   }, []);
-  return { total, prices };
+  return { total, currentValue, prices };
 };

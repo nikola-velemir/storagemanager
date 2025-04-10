@@ -1,5 +1,10 @@
-import { easeIn } from "framer-motion";
-import { PieChart, Pie, Tooltip, TooltipProps } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  TooltipProps,
+  ResponsiveContainer,
+} from "recharts";
 import {
   NameType,
   ValueType,
@@ -64,24 +69,26 @@ const ProviderInvolvementPieChart = ({
     navigate("/provider-profile/" + data.id);
   };
   return (
-    <PieChart height={400} width={800}>
-      <Pie
-        dataKey={dataKey}
-        data={data.map((entry) => ({
-          ...entry,
-          fill: generateRandomColor(),
-        }))}
-        cx="50%"
-        cy="50%"
-        innerRadius={90}
-        outerRadius={220}
-        fill="#82ca9d"
-        stroke="oklch(44.6% 0.043 257.281)"
-        onClick={handlePieSliceClick}
-        label={({ name }) => name}
-      />
-      <Tooltip content={<CustomTooltip />} />
-    </PieChart>
+    <ResponsiveContainer height="100%" width="100%">
+      <PieChart>
+        <Pie
+          dataKey={dataKey}
+          data={data.map((entry) => ({
+            ...entry,
+            fill: generateRandomColor(),
+          }))}
+          cx="50%"
+          cy="50%"
+          innerRadius="30%"
+          outerRadius="80%"
+          fill="#82ca9d"
+          stroke="oklch(44.6% 0.043 257.281)"
+          onClick={handlePieSliceClick}
+          label={({ name }) => name}
+        />
+        <Tooltip content={<CustomTooltip />} />
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
 
