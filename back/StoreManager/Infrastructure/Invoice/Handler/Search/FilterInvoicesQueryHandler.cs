@@ -1,22 +1,15 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using MediatR;
+﻿using MediatR;
 using StoreManager.Infrastructure.Invoice.Command.Search;
 using StoreManager.Infrastructure.Invoice.DTO.Search;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Shared;
-using static Supabase.Gotrue.Constants;
 
 namespace StoreManager.Infrastructure.Invoice.Handler.Search
 {
-    public class FilterInvoicesQueryHandler : IRequestHandler<FilterInvoicesQuery, PaginatedResult<InvoiceSearchResponseDTO>>
+    public class FilterInvoicesQueryHandler(IInvoiceRepository invoiceRepository)
+        : IRequestHandler<FilterInvoicesQuery, PaginatedResult<InvoiceSearchResponseDto>>
     {
-        private readonly IInvoiceRepository _invoiceRepository;
-        public FilterInvoicesQueryHandler(IInvoiceRepository invoiceRepository)
-        {
-            _invoiceRepository = invoiceRepository;
-        }
-
-        public async Task<PaginatedResult<InvoiceSearchResponseDTO>> Handle(FilterInvoicesQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<InvoiceSearchResponseDto>> Handle(FilterInvoicesQuery request, CancellationToken cancellationToken)
         {
             Guid? id = null;
             if (Guid.TryParse(request.ProviderId, out var tempId))
@@ -28,16 +21,16 @@ namespace StoreManager.Infrastructure.Invoice.Handler.Search
             {
                 date = tempDate;
             }
-            var result = await _invoiceRepository.FindFiltered(request.ComponentInfo, id, date, request.PageNumber, request.PageSize);
-            return new PaginatedResult<InvoiceSearchResponseDTO>
+            var result = await invoiceRepository.FindFiltered(request.ComponentInfo, id, date, request.PageNumber, request.PageSize);
+            return new PaginatedResult<InvoiceSearchResponseDto>
             {
                 Items = result.Items.Select(invoice =>
-                    new InvoiceSearchResponseDTO(
+                    new InvoiceSearchResponseDto(
                         invoice.Id,
                         invoice.DateIssued,
-                        new InvoiceSearchProviderDTO(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
+                        new InvoiceSearchProviderDto(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
                         invoice.Items.Select(
-                            item => new InvoiceSearchComponentDTO(
+                            item => new InvoiceSearchComponentDto(
                                 item.Component.Id, item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
                                 )
                 ).ToList()

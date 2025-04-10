@@ -5,27 +5,21 @@ using StoreManager.Infrastructure.MechanicalComponent.Repository;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Search
 {
-    public class FindByInvoiceIdHandler : IRequestHandler<FindComponentByInvoiceIdQuery, MechanicalComponentFindResponsesDTO>
+    public class FindByInvoiceIdHandler(IMechanicalComponentRepository repository)
+        : IRequestHandler<FindComponentByInvoiceIdQuery, MechanicalComponentFindResponsesDto>
     {
-        private IMechanicalComponentRepository _repository;
-
-        public FindByInvoiceIdHandler(IMechanicalComponentRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public async Task<MechanicalComponentFindResponsesDTO> Handle(FindComponentByInvoiceIdQuery request, CancellationToken cancellationToken)
+        public async Task<MechanicalComponentFindResponsesDto> Handle(FindComponentByInvoiceIdQuery request, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(request.InvoiceId, out _))
             {
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid invoiceGuid = Guid.Parse(request.InvoiceId);
-            var result = await _repository.FindByInvoiceId(invoiceGuid);
+            var result = await repository.FindByInvoiceId(invoiceGuid);
 
-            return new MechanicalComponentFindResponsesDTO(
+            return new MechanicalComponentFindResponsesDto(
                 result.Select(mc =>
-                new MechanicalComponentFindResponseDTO(
+                new MechanicalComponentFindResponseDto(
                     mc.Id,
                     mc.Identifier,
                     mc.Name,

@@ -6,17 +6,10 @@ using StoreManager.Infrastructure.Document.Model;
 using System.Text.RegularExpressions;
 namespace StoreManager.Infrastructure.Document.Repository
 {
-    public class DocumentRepository : IDocumentRepository
+    public class DocumentRepository(WarehouseDbContext context) : IDocumentRepository
     {
-        private WarehouseDbContext _context;
-        private DbSet<DocumentModel> _files;
-        private DbSet<DocumentChunkModel> _chunks;
-        public DocumentRepository(WarehouseDbContext context)
-        {
-            _context = context;
-            _files = context.Documents;
-            _chunks = context.DocumentChunks;
-        }
+        private readonly DbSet<DocumentModel> _files = context.Documents;
+        private readonly DbSet<DocumentChunkModel> _chunks = context.DocumentChunks;
 
         public Task<DocumentModel?> FindByDocumentId(Guid id)
         {
@@ -49,13 +42,12 @@ namespace StoreManager.Infrastructure.Document.Repository
             };
             var savedChunk = await _chunks.AddAsync(chunk);
 
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return savedChunk.Entity;
         }
 
         public async Task<DocumentModel> SaveFile(string fileName)
         {
-            var fileGuid = Guid.NewGuid();
             var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
 
             var mimeType = MimeMapping.MimeUtility.GetMimeMapping(fileName).Split('/').Last();
@@ -69,7 +61,7 @@ namespace StoreManager.Infrastructure.Document.Repository
             };
 
             var savedInstance = await _files.AddAsync(fileRecord);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
 
             return savedInstance.Entity;
         }

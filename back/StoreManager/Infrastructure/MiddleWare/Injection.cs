@@ -51,7 +51,7 @@ namespace StoreManager.Infrastructure.AppSetup
             services.AddSingleton<IAccessTokenGenerator, AccessTokenGenerator>();
 
             services.AddSingleton<IRefreshTokenGenerator, RefreshTokenGenerator>();
-            services.AddScoped<IRefreshTokenRepository, RefreshTokenRespository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
             services.AddScoped<IAuthService, AuthService>();
 

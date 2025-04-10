@@ -4,25 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using StoreManager.Infrastructure.Auth.Command;
 using StoreManager.Infrastructure.Auth.DTO;
-using StoreManager.Infrastructure.Auth.Service;
+
 namespace StoreManager.Infrastructure.Auth.Controller
 {
     [ApiController]
     [Route("api/auth")]
-    public class AuthController : ControllerBase
+    public class AuthController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public AuthController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [HttpPost("login")]
-        public async Task<ActionResult<LoginResponseDTO>> Login([FromBody] LoginRequestDTO request)
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
         {
             try
             {
-                var response = await _mediator.Send(new LoginQuery(request.username, request.password));
+                var response = await mediator.Send(new LoginQuery(request.username, request.password));
                 return Ok(response);
             }
             catch (InvalidOperationException e)
@@ -48,7 +42,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
 
                 var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
 
-                await _mediator.Send(new DeAuthenticateCommand(accessToken));
+                await mediator.Send(new DeAuthenticateCommand(accessToken));
 
                 return Ok("Token revoked");
 
@@ -60,11 +54,11 @@ namespace StoreManager.Infrastructure.Auth.Controller
         }
 
         [HttpPost("refresh")]
-        public async Task<ActionResult<LoginResponseDTO>> Refresh([FromBody] RefreshRequestDTO request)
+        public async Task<ActionResult<LoginResponseDto>> Refresh([FromBody] RefreshRequestDto request)
         {
             try
             {
-                var response = await _mediator.Send(new RefreshAuthentificationQuery(request.refresh_token));
+                var response = await mediator.Send(new RefreshAuthenticationQuery(request.refresh_token));
                 return Ok(response);
             }
             catch (InvalidOperationException e)

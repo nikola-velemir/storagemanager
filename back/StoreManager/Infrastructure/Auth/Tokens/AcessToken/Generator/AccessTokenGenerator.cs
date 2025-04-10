@@ -5,14 +5,8 @@ using System.Text;
 
 namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator
 {
-    public class AccessTokenGenerator : IAccessTokenGenerator
+    public class AccessTokenGenerator(IConfiguration config) : IAccessTokenGenerator
     {
-        private readonly IConfiguration _config;
-        public AccessTokenGenerator(IConfiguration config)
-        {
-            _config = config;
-        }
-
         public string GenerateToken(string username, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -32,9 +26,9 @@ namespace StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator
                 new(ClaimTypes.Role, role)
             };
 
-            var expiryTimeInMinutes = _config.GetValue<int>("JwtSettings:ExpiryIntervalInMinutes");
-            var issuer = _config.GetValue<string>("JwtSettings:Issuer");
-            var audience = _config.GetValue<string>("JwtSettings:Audience");
+            var expiryTimeInMinutes = config.GetValue<int>("JwtSettings:ExpiryIntervalInMinutes");
+            var issuer = config.GetValue<string>("JwtSettings:Issuer");
+            var audience = config.GetValue<string>("JwtSettings:Audience");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),

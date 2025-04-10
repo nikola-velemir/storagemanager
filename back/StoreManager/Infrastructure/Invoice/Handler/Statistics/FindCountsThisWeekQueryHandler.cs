@@ -5,7 +5,7 @@ using StoreManager.Infrastructure.Invoice.Repository;
 
 namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
 {
-    public class FindCountsThisWeekQueryHandler : IRequestHandler<FindCountsThisWeekQuery, FindCountsForWeekResponseDTO>
+    public class FindCountsThisWeekQueryHandler : IRequestHandler<FindCountsThisWeekQuery, FindCountsForWeekResponseDto>
     {
         private IInvoiceRepository _invoiceRepository;
         public FindCountsThisWeekQueryHandler(IInvoiceRepository invoiceRepository)
@@ -13,17 +13,17 @@ namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
             _invoiceRepository = invoiceRepository;
         }
 
-        public async Task<FindCountsForWeekResponseDTO> Handle(FindCountsThisWeekQuery request, CancellationToken cancellationToken)
+        public async Task<FindCountsForWeekResponseDto> Handle(FindCountsThisWeekQuery request, CancellationToken cancellationToken)
         {
             var startOfWeek = DateOnly.FromDateTime(DateTime.Now.StartOfWeek());
             var endOfWeek = startOfWeek.AddDays(7);
-            var counts = new List<FindCountForDayResponseDTO>();
+            var counts = new List<FindCountForDayResponseDto>();
             for (var date = startOfWeek; date < endOfWeek; date = date.AddDays(1))
             {
                 int count = await _invoiceRepository.FindCountForTheDate(date);
-                counts.Add(new FindCountForDayResponseDTO(date.DayOfWeek.ToString(), count));
+                counts.Add(new FindCountForDayResponseDto(date.DayOfWeek.ToString(), count));
             }
-            return new FindCountsForWeekResponseDTO(counts);
+            return new FindCountsForWeekResponseDto(counts);
         }
     }
 }

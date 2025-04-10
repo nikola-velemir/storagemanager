@@ -5,25 +5,20 @@ using StoreManager.Infrastructure.MechanicalComponent.Repository;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Statistics
 {
-    public class FindTopFiveInQuantityQueryHandler : IRequestHandler<FindTopFiveInQuantityQuery, MechanicalComponentTopFiveQuantityResponsesDTO>
+    public class FindTopFiveInQuantityQueryHandler(IMechanicalComponentRepository repository)
+        : IRequestHandler<FindTopFiveInQuantityQuery, MechanicalComponentTopFiveQuantityResponsesDto>
     {
-        private IMechanicalComponentRepository _repository;
-        public FindTopFiveInQuantityQueryHandler(IMechanicalComponentRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public async Task<MechanicalComponentTopFiveQuantityResponsesDTO> Handle(FindTopFiveInQuantityQuery request, CancellationToken cancellationToken)
+        public async Task<MechanicalComponentTopFiveQuantityResponsesDto> Handle(FindTopFiveInQuantityQuery request, CancellationToken cancellationToken)
         {
 
-            var result = await _repository.FindTopFiveInQuantity();
-            var responses = new List<MechanicalComponentTopFiveQuantityResponseDTO>();
+            var result = await repository.FindTopFiveInQuantity();
+            var responses = new List<MechanicalComponentTopFiveQuantityResponseDto>();
             foreach (var r in result)
             {
-                var quantity = await _repository.CountQuantity(r);
-                responses.Add(new MechanicalComponentTopFiveQuantityResponseDTO(r.Id,r.Name, r.Identifier, quantity));
+                var quantity = await repository.CountQuantity(r);
+                responses.Add(new MechanicalComponentTopFiveQuantityResponseDto(r.Id,r.Name, r.Identifier, quantity));
             }
-            return new MechanicalComponentTopFiveQuantityResponsesDTO(responses);
+            return new MechanicalComponentTopFiveQuantityResponsesDto(responses);
         }
     }
 }

@@ -15,49 +15,38 @@ using System.Text.RegularExpressions;
 
 namespace StoreManager.Infrastructure.Document.Service
 {
-    public class DocumentService : IDocumentService
+    public class DocumentService(
+        IInvoiceService invoiceService,
+        IDocumentRepository repository,
+        ICloudStorageService supabase,
+        IInvoiceRepository invoiceRepository,
+        IWebHostEnvironment env,
+        IDocumentReaderFactory readerFactory,
+        IProviderRepository providerRepository,
+        IFileService fileService)
+        : IDocumentService
     {
-        private readonly IDocumentRepository _documentRepository;
-        private readonly ICloudStorageService _supaService;
-        private readonly IInvoiceRepository _invoiceRepository;
-        private readonly IInvoiceService _invoiceService;
-        private readonly IWebHostEnvironment _env;
-        private readonly IProviderRepository _providerRepository;
-        private readonly IDocumentReaderFactory _readerFactory;
-        private readonly IFileService _fileService;
-        public DocumentService(IInvoiceService invoiceService, IDocumentRepository repository, ICloudStorageService supabase, IInvoiceRepository invoiceRepository, IWebHostEnvironment env, IDocumentReaderFactory readerFactory, IProviderRepository providerRepository, IFileService fileService)
-        {
-            _invoiceService = invoiceService;
-            _documentRepository = repository;
-            _supaService = supabase;
-            _fileService = fileService;
-            _invoiceRepository = invoiceRepository;
-            _env = env;
-            _readerFactory = readerFactory;
-            _providerRepository = providerRepository;
-        }
-
-        public async Task<DocumentDownloadResponseDTO> DownloadChunk(string invoiceId, int chunkIndex)
+        public async Task<DocumentDownloadResponseDto> DownloadChunk(string invoiceId, int chunkIndex)
         {
             if (!Guid.TryParse(invoiceId, out var tempId))
             {
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid invoiceGuid = Guid.Parse(invoiceId);
-            var invoice = await _invoiceRepository.FindById(invoiceGuid);
+            var invoice = await invoiceRepository.FindById(invoiceGuid);
             if (invoice is null)
             {
                 throw new EntryPointNotFoundException("Invoice not found");
             }
 
-            var file = await _documentRepository.FindByName(invoice.Document.FileName) ?? throw new FileNotFoundException("File not found");
+            var file = await repository.FindByName(invoice.Document.FileName) ?? throw new FileNotFoundException("File not found");
 
 
 
             var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == chunkIndex)
                 ?? throw new EntryPointNotFoundException("Chunk not found");
 
-            var response = new DocumentDownloadResponseDTO(await _supaService.DownloadChunk(chunk), DocumentUtils.GetPresentationalMimeType(file.Type));
+            var response = new DocumentDownloadResponseDto(await supabase.DownloadChunk(chunk), DocumentUtils.GetPresentationalMimeType(file.Type));
             return response;
 
         }
@@ -65,7 +54,7 @@ namespace StoreManager.Infrastructure.Document.Service
         {
             try
             {
-                var parsedProvider = JsonConvert.DeserializeObject<ProviderFormDataRequestDTO>(providerFormData);
+                var parsedProvider = JsonConvert.DeserializeObject<ProviderFormDataRequestDto>(providerFormData);
                 if (parsedProvider is null)
                 {
                     throw new ArgumentNullException("provider is null");
@@ -73,13 +62,13 @@ namespace StoreManager.Infrastructure.Document.Service
                 ProviderModel? provider;
                 if (!string.IsNullOrEmpty(parsedProvider.providerId))
                 {
-                    provider = await _providerRepository.FindById(Guid.Parse(parsedProvider.providerId));
+                    provider = await providerRepository.FindById(Guid.Parse(parsedProvider.providerId));
                     if (provider is null) throw new ArgumentNullException("provider is null");
 
                 }
                 else
                 {
-                    provider = await _providerRepository.Create(new ProviderModel
+                    provider = await providerRepository.Create(new ProviderModel
                     {
                         Adress = parsedProvider.providerAddress,
                         Id = Guid.NewGuid(),
@@ -88,11 +77,11 @@ namespace StoreManager.Infrastructure.Document.Service
                     });
                 }
                 var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
-                var foundFile = await _documentRepository.FindByName(parsedFileName);
+                var foundFile = await repository.FindByName(parsedFileName);
                 if (foundFile == null)
                 {
-                    foundFile = await _documentRepository.SaveFile(fileName);
-                    var invoice = await _invoiceRepository.Create(new InvoiceModel
+                    foundFile = await repository.SaveFile(fileName);
+                    var invoice = await invoiceRepository.Create(new InvoiceModel
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
@@ -101,26 +90,26 @@ namespace StoreManager.Infrastructure.Document.Service
                         DocumentId = foundFile.Id,
                         Id = Guid.NewGuid()
                     });
-                    await _providerRepository.AddInvoice(provider, invoice);
+                    await providerRepository.AddInvoice(provider, invoice);
                 }
-                var savedChunk = await _documentRepository.SaveChunk(file, fileName, chunkIndex);
-                await _supaService.UploadFileChunk(file, savedChunk);
+                var savedChunk = await repository.SaveChunk(file, fileName, chunkIndex);
+                await supabase.UploadFileChunk(file, savedChunk);
 
-                await _fileService.AppendChunk(file, foundFile);
+                await fileService.AppendChunk(file, foundFile);
 
                 if (chunkIndex == totalChunks - 1)
                 {
-                    var documentReader = _readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundFile.Type));
+                    var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundFile.Type));
 
-                    var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+                    var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
 
                     var filePath = Path.Combine(webRootPath, $"{foundFile.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundFile.Type)}");
 
                     var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                    await _invoiceService.Create(foundFile.Id, metadata);
+                    await invoiceService.Create(foundFile.Id, metadata);
 
-                    await _fileService.DeleteAllChunks(foundFile);
+                    await fileService.DeleteAllChunks(foundFile);
                 }
 
 

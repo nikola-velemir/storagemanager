@@ -9,8 +9,9 @@ const AppNavbar = ({ toggleDrawer }: AppNavbarProps) => {
   const navigate = useNavigate();
   const routeStack = useRouteStack();
   const isPreviousRouteLogin = () => {
+    console.log(routeStack);
     return (
-      routeStack.length == 0 || routeStack[routeStack.length - 2] === "/login"
+      routeStack.length < 2 || routeStack[routeStack.length - 2] === "/login"
     );
   };
   const handleGoBack = () => {

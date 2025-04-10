@@ -6,32 +6,30 @@ using System.ComponentModel;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Info
 {
-    public class FindComponentInfoHandler : IRequestHandler<FindComponentInfoQuery, MechanicalComponentInfoResponseDTO>
+    public class FindComponentInfoHandler(IMechanicalComponentRepository repository)
+        : IRequestHandler<FindComponentInfoQuery, MechanicalComponentInfoResponseDto>
     {
-        private IMechanicalComponentRepository _repository;
-        public FindComponentInfoHandler(IMechanicalComponentRepository repository) { _repository = repository; }
-
-        public async Task<MechanicalComponentInfoResponseDTO> Handle(FindComponentInfoQuery request, CancellationToken cancellationToken)
+        public async Task<MechanicalComponentInfoResponseDto> Handle(FindComponentInfoQuery request, CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(request.ComponentId, out _))
             {
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid componentGuid = Guid.Parse(request.ComponentId);
-            var component = await _repository.FindById(componentGuid);
+            var component = await repository.FindById(componentGuid);
             if (component is null)
             {
                 throw new EntryPointNotFoundException("Component not found");
             }
-            var quantity = await _repository.CountQuantity(component);
-            return new MechanicalComponentInfoResponseDTO(
+            var quantity = await repository.CountQuantity(component);
+            return new MechanicalComponentInfoResponseDto(
                 component.Name,
                 component.Identifier,
                 quantity,
-                component.Items.Select(ii => new MechanicalComponentInfoInvoiceResponseDTO(
+                component.Items.Select(ii => new MechanicalComponentInfoInvoiceResponseDto(
                     ii.Invoice.Id,
                     ii.Invoice.DateIssued,
-                    new MechanicalComponentInfoProviderResponseDTO(ii.Invoice.Provider.Id, ii.Invoice.Provider.Name, ii.Invoice.Provider.Adress, ii.Invoice.Provider.PhoneNumber))
+                    new MechanicalComponentInfoProviderResponseDto(ii.Invoice.Provider.Id, ii.Invoice.Provider.Name, ii.Invoice.Provider.Adress, ii.Invoice.Provider.PhoneNumber))
                 ).ToList()
             );
         }

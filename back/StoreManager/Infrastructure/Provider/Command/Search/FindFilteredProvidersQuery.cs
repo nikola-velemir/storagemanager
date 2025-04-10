@@ -8,5 +8,5 @@ namespace StoreManager.Infrastructure.Provider.Command.Search
     public record FindFilteredProvidersQuery(
         string? ProviderName, 
         int PageNumber, 
-        int PageSize) : IRequest<PaginatedResult<ProviderSearchResponseDTO>>;
+        int PageSize) : IRequest<PaginatedResult<ProviderSearchResponseDto>>;
 }

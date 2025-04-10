@@ -2,15 +2,11 @@
 
 namespace StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Generator
 {
-    public class RefreshTokenGenerator : IRefreshTokenGenerator
+    public class RefreshTokenGenerator(IConfiguration config) : IRefreshTokenGenerator
     {
-        private readonly IConfiguration _config;
-        public RefreshTokenGenerator(IConfiguration config) {
-            _config = config;
-        }
         public string GenerateRefreshToken()
         {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(_config.GetValue<int>("RefreshTokenSettings:Length")));
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(config.GetValue<int>("RefreshTokenSettings:Length")));
         }
     }
 }

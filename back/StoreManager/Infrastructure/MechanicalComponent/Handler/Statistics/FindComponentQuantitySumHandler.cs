@@ -5,17 +5,12 @@ using StoreManager.Infrastructure.MechanicalComponent.Repository;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Statistics
 {
-    public class FindComponentQuantitySumHandler : IRequestHandler<FindComponentQuantitySumQuery, MechanicalComponentQuantitySumResponseDTO>
+    public class FindComponentQuantitySumHandler(IMechanicalComponentRepository repository)
+        : IRequestHandler<FindComponentQuantitySumQuery, MechanicalComponentQuantitySumResponseDto>
     {
-        private IMechanicalComponentRepository _repository;
-        public FindComponentQuantitySumHandler(IMechanicalComponentRepository repository)
+        public async Task<MechanicalComponentQuantitySumResponseDto> Handle(FindComponentQuantitySumQuery request, CancellationToken cancellationToken)
         {
-            _repository = repository;
-        }
-
-        public async Task<MechanicalComponentQuantitySumResponseDTO> Handle(FindComponentQuantitySumQuery request, CancellationToken cancellationToken)
-        {
-            return new MechanicalComponentQuantitySumResponseDTO(await _repository.FindQuantitySum());
+            return new MechanicalComponentQuantitySumResponseDto(await repository.FindQuantitySum());
         }
     }
 }

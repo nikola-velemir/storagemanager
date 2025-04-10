@@ -9,36 +9,25 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace StoreManager.Infrastructure.Auth.Service
 {
-    public class AuthService : IAuthService
+    public class AuthService(
+        IAccessTokenGenerator tokenGenerator,
+        IUserRepository userRepository,
+        IRefreshTokenRepository refreshTokenRepository,
+        IRedisCacheService redis)
+        : IAuthService
     {
-        private readonly IAccessTokenGenerator _tokenGenerator;
-        private readonly IUserRepository _userRepository;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
-        private readonly IRedisCacheService _redis;
-
-        public AuthService(
-            IAccessTokenGenerator tokenGenerator,
-            IUserRepository userRepository,
-            IRefreshTokenRepository refreshTokenRepository,
-            IRedisCacheService redis)
+        public async Task<LoginResponseDto?> Authenticate(LoginRequestDto request)
         {
-            _tokenGenerator = tokenGenerator;
-            _userRepository = userRepository;
-            _refreshTokenRepository = refreshTokenRepository;
-            _redis = redis;
-        }
-        public async Task<LoginResponseDTO?> Authenticate(LoginRequestDTO request)
-        {
-            UserModel user = await _userRepository.FindByUsername(request.username);
+            UserModel user = await userRepository.FindByUsername(request.username);
             if (user.Password != request.password) { throw new UnauthorizedAccessException("Invalid password"); }
 
 
             var role = user.Role.ToString();
-            var accessToken =  _tokenGenerator.GenerateToken(request.username, role);
+            var accessToken =  tokenGenerator.GenerateToken(request.username, role);
 
-            var refreshToken = await _refreshTokenRepository.Create(user);
+            var refreshToken = await refreshTokenRepository.Create(user);
 
-            return new LoginResponseDTO(accessToken, refreshToken.Token, role);
+            return new LoginResponseDto(accessToken, refreshToken.Token, role);
 
         }
 
@@ -56,13 +45,13 @@ namespace StoreManager.Infrastructure.Auth.Service
                 throw new BadHttpRequestException("Invalid token");
             }
 
-            await _redis.RevokeToken(jti, jwtToken.ValidTo);
+            await redis.RevokeToken(jti, jwtToken.ValidTo);
 
         }
 
-        public async Task<LoginResponseDTO?> RefreshAuthentication(RefreshRequestDTO request)
+        public async Task<LoginResponseDto?> RefreshAuthentication(RefreshRequestDto request)
         {
-            var refreshToken = await _refreshTokenRepository.FindRefreshToken(request.refresh_token)
+            var refreshToken = await refreshTokenRepository.FindRefreshToken(request.refresh_token)
                 ?? throw new InvalidOperationException("Not found");
 
             if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)
@@ -70,9 +59,9 @@ namespace StoreManager.Infrastructure.Auth.Service
                 throw new TimeoutException("The refresh token has expired");
             }
 
-            string accessToken = _tokenGenerator.GenerateToken(refreshToken.User.Username, refreshToken.User.Role.ToString());
+            string accessToken = tokenGenerator.GenerateToken(refreshToken.User.Username, refreshToken.User.Role.ToString());
 
-            return new LoginResponseDTO(accessToken, refreshToken.Token, refreshToken.User.Role.ToString());
+            return new LoginResponseDto(accessToken, refreshToken.Token, refreshToken.User.Role.ToString());
         }
     }
 }

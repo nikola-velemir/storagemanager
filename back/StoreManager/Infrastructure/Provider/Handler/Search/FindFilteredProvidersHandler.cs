@@ -8,26 +8,21 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Provider.Handler.Search
 {
-    public class FindFilteredProvidersHandler : IRequestHandler<FindFilteredProvidersQuery, PaginatedResult<ProviderSearchResponseDTO>>
+    public class FindFilteredProvidersHandler(IProviderRepository providerRepository)
+        : IRequestHandler<FindFilteredProvidersQuery, PaginatedResult<ProviderSearchResponseDto>>
     {
-        private IProviderRepository _providerRepository;
-        public FindFilteredProvidersHandler(IProviderRepository providerRepository)
+        public async Task<PaginatedResult<ProviderSearchResponseDto>> Handle(FindFilteredProvidersQuery request, CancellationToken cancellationToken)
         {
-            _providerRepository = providerRepository;
-        }
-
-        public async Task<PaginatedResult<ProviderSearchResponseDTO>> Handle(FindFilteredProvidersQuery request, CancellationToken cancellationToken)
-        {
-            var result = await _providerRepository.FindFiltered(request.ProviderName, request.PageNumber, request.PageSize);
-            return new PaginatedResult<ProviderSearchResponseDTO>
+            var result = await providerRepository.FindFiltered(request.ProviderName, request.PageNumber, request.PageSize);
+            return new PaginatedResult<ProviderSearchResponseDto>
             {
                 Items = result.Items.Select(p =>
-                new ProviderSearchResponseDTO(
+                new ProviderSearchResponseDto(
                     p.Id,
                     p.Name,
                     p.Adress,
                     p.PhoneNumber,
-                    p.Invoices.Select(i => new ProviderInvoiceSearchResponseDTO(
+                    p.Invoices.Select(i => new ProviderInvoiceSearchResponseDto(
                         i.Id,
                         i.DateIssued)
                     ).ToList()

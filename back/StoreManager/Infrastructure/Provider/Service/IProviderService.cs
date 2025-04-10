@@ -7,14 +7,14 @@ namespace StoreManager.Infrastructure.Provider.Service
 {
     public interface IProviderService
     {
-        Task<ProviderFindResponseDTO?> FindById(Guid id);
+        Task<ProviderFindResponseDto?> FindById(Guid id);
 
-        Task<ProviderFindResponsesDTO> FindAll();
-        Task<ProviderFindResponseDTO> Create(ProviderCreateRequestDTO request);
-        Task<PaginatedResult<ProviderSearchResponseDTO>> FindFiltered(string? providerName, int pageNumber, int pageSize);
-        Task<ProviderProfileResponseDTO> FindProfile(string providerId);
-        Task<ProviderInvoiceInvolvementResponsesDTO> FindProviderInvoiceInvolements();
-        Task<ProviderComponentInvolvementResponsesDTO> FindProviderComponentInvolements();
+        Task<ProviderFindResponsesDto> FindAll();
+        Task<ProviderFindResponseDto> Create(ProviderCreateRequestDto request);
+        Task<PaginatedResult<ProviderSearchResponseDto>> FindFiltered(string? providerName, int pageNumber, int pageSize);
+        Task<ProviderProfileResponseDto> FindProfile(string providerId);
+        Task<ProviderInvoiceInvolvementResponsesDto> FindProviderInvoiceInvolements();
+        Task<ProviderComponentInvolvementResponsesDto> FindProviderComponentInvolements();
 
     }
 }

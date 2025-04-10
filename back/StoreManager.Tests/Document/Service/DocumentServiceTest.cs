@@ -24,7 +24,7 @@ namespace StoreManager.Tests.Document.Service
     public sealed class DocumentServiceTest : IAsyncLifetime
     {
         private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
-        private static readonly ProviderFormDataRequestDTO providerFormRequest = new ProviderFormDataRequestDTO(provider.Id.ToString(), provider.Adress, provider.Name, provider.PhoneNumber);
+        private static readonly ProviderFormDataRequestDto providerFormRequest = new ProviderFormDataRequestDto(provider.Id.ToString(), provider.Adress, provider.Name, provider.PhoneNumber);
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<ICloudStorageService> _supaService;
         private Mock<IInvoiceRepository> _invoiceRepository;
@@ -41,7 +41,7 @@ namespace StoreManager.Tests.Document.Service
         private static readonly string VALID_FILE_EXTENSION = "text/plain";
         private static readonly string VALID_FILE_CONTENT = "Hello World!";
         private static readonly Guid VALID_FILE_ID = Guid.NewGuid();
-        private static readonly RequestDocumentDownloadResponseDTO VALID_DOWNLOAD_REQUEST_RESPONSE = new RequestDocumentDownloadResponseDTO(VALID_FILE_NAME, "text/plain", 1);
+        private static readonly RequestDocumentDownloadResponseDto VALID_DOWNLOAD_REQUEST_RESPONSE = new RequestDocumentDownloadResponseDto(VALID_FILE_NAME, "text/plain", 1);
         private static readonly DocumentChunkModel VALID_CHUNK = new DocumentChunkModel
         {
             Id = Guid.NewGuid(),
@@ -72,7 +72,7 @@ namespace StoreManager.Tests.Document.Service
             Id = Guid.NewGuid()
         };
         private static readonly IFormFile VALID_FILE = GenerateValidMockFile();
-        private static readonly DocumentDownloadResponseDTO VALID_RESPONSE = new DocumentDownloadResponseDTO(Encoding.UTF8.GetBytes(VALID_FILE_CONTENT), VALID_FILE_EXTENSION);
+        private static readonly DocumentDownloadResponseDto VALID_RESPONSE = new DocumentDownloadResponseDto(Encoding.UTF8.GetBytes(VALID_FILE_CONTENT), VALID_FILE_EXTENSION);
 
         [Fact(DisplayName = "Download chunk - invalid file name")]
         public async Task DownloadChunk_InvalidFileNameTest()

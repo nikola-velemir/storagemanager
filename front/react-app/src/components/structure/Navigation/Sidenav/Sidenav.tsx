@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Navigation.module.css";
-import { useAuth } from "../../../../infrastructure/Auth/AuthContext";
 import { AuthService } from "../../../../services/AuthService";
 import { UserService } from "../../../../infrastructure/Auth/UserService";
 

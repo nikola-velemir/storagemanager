@@ -5,19 +5,14 @@ using StoreManager.Infrastructure.Provider.Repository;
 
 namespace StoreManager.Infrastructure.Provider.Handler.Search
 {
-    public class FindAllProviderHandler : IRequestHandler<FindAllProvidersQuery, ProviderFindResponsesDTO>
+    public class FindAllProviderHandler(IProviderRepository providerRepository)
+        : IRequestHandler<FindAllProvidersQuery, ProviderFindResponsesDto>
     {
-        private IProviderRepository _providerRepository;
-        public FindAllProviderHandler(IProviderRepository providerRepository)
+        public async Task<ProviderFindResponsesDto> Handle(FindAllProvidersQuery request, CancellationToken cancellationToken)
         {
-            _providerRepository = providerRepository;
-        }
-
-        public async Task<ProviderFindResponsesDTO> Handle(FindAllProvidersQuery request, CancellationToken cancellationToken)
-        {
-            var providers = await _providerRepository.FindAll();
-            var responses = providers.Select(p => new ProviderFindResponseDTO(p.Id, p.Name, p.Adress, p.PhoneNumber)).ToList();
-            return new ProviderFindResponsesDTO(responses);
+            var providers = await providerRepository.FindAll();
+            var responses = providers.Select(p => new ProviderFindResponseDto(p.Id, p.Name, p.Adress, p.PhoneNumber)).ToList();
+            return new ProviderFindResponsesDto(responses);
         }
     }
 }

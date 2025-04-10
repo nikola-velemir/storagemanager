@@ -9,5 +9,5 @@ namespace StoreManager.Infrastructure.Invoice.Command.Search
         string? ProviderId, 
         string? DateIssued,
         int PageNumber,
-        int PageSize) : IRequest<PaginatedResult<InvoiceSearchResponseDTO>>;
+        int PageSize) : IRequest<PaginatedResult<InvoiceSearchResponseDto>>;
 }

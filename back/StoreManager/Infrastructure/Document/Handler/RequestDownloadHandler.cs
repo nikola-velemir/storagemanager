@@ -6,18 +6,10 @@ using StoreManager.Infrastructure.Invoice.Repository;
 
 namespace StoreManager.Infrastructure.Document.Handler
 {
-    public class RequestDownloadHandler : IRequestHandler<RequestDownloadQuery, RequestDocumentDownloadResponseDTO>
+    public class RequestDownloadHandler(IDocumentRepository documentRepository, IInvoiceRepository invoiceRepository)
+        : IRequestHandler<RequestDownloadQuery, RequestDocumentDownloadResponseDto>
     {
-        private readonly IDocumentRepository _documentRepository;
-        private readonly IInvoiceRepository _invoiceRepository;
-
-        public RequestDownloadHandler(IDocumentRepository documentRepository, IInvoiceRepository invoiceRepository)
-        {
-            _documentRepository = documentRepository;
-            _invoiceRepository = invoiceRepository;
-        }
-
-        public async Task<RequestDocumentDownloadResponseDTO> Handle(RequestDownloadQuery request, CancellationToken cancellationToken)
+        public async Task<RequestDocumentDownloadResponseDto> Handle(RequestDownloadQuery request, CancellationToken cancellationToken)
         {
 
             if (!Guid.TryParse(request.InvoiceId, out var tempId))
@@ -26,17 +18,17 @@ namespace StoreManager.Infrastructure.Document.Handler
             }
             Guid invoiceGuid = Guid.Parse(request.InvoiceId);
 
-            var invoice = await _invoiceRepository.FindById(invoiceGuid);
+            var invoice = await invoiceRepository.FindById(invoiceGuid);
             if (invoice is null)
             {
                 throw new EntryPointNotFoundException("Invoice not found");
             }
-            var file = await _documentRepository.FindByName(invoice.Document.FileName);
+            var file = await documentRepository.FindByName(invoice.Document.FileName);
             if (file == null)
             {
                 throw new FileNotFoundException("File not found");
             }
-            return new RequestDocumentDownloadResponseDTO(file.FileName, DocumentUtils.GetPresentationalMimeType(file.Type), file.Chunks.Count);
+            return new RequestDocumentDownloadResponseDto(file.FileName, DocumentUtils.GetPresentationalMimeType(file.Type), file.Chunks.Count);
 
         }
     }

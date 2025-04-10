@@ -3,5 +3,5 @@ using StoreManager.Infrastructure.Invoice.DTO.Statistics;
 
 namespace StoreManager.Infrastructure.Invoice.Command.Statistics
 {
-    public record CountInvoicesThisWeekQuery() : IRequest<ThisWeekInvoiceCountResponseDTO>;
+    public record CountInvoicesThisWeekQuery() : IRequest<ThisWeekInvoiceCountResponseDto>;
 }

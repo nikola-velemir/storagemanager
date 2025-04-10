@@ -5,19 +5,14 @@ using StoreManager.Infrastructure.Invoice.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Repository
 {
-    public sealed class InvoiceRepository : IInvoiceRepository
+    public sealed class InvoiceRepository(WarehouseDbContext context) : IInvoiceRepository
     {
-        private readonly WarehouseDbContext _context;
-        private readonly DbSet<InvoiceModel> _invoices;
-        public InvoiceRepository(WarehouseDbContext context)
-        {
-            _context = context;
-            _invoices = context.Invoices;
-        }
+        private readonly DbSet<InvoiceModel> _invoices = context.Invoices;
+
         public async Task<InvoiceModel> Create(InvoiceModel invoice)
         {
             var savedInstance = await _invoices.AddAsync(invoice);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 

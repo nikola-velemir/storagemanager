@@ -8,52 +8,46 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Invoice.Service
 {
-    public class InvoiceService : IInvoiceService
+    public class InvoiceService(
+        IInvoiceItemRepository invoiceItemRepository,
+        IMechanicalComponentRepository mechanicalComponentRepository,
+        IInvoiceRepository invoiceRepository)
+        : IInvoiceService
     {
-        private readonly IMechanicalComponentRepository _mechanicalComponentRepository;
-        private readonly IInvoiceRepository _invoiceRepository;
-        private readonly IInvoiceItemRepository _invoiceItemRepository;
-        public InvoiceService(IInvoiceItemRepository invoiceItemRepository, IMechanicalComponentRepository mechanicalComponentRepository, IInvoiceRepository invoiceRepository)
+        public async Task<ThisWeekInvoiceCountResponseDto> CountInvoicesThisWeek()
         {
-            _mechanicalComponentRepository = mechanicalComponentRepository;
-            _invoiceRepository = invoiceRepository;
-            _invoiceItemRepository = invoiceItemRepository;
-        }
-
-        public async Task<ThisWeekInvoiceCountResponseDTO> CountInvoicesThisWeek()
-        {
-            return new ThisWeekInvoiceCountResponseDTO(await _invoiceRepository.CountInvoicesThisWeek());
+            return new ThisWeekInvoiceCountResponseDto(await invoiceRepository.CountInvoicesThisWeek());
         }
 
         public async Task Create(Guid id, List<ExtractionMetadata> metadata)
         {
-            var invoice = await _invoiceRepository.FindByDocumentId(id);
+            var invoice = await invoiceRepository.FindByDocumentId(id);
             if (invoice is null) { return; }
-            var components = await _mechanicalComponentRepository.CreateFromExtractionMetadata(metadata);
+            var components = await mechanicalComponentRepository.CreateFromExtractionMetadata(metadata);
             foreach (var data in metadata)
             {
-                var component = await _mechanicalComponentRepository.FindByIdentifier(data.Identifier);
+                var component = await mechanicalComponentRepository.FindByIdentifier(data.Identifier);
                 if (component is null) { continue; }
-                var foundItem = await _invoiceItemRepository.FindByInvoiceAndComponentId(invoice.Id, component.Id);
+                var foundItem = await invoiceItemRepository.FindByInvoiceAndComponentId(invoice.Id, component.Id);
                 if (foundItem is null)
-                    await _invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
+                    await invoiceItemRepository.Create(new InvoiceItemModel { Component = component, ComponentId = component.Id, Invoice = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
 
-        public async Task<FindCountsForWeekResponseDTO> FindCountsForWeek()
+        public async Task<FindCountsForWeekResponseDto> FindCountsForWeek()
         {
             var startOfWeek = DateOnly.FromDateTime((DateTime.Now.StartOfWeek()));
             var endOfWeek = startOfWeek.AddDays(7);
-            var counts = new List<FindCountForDayResponseDTO>();
+            var counts = new List<FindCountForDayResponseDto>();
             for (var date = startOfWeek; date < endOfWeek; date.AddDays(1))
             {
-                int count = await _invoiceRepository.FindCountForTheDate(date);
-                counts.Add(new FindCountForDayResponseDTO(date.DayOfWeek.ToString(), count));
+                int count = await invoiceRepository.FindCountForTheDate(date);
+                counts.Add(new FindCountForDayResponseDto(date.DayOfWeek.ToString(), count));
             }
-            return new FindCountsForWeekResponseDTO(counts);
+            return new FindCountsForWeekResponseDto(counts);
         }
 
-        public async Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo, string? providerId, string? dateIssued, int pageNumber, int pageSize)
+        public async Task<PaginatedResult<InvoiceSearchResponseDto>> FindFilteredInvoices(string? componentInfo, string? providerId, string? dateIssued, int pageNumber, int pageSize)
         {
             Guid? id = null;
             if (Guid.TryParse(providerId, out var tempId))
@@ -65,16 +59,16 @@ namespace StoreManager.Infrastructure.Invoice.Service
             {
                 date = tempDate;
             }
-            var result = await _invoiceRepository.FindFiltered(componentInfo, id, date, pageNumber, pageSize);
-            return new Shared.PaginatedResult<InvoiceSearchResponseDTO>
+            var result = await invoiceRepository.FindFiltered(componentInfo, id, date, pageNumber, pageSize);
+            return new Shared.PaginatedResult<InvoiceSearchResponseDto>
             {
                 Items = result.Items.Select(invoice =>
-                    new InvoiceSearchResponseDTO(
+                    new InvoiceSearchResponseDto(
                         invoice.Id,
                         invoice.DateIssued,
-                        new InvoiceSearchProviderDTO(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
+                        new InvoiceSearchProviderDto(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
                         invoice.Items.Select(
-                            item => new InvoiceSearchComponentDTO(
+                            item => new InvoiceSearchComponentDto(
                                 item.Component.Id, item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
                                 )
                             ).ToList()

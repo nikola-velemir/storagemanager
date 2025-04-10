@@ -5,25 +5,20 @@ using StoreManager.Infrastructure.Provider.Repository;
 
 namespace StoreManager.Infrastructure.Provider.Handler.Statistics
 {
-    public class FindProviderComponentInvolvementsQueryHandler : IRequestHandler<FindProviderComponentInvolvementsQuery, ProviderComponentInvolvementResponsesDTO>
+    public class FindProviderComponentInvolvementsQueryHandler(IProviderRepository providerRepository)
+        : IRequestHandler<FindProviderComponentInvolvementsQuery, ProviderComponentInvolvementResponsesDto>
     {
-        private IProviderRepository _providerRepository;
-        public FindProviderComponentInvolvementsQueryHandler(IProviderRepository providerRepository)
+        public async Task<ProviderComponentInvolvementResponsesDto> Handle(FindProviderComponentInvolvementsQuery request, CancellationToken cancellationToken)
         {
-            _providerRepository = providerRepository;
-        }
-
-        public async Task<ProviderComponentInvolvementResponsesDTO> Handle(FindProviderComponentInvolvementsQuery request, CancellationToken cancellationToken)
-        {
-            var providers = await _providerRepository.FindAll();
-            var responses = new List<ProviderComponentInvolvementResponseDTO>();
+            var providers = await providerRepository.FindAll();
+            var responses = new List<ProviderComponentInvolvementResponseDto>();
             foreach (var provider in providers)
             {
-                var count = await _providerRepository.FindComponentCountForProvider(provider);
-                responses.Add(new ProviderComponentInvolvementResponseDTO(provider.Id, provider.Name, count));
+                var count = await providerRepository.FindComponentCountForProvider(provider);
+                responses.Add(new ProviderComponentInvolvementResponseDto(provider.Id, provider.Name, count));
 
             }
-            return new ProviderComponentInvolvementResponsesDTO(responses);
+            return new ProviderComponentInvolvementResponsesDto(responses);
         }
     }
 }

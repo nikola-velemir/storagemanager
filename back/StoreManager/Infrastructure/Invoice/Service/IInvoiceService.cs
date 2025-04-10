@@ -8,8 +8,8 @@ namespace StoreManager.Infrastructure.Invoice.Service
     public interface IInvoiceService
     {
         Task Create(Guid id, List<ExtractionMetadata> metadata);
-        Task<PaginatedResult<InvoiceSearchResponseDTO>> FindFilteredInvoices(string? componentInfo, string? providerId, string? date1, int pageNumber, int pageSize);
-        Task<ThisWeekInvoiceCountResponseDTO> CountInvoicesThisWeek();
-        Task<FindCountsForWeekResponseDTO> FindCountsForWeek();
+        Task<PaginatedResult<InvoiceSearchResponseDto>> FindFilteredInvoices(string? componentInfo, string? providerId, string? date1, int pageNumber, int pageSize);
+        Task<ThisWeekInvoiceCountResponseDto> CountInvoicesThisWeek();
+        Task<FindCountsForWeekResponseDto> FindCountsForWeek();
     }
 }
