@@ -3,12 +3,48 @@
   "WorkspaceRootPath": "D:\\sretotest\\back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\controller\\mechanicalcomponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\controller\\mechanicalcomponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\handler\\statistics\\findtotalinventoryvaluequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\handler\\statistics\\findtotalinventoryvaluequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\dto\\statistics\\totalinvetoryvalueresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\dto\\statistics\\totalinvetoryvalueresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\command\\statistics\\findtotalinventoryvaluequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\command\\statistics\\findtotalinventoryvaluequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\repository\\invoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\repository\\invoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\repository\\iinvoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\repository\\iinvoiceitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\dto\\statistics\\inventoryvaluefordayresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\dto\\statistics\\inventoryvaluefordayresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\controller\\invoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\controller\\invoicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\repository\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\repository\\iinvoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\invoice\\repository\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\invoice\\repository\\invoicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\handler\\info\\findproviderprofilehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\provider\\handler\\info\\findproviderprofilehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\mechanicalcomponent\\controller\\mechanicalcomponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|solutionrelative:storemanager\\infrastructure\\mechanicalcomponent\\controller\\mechanicalcomponentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BBF46580-FA82-4EAE-B2FC-A9024383932A}|StoreManager\\StoreManager.csproj|d:\\sretotest\\back\\storemanager\\infrastructure\\provider\\controller\\providercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -102,24 +138,141 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InventoryValueForDayResponseDTO.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\InventoryValueForDayResponseDTO.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\InventoryValueForDayResponseDTO.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\InventoryValueForDayResponseDTO.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\InventoryValueForDayResponseDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T00:15:36.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FindTotalInventoryValueQueryHandler.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Handler\\Statistics\\FindTotalInventoryValueQueryHandler.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Handler\\Statistics\\FindTotalInventoryValueQueryHandler.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Handler\\Statistics\\FindTotalInventoryValueQueryHandler.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Handler\\Statistics\\FindTotalInventoryValueQueryHandler.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAtwBoAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T00:01:52.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "TotalInvetoryValueResponseDTO.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\TotalInvetoryValueResponseDTO.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\TotalInvetoryValueResponseDTO.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\TotalInvetoryValueResponseDTO.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\DTO\\Statistics\\TotalInvetoryValueResponseDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T00:00:54.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FindTotalInventoryValueQuery.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Command\\Statistics\\FindTotalInventoryValueQuery.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Command\\Statistics\\FindTotalInventoryValueQuery.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Command\\Statistics\\FindTotalInventoryValueQuery.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Command\\Statistics\\FindTotalInventoryValueQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAUAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T00:00:35.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IInvoiceRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T23:58:39.69Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IInvoiceItemRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceItemRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceItemRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceItemRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Repository\\IInvoiceItemRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T23:58:15.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InvoiceItemRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceItemRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceItemRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceItemRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceItemRepository.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAAB4AAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T23:58:01.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "InvoiceController.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Controller\\InvoiceController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Controller\\InvoiceController.cs",
               "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Controller\\InvoiceController.cs",
               "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Controller\\InvoiceController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAtwBwAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAkwCkAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T23:28:44.431Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
+              "Title": "InvoiceRepository.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Invoice\\Repository\\InvoiceRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T23:58:02.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FindProviderProfileHandler.cs",
+              "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Handler\\Info\\FindProviderProfileHandler.cs",
+              "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Handler\\Info\\FindProviderProfileHandler.cs",
+              "ToolTip": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Handler\\Info\\FindProviderProfileHandler.cs",
+              "RelativeToolTip": "StoreManager\\Infrastructure\\Provider\\Handler\\Info\\FindProviderProfileHandler.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAWwC0AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T23:29:29.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "FindProviderComponentInvolvementsQueryHandler.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Handler\\Statistics\\FindProviderComponentInvolvementsQueryHandler.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Handler\\Statistics\\FindProviderComponentInvolvementsQueryHandler.cs",
@@ -132,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 12,
               "Title": "ProviderService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Service\\ProviderService.cs",
@@ -145,7 +298,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "ProviderRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Repository\\ProviderRepository.cs",
@@ -158,7 +311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 15,
               "Title": "FindProviderComponentInvolvementsQuery.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Command\\Statistics\\FindProviderComponentInvolvementsQuery.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Command\\Statistics\\FindProviderComponentInvolvementsQuery.cs",
@@ -171,7 +324,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "ProviderController.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Controller\\ProviderController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Controller\\ProviderController.cs",
@@ -184,7 +337,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "MechanicalComponentController.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Controller\\MechanicalComponentController.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Controller\\MechanicalComponentController.cs",
@@ -197,7 +350,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 16,
               "Title": "IProviderRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Repository\\IProviderRepository.cs",
@@ -210,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 17,
               "Title": "IProviderService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Service\\IProviderService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Service\\IProviderService.cs",
@@ -223,7 +376,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 18,
               "Title": "ProviderComponentInvolvementResponsesDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderComponentInvolvementResponsesDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderComponentInvolvementResponsesDTO.cs",
@@ -236,7 +389,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 20,
               "Title": "ProviderComponentInvolvementResponseDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderComponentInvolvementResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderComponentInvolvementResponseDTO.cs",
@@ -249,7 +402,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 21,
               "Title": "ProviderInvoiceInvolementResponseDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderInvoiceInvolementResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderInvoiceInvolementResponseDTO.cs",
@@ -262,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 23,
               "Title": "FindProviderInvoiceInvolementsQuery.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Command\\Statistics\\FindProviderInvoiceInvolementsQuery.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Command\\Statistics\\FindProviderInvoiceInvolementsQuery.cs",
@@ -275,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 19,
               "Title": "ProviderInvoiceInvolvementResponsesDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderInvoiceInvolvementResponsesDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\DTO\\Statistics\\ProviderInvoiceInvolvementResponsesDTO.cs",
@@ -288,7 +441,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 25,
               "Title": "RefreshAuthentificationQueryHandler.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Auth\\Handler\\RefreshAuthentificationQueryHandler.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Auth\\Handler\\RefreshAuthentificationQueryHandler.cs",
@@ -301,7 +454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 30,
               "Title": "MechanicalComponentModel.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Model\\MechanicalComponentModel.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Model\\MechanicalComponentModel.cs",
@@ -314,7 +467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\appsettings.json",
               "RelativeDocumentMoniker": "StoreManager\\appsettings.json",
@@ -327,7 +480,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 22,
               "Title": "FindProviderInvoiceInvolementsQueryHandler.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\Provider\\Handler\\Statistics\\FindProviderInvoiceInvolementsQueryHandler.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\Provider\\Handler\\Statistics\\FindProviderInvoiceInvolementsQueryHandler.cs",
@@ -340,7 +493,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 27,
               "Title": "MechanicalComponentService.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Service\\MechanicalComponentService.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Service\\MechanicalComponentService.cs",
@@ -353,7 +506,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 26,
               "Title": "FindTopFiveInQuantityQueryHandler.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Handler\\Statistics\\FindTopFiveInQuantityQueryHandler.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Handler\\Statistics\\FindTopFiveInQuantityQueryHandler.cs",
@@ -366,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 28,
               "Title": "MechanicalComponentTopFiveQuantityResponseDTO.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\Quantity\\MechanicalComponentTopFiveQuantityResponseDTO.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\DTO\\Quantity\\MechanicalComponentTopFiveQuantityResponseDTO.cs",
@@ -379,7 +532,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 29,
               "Title": "MechanicalComponentRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\MechanicalComponentRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\MechanicalComponentRepository.cs",
@@ -392,7 +545,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 31,
               "Title": "IMechanicalComponentRepository.cs",
               "DocumentMoniker": "D:\\sretotest\\back\\StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\IMechanicalComponentRepository.cs",
               "RelativeDocumentMoniker": "StoreManager\\Infrastructure\\MechanicalComponent\\Repository\\IMechanicalComponentRepository.cs",

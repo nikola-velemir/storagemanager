@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using StoreManager.Infrastructure.Invoice.Command.Search;
 using StoreManager.Infrastructure.Invoice.Command.Statistics;
@@ -33,6 +34,12 @@ namespace StoreManager.Infrastructure.Invoice.Controller
         public async Task<IActionResult> CountInvoicesThisWeek()
         {
             var result = await _mediator.Send(new CountInvoicesThisWeekQuery());
+            return Ok(result);
+        }
+        [HttpGet("total-value")]
+        public async Task<IActionResult> FindTotalInventoryValue()
+        {
+            var result = await _mediator.Send(new FindTotalInventoryValueQuery());
             return Ok(result);
         }
     }

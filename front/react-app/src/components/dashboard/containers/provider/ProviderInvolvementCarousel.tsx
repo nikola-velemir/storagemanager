@@ -37,11 +37,11 @@ const ProviderInvolvementCarousel = ({
           className={`duration-700 ease-in-out ${page === 0 ? "" : "hidden"}`}
           data-carousel-item
         >
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full h-fit">
             <span className="text-base font-medium w-full flex justify-start">
               Invoice involvement
             </span>
-            <div className="w-full flex justify-center p-4 pt-2 text-white text-lg font-medium">
+            <div className="w-full h-fit flex justify-center p-4 pt-2 text-white text-lg font-medium">
               <ProviderInvolvementPieChart
                 dataKey="invoiceCount"
                 data={displayedProvidersByInvoice}
@@ -52,11 +52,11 @@ const ProviderInvolvementCarousel = ({
         <div
           className={`duration-700 ease-in-out ${page === 1 ? "" : "hidden"}`}
         >
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full h-fit">
             <span className="text-base font-medium w-full flex justify-start">
               Component involvement
             </span>
-            <div className="w-full flex justify-center p-4 pt-2 text-white text-lg font-medium">
+            <div className="w-full h-fit flex justify-center p-4 pt-2 text-white text-lg font-medium">
               <ProviderInvolvementPieChart
                 dataKey="componentCount"
                 data={displayedProvidersByComponents}

@@ -24,5 +24,17 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         {
             return _invoiceItems.FirstOrDefaultAsync(ii => ii.InvoiceId.Equals(invoiceId) && ii.ComponentId.Equals(componentId));
         }
+
+        public Task<double> FindSumForDate(DateOnly date)
+        {
+            var query = _invoiceItems.Include(ii => ii.Invoice).Where(ii => ii.Invoice.DateIssued.Equals(date));
+            return query.SumAsync(ii => ii.Quantity * ii.PricePerPiece);
+        }
+
+        public Task<double> FindTotalPrice()
+        {
+            return _invoiceItems.Select(ii => ii.Quantity * ii.PricePerPiece).SumAsync();
+
+        }
     }
 }
