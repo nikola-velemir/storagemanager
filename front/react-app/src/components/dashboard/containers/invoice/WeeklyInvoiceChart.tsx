@@ -18,6 +18,9 @@ const WeeklyInvoiceChart = ({ data }: WeeklyInvoiceChartProps) => {
   const [invoices, setInvoices] = useState<InvoiceFindCountForDayResponse[]>(
     []
   );
+  const handleClick = (e: any) => {
+    console.log(e);
+  };
   useEffect(() => {
     const updatedData = data.map((item) => ({
       ...item,
@@ -32,7 +35,7 @@ const WeeklyInvoiceChart = ({ data }: WeeklyInvoiceChartProps) => {
     return Math.ceil(max / roundedMax) * roundedMax + roundedMax;
   };
   return (
-    <LineChart width={500} height={300} data={invoices}>
+    <LineChart width={800} height={400} data={invoices}>
       <CartesianGrid stroke="#fff" />
       <XAxis
         dataKey={"dayOfTheWeek"}

@@ -4,6 +4,7 @@ import { MechanicalComponentService } from "../../../../services/MechanicalCompo
 import { animate, AnimationPlaybackControls } from "framer-motion";
 
 export const useComponentStats = () => {
+  const [maxCount, setMaxCount] = useState(0);
   const [count, setCount] = useState(0);
   const [topFive, setTopFive] = useState<
     MechanicalComponentTopFiveQuantityResponse[]
@@ -12,8 +13,9 @@ export const useComponentStats = () => {
   useEffect(() => {
     let controls: AnimationPlaybackControls;
     MechanicalComponentService.findComponentCount().then((res) => {
-      const filanValue = res.data.count;
-      controls = animate(0, filanValue, {
+      const finalValue = res.data.count;
+      setMaxCount(finalValue);
+      controls = animate(0, finalValue, {
         duration: 2,
         ease: "easeInOut",
         onUpdate: (latest) => {
@@ -27,5 +29,5 @@ export const useComponentStats = () => {
       setTopFive(res.data.components);
     });
   }, []);
-  return { count, topFive };
+  return { count, maxCount, topFive };
 };

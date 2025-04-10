@@ -8,20 +8,14 @@ namespace StoreManager.Infrastructure.Document.Controller
     [ApiController]
     [Authorize]
     [Route("api/docs")]
-    public class DocumentController : ControllerBase
+    public class DocumentController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public DocumentController(IMediator mediator) 
-        {
-            _mediator = mediator;
-        }
-
         [HttpPost("upload-chunks")]
         public async Task<ActionResult> UploadFileFromChunks([FromForm] string provider, [FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
         {
             try
             {
-                await _mediator.Send(new UploadChunkCommand(provider, file, fileName, chunkIndex, totalChunks));
+                await mediator.Send(new UploadChunkCommand(provider, file, fileName, chunkIndex, totalChunks));
                 return Ok(new { Message = "File uploaded successfully" });
 
             }
@@ -35,7 +29,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             try
             {
-                var result = await _mediator.Send(new RequestDownloadQuery(invoiceId));
+                var result = await mediator.Send(new RequestDownloadQuery(invoiceId));
                 return Ok(result);
             }
             catch (FileNotFoundException ex)
@@ -48,7 +42,7 @@ namespace StoreManager.Infrastructure.Document.Controller
         {
             try
             {
-                var fileResponse = await _mediator.Send(new DownloadChunkQuery(invoiceId, chunkIndex));
+                var fileResponse = await mediator.Send(new DownloadChunkQuery(invoiceId, chunkIndex));
                 return new FileContentResult(fileResponse.bytes, fileResponse.mimeType);
             }
             catch (FileNotFoundException ex)

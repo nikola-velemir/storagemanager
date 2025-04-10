@@ -15,8 +15,8 @@ namespace StoreManager.Tests.User.Service
 
         private static readonly string VALID_USERNAME = "TEST";
         private static readonly  UserModel VALID_USER = new(1, "TEST", "TEST", "TEST", "TEST", UserRole.ADMIN);
-        private static readonly UserCreateRequestDTO VALID_CREATE_REQUEST = new(VALID_USERNAME, "TEST", "TEST", "TEST", UserRole.ADMIN.ToString());
-        private static readonly UserCreateResponseDTO VALID_CREATE_RESPONSE = new(VALID_USERNAME, "TEST", "TEST", "TEST", UserRole.ADMIN.ToString());
+        private static readonly UserCreateRequestDto VALID_CREATE_REQUEST = new(VALID_USERNAME, "TEST", "TEST", "TEST", UserRole.ADMIN.ToString());
+        private static readonly UserCreateResponseDto VALID_CREATE_RESPONSE = new(VALID_USERNAME, "TEST", "TEST", "TEST", UserRole.ADMIN.ToString());
 
         [Fact(DisplayName = "Create user test")]
         public async Task CreateUser_Test()

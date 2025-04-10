@@ -16,7 +16,6 @@ const ProviderSearch = () => {
       pageSize: pageSize,
       providerName: searchText,
     }).then((response) => {
-      console.log(response.data);
       setProviders(response.data.items);
     });
   }, [searchText, pageNumber, pageSize]);

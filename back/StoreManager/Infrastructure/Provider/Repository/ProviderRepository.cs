@@ -5,26 +5,20 @@ using StoreManager.Infrastructure.Provider.Model;
 
 namespace StoreManager.Infrastructure.Provider.Repository
 {
-    public class ProviderRepository : IProviderRepository
+    public class ProviderRepository(WarehouseDbContext context) : IProviderRepository
     {
-        private readonly WarehouseDbContext _context;
-        private readonly DbSet<ProviderModel> _providers;
-        public ProviderRepository(WarehouseDbContext context)
-        {
-            _context = context;
-            _providers = context.Providers;
-        }
+        private readonly DbSet<ProviderModel> _providers = context.Providers;
 
         public async Task AddInvoice(ProviderModel provider, InvoiceModel invoice)
         {
             provider.Invoices.Add(invoice);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public async Task<ProviderModel> Create(ProviderModel provider)
         {
             var savedInstance = await _providers.AddAsync(provider);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 
@@ -43,9 +37,9 @@ namespace StoreManager.Infrastructure.Provider.Repository
             var query = _providers.Include(p => p.Invoices).AsQueryable();
             if (!string.IsNullOrEmpty(providerInfo))
             {
-                query = query.Where(p => 
-                p.Name.ToLower().Contains(providerInfo.ToLower()) || 
-                p.Adress.ToLower().Contains(providerInfo.ToLower()) || 
+                query = query.Where(p =>
+                p.Name.ToLower().Contains(providerInfo.ToLower()) ||
+                p.Adress.ToLower().Contains(providerInfo.ToLower()) ||
                 p.PhoneNumber.ToLower().Contains(providerInfo.ToLower()));
             }
             var count = await query.CountAsync();
@@ -54,10 +48,27 @@ namespace StoreManager.Infrastructure.Provider.Repository
 
             return (items, count);
         }
+
+        public async Task<int> FindInvoiceCountForProvider(ProviderModel provider)
+        {
+            var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Invoices)
+                .FirstOrDefaultAsync();
+            return query?.Invoices.Count ?? 0;
+        }
+
+        public async Task<int> FindComponentCountForProvider(ProviderModel provider)
+        {
+            var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Invoices).ThenInclude(i => i.Items).ThenInclude(ii => ii.Component).FirstOrDefaultAsync();
+            if (query is null) return 0;
+
+            var components = query.Invoices.SelectMany(i => i.Items).Sum(ii => ii.Quantity);
+            return components;
+        }
+
         public async Task<ProviderModel> Update(ProviderModel provider)
         {
             var savedEntity = _providers.Update(provider);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return savedEntity.Entity;
         }
     }

@@ -11,6 +11,16 @@ export interface InvoiceFilterRequest {
   pageSize: number;
 }
 
+export interface InventoryValueByDay {
+  value: number;
+  day: string;
+}
+
+export interface TotalInvetoryValueRequest {
+  total: number;
+  values: InventoryValueByDay[];
+}
+
 export class InvoiceService {
   private static BASE_URL = "/invoices";
   public static async findFiltered(request: InvoiceFilterRequest) {
@@ -26,6 +36,9 @@ export class InvoiceService {
         },
       }
     );
+  }
+  public static async findTotalInventoryValue() {
+    return api.get<TotalInvetoryValueRequest>(this.BASE_URL + "/total-value");
   }
   public static async findCountsThisWeek() {
     return api.get<InvoiceCountThisWeekResponse>(

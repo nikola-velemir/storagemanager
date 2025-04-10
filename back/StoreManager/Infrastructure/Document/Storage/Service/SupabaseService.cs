@@ -8,7 +8,7 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
     public sealed class SupabaseService : ICloudStorageService
     {
         private readonly Supabase.Client _client;
-        private readonly string bucketName = "store-manager-docs";
+        private readonly string _bucketName = "store-manager-docs";
         public SupabaseService()
         {
             var url = Environment.GetEnvironmentVariable("SUPABASE_URL", EnvironmentVariableTarget.User) ??
@@ -23,7 +23,7 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
             {
                 throw new Exception("No file found");
             }
-            var storage = _client.Storage.From(bucketName);
+            var storage = _client.Storage.From(_bucketName);
             var fileGuid = chunk.Id;
             var pathName = Path.Combine("invoice", chunk.Document.Date.ToString("yyyy-MM-dd"),$"{chunk.Document.Id}", $"{fileGuid.ToString()}");
             var response = string.Empty;
@@ -41,7 +41,7 @@ namespace StoreManager.Infrastructure.Document.SupaBase.Service
        
         public async Task<byte[]> DownloadChunk(DocumentChunkModel chunk)
         {
-            var storage = _client.Storage.From(bucketName);
+            var storage = _client.Storage.From(_bucketName);
             var fileGuid = chunk.Id;
             var mimeType = chunk.Document.Type;
             var pathName = Path.Combine("invoice", chunk.Document.Date.ToString("yyyy-MM-dd"), chunk.Document.Id.ToString(),chunk.Id.ToString());

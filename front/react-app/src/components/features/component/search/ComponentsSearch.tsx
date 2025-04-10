@@ -26,7 +26,6 @@ const ComponentsSearch = () => {
       pageNumber: pageNumber,
       pageSize: pageSize,
     }).then((response) => {
-      console.log(response.data);
       setComponents(response.data.items);
       setTotalItems(response.data.totalCount);
     });

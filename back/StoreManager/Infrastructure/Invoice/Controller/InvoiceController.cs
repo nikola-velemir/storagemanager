@@ -1,37 +1,38 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StoreManager.Infrastructure.Invoice.Command.Query;
+using StoreManager.Infrastructure.Invoice.Command.Search;
+using StoreManager.Infrastructure.Invoice.Command.Statistics;
 
 namespace StoreManager.Infrastructure.Invoice.Controller
 {
     [ApiController]
     [Authorize]
     [Route("api/invoices")]
-    public class InvoiceController : ControllerBase
+    public class InvoiceController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public InvoiceController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [HttpGet("find-filtered")]
         public async Task<IActionResult> FindAll([FromQuery] string? componentInfo, [FromQuery] string? providerId, [FromQuery] string? date, [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
-            var result = await _mediator.Send(new FilterInvoicesQuery(componentInfo, providerId, date, pageNumber, pageSize));
+            var result = await mediator.Send(new FilterInvoicesQuery(componentInfo, providerId, date, pageNumber, pageSize));
             return Ok(result);
         }
         [HttpGet("find-counts-this-week")]
         public async Task<IActionResult> FindCountsThisWeek()
         {
-            var result = await _mediator.Send(new FindCountsThisWeekQuery());
+            var result = await mediator.Send(new FindCountsThisWeekQuery());
             return Ok(result);
         }
         [HttpGet("count-this-week")]
         public async Task<IActionResult> CountInvoicesThisWeek()
         {
-            var result = await _mediator.Send(new CountInvoicesThisWeekQuery());
+            var result = await mediator.Send(new CountInvoicesThisWeekQuery());
+            return Ok(result);
+        }
+        [HttpGet("total-value")]
+        public async Task<IActionResult> FindTotalInventoryValue()
+        {
+            var result = await mediator.Send(new FindTotalInventoryValueQuery());
             return Ok(result);
         }
     }

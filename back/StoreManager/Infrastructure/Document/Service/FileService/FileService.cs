@@ -2,17 +2,11 @@
 
 namespace StoreManager.Infrastructure.Document.Service.FileService
 {
-    public class FileService : IFileService
+    public sealed class FileService(IWebHostEnvironment env) : IFileService
     {
-        private readonly IWebHostEnvironment _env;
-
-        public FileService(IWebHostEnvironment env)
-        {
-            _env = env;
-        }
         public async Task AppendChunk(IFormFile file, DocumentModel foundFile)
         {
-            var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+            var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
             if (!Directory.Exists(webRootPath))
             {
                 Directory.CreateDirectory(webRootPath);
@@ -35,10 +29,10 @@ namespace StoreManager.Infrastructure.Document.Service.FileService
                 await file.CopyToAsync(fileStream);
             }
         }
-        public virtual async Task DeleteAllChunks(DocumentModel file)
+        public async Task DeleteAllChunks(DocumentModel file)
         {
 
-            var webRootPath = Path.Combine(_env.WebRootPath, "uploads", "invoice");
+            var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
             var filePath = Path.Combine(webRootPath, $"{file.Id.ToString()}.{DocumentUtils.GetRawMimeType(file.Type)}");
             if (File.Exists(filePath))
             {

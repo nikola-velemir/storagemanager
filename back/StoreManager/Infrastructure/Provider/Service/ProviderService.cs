@@ -1,63 +1,60 @@
 ﻿using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.Provider.DTO;
+using StoreManager.Infrastructure.Provider.DTO.Info;
+using StoreManager.Infrastructure.Provider.DTO.Search;
+using StoreManager.Infrastructure.Provider.DTO.Statistics;
 using StoreManager.Infrastructure.Provider.Repository;
 using StoreManager.Infrastructure.Shared;
-using UglyToad.PdfPig.Graphics.Operations.PathConstruction;
 
 namespace StoreManager.Infrastructure.Provider.Service
 {
-    public class ProviderService : IProviderService
+    public class ProviderService(
+        IProviderRepository repository,
+        IMechanicalComponentRepository mechanicalComponentRepository,
+        IInvoiceRepository invoiceRepository)
+        : IProviderService
     {
-        private readonly IProviderRepository _providerRepository;
-        private readonly IInvoiceRepository _invoiceRepository;
-        private readonly IMechanicalComponentRepository _mechanicalComponentRepository;
-        public ProviderService(IProviderRepository repository, IMechanicalComponentRepository mechanicalComponentRepository, IInvoiceRepository invoiceRepository)
+        public async Task<ProviderFindResponseDto> Create(ProviderCreateRequestDto request)
         {
-            _mechanicalComponentRepository = mechanicalComponentRepository;
-            _providerRepository = repository;
-            _invoiceRepository = invoiceRepository;
-        }
-        public async Task<ProviderFindResponseDTO> Create(ProviderCreateRequestDTO request)
-        {
-            var saved = await _providerRepository.Create(new Model.ProviderModel
+            var saved = await repository.Create(new Model.ProviderModel
             {
                 Adress = request.address,
                 Id = new Guid(),
                 Name = request.name,
                 PhoneNumber = request.phoneNumber
             });
-            return new ProviderFindResponseDTO(saved.Id, saved.Name, saved.Adress, saved.PhoneNumber);
+            return new ProviderFindResponseDto(saved.Id, saved.Name, saved.Adress, saved.PhoneNumber);
         }
 
-        public async Task<ProviderFindResponsesDTO> FindAll()
+        public async Task<ProviderFindResponsesDto> FindAll()
         {
-            var providers = await _providerRepository.FindAll();
-            var responses = providers.Select(p => new ProviderFindResponseDTO(p.Id, p.Name, p.Adress, p.PhoneNumber)).ToList();
-            return new ProviderFindResponsesDTO(responses);
+            var providers = await repository.FindAll();
+            var responses = providers.Select(p => new ProviderFindResponseDto(p.Id, p.Name, p.Adress, p.PhoneNumber)).ToList();
+            return new ProviderFindResponsesDto(responses);
         }
 
-        public async Task<ProviderFindResponseDTO?> FindById(Guid id)
+        public async Task<ProviderFindResponseDto?> FindById(Guid id)
         {
-            var provider = await _providerRepository.FindById(id);
+            var provider = await repository.FindById(id);
             if (provider is null) { return null; }
 
-            return new ProviderFindResponseDTO(provider.Id, provider.Name, provider.Adress, provider.PhoneNumber);
+            return new ProviderFindResponseDto(provider.Id, provider.Name, provider.Adress, provider.PhoneNumber);
         }
 
-        public async Task<PaginatedResult<ProviderSearchResponseDTO>> FindFiltered(string? providerName, int pageNumber, int pageSize)
+        public async Task<PaginatedResult<ProviderSearchResponseDto>> FindFiltered(string? providerName, int pageNumber, int pageSize)
         {
-            var pr = await _providerRepository.FindById(Guid.Parse("2a2986ec-3206-4379-a26e-5f06b58b90aa"));
-            var result = await _providerRepository.FindFiltered(providerName, pageNumber, pageSize);
-            return new PaginatedResult<ProviderSearchResponseDTO>
+            var pr = await repository.FindById(Guid.Parse("2a2986ec-3206-4379-a26e-5f06b58b90aa"));
+            var result = await repository.FindFiltered(providerName, pageNumber, pageSize);
+            return new PaginatedResult<ProviderSearchResponseDto>
             {
                 Items = result.Items.Select(p =>
-                new ProviderSearchResponseDTO(
+                new ProviderSearchResponseDto(
                     p.Id,
                     p.Name,
                     p.Adress,
                     p.PhoneNumber,
-                    p.Invoices.Select(i => new ProviderInvoiceSearchResponseDTO(
+                    p.Invoices.Select(i => new ProviderInvoiceSearchResponseDto(
                         i.Id,
                         i.DateIssued)
                     ).ToList()
@@ -66,29 +63,54 @@ namespace StoreManager.Infrastructure.Provider.Service
             };
         }
 
-        public async Task<ProviderProfileResponseDTO> FindProfile(string providerId)
+        public async Task<ProviderProfileResponseDto> FindProfile(string providerId)
         {
             if (!Guid.TryParse(providerId, out _))
             {
                 throw new InvalidCastException("Could not parse the guid");
             }
             Guid providerGuid = Guid.Parse(providerId);
-            var provider = await _providerRepository.FindById(providerGuid);
+            var provider = await repository.FindById(providerGuid);
             if (provider is null)
             {
                 throw new EntryPointNotFoundException("Provider not found");
             }
-            var components = await _mechanicalComponentRepository.FindByProviderId(provider.Id);
-            var invoices = await _invoiceRepository.FindByProviderId(provider.Id);
+            var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
+            var invoices = await invoiceRepository.FindByProviderId(provider.Id);
             
             return
-                new ProviderProfileResponseDTO(
+                new ProviderProfileResponseDto(
                     provider.Name,
                     provider.Adress,
                     provider.PhoneNumber,
-                    components.Select(c => new ProviderProfileComponentResponseDTO(c.Id,c.Name,c.Identifier)).ToList(),
-                    invoices.Select(i => new ProviderProfileInvoiceResponseDTO(i.Id, i.DateIssued)).ToList()
+                    components.Select(c => new ProviderProfileComponentResponseDto(c.Id,c.Name,c.Identifier)).ToList(),
+                    invoices.Select(i => new ProviderProfileInvoiceResponseDto(i.Id, i.DateIssued)).ToList()
                 );
+        }
+
+        public async Task<ProviderComponentInvolvementResponsesDto> FindProviderComponentInvolements()
+        {
+            var providers = await repository.FindAll();
+            var responses = new List<ProviderComponentInvolvementResponseDto>();
+            foreach(var provider in providers)
+            {
+                var count = await repository.FindComponentCountForProvider(provider);
+                responses.Add(new ProviderComponentInvolvementResponseDto(provider.Id, provider.Name, count));
+
+            }
+            return new ProviderComponentInvolvementResponsesDto(responses);
+        }
+
+        public async Task<ProviderInvoiceInvolvementResponsesDto> FindProviderInvoiceInvolements()
+        {
+            var providers = await repository.FindAll();
+            var responses = new List<ProviderInvoiceInvolvementResponseDto>();
+            foreach(var provider in providers)
+            {
+                var count = await repository.FindInvoiceCountForProvider(provider);
+                responses.Add(new ProviderInvoiceInvolvementResponseDto(provider.Id, provider.Name, count));
+            }
+            return new ProviderInvoiceInvolvementResponsesDto(responses);
         }
     }
 }

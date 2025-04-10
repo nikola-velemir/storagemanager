@@ -5,15 +5,9 @@ using StoreManager.Infrastructure.MechanicalComponent.Model;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Repository
 {
-    public class MechanicalComponentRepository : IMechanicalComponentRepository
+    public class MechanicalComponentRepository(WarehouseDbContext context) : IMechanicalComponentRepository
     {
-        private readonly WarehouseDbContext _context;
-        private readonly DbSet<MechanicalComponentModel> _components;
-        public MechanicalComponentRepository(WarehouseDbContext context)
-        {
-            _context = context;
-            _components = context.MechanicalComponents;
-        }
+        private readonly DbSet<MechanicalComponentModel> _components = context.MechanicalComponents;
 
         public async Task<int> CountQuantity(MechanicalComponentModel componentModel)
         {
@@ -27,7 +21,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
         public async Task<MechanicalComponentModel?> Create(MechanicalComponentModel component)
         {
             var savedInstance = await _components.AddAsync(component);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 
@@ -40,7 +34,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             if (foundComponent != null) { return foundComponent; }
 
             var savedInstance = await _components.AddAsync(component);
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 

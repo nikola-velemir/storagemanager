@@ -16,7 +16,7 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         private WarehouseDbContext _context;
-        private RefreshTokenRespository _repository;
+        private RefreshTokenRepository _repository;
         private IConfiguration _config;
         private Mock<IRefreshTokenGenerator> _generator;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -78,7 +78,7 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
             _generator.Setup(g => g.GenerateRefreshToken()).Returns("hjdjklsahdjalskdhjkasdhjkasdhkas");
 
 
-            _repository = new RefreshTokenRespository(_context, _generator.Object, _config);
+            _repository = new RefreshTokenRepository(_context, _generator.Object, _config);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace StoreManager.Tests.Auth.Service
         public static readonly string INVALID_REFRESH_TOKEN = "INVALID";
         public static readonly string INVALID_JWT_TOKEN = "INVALID";
         public static readonly string INVALID_JWT_TOKEN_NO_JTI = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlcm5hbWUiLCJyb2xlIjoiTUFOQUdFUiIsIm5iZiI6MTc0MTQzMzA2MCwiZXhwIjoxNzQxNDMzMTIwLCJpYXQiOjE3NDE0MzMwNjAsImlzcyI6InN0b3JhZ2VfbWFuYWdlciIsImF1ZCI6ImFwcF9zdG9yYWdlX21hbmFnZXIifQ.1jmTMSeYJNyU7qs4XpmBxzTjvY-bGy6VsGPrNc8g6_k";
-        public static readonly LoginResponseDTO VALID_LOGIN_RESPONSE = new LoginResponseDTO(VALID_JWT_TOKEN, VALID_REFRESH_TOKEN, VALID_USER.Role.ToString());
+        public static readonly LoginResponseDto VALID_LOGIN_RESPONSE = new LoginResponseDto(VALID_JWT_TOKEN, VALID_REFRESH_TOKEN, VALID_USER.Role.ToString());
         
         public static readonly RefreshTokenModel VALID_REFRESH_TOKEN_MODEL = new RefreshTokenModel
         {
@@ -45,13 +45,13 @@ namespace StoreManager.Tests.Auth.Service
             Id = Guid.NewGuid(),
             UserId = VALID_USER.Id
         };
-        public static readonly RefreshRequestDTO INVALID_REFRESH_REQUEST = new(INVALID_REFRESH_TOKEN);
-        public static readonly RefreshRequestDTO EXPIRED_REFRESH_REQUEST = new(VALID_REFRESH_TOKEN_EXPIRED);
-        public static readonly RefreshRequestDTO VALID_REFRESH_REQUEST = new(VALID_REFRESH_TOKEN);
-        public static readonly LoginResponseDTO VALID_RESPONSE = new(VALID_JWT_TOKEN, VALID_REFRESH_TOKEN, UserRole.ADMIN.ToString());
-        public static readonly LoginRequestDTO VALID_REQUEST = new(VALID_USERNAME, VALID_PASSWORD);
-        public static readonly LoginRequestDTO INVALID_REQUEST_INVALID_USERNAME = new(INVALID_USERNAME, VALID_PASSWORD);
-        public static readonly LoginRequestDTO INVALID_REQUEST_INVALID_PASSWORD = new(VALID_USERNAME, INVALID_PASSWORD);
+        public static readonly RefreshRequestDto INVALID_REFRESH_REQUEST = new(INVALID_REFRESH_TOKEN);
+        public static readonly RefreshRequestDto EXPIRED_REFRESH_REQUEST = new(VALID_REFRESH_TOKEN_EXPIRED);
+        public static readonly RefreshRequestDto VALID_REFRESH_REQUEST = new(VALID_REFRESH_TOKEN);
+        public static readonly LoginResponseDto VALID_RESPONSE = new(VALID_JWT_TOKEN, VALID_REFRESH_TOKEN, UserRole.ADMIN.ToString());
+        public static readonly LoginRequestDto VALID_REQUEST = new(VALID_USERNAME, VALID_PASSWORD);
+        public static readonly LoginRequestDto INVALID_REQUEST_INVALID_USERNAME = new(INVALID_USERNAME, VALID_PASSWORD);
+        public static readonly LoginRequestDto INVALID_REQUEST_INVALID_PASSWORD = new(VALID_USERNAME, INVALID_PASSWORD);
 
     }
 }

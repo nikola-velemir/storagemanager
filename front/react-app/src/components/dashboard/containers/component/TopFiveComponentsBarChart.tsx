@@ -4,11 +4,11 @@ import {
   BarChart,
   CartesianGrid,
   Rectangle,
-  ResponsiveContainer,
   XAxis,
   YAxis,
 } from "recharts";
 import { MechanicalComponentTopFiveQuantityResponse } from "../../../../model/components/MechanicalComponentTopFiveQuantityResponse";
+import { useNavigate } from "react-router-dom";
 
 interface TopFiveComponentsBarChartProps {
   data: MechanicalComponentTopFiveQuantityResponse[];
@@ -17,9 +17,13 @@ interface TopFiveComponentsBarChartProps {
 const TopFiveComponentsBarChart = ({
   data,
 }: TopFiveComponentsBarChartProps) => {
+  const navigate = useNavigate();
   const [components, setComponents] = useState<
     MechanicalComponentTopFiveQuantityResponse[]
   >([]);
+  const handleBarClick = (e: any) => {
+    navigate("/component-info/" + e.id);
+  };
   useEffect(() => {
     setComponents(data);
   }, [data]);
@@ -58,7 +62,8 @@ const TopFiveComponentsBarChart = ({
       />
       <Bar
         dataKey="quantity"
-        fill="#8884d8"
+        fill="oklch(62.3% 0.214 259.815)"
+        onClick={handleBarClick}
         activeBar={<Rectangle fill="pink" stroke="blue" />}
       />
     </BarChart>

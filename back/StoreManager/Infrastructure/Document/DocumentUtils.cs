@@ -1,6 +1,6 @@
 ﻿namespace StoreManager.Infrastructure.Document
 {
-    public class DocumentUtils
+    public static class DocumentUtils
     {
         public static string GetRawMimeType(string fileType) => fileType switch
         {

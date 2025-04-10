@@ -6,14 +6,8 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace StoreManager.Infrastructure.Auth.Handler
 {
-    public class DeAuthenticateCommandHandler : IRequestHandler<DeAuthenticateCommand>
+    public class DeAuthenticateCommandHandler(IRedisCacheService redis) : IRequestHandler<DeAuthenticateCommand>
     {
-        private IRedisCacheService _redis;
-        public DeAuthenticateCommandHandler(IRedisCacheService redis)
-        {
-            _redis = redis;
-        }
-
         public async Task<Unit> Handle(DeAuthenticateCommand request, CancellationToken cancellationToken)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -28,7 +22,7 @@ namespace StoreManager.Infrastructure.Auth.Handler
                 throw new BadHttpRequestException("Invalid token");
             }
 
-            await _redis.RevokeToken(jti, jwtToken.ValidTo);
+            await redis.RevokeToken(jti, jwtToken.ValidTo);
             
             return Unit.Value;
         }

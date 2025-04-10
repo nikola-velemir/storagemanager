@@ -8,10 +8,10 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
 {
     public interface IMechanicalComponentService
     {
-        Task<MechanicalComponentFindResponsesDTO> FindByInvoiceId(string invoiceId);
-        Task<PaginatedResult<MechanicalComponentSearchResponseDTO>> FindFiltered(string? providerId,string? componentInfo, int pageNumber, int pageSize);
-        Task<MechanicalComponentInfoResponseDTO> FindInfo(string componentId);
-        Task<MechanicalComponentQuantitySumResponseDTO> FindQuantitySum();
-        Task<MechanicalComponentTopFiveQuantityResponsesDTO> FindTopFiveInQuantity();
+        Task<MechanicalComponentFindResponsesDto> FindByInvoiceId(string invoiceId);
+        Task<PaginatedResult<MechanicalComponentSearchResponseDto>> FindFiltered(string? providerId,string? componentInfo, int pageNumber, int pageSize);
+        Task<MechanicalComponentInfoResponseDto> FindInfo(string componentId);
+        Task<MechanicalComponentQuantitySumResponseDto> FindQuantitySum();
+        Task<MechanicalComponentTopFiveQuantityResponsesDto> FindTopFiveInQuantity();
     }
 }

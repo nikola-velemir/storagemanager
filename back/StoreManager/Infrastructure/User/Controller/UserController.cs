@@ -7,17 +7,12 @@ namespace StoreManager.Infrastructure.User.Controller
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController : ControllerBase
+    public class UserController(IUserService userService) : ControllerBase
     {
-        private readonly IUserService _userService;
-        public UserController(IUserService userService)
-        {
-            _userService = userService;
-        }
         [HttpPost]
-        public async Task<ActionResult<UserCreateRequestDTO>> CreateUser([FromBody] UserCreateRequestDTO request)
+        public async Task<ActionResult<UserCreateRequestDto>> CreateUser([FromBody] UserCreateRequestDto request)
         {
-            return Ok(await _userService.CreateUser(request));
+            return Ok(await userService.CreateUser(request));
         }
     }
 }

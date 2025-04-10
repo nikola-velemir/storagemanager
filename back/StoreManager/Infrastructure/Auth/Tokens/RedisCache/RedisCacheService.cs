@@ -3,13 +3,10 @@ using System.Threading.Tasks;
 
 namespace StoreManager.Infrastructure.Auth.Tokens.RedisCache
 {
-    public class RedisCacheService : IRedisCacheService
+    public class RedisCacheService(IConnectionMultiplexer redis) : IRedisCacheService
     {
-        private readonly IDatabase _redisDb;
-        public RedisCacheService(IConnectionMultiplexer redis)
-        {
-            _redisDb = redis.GetDatabase();
-        }
+        private readonly IDatabase _redisDb = redis.GetDatabase();
+
         public async Task RevokeToken(string jti, DateTime expiry)
         {
             var expirySeconds = (int)(expiry - DateTime.UtcNow.AddMinutes(0)).TotalSeconds;

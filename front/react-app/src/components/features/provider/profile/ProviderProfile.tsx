@@ -13,7 +13,6 @@ const ProviderProfile = () => {
   useEffect(() => {
     if (!id || id.trim().length === 0) return;
     ProviderService.findProviderProfile(id).then((response) => {
-      console.log(response.data);
       setProvider(response.data);
     });
   }, [id]);
