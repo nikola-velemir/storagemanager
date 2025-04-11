@@ -7,10 +7,10 @@ namespace StoreManager.Infrastructure.MiddleWare
     {
         public async Task Invoke(HttpContext context)
         {
-            var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+            var authHeader = context.Request.Headers.Authorization.FirstOrDefault();
             if (authHeader?.StartsWith("Bearer ") == true)
             {
-                var token = authHeader.Substring(7);
+                var token = authHeader[7..];
                 var handler = new JwtSecurityTokenHandler();
                 var jwtToken = handler.ReadJwtToken(token);
                 var jti = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;

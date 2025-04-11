@@ -58,7 +58,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
         {
             try
             {
-                var response = await mediator.Send(new RefreshAuthenticationQuery(request.refresh_token));
+                var response = await mediator.Send(new RefreshAuthenticationQuery(request.RefreshToken));
                 return Ok(response);
             }
             catch (InvalidOperationException e)

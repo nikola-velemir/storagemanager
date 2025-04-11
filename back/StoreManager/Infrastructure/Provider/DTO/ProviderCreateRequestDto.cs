@@ -1,4 +1,4 @@
 ﻿namespace StoreManager.Infrastructure.Provider.DTO
 {
-    public record ProviderCreateRequestDto(string name, string address, string phoneNumber);
+    public sealed record ProviderCreateRequestDto(string name, string address, string phoneNumber);
 }

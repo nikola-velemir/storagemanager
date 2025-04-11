@@ -33,7 +33,7 @@ const refreshAccessToken = async () => {
     throw new Error("Token non existant");
   }
   const response = await api.post<AuthUser>("/auth/refresh", {
-    refresh_token: refreshToken,
+    refreshToken: refreshToken,
   } as RefreshRequest);
   return response.data;
 };

@@ -1,6 +1,6 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Find
 {
-    public record MechanicalComponentFindResponseDto(
+    public sealed record MechanicalComponentFindResponseDto(
         Guid id,
         string identifier,
         string name,

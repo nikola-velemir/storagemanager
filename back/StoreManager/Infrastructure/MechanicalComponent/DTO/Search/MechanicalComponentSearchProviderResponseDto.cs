@@ -1,6 +1,6 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Search
 {
-    public record MechanicalComponentSearchProviderResponseDto(
+    public sealed record MechanicalComponentSearchProviderResponseDto(
         Guid id,
         string name,
         string address,

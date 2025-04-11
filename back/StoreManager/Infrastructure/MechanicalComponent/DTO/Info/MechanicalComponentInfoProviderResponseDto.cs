@@ -1,6 +1,6 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Info
 {
-    public record MechanicalComponentInfoProviderResponseDto(
+    public sealed record MechanicalComponentInfoProviderResponseDto(
         Guid id,
         string name,
         string address,

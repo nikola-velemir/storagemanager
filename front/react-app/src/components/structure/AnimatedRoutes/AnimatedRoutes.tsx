@@ -13,7 +13,7 @@ import InvoiceInfo from "../../features/invoice/info/InvoiceInfo";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
 import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackContext";
-import ProductCreateForm from "../../features/product/ProductCreateForm";
+import ProductCreatePage from "../../features/product/ProductCreatePage";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -75,7 +75,7 @@ const AnimatedRoutes = () => {
               path="/create-product"
               element={
                 <ContentContainer>
-                  <ProductCreateForm />
+                  <ProductCreatePage />
                 </ContentContainer>
               }
             />
