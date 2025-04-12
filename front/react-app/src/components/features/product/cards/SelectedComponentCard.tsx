@@ -1,21 +1,42 @@
-import ComponentAccordion from "../component/search/cards/ComponentAccordion";
+import { ChangeEvent, useEffect, useState } from "react";
 
-interface ComponentSearchSectionCardProps {
+export interface ComponentQuantityPair {
+  id: string;
+  quantity: number;
+}
+
+interface SelectedComponentCardProps {
   id: string;
   name: string;
   identifier: string;
   emitComponentId: (id: string) => void;
-}
 
-const ComponentSearchSectionCard = ({
+  emitComponentForValidation: (pair: ComponentQuantityPair) => void;
+}
+const SelectedComponentCard = ({
   id,
   name,
   identifier,
   emitComponentId,
-}: ComponentSearchSectionCardProps) => {
-  const handleAddButtonClick = () => {
+  emitComponentForValidation,
+}: SelectedComponentCardProps) => {
+  const handleRemoveClick = () => {
     emitComponentId(id);
   };
+  const [component, setComponent] = useState<ComponentQuantityPair>({
+    id: id,
+    quantity: 1,
+  });
+
+  const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setComponent({
+      id: id,
+      quantity: Number.parseInt(e.target.value),
+    });
+  };
+  useEffect(() => {
+    emitComponentForValidation(component);
+  }, [component]);
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
       <div className="flex justify-between items-center">
@@ -59,16 +80,30 @@ const ComponentSearchSectionCard = ({
             </div>
           </div>
         </div>
-
-        <button
-          onClick={handleAddButtonClick}
-          className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-        >
-          Add
-        </button>
+        <div className="flex flex-row gap-4">
+          <form className="w-24 mx-auto">
+            <input
+              type="number"
+              id="number-input"
+              aria-describedby="helper-text-explanation"
+              className="text-base bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="0"
+              required
+              value={component.quantity}
+              onChange={handleQuantityChange}
+              min={1}
+            />
+          </form>
+          <button
+            onClick={handleRemoveClick}
+            className="bg-red-500 text-sm font-medium hover:bg-red-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+          >
+            Remove
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ComponentSearchSectionCard;
+export default SelectedComponentCard;

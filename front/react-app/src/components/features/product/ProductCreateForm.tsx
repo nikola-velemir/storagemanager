@@ -1,32 +1,64 @@
+import { s } from "framer-motion/dist/types.d-6pKw1mTI";
 import { useEffect, useState } from "react";
+import { ComponentWithQuantity } from "./ProductCreatePage";
 
 export interface ProductCreateFormData {
   productName: string;
   productDescription: string;
 }
 
-interface ProductCreateFormProps {
-  emitProductFormData: (data: ProductCreateFormData) => void;
+interface ProductCreateFormDataErrors {
+  productNameError: string;
+  productDescriptionError: string;
 }
 
-const ProductCreateForm = ({ emitProductFormData }: ProductCreateFormProps) => {
-  const [credentials, setCredentials] = useState<ProductCreateFormData>({
+interface ProductCreateFormProps {
+  emitProductFormData: (data: ProductCreateFormData) => void;
+  emitCreate: () => void;
+}
+
+const ProductCreateForm = ({
+  emitProductFormData,
+  emitCreate,
+}: ProductCreateFormProps) => {
+  const [formData, setFormData] = useState<ProductCreateFormData>({
     productDescription: "",
     productName: "",
   });
+  const [errors, setErrors] = useState<ProductCreateFormDataErrors>({
+    productDescriptionError: "",
+    productNameError: "",
+  });
+  const validateField = (field: string) => {
+    return field.trim().length !== 0;
+  };
   useEffect(() => {
-    emitProductFormData(credentials);
-  }, [credentials, emitProductFormData]);
+    emitProductFormData(formData);
+  }, [formData, emitProductFormData]);
   const handleOnChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setCredentials({
-      ...credentials,
+    setFormData({
+      ...formData,
       [name]: value,
     });
+    if (!validateField(value)) {
+      setErrors({
+        ...errors,
+        [name + "Error"]: "Field is required",
+      });
+    } else {
+      setErrors({
+        ...errors,
+        [name + "Error"]: "",
+      });
+    }
+  };
+  const handleCreateClick = () => {
+    emitCreate();
   };
   return (
     <form className="w-full mx-auto">
@@ -46,6 +78,7 @@ const ProductCreateForm = ({ emitProductFormData }: ProductCreateFormProps) => {
         >
           Name
         </label>
+        <div className="h-4 text-red-600">{errors.productNameError}</div>
       </div>
       <div className="relative z-0 w-full mb-5 group">
         <textarea
@@ -63,7 +96,15 @@ const ProductCreateForm = ({ emitProductFormData }: ProductCreateFormProps) => {
         >
           Description
         </label>
+        <div className="h-4 text-red-600">{errors.productDescriptionError}</div>
       </div>
+      <button
+        type="button"
+        onClick={handleCreateClick}
+        className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Create product
+      </button>
     </form>
   );
 };

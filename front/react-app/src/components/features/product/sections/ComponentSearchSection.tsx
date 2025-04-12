@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { MechanicalComponentSearchResponse } from "../../../model/components/search/MechanicalComponentSearchResponse";
-import { ProviderGetResponse } from "../../../model/provider/ProviderGetResponse";
-import { MechanicalComponentService } from "../../../services/MechanicalComponentService";
-import { ProviderService } from "../../../services/ProviderService";
-import Paginator from "../../common/inputs/Paginator";
-import SearchBox from "../../common/inputs/SearchBox";
-import SelectProviderBox from "../invoice/search/cards/SelectProviderBox";
-import ComponentSearchSectionCard from "./ComponentSearchSectionCard";
+import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
+import { ProviderGetResponse } from "../../../../model/provider/ProviderGetResponse";
+import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
+import { ProviderService } from "../../../../services/ProviderService";
+import Paginator from "../../../common/inputs/Paginator";
+import SearchBox from "../../../common/inputs/SearchBox";
+import SelectProviderBox from "../../invoice/search/cards/SelectProviderBox";
+import ComponentSearchSectionCard from "../cards/ComponentSearchSectionCard";
 
 interface ComponentSearchSectionProps {
   emitComponent: (component: MechanicalComponentSearchResponse | null) => void;
@@ -78,6 +78,7 @@ const ComponentSearchSection = ({
         {components.map((component: MechanicalComponentSearchResponse) => {
           return (
             <ComponentSearchSectionCard
+              key={component.id}
               emitComponentId={handleComponentButtonClick}
               id={component.id}
               identifier={component.identifier}
