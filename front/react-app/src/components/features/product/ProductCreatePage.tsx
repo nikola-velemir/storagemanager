@@ -1,7 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import ProductCreateForm, { ProductCreateFormData } from "./ProductCreateForm";
-import ComponentSearchSection from "./sections/ComponentSearchSection";
 import { MechanicalComponentSearchResponse } from "../../../model/components/search/MechanicalComponentSearchResponse";
+import { ProductCreateRequest } from "../../../model/product/ProductCreateRequest";
+import { ProductService } from "../../../services/ProductService";
+import { toast } from "react-toastify";
+import ComponentSearchSection from "./sections/ComponentSearchSection";
 import SelectedComponentsSection from "./sections/SelectedComponentsSection";
 
 export interface ComponentWithQuantity {
@@ -44,7 +47,21 @@ const ProductCreatePage = () => {
     setAddedComponents(c);
   };
   const handleCreate = () => {
-    console.log(addedComponents);
+    if (!addedComponents || !addedComponents.length) {
+      toast.error("You must have atleast one component added");
+      return;
+    }
+    const request: ProductCreateRequest = {
+      description: formData.productDescription,
+      name: formData.productName,
+      components: addedComponents.map((c) => ({
+        quantity: c.quantity,
+        id: c.id,
+      })),
+    };
+    ProductService.createProduct(request)
+      .then(() => toast.success("Product created successfully!"))
+      .catch(() => toast.error("Something went wrong"));
   };
 
   return (

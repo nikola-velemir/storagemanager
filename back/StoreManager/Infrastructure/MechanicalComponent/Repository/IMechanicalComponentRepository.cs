@@ -23,5 +23,6 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
         Task<int> CountQuantity(MechanicalComponentModel componentModel);
         Task<int> FindQuantitySum();
         Task<List<MechanicalComponentModel>> FindTopFiveInQuantity();
+        Task<List<MechanicalComponentModel>> FindByIds(List<Guid> componentIds);
     }
 }
