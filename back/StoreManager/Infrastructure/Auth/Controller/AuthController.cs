@@ -16,7 +16,7 @@ namespace StoreManager.Infrastructure.Auth.Controller
         {
             try
             {
-                var response = await mediator.Send(new LoginQuery(request.username, request.password));
+                var response = await mediator.Send(new LoginQuery(request.Username, request.Password));
                 return Ok(response);
             }
             catch (InvalidOperationException e)

@@ -1,4 +1,4 @@
 ﻿namespace StoreManager.Infrastructure.Provider.DTO.Statistics
 {
-    public sealed record ProviderComponentInvolvementResponseDto(Guid id, string name, int componentCount);
+    public sealed record ProviderComponentInvolvementResponseDto(Guid Id, string Name, int ComponentCount);
 }

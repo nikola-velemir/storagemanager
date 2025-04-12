@@ -31,7 +31,7 @@ const ComponentSearchSection = ({
   const [pageSize, setPageSize] = useState(5);
   const [searchText, setSearchText] = useState<string | null>(null);
   useEffect(() => {
-    MechanicalComponentService.findFiltered({
+    MechanicalComponentService.findFilteredForProduct({
       componentInfo: searchText,
       providerId: selectedProvider ? selectedProvider.id : null,
       pageNumber: pageNumber,

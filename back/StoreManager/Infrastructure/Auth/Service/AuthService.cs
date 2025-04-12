@@ -18,12 +18,12 @@ namespace StoreManager.Infrastructure.Auth.Service
     {
         public async Task<LoginResponseDto?> Authenticate(LoginRequestDto request)
         {
-            UserModel user = await userRepository.FindByUsername(request.username);
-            if (user.Password != request.password) { throw new UnauthorizedAccessException("Invalid password"); }
+            UserModel user = await userRepository.FindByUsername(request.Username);
+            if (user.Password != request.Password) { throw new UnauthorizedAccessException("Invalid password"); }
 
 
             var role = user.Role.ToString();
-            var accessToken =  tokenGenerator.GenerateToken(request.username, role);
+            var accessToken =  tokenGenerator.GenerateToken(request.Username, role);
 
             var refreshToken = await refreshTokenRepository.Create(user);
 

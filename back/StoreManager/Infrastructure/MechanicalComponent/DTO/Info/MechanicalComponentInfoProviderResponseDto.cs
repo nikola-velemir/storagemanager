@@ -1,8 +1,8 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Info
 {
     public sealed record MechanicalComponentInfoProviderResponseDto(
-        Guid id,
-        string name,
-        string address,
-        string phoneNumber);
+        Guid Id,
+        string Name,
+        string Address,
+        string PhoneNumber);
 }

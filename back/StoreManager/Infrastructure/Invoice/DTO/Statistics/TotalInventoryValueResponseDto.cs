@@ -1,4 +1,4 @@
 ﻿namespace StoreManager.Infrastructure.Invoice.DTO.Statistics
 {
-    public sealed record TotalInventoryValueResponseDto(double total, List<InventoryValueForDayResponseDto> values);
+    public sealed record TotalInventoryValueResponseDto(double Total, List<InventoryValueForDayResponseDto> Values);
 }

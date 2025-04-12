@@ -1,6 +1,11 @@
-﻿namespace StoreManager.Infrastructure.MechanicalComponent.Command.Search;
+﻿using MediatR;
+using StoreManager.Infrastructure.MechanicalComponent.DTO.Search;
+using StoreManager.Infrastructure.Shared;
 
-public class FindFilteredComponentsForProductQuery
-{
-    
-}
+namespace StoreManager.Infrastructure.MechanicalComponent.Command.Search;
+
+public record FindFilteredComponentsForProductQuery(
+    string? ProviderId,
+    string? ComponentInfo,
+    int PageNumber,
+    int PageSize) : IRequest<PaginatedResult<MechanicalComponentProductSearchResponseDto>>;

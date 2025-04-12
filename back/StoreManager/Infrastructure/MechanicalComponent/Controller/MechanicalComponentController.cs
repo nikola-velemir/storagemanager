@@ -18,6 +18,12 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Controller
             var result = await service.Send(new FindFilteredComponentsQuery(providerId, componentInfo, pageNumber, pageSize));
             return Ok(result);
         }
+        [HttpGet("filtered-product")]
+        public async Task<IActionResult> FindFilteredProduct([FromQuery] string? providerId, [FromQuery] string? componentInfo, [FromQuery] int pageSize, [FromQuery] int pageNumber)
+        {
+            var result = await service.Send(new FindFilteredComponentsForProductQuery(providerId, componentInfo, pageNumber, pageSize));
+            return Ok(result);
+        }
         [HttpGet("find-by-invoice/{invoiceId}")]
         public async Task<IActionResult> FindByInvoiceId([FromRoute] string invoiceId)
         {
