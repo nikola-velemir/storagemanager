@@ -10,6 +10,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
     {
         Task<MechanicalComponentFindResponsesDto> FindByInvoiceId(string invoiceId);
         Task<PaginatedResult<MechanicalComponentSearchResponseDto>> FindFiltered(string? providerId,string? componentInfo, int pageNumber, int pageSize);
+        Task<PaginatedResult<MechanicalComponentProductSearchResponseDto>> FindFilteredForProduct(string? providerId,string? componentInfo, int pageNumber, int pageSize);
         Task<MechanicalComponentInfoResponseDto> FindInfo(string componentId);
         Task<MechanicalComponentQuantitySumResponseDto> FindQuantitySum();
         Task<MechanicalComponentTopFiveQuantityResponsesDto> FindTopFiveInQuantity();

@@ -19,10 +19,10 @@ namespace StoreManager.Infrastructure.Provider.Service
         {
             var saved = await repository.Create(new Model.ProviderModel
             {
-                Adress = request.address,
+                Adress = request.Address,
                 Id = new Guid(),
-                Name = request.name,
-                PhoneNumber = request.phoneNumber
+                Name = request.Name,
+                PhoneNumber = request.PhoneNumber
             });
             return new ProviderFindResponseDto(saved.Id, saved.Name, saved.Adress, saved.PhoneNumber);
         }

@@ -1,4 +1,4 @@
 ﻿namespace StoreManager.Infrastructure.Invoice.DTO.Statistics
 {
-    public sealed record class ThisWeekInvoiceCountResponseDto(int count);
+    public sealed record ThisWeekInvoiceCountResponseDto(int Count);
 }

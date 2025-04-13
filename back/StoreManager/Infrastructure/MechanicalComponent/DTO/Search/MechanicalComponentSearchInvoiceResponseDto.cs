@@ -1,7 +1,7 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Search
 {
-    public record MechanicalComponentSearchInvoiceResponseDto(
-        Guid id,
-        DateOnly dateIssued,
-        MechanicalComponentSearchProviderResponseDto provider);
+    public sealed record MechanicalComponentSearchInvoiceResponseDto(
+        Guid Id,
+        DateOnly DateIssued,
+        MechanicalComponentSearchProviderResponseDto Provider);
 }

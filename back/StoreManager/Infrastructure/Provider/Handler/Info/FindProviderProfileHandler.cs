@@ -5,7 +5,6 @@ using StoreManager.Infrastructure.Provider.Command.Info;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.DTO.Info;
 using StoreManager.Infrastructure.Provider.Repository;
-using static Supabase.Gotrue.Constants;
 
 namespace StoreManager.Infrastructure.Provider.Handler.Info
 {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import InvoiceSearchCard from "./cards/InvoiceSearchCard";
 import { InvoiceSearchResponse } from "../../../../model/invoice/InvoiceSearchResponse";
 import { InvoiceService } from "../../../../services/InvoiceService";
@@ -29,9 +29,7 @@ const InvoiceSearch = () => {
   const [selectedProvider, setSelectedProvider] =
     useState<ProviderGetResponse | null>(null);
   const [componentInfo, setComponentInfo] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [invoiceIdForModal, setInvoiceIdForModal] = useState<string>("");
-  const fetchInvoices = () => {
+  const fetchInvoices = useCallback(() => {
     InvoiceService.findFiltered({
       componentInfo: componentInfo,
       date: convertDateToString(selectedDate),
@@ -42,7 +40,8 @@ const InvoiceSearch = () => {
       setInvoices(response.data.items);
       setTotalItems(response.data.totalCount);
     });
-  };
+  }, [pageSize, pageNumber, selectedDate, selectedProvider, componentInfo]);
+
   const fetchProviders = () => {
     ProviderService.findAll().then((response) => {
       setProviders(response.data.providers);
@@ -53,7 +52,7 @@ const InvoiceSearch = () => {
   }, []);
   useEffect(() => {
     fetchInvoices();
-  }, [pageSize, pageNumber, selectedDate, selectedProvider, componentInfo]);
+  }, [fetchInvoices]);
   const handlePageSizeChange = (newPageSize: number) => {
     setPageSize(newPageSize);
     setPageNumber(1);

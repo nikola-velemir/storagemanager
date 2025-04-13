@@ -1,7 +1,7 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Info
 {
-    public record MechanicalComponentInfoInvoiceResponseDto(
-        Guid id,
-        DateOnly dateIssued,
-        MechanicalComponentInfoProviderResponseDto provider);
+    public sealed record MechanicalComponentInfoInvoiceResponseDto(
+        Guid Id,
+        DateOnly DateIssued,
+        MechanicalComponentInfoProviderResponseDto Provider);
 }

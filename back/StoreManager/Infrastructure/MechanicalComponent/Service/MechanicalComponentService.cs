@@ -67,6 +67,31 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
             };
         }
 
+        public async Task<PaginatedResult<MechanicalComponentProductSearchResponseDto>> FindFilteredForProduct(string? providerId, string? componentInfo, int pageNumber, int pageSize)
+        {
+            Guid? id = null;
+            if (Guid.TryParse(providerId, out var tempId))
+            {
+                id = tempId;
+            }
+
+            var result = await repository.FindFilteredForProduct(id, componentInfo, pageNumber, pageSize);
+            return new PaginatedResult<MechanicalComponentProductSearchResponseDto>
+            {
+                Items = result.Items.Select(mc =>
+                        new MechanicalComponentProductSearchResponseDto(
+                            mc.Id,
+                            mc.Identifier,
+                            mc.Name
+                        )
+                    )
+                    .ToList(),
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = result.TotalCount
+            };
+        }
+
         public async Task<MechanicalComponentInfoResponseDto> FindInfo(string componentId)
         {
             if (!Guid.TryParse(componentId, out _))

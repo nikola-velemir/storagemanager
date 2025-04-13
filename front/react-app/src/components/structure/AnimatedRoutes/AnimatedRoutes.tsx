@@ -13,6 +13,9 @@ import InvoiceInfo from "../../features/invoice/info/InvoiceInfo";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
 import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackContext";
+import ProductCreatePage from "../../features/product/create/ProductCreatePage";
+import ProductSearch from "../../features/product/search/ProductSearch";
+import ProductInfo from "../../features/product/info/ProductInfo";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -63,10 +66,34 @@ const AnimatedRoutes = () => {
               }
             />
             <Route
+              path="/product-search"
+              element={
+                <ContentContainer>
+                  <ProductSearch />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/product-info/:id"
+              element={
+                <ContentContainer>
+                  <ProductInfo />
+                </ContentContainer>
+              }
+            />
+            <Route
               path="/provider-profile/:id"
               element={
                 <ContentContainer>
                   <ProviderProfile />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/create-product"
+              element={
+                <ContentContainer>
+                  <ProductCreatePage />
                 </ContentContainer>
               }
             />

@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
 import { MechanicalComponentInfoResponse } from "../../../../model/components/info/MechanicalComponentInfoResponse";
 import { MechanicalComponentInfoInvoiceResponse } from "../../../../model/components/info/MechanicalComponentInfoInvoiceResponse";
-import InvoiceSearchCard from "../../invoice/search/cards/InvoiceSearchCard";
-import InvoiceCard from "../search/cards/InvoiceCard";
 import ComponentInfoInvoiceCard from "./cards/ComponentInfoInvoiceCard";
 
 const ComponentInfo = () => {
@@ -12,7 +10,7 @@ const ComponentInfo = () => {
   const [component, setComponent] =
     useState<MechanicalComponentInfoResponse | null>(null);
   useEffect(() => {
-    if (!id || id.trim().length == 0) return;
+    if (!id || id.trim().length === 0) return;
     MechanicalComponentService.findInfo(id).then((response) => {
       setComponent(response.data);
     });
@@ -21,7 +19,7 @@ const ComponentInfo = () => {
     <div className="h-screen w-full p-8">
       <div className="w-full h-5/6 overflow-auto">
         <div className="px-8 pt-8 space-y-4">
-          <div className="flex flex-row gap-12 w-full bg-gray-600 rounded-xl p-8">
+          <div className="flex flex-row gap-12 w-full bg-gray-600 rounded-xl rounded-b-none p-8">
             <div className="bg-slate-800 rounded-xl p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

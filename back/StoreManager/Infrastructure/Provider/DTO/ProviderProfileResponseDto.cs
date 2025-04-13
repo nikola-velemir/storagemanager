@@ -2,5 +2,10 @@
 
 namespace StoreManager.Infrastructure.Provider.DTO
 {
-    public record ProviderProfileResponseDto(string name, string address, string phoneNumber,List<ProviderProfileComponentResponseDto> components, List<ProviderProfileInvoiceResponseDto> invoices);
+    public sealed record ProviderProfileResponseDto(
+        string Name,
+        string Address,
+        string PhoneNumber,
+        List<ProviderProfileComponentResponseDto> Components,
+        List<ProviderProfileInvoiceResponseDto> Invoices);
 }

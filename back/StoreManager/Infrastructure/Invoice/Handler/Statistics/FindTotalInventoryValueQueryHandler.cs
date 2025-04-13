@@ -5,7 +5,7 @@ using StoreManager.Infrastructure.Invoice.Repository;
 
 namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
 {
-    public class FindTotalInventoryValueQueryHandler : IRequestHandler<FindTotalInventoryValueQuery, TotalInvetoryValueResponseDto>
+    public class FindTotalInventoryValueQueryHandler : IRequestHandler<FindTotalInventoryValueQuery, TotalInventoryValueResponseDto>
     {
         private readonly IInvoiceItemRepository _invoiceItemRepository;
         public FindTotalInventoryValueQueryHandler(IInvoiceItemRepository invoiceItemRepository)
@@ -13,7 +13,7 @@ namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
             _invoiceItemRepository = invoiceItemRepository;
         }
 
-        public async Task<TotalInvetoryValueResponseDto> Handle(FindTotalInventoryValueQuery request, CancellationToken cancellationToken)
+        public async Task<TotalInventoryValueResponseDto> Handle(FindTotalInventoryValueQuery request, CancellationToken cancellationToken)
         {
             var total = await _invoiceItemRepository.FindTotalPrice();
             var endDate = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -24,7 +24,7 @@ namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
                 var sum = await _invoiceItemRepository.FindSumForDate(date);
                 responses.Add(new InventoryValueForDayResponseDto(date.DayOfWeek.ToString(), sum));
             }
-            return new TotalInvetoryValueResponseDto(total, responses);
+            return new TotalInventoryValueResponseDto(total, responses);
         }
     }
 }

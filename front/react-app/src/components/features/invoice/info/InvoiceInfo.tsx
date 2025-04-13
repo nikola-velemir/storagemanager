@@ -1,9 +1,8 @@
-import { progress } from "framer-motion";
 import { useParams } from "react-router-dom";
 import { InvoiceSearchComponentResponse } from "../../../../model/invoice/InvoiceSearchComponentResponse";
 import DocumentView from "../../documents/DocumentView";
 import InvoiceSearchComponentItem from "../search/cards/InvoiceSearchComponentItem";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { DocumentService } from "../../../../services/DocumentService";
 import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
 
@@ -15,7 +14,7 @@ const InvoiceInfo = () => {
   >([]);
   const [documentSrc, setDocumentSrc] = useState<Blob | undefined>(undefined);
   const [fileType, setFileType] = useState("");
-  const downloadDoc = () => {
+  const downloadDoc = useCallback(() => {
     setProgress(0);
     if (!id) return;
     DocumentService.downloadFile(id, (percentage) => {
@@ -24,14 +23,15 @@ const InvoiceInfo = () => {
       setDocumentSrc(doc);
       setFileType(doc.type);
     });
-  };
+  }, [id]);
+
   useEffect(() => {
-    if (!id || id.trim().length == 0) return;
+    if (!id || id.trim().length === 0) return;
     downloadDoc();
     MechanicalComponentService.findByInvoiceId(id).then((response) => {
       setComponents(response.data.responses);
     });
-  }, [id]);
+  }, [id, downloadDoc]);
 
   return (
     <div className="h-screen w-full p-8">

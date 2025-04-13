@@ -14,6 +14,19 @@ export interface MechanicalComponentFilterRequest {
   componentInfo: string | null;
 }
 export class MechanicalComponentService {
+  static findFilteredForProduct(request: MechanicalComponentFilterRequest) {
+    return api.get<PaginatedResponse<MechanicalComponentSearchResponse>>(
+      this.BASE_URL + "/filtered-product",
+      {
+        params: {
+          componentInfo: request.componentInfo,
+          providerId: request.providerId,
+          pageSize: request.pageSize,
+          pageNumber: request.pageNumber,
+        },
+      }
+    );
+  }
   static findTopFiveInQuantity() {
     return api.get<MechanicalComponentTopFiveQuantityResponses>(
       this.BASE_URL + "/find-top-five-quantity"

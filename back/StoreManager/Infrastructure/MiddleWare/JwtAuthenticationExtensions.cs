@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using StackExchange.Redis;
 using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
-using System.Text;
 
-namespace StoreManager.Infrastructure.Auth
+namespace StoreManager.Infrastructure.MiddleWare
 {
     public static class JwtAuthenticationExtensions
     {

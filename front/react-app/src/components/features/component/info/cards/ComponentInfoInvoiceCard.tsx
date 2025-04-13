@@ -60,10 +60,10 @@ const ComponentInfoInvoiceCard = ({
           onClick={handleInvoiceMoreInfoClick}
           className="text-white bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
         >
-          More info
+          More&nbsp;info
         </button>
       </div>
-      <div className="flex w-full flex-row mt-2">
+      <div className="flex w-full flex-row mt-6">
         <div className="flex w-full flex-row">
           <div className="w-10"></div>
           <div className="w-10 h-10 grid place-items-center">
@@ -108,7 +108,7 @@ const ComponentInfoInvoiceCard = ({
           onClick={handleProviderMoreInfoClick}
           className="text-white bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
         >
-          More info
+          More&nbsp;info
         </button>
       </div>
     </div>

@@ -3,6 +3,7 @@ import styles from "./Layout.module.css";
 import AppHeader from "../Window/AppHeader/AppHeader";
 import { motion } from "framer-motion";
 import { transitions } from "../AnimatedRoutes/TransitionVariants";
+import { ToastContainer } from "react-toastify";
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,6 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div className={styles.layout}>
       <>
         <AppHeader></AppHeader>
+        <ToastContainer position="bottom-right" autoClose={3000} />
         <motion.div
           variants={transitions}
           initial="initial"

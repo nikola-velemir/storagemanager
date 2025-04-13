@@ -46,6 +46,7 @@ const ProviderSearch = () => {
         {providers.map((provider: ProviderSearchResponse) => {
           return (
             <ProviderCard
+              key={provider.id}
               invoices={provider.invoices}
               address={provider.address}
               id={provider.id}

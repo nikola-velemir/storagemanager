@@ -36,9 +36,9 @@ namespace StoreManager.Infrastructure.Document.Handler
                     throw new ArgumentNullException("provider is null");
                 }
                 ProviderModel? provider;
-                if (!string.IsNullOrEmpty(parsedProvider.providerId))
+                if (!string.IsNullOrEmpty(parsedProvider.ProviderId))
                 {
-                    provider = await providerRepository.FindById(Guid.Parse(parsedProvider.providerId));
+                    provider = await providerRepository.FindById(Guid.Parse(parsedProvider.ProviderId));
                     if (provider is null) throw new ArgumentNullException("provider is null");
 
                 }
@@ -46,10 +46,10 @@ namespace StoreManager.Infrastructure.Document.Handler
                 {
                     provider = await providerRepository.Create(new ProviderModel
                     {
-                        Adress = parsedProvider.providerAddress,
+                        Adress = parsedProvider.ProviderAddress,
                         Id = Guid.NewGuid(),
-                        Name = parsedProvider.providerName,
-                        PhoneNumber = parsedProvider.providerPhoneNumber
+                        Name = parsedProvider.ProviderName,
+                        PhoneNumber = parsedProvider.ProviderPhoneNumber
                     });
                 }
                 var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(request.FileName), @"[^a-zA-Z0-9]", "");

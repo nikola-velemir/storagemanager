@@ -17,7 +17,7 @@ namespace StoreManager.Infrastructure.Provider.Controller
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] ProviderCreateRequestDto request)
         {
-            return Ok(await service.Send(new CreateProviderCommand(request.name, request.address, request.phoneNumber)));
+            return Ok(await service.Send(new CreateProviderCommand(request.Name, request.Address, request.PhoneNumber)));
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> FindById([FromRoute] string id)

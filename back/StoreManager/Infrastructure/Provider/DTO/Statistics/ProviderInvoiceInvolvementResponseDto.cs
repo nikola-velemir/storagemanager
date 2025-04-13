@@ -1,4 +1,4 @@
 ﻿namespace StoreManager.Infrastructure.Provider.DTO.Statistics
 {
-    public sealed record ProviderInvoiceInvolvementResponseDto(Guid id, string name, int invoiceCount);
+    public sealed record ProviderInvoiceInvolvementResponseDto(Guid Id, string Name, int InvoiceCount);
 }

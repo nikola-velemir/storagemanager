@@ -1,8 +1,8 @@
 ﻿namespace StoreManager.Infrastructure.MechanicalComponent.DTO.Info
 {
-    public record MechanicalComponentInfoResponseDto(
-        string name,
-        string identifier,
-        int quantity,
-        List<MechanicalComponentInfoInvoiceResponseDto> invoices);
+    public sealed record MechanicalComponentInfoResponseDto(
+        string Name,
+        string Identifier,
+        int Quantity,
+        List<MechanicalComponentInfoInvoiceResponseDto> Invoices);
 }
