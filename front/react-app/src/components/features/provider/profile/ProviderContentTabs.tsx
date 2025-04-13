@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ProviderProfileInvoiceResponse } from "../../../../model/provider/ProviderProfileInvoiceResponse";
 import { ProviderProfileComponentResponse } from "../../../../model/provider/ProviderProfileComponentResponse";
-import ProviderModalInvoiceCard from "./cards/ProviderModalInvoiceCard";
-import ProviderModalComponentCard from "./cards/ProviderModalComponentCard";
+import ProviderProfileInvoiceCard from "./cards/ProviderProfileInvoiceCard";
+import ProviderProfileComponentCard from "./cards/ProviderProfileComponentCard";
 
 enum TabState {
   INVOICES,
@@ -33,7 +33,7 @@ const ProviderContentTabs = ({
     "cursor-pointer w-full inline-block p-4 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300";
   const renderInvoices = () => {
     return invoices.map((invoice: ProviderProfileInvoiceResponse) => (
-      <ProviderModalInvoiceCard
+      <ProviderProfileInvoiceCard
         key={invoice.id}
         dateIssued={invoice.dateIssued}
         id={invoice.id}
@@ -42,7 +42,7 @@ const ProviderContentTabs = ({
   };
   const renderComponents = () => {
     return components.map((component: ProviderProfileComponentResponse) => (
-      <ProviderModalComponentCard
+      <ProviderProfileComponentCard
         key={component.identifier}
         id={component.id}
         identifier={component.identifier}

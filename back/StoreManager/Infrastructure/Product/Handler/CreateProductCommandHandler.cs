@@ -20,6 +20,7 @@ public class CreateProductCommandHandler(
         var components = await mechanicalComponentRepository.FindByIds(componentIds);
         var product = new ProductModel
         {
+            Identifier = request.Identifier,
             Components = new List<ProductComponentsModel>(),
             Id = productId,
             Name = request.Name,

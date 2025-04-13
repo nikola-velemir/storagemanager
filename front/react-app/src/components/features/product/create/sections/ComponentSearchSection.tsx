@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
-import { ProviderGetResponse } from "../../../../model/provider/ProviderGetResponse";
-import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
-import { ProviderService } from "../../../../services/ProviderService";
-import Paginator from "../../../common/inputs/Paginator";
-import SearchBox from "../../../common/inputs/SearchBox";
-import SelectProviderBox from "../../invoice/search/cards/SelectProviderBox";
+import { MechanicalComponentSearchResponse } from "../../../../../model/components/search/MechanicalComponentSearchResponse";
+import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
+import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
+import { ProviderService } from "../../../../../services/ProviderService";
+import Paginator from "../../../../common/inputs/Paginator";
+import SearchBox from "../../../../common/inputs/SearchBox";
+import SelectProviderBox from "../../../invoice/search/cards/SelectProviderBox";
 import ComponentSearchSectionCard from "../cards/ComponentSearchSectionCard";
 
 interface ComponentSearchSectionProps {

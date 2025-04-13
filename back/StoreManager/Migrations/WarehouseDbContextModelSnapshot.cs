@@ -200,7 +200,14 @@ namespace StoreManager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateOnly>("DateCreated")
+                        .HasColumnType("date");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Identifier")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -209,6 +216,9 @@ namespace StoreManager.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Identifier")
+                        .IsUnique();
 
                     b.ToTable("Products", "public");
                 });

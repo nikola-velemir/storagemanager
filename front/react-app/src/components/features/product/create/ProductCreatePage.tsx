@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import ProductCreateForm, { ProductCreateFormData } from "./ProductCreateForm";
-import { MechanicalComponentSearchResponse } from "../../../model/components/search/MechanicalComponentSearchResponse";
-import { ProductCreateRequest } from "../../../model/product/ProductCreateRequest";
-import { ProductService } from "../../../services/ProductService";
+import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
+import { ProductCreateRequest } from "../../../../model/product/ProductCreateRequest";
+import { ProductService } from "../../../../services/ProductService";
 import { toast } from "react-toastify";
 import ComponentSearchSection from "./sections/ComponentSearchSection";
 import SelectedComponentsSection from "./sections/SelectedComponentsSection";
@@ -17,6 +17,7 @@ export interface ComponentWithQuantity {
 const ProductCreatePage = () => {
   const [formData, setFormData] = useState<ProductCreateFormData>({
     productDescription: "",
+    productIdentifier: "",
     productName: "",
   });
   const [addedComponents, setAddedComponents] = useState<
@@ -54,6 +55,7 @@ const ProductCreatePage = () => {
     const request: ProductCreateRequest = {
       description: formData.productDescription,
       name: formData.productName,
+      identifier: formData.productIdentifier,
       components: addedComponents.map((c) => ({
         quantity: c.quantity,
         id: c.id,

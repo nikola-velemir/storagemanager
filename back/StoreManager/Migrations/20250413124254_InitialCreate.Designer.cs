@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.DB;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250410214239_InitialCreate")]
+    [Migration("20250413124254_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -203,7 +203,14 @@ namespace StoreManager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateOnly>("DateCreated")
+                        .HasColumnType("date");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Identifier")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -212,6 +219,9 @@ namespace StoreManager.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Identifier")
+                        .IsUnique();
 
                     b.ToTable("Products", "public");
                 });

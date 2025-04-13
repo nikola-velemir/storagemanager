@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import SelectedComponentCard, {
   ComponentQuantityPair,
 } from "../cards/SelectedComponentCard";
-import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
 import { ComponentWithQuantity } from "../ProductCreatePage";
 
 interface SelectedComponentsSectionProps {

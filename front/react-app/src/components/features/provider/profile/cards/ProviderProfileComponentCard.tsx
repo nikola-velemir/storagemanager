@@ -7,7 +7,7 @@ interface ProviderModalComponentCardProps {
   name: string;
 }
 
-const ProviderModalComponentCard = ({
+const ProviderProfileComponentCard = ({
   id,
   identifier,
   name,
@@ -45,17 +45,18 @@ const ProviderModalComponentCard = ({
               />
             </svg>
           </div>
-
           <div className="flex flex-row gap-8">
             <div className="text-sm text-gray-400">
               <span className="font-light">Identifier:</span>
-              <span className="font-medium text-base text-white">
+              <span className="ms-2 font-medium text-base text-white">
                 {identifier}
               </span>
             </div>
             <div className="text-sm text-gray-400">
               <span className="font-light">Name:</span>
-              <span className="font-medium text-base text-white">{name}</span>
+              <span className="ms-2 font-medium text-base text-white">
+                {name}
+              </span>
             </div>
           </div>
         </div>
@@ -70,4 +71,4 @@ const ProviderModalComponentCard = ({
   );
 };
 
-export default ProviderModalComponentCard;
+export default ProviderProfileComponentCard;

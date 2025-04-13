@@ -1,5 +1,3 @@
-import ComponentAccordion from "../../component/search/cards/ComponentAccordion";
-
 interface ComponentSearchSectionCardProps {
   id: string;
   name: string;

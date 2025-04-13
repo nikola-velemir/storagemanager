@@ -4,7 +4,7 @@ interface ProviderModalInvoiceCardProps {
   id: string;
   dateIssued: string;
 }
-const ProviderModalInvoiceCard = ({
+const ProviderProfileInvoiceCard = ({
   id,
   dateIssued,
 }: ProviderModalInvoiceCardProps) => {
@@ -64,4 +64,4 @@ const ProviderModalInvoiceCard = ({
   );
 };
 
-export default ProviderModalInvoiceCard;
+export default ProviderProfileInvoiceCard;

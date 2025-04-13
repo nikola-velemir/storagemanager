@@ -53,7 +53,9 @@ namespace StoreManager.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false)
+                    Identifier = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,6 +282,13 @@ namespace StoreManager.Migrations
                 schema: "public",
                 table: "ProductComponents",
                 column: "ComponentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Identifier",
+                schema: "public",
+                table: "Products",
+                column: "Identifier",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_Token",

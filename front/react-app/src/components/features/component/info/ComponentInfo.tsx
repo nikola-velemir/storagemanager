@@ -19,7 +19,7 @@ const ComponentInfo = () => {
     <div className="h-screen w-full p-8">
       <div className="w-full h-5/6 overflow-auto">
         <div className="px-8 pt-8 space-y-4">
-          <div className="flex flex-row gap-12 w-full bg-gray-600 rounded-xl p-8">
+          <div className="flex flex-row gap-12 w-full bg-gray-600 rounded-xl rounded-b-none p-8">
             <div className="bg-slate-800 rounded-xl p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
