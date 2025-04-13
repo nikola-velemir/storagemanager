@@ -2,6 +2,7 @@
 using StoreManager.Infrastructure.MechanicalComponent.Command.Info;
 using StoreManager.Infrastructure.MechanicalComponent.DTO.Info;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using System.ComponentModel;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Info
@@ -19,7 +20,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Info
             var component = await repository.FindById(componentGuid);
             if (component is null)
             {
-                throw new EntryPointNotFoundException("Component not found");
+                throw new NotFoundException("Component not found");
             }
             var quantity = await repository.CountQuantity(component);
             return new MechanicalComponentInfoResponseDto(

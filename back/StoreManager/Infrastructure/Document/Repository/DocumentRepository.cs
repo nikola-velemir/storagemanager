@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
 
 using StoreManager.Infrastructure.Document.Model;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using System.Text.RegularExpressions;
 namespace StoreManager.Infrastructure.Document.Repository
 {
@@ -25,12 +26,12 @@ namespace StoreManager.Infrastructure.Document.Repository
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
             if (file == null || file.Length == 0)
             {
-                throw new FileNotFoundException("Invalid chunk");
+                throw new NotFoundException("Invalid chunk");
             }
             var foundDoc = await FindByName(processedFileName);
             if (foundDoc == null)
             {
-                throw new EntryPointNotFoundException("Invalid file");
+                throw new NotFoundException("Invalid file");
             }
             var chunk = new DocumentChunkModel
             {

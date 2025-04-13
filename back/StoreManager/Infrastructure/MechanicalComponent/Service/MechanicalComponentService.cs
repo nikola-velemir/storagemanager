@@ -3,6 +3,7 @@ using StoreManager.Infrastructure.MechanicalComponent.DTO.Info;
 using StoreManager.Infrastructure.MechanicalComponent.DTO.Quantity;
 using StoreManager.Infrastructure.MechanicalComponent.DTO.Search;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Shared;
 using System.Collections.Generic;
 
@@ -102,7 +103,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
             var component = await repository.FindById(componentGuid);
             if (component is null)
             {
-                throw new EntryPointNotFoundException("Component not found");
+                throw new NotFoundException("Component not found");
             }
             var quantity = await repository.CountQuantity(component);
             return new MechanicalComponentInfoResponseDto(
@@ -129,7 +130,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
             foreach (var r in result)
             {
                 var quantity = await repository.CountQuantity(r);
-                responses.Add(new MechanicalComponentTopFiveQuantityResponseDto(r.Id,r.Name, r.Identifier, quantity));
+                responses.Add(new MechanicalComponentTopFiveQuantityResponseDto(r.Id, r.Name, r.Identifier, quantity));
             }
             return new MechanicalComponentTopFiveQuantityResponsesDto(responses);
         }

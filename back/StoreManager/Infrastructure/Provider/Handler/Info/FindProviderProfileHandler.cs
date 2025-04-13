@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Provider.Command.Info;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.DTO.Info;
@@ -24,7 +25,7 @@ namespace StoreManager.Infrastructure.Provider.Handler.Info
             var provider = await providerRepository.FindById(providerGuid);
             if (provider is null)
             {
-                throw new EntryPointNotFoundException("Provider not found");
+                throw new NotFoundException("Provider not found");
             }
             var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
             var invoices = await invoiceRepository.FindByProviderId(provider.Id);

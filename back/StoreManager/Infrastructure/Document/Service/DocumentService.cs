@@ -8,6 +8,7 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.Invoice.Service;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Model;
 using StoreManager.Infrastructure.Provider.Repository;
@@ -36,15 +37,15 @@ namespace StoreManager.Infrastructure.Document.Service
             var invoice = await invoiceRepository.FindById(invoiceGuid);
             if (invoice is null)
             {
-                throw new EntryPointNotFoundException("Invoice not found");
+                throw new NotFoundException("Invoice not found");
             }
 
-            var file = await repository.FindByName(invoice.Document.FileName) ?? throw new FileNotFoundException("File not found");
+            var file = await repository.FindByName(invoice.Document.FileName) ?? throw new NotFoundException("File not found");
 
 
 
             var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == chunkIndex)
-                ?? throw new EntryPointNotFoundException("Chunk not found");
+                ?? throw new NotFoundException("Chunk not found");
 
             var response = new DocumentDownloadResponseDto(await supabase.DownloadChunk(chunk), DocumentUtils.GetPresentationalMimeType(file.Type));
             return response;
