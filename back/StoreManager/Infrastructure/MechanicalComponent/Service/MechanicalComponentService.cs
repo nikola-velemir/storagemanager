@@ -26,8 +26,8 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                     mc.Id,
                     mc.Identifier,
                     mc.Name,
-                    mc.Items.First(ii => ii.InvoiceId.Equals(invoiceGuid)).Quantity,
-                    mc.Items.First(ii => ii.InvoiceId.Equals(invoiceGuid)).PricePerPiece
+                    mc.Items.First(ii => ii.ImportId.Equals(invoiceGuid)).Quantity,
+                    mc.Items.First(ii => ii.ImportId.Equals(invoiceGuid)).PricePerPiece
                     )
                 ).ToList());
         }
@@ -55,7 +55,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                        new MechanicalComponentSearchProviderResponseDto(
                            ii.Import.Provider.Id,
                            ii.Import.Provider.Name,
-                           ii.Import.Provider.Adress,
+                           ii.Import.Provider.Address,
                            ii.Import.Provider.PhoneNumber
                            )
                        )).ToList()
@@ -113,7 +113,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                 component.Items.Select(ii => new MechanicalComponentInfoInvoiceResponseDto(
                     ii.Import.Id,
                     ii.Import.DateIssued,
-                    new MechanicalComponentInfoProviderResponseDto(ii.Import.Provider.Id, ii.Import.Provider.Name, ii.Import.Provider.Adress, ii.Import.Provider.PhoneNumber))
+                    new MechanicalComponentInfoProviderResponseDto(ii.Import.Provider.Id, ii.Import.Provider.Name, ii.Import.Provider.Address, ii.Import.Provider.PhoneNumber))
                 ).ToList()
             );
         }

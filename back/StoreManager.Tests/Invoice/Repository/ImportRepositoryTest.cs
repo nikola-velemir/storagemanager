@@ -1,18 +1,27 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
-using StoreManager.Infrastructure.Provider.Model;
 
 namespace StoreManager.Tests.Invoice.Repository
 {
     public class ImportRepositoryTest : IAsyncLifetime
     {
-        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
+        private static readonly ProviderModel provider = new ProviderModel
+        {
+            Address = "aaa", Type = BusinessPartnerType.Provider, Id = Guid.NewGuid(), Name = "kita",
+            PhoneNumber = "adsa"
+        };
 
-        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel { ChunkCount = 0, Chunks = new List<DocumentChunkModel>(), Type = "pdf", Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid() };
+        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
+        {
+            ChunkCount = 0, Chunks = new List<DocumentChunkModel>(), Type = "pdf",
+            Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid()
+        };
+
         private static readonly ImportModel VALID_IMPORT = new ImportModel
         {
             Provider = provider,
@@ -23,6 +32,7 @@ namespace StoreManager.Tests.Invoice.Repository
             Id = Guid.NewGuid(),
             Items = new List<ImportItemModel>()
         };
+
         private ImportRepository _repository;
         private WarehouseDbContext _context;
 
@@ -33,12 +43,14 @@ namespace StoreManager.Tests.Invoice.Repository
             Assert.NotNull(response);
             Assert.Equal(VALID_IMPORT, response);
         }
+
         [Fact(DisplayName = "Find by document id - invalid document id")]
         public async Task FindByDocumentId_InvalidIdTest()
         {
             var response = await _repository.FindByDocumentId(Guid.NewGuid());
             Assert.Null(response);
         }
+
         [Fact(DisplayName = "Find by document id - valid document id")]
         public async Task FindByDocumentId_ValidIdTest()
         {
@@ -47,6 +59,7 @@ namespace StoreManager.Tests.Invoice.Repository
             Assert.NotNull(response);
             Assert.Equal(VALID_IMPORT, response);
         }
+
         public async Task DisposeAsync()
         {
             await _context.DisposeAsync();
@@ -55,8 +68,8 @@ namespace StoreManager.Tests.Invoice.Repository
         public async Task InitializeAsync()
         {
             var options = new DbContextOptionsBuilder<WarehouseDbContext>()
-               .UseInMemoryDatabase(Guid.NewGuid().ToString())
-               .Options;
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
             _context = new WarehouseDbContext(options);
             await SeedTestData();
             _repository = new ImportRepository(_context);

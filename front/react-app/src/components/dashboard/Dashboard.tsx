@@ -1,4 +1,4 @@
-import InvoicesThisWeek from "./containers/invoice/InvoicesThisWeek";
+import ImportsThisWeek from "./containers/invoice/ImportsThisWeek";
 import MechanicalComponentCount from "./containers/component/MechanicalComponentCount";
 import ProviderInvolvement from "./containers/provider/ProviderInvolvement";
 import InventoryValue from "./containers/inventory/InventoryValue";
@@ -9,7 +9,7 @@ const Dashboard = () => {
       <div className="w-full h-5/6 overflow-y-scroll">
         <div className="w-full flex flex-row">
           <div className="flex w-1/2 p-4">
-            <InvoicesThisWeek />
+            <ImportsThisWeek />
           </div>
           <div className="flex w-1/2 p-4">
             <ProviderInvolvement />

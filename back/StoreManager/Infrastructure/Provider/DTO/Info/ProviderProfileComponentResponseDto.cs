@@ -1,4 +1,0 @@
-﻿namespace StoreManager.Infrastructure.Provider.DTO.Info
-{
-    public sealed record ProviderProfileComponentResponseDto(Guid Id, string Name, string Identifier);
-}

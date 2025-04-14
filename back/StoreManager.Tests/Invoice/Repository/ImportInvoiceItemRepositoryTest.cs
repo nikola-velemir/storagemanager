@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
-using StoreManager.Infrastructure.Provider.Model;
 using System.Threading.Tasks;
+using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 
@@ -14,7 +15,7 @@ namespace StoreManager.Tests.Invoice.Repository
     {
         private ImportItemRepository _repository;
         private WarehouseDbContext _context;
-        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
+        private static readonly ProviderModel provider = new ProviderModel {Type = BusinessPartnerType.Provider, Address = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
 
         private static readonly MechanicalComponentModel VALID_COMPONENT = new MechanicalComponentModel { Id = Guid.NewGuid(), Identifier = "MC-12321", Name = "Test" };
         private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel { ChunkCount = 0, Chunks = new List<DocumentChunkModel>(), Type = "pdf", Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid() };
@@ -33,7 +34,7 @@ namespace StoreManager.Tests.Invoice.Repository
             Component = VALID_COMPONENT,
             ComponentId = VALID_COMPONENT.Id,
             Import = VALID_IMPORT,
-            InvoiceId = VALID_IMPORT.Id,
+            ImportId = VALID_IMPORT.Id,
             PricePerPiece = 100.0,
             Quantity = 1
         };

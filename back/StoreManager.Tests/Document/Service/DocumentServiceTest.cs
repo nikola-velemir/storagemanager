@@ -10,11 +10,12 @@ using StoreManager.Infrastructure.Document.Service;
 using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
-using StoreManager.Infrastructure.Provider.DTO;
-using StoreManager.Infrastructure.Provider.Model;
-using StoreManager.Infrastructure.Provider.Repository;
 using System.Text;
 using System.Threading.Tasks;
+using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
@@ -23,8 +24,8 @@ namespace StoreManager.Tests.Document.Service
 {
     public sealed class DocumentServiceTest : IAsyncLifetime
     {
-        private static readonly ProviderModel provider = new ProviderModel { Adress = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
-        private static readonly ProviderFormDataRequestDto providerFormRequest = new ProviderFormDataRequestDto(provider.Id.ToString(), provider.Adress, provider.Name, provider.PhoneNumber);
+        private static readonly ProviderModel provider = new ProviderModel { Address = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa"  ,Type = BusinessPartnerType.Provider};
+        private static readonly ProviderFormDataRequestDto providerFormRequest = new ProviderFormDataRequestDto(provider.Id.ToString(), provider.Address, provider.Name, provider.PhoneNumber);
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<ICloudStorageService> _supaService;
         private Mock<IImportRepository> _invoiceRepository;

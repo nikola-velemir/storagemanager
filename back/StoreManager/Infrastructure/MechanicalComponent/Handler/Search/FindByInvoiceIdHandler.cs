@@ -23,8 +23,8 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Search
                     mc.Id,
                     mc.Identifier,
                     mc.Name,
-                    mc.Items.First(ii => ii.InvoiceId.Equals(invoiceGuid)).Quantity,
-                    mc.Items.First(ii => ii.InvoiceId.Equals(invoiceGuid)).PricePerPiece
+                    mc.Items.First(ii => ii.ImportId.Equals(invoiceGuid)).Quantity,
+                    mc.Items.First(ii => ii.ImportId.Equals(invoiceGuid)).PricePerPiece
                     )
                 ).ToList());
         }

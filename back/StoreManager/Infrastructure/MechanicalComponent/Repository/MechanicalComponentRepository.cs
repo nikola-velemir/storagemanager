@@ -95,7 +95,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
 
         public Task<List<MechanicalComponentModel>> FindByInvoiceId(Guid invoiceId)
         {
-            return _components.Include(mc => mc.Items).Where(mc => mc.Items.Any(ii => ii.InvoiceId.Equals(invoiceId)))
+            return _components.Include(mc => mc.Items).Where(mc => mc.Items.Any(ii => ii.ImportId.Equals(invoiceId)))
                 .ToListAsync();
         }
 

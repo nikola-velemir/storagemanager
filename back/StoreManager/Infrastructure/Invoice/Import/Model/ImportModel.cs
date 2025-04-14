@@ -1,6 +1,6 @@
-﻿using StoreManager.Infrastructure.Document.Model;
+﻿using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
+using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Base;
-using StoreManager.Infrastructure.Provider.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Import.Model
 {

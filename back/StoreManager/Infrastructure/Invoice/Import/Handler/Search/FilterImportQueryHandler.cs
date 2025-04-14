@@ -28,7 +28,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Handler.Search
                     new ImportInvoiceSearchResponseDto(
                         invoice.Id,
                         invoice.DateIssued,
-                        new ImportInvoiceSearchProviderResponseDto(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
+                        new ImportInvoiceSearchProviderResponseDto(invoice.Provider.Name, invoice.Provider.Address, invoice.Provider.PhoneNumber),
                         invoice.Items.Select(
                             item => new ImportInvoiceSearchComponentResponseDto(
                                 item.Component.Id, item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece

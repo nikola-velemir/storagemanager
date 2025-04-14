@@ -22,7 +22,8 @@ namespace StoreManager.Infrastructure.MiddleWare
             services.InjectMechanicalComponentDependencies(configuration);
             services.InjectInvoiceDependencies(configuration);
             services.InjectProviderDependencies(configuration);
-            services.InjectProductDependencies(configuration);            
+            services.InjectProductDependencies(configuration);
+            services.InjectExporterDependencies(configuration);
             
             services.AddMediatR(typeof(Program));
 

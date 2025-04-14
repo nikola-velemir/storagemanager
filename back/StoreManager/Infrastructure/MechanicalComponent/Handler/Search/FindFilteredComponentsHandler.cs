@@ -34,7 +34,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Handler.Search
                        new MechanicalComponentSearchProviderResponseDto(
                            ii.Import.Provider.Id,
                            ii.Import.Provider.Name,
-                           ii.Import.Provider.Adress,
+                           ii.Import.Provider.Address,
                            ii.Import.Provider.PhoneNumber
                            )
                     )).ToList()

@@ -5,10 +5,11 @@ using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
-using StoreManager.Infrastructure.Provider.DTO;
-using StoreManager.Infrastructure.Provider.Model;
-using StoreManager.Infrastructure.Provider.Repository;
 using System.Text.RegularExpressions;
+using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
@@ -50,9 +51,10 @@ namespace StoreManager.Infrastructure.Document.Handler
                 {
                     provider = await providerRepository.Create(new ProviderModel
                     {
-                        Adress = parsedProvider.ProviderAddress,
+                        Address = parsedProvider.ProviderAddress,
                         Id = Guid.NewGuid(),
                         Name = parsedProvider.ProviderName,
+                        Type = BusinessPartnerType.Provider,
                         PhoneNumber = parsedProvider.ProviderPhoneNumber
                     });
                 }

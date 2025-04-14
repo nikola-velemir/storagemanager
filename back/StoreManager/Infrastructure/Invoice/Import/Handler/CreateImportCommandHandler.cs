@@ -25,7 +25,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Handler
                 if (component is null) { continue; }
                 var foundItem = await importItemRepository.FindByImportAndComponentId(invoice.Id, component.Id);
                 if (foundItem is null)
-                    await importItemRepository.Create(new ImportItemModel { Component = component, ComponentId = component.Id, Import = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
+                    await importItemRepository.Create(new ImportItemModel { Component = component, ComponentId = component.Id, Import = invoice, ImportId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
             return Unit.Value;
         }

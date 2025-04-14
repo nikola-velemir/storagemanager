@@ -17,6 +17,7 @@ import ProductCreatePage from "../../features/product/create/ProductCreatePage";
 import ProductSearch from "../../features/product/search/ProductSearch";
 import ProductInfo from "../../features/product/info/ProductInfo";
 import ExportCreatePage from "../../features/export/create/ExportCreatePage";
+import ExporterCreatePage from "../../features/exporter/ExporterCreatePage";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -119,6 +120,14 @@ const AnimatedRoutes = () => {
               element={
                 <ContentContainer>
                   <ExportCreatePage />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/create-exporter"
+              element={
+                <ContentContainer>
+                  <ExporterCreatePage />
                 </ContentContainer>
               }
             />

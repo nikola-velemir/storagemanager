@@ -2,7 +2,7 @@
 
 public enum InvoiceType
 {
-    None,
-    Import,
-    Export
+    None = 0,
+    Import = 1,
+    Export = 2
 }

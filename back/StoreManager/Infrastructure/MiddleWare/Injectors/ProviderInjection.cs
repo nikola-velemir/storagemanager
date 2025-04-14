@@ -1,5 +1,5 @@
-﻿using StoreManager.Infrastructure.Provider.Repository;
-using StoreManager.Infrastructure.Provider.Service;
+﻿using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
+using StoreManager.Infrastructure.BusinessPartner.Provider.Service;
 
 namespace StoreManager.Infrastructure.MiddleWare.Injectors;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-interface InvoiceSearchPaginationProps {
+interface PaginatorProps {
   onPageSizeChange: (pageSize: number) => void;
   onPageNumberChange: (pageNumber: number) => void;
   totalItems: number;
@@ -10,7 +10,7 @@ const Paginator = ({
   onPageSizeChange,
   onPageNumberChange,
   totalItems,
-}: InvoiceSearchPaginationProps) => {
+}: PaginatorProps) => {
   const pageSizes = [5, 6, 7, 8, 9, 10];
   const [pageSize, setPageSize] = useState(pageSizes[0]);
   const [pageNumber, setPageNumber] = useState(1);

@@ -31,7 +31,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Service
                 if (component is null) { continue; }
                 var foundItem = await importItemRepository.FindByImportAndComponentId(invoice.Id, component.Id);
                 if (foundItem is null)
-                    await importItemRepository.Create(new ImportItemModel { Component = component, ComponentId = component.Id, Import = invoice, InvoiceId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
+                    await importItemRepository.Create(new ImportItemModel { Component = component, ComponentId = component.Id, Import = invoice, ImportId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
             }
         }
 
@@ -67,7 +67,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Service
                     new ImportInvoiceSearchResponseDto(
                         invoice.Id,
                         invoice.DateIssued,
-                        new ImportInvoiceSearchProviderResponseDto(invoice.Provider.Name, invoice.Provider.Adress, invoice.Provider.PhoneNumber),
+                        new ImportInvoiceSearchProviderResponseDto(invoice.Provider.Name, invoice.Provider.Address, invoice.Provider.PhoneNumber),
                         invoice.Items.Select(
                             item => new ImportInvoiceSearchComponentResponseDto(
                                 item.Component.Id, item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece

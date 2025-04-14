@@ -22,7 +22,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
 
         public Task<ImportItemModel?> FindByImportAndComponentId(Guid invoiceId, Guid componentId)
         {
-            return _importItems.FirstOrDefaultAsync(ii => ii.InvoiceId.Equals(invoiceId) && ii.ComponentId.Equals(componentId));
+            return _importItems.FirstOrDefaultAsync(ii => ii.ImportId.Equals(invoiceId) && ii.ComponentId.Equals(componentId));
         }
 
         public Task<double> FindSumForDate(DateOnly date)

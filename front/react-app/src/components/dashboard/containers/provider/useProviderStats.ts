@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { ProviderService } from "../../../../services/ProviderService";
 import { animate } from "framer-motion";
-import { ProviderInvoiceInvolvementResponse } from "../../../../model/provider/ProviderInvoiceInvolvementResponse";
+import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
 import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
 
 export const useProviderStats = () => {
   const [count, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(0);
-  const [invoiceInvolvements, setInvoiceInvolvements] = useState<
-    ProviderInvoiceInvolvementResponse[]
+  const [importInvolvements, setInvoiceInvolvements] = useState<
+    ProviderImportInvolvementResponse[]
   >([]);
   const [componentInvolvements, setComponentInvolvements] = useState<
     ProviderComponentInvolvementResponse[]
@@ -32,5 +32,10 @@ export const useProviderStats = () => {
       return () => controls.stop();
     });
   }, []);
-  return { count, maxCount, invoiceInvolvements, componentInvolvements };
+  return {
+    count,
+    maxCount,
+    importInvolvements,
+    componentInvolvements,
+  };
 };
