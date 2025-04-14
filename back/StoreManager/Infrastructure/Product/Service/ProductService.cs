@@ -1,4 +1,5 @@
 ﻿using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Product.DTO;
 using StoreManager.Infrastructure.Product.Model;
 using StoreManager.Infrastructure.Product.Repository;
@@ -78,7 +79,7 @@ public class ProductService(
         var product = await productRepository.FindById(productGuid.Value);
         if (product is null)
         {
-            throw new EntryPointNotFoundException();
+            throw new NotFoundException("Product not found!");
         }
 
         return new ProductInfoResponseDto(
@@ -89,7 +90,7 @@ public class ProductService(
             product.Components.Select(p =>
                     new ProductInfoComponentResponseDto(
                         p.ComponentId,
-                        p.Component.Name, 
+                        p.Component.Name,
                         p.Component.Identifier,
                         p.UsedQuantity))
                 .ToList());

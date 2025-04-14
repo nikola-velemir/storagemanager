@@ -17,6 +17,7 @@ builder.Services.AddCoursPolicy();
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandler>();
 app.UseCors("AllowSpecificOrigin");
 
 app.UseRouting();

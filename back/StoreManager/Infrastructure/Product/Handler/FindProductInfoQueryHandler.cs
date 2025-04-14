@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Product.Command;
 using StoreManager.Infrastructure.Product.DTO;
 using StoreManager.Infrastructure.Product.Repository;
@@ -20,7 +21,7 @@ public class FindProductInfoQueryHandler(IProductRepository productRepository)
         var product = await productRepository.FindById(productGuid.Value);
         if (product is null)
         {
-            throw new EntryPointNotFoundException();
+            throw new NotFoundException("Product not found");
         }
 
         return new ProductInfoResponseDto(
@@ -31,7 +32,7 @@ public class FindProductInfoQueryHandler(IProductRepository productRepository)
             product.Components.Select(p =>
                     new ProductInfoComponentResponseDto(
                         p.Component.Id,
-                        p.Component.Name, 
+                        p.Component.Name,
                         p.Component.Identifier,
                         p.UsedQuantity))
                 .ToList());

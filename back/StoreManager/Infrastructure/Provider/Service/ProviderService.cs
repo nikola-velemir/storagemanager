@@ -1,5 +1,6 @@
 ﻿using StoreManager.Infrastructure.Invoice.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.DTO.Info;
 using StoreManager.Infrastructure.Provider.DTO.Search;
@@ -73,17 +74,17 @@ namespace StoreManager.Infrastructure.Provider.Service
             var provider = await repository.FindById(providerGuid);
             if (provider is null)
             {
-                throw new EntryPointNotFoundException("Provider not found");
+                throw new NotFoundException("Provider not found");
             }
             var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
             var invoices = await invoiceRepository.FindByProviderId(provider.Id);
-            
+
             return
                 new ProviderProfileResponseDto(
                     provider.Name,
                     provider.Adress,
                     provider.PhoneNumber,
-                    components.Select(c => new ProviderProfileComponentResponseDto(c.Id,c.Name,c.Identifier)).ToList(),
+                    components.Select(c => new ProviderProfileComponentResponseDto(c.Id, c.Name, c.Identifier)).ToList(),
                     invoices.Select(i => new ProviderProfileInvoiceResponseDto(i.Id, i.DateIssued)).ToList()
                 );
         }
@@ -92,7 +93,7 @@ namespace StoreManager.Infrastructure.Provider.Service
         {
             var providers = await repository.FindAll();
             var responses = new List<ProviderComponentInvolvementResponseDto>();
-            foreach(var provider in providers)
+            foreach (var provider in providers)
             {
                 var count = await repository.FindComponentCountForProvider(provider);
                 responses.Add(new ProviderComponentInvolvementResponseDto(provider.Id, provider.Name, count));
@@ -105,7 +106,7 @@ namespace StoreManager.Infrastructure.Provider.Service
         {
             var providers = await repository.FindAll();
             var responses = new List<ProviderInvoiceInvolvementResponseDto>();
-            foreach(var provider in providers)
+            foreach (var provider in providers)
             {
                 var count = await repository.FindInvoiceCountForProvider(provider);
                 responses.Add(new ProviderInvoiceInvolvementResponseDto(provider.Id, provider.Name, count));

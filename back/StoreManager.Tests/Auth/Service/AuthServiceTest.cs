@@ -173,7 +173,7 @@ namespace StoreManager.Tests.Auth.Service
         }
         private void MockRedis()
         {
-            _redis.Setup(cache => cache.RevokeToken(AuthServiceTestData.VALID_JTI, DateTime.Now.AddHours(2))).Returns(Task.CompletedTask);
+            _redis.Setup(cache => cache.RevokeToken(AuthServiceTestData.VALID_JTI, DateTime.UtcNow.AddHours(2))).Returns(Task.CompletedTask);
             _redis.Setup(cache => cache.IsTokenRevoked(AuthServiceTestData.VALID_JTI)).ReturnsAsync(true);
 
         }
