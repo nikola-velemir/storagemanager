@@ -50,13 +50,13 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                     mc.Name,
                     mc.Items.Select(ii =>
                     new MechanicalComponentSearchInvoiceResponseDto(
-                        ii.Invoice.Id,
-                        ii.Invoice.DateIssued,
+                        ii.Import.Id,
+                        ii.Import.DateIssued,
                        new MechanicalComponentSearchProviderResponseDto(
-                           ii.Invoice.Provider.Id,
-                           ii.Invoice.Provider.Name,
-                           ii.Invoice.Provider.Adress,
-                           ii.Invoice.Provider.PhoneNumber
+                           ii.Import.Provider.Id,
+                           ii.Import.Provider.Name,
+                           ii.Import.Provider.Adress,
+                           ii.Import.Provider.PhoneNumber
                            )
                        )).ToList()
                     )
@@ -111,9 +111,9 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Service
                 component.Identifier,
                 quantity,
                 component.Items.Select(ii => new MechanicalComponentInfoInvoiceResponseDto(
-                    ii.Invoice.Id,
-                    ii.Invoice.DateIssued,
-                    new MechanicalComponentInfoProviderResponseDto(ii.Invoice.Provider.Id, ii.Invoice.Provider.Name, ii.Invoice.Provider.Adress, ii.Invoice.Provider.PhoneNumber))
+                    ii.Import.Id,
+                    ii.Import.DateIssued,
+                    new MechanicalComponentInfoProviderResponseDto(ii.Import.Provider.Id, ii.Import.Provider.Name, ii.Import.Provider.Adress, ii.Import.Provider.PhoneNumber))
                 ).ToList()
             );
         }

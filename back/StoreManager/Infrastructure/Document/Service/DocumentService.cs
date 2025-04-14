@@ -5,22 +5,22 @@ using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
-using StoreManager.Infrastructure.Invoice.Model;
-using StoreManager.Infrastructure.Invoice.Repository;
-using StoreManager.Infrastructure.Invoice.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Model;
 using StoreManager.Infrastructure.Provider.Repository;
 using System.Text.RegularExpressions;
+using StoreManager.Infrastructure.Invoice.Import.Model;
+using StoreManager.Infrastructure.Invoice.Import.Repository;
+using StoreManager.Infrastructure.Invoice.Import.Service;
 
 namespace StoreManager.Infrastructure.Document.Service
 {
     public class DocumentService(
-        IInvoiceService invoiceService,
+        IImportService importService,
         IDocumentRepository repository,
         ICloudStorageService supabase,
-        IInvoiceRepository invoiceRepository,
+        IImportRepository importRepository,
         IWebHostEnvironment env,
         IDocumentReaderFactory readerFactory,
         IProviderRepository providerRepository,
@@ -34,7 +34,7 @@ namespace StoreManager.Infrastructure.Document.Service
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid invoiceGuid = Guid.Parse(invoiceId);
-            var invoice = await invoiceRepository.FindById(invoiceGuid);
+            var invoice = await importRepository.FindById(invoiceGuid);
             if (invoice is null)
             {
                 throw new NotFoundException("Invoice not found");
@@ -82,7 +82,7 @@ namespace StoreManager.Infrastructure.Document.Service
                 if (foundFile == null)
                 {
                     foundFile = await repository.SaveFile(fileName);
-                    var invoice = await invoiceRepository.Create(new InvoiceModel
+                    var invoice = await importRepository.Create(new ImportModel
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
@@ -108,7 +108,7 @@ namespace StoreManager.Infrastructure.Document.Service
 
                     var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                    await invoiceService.Create(foundFile.Id, metadata);
+                    await importService.Create(foundFile.Id, metadata);
 
                     await fileService.DeleteAllChunks(foundFile);
                 }

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
 import { MechanicalComponentInfoResponse } from "../../../../model/components/info/MechanicalComponentInfoResponse";
 import { MechanicalComponentInfoInvoiceResponse } from "../../../../model/components/info/MechanicalComponentInfoInvoiceResponse";
-import ComponentInfoInvoiceCard from "./cards/ComponentInfoInvoiceCard";
+import ComponentInfoImportCard from "./cards/ComponentInfoImportCard";
 
 const ComponentInfo = () => {
   const { id } = useParams<{ id: string }>();
@@ -67,7 +67,7 @@ const ComponentInfo = () => {
           {component?.invoices.map(
             (invoice: MechanicalComponentInfoInvoiceResponse) => {
               return (
-                <ComponentInfoInvoiceCard
+                <ComponentInfoImportCard
                   key={invoice.id}
                   provider={invoice.provider}
                   date={invoice.dateIssued}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.Invoice.Model;
+using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Provider.Model;
 
 namespace StoreManager.Infrastructure.Provider.Repository
@@ -9,9 +9,9 @@ namespace StoreManager.Infrastructure.Provider.Repository
     {
         private readonly DbSet<ProviderModel> _providers = context.Providers;
 
-        public async Task AddInvoice(ProviderModel provider, InvoiceModel invoice)
+        public async Task AddInvoice(ProviderModel provider, ImportModel import)
         {
-            provider.Invoices.Add(invoice);
+            provider.Invoices.Add(import);
             await context.SaveChangesAsync();
         }
 

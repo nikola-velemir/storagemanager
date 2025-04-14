@@ -10,14 +10,14 @@ using StoreManager.Infrastructure.Document.Service;
 using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
-using StoreManager.Infrastructure.Invoice.Model;
-using StoreManager.Infrastructure.Invoice.Repository;
-using StoreManager.Infrastructure.Invoice.Service;
 using StoreManager.Infrastructure.Provider.DTO;
 using StoreManager.Infrastructure.Provider.Model;
 using StoreManager.Infrastructure.Provider.Repository;
 using System.Text;
 using System.Threading.Tasks;
+using StoreManager.Infrastructure.Invoice.Import.Model;
+using StoreManager.Infrastructure.Invoice.Import.Repository;
+using StoreManager.Infrastructure.Invoice.Import.Service;
 
 namespace StoreManager.Tests.Document.Service
 {
@@ -27,8 +27,8 @@ namespace StoreManager.Tests.Document.Service
         private static readonly ProviderFormDataRequestDto providerFormRequest = new ProviderFormDataRequestDto(provider.Id.ToString(), provider.Adress, provider.Name, provider.PhoneNumber);
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<ICloudStorageService> _supaService;
-        private Mock<IInvoiceRepository> _invoiceRepository;
-        private Mock<IInvoiceService> _invoiceService;
+        private Mock<IImportRepository> _invoiceRepository;
+        private Mock<IImportService> _invoiceService;
         private Mock<IDocumentReaderFactory> _readerFactory;
         private Mock<IWebHostEnvironment> _env;
         private Mock<IProviderRepository> _providerRepository;
@@ -62,7 +62,7 @@ namespace StoreManager.Tests.Document.Service
             Date = DateOnly.FromDateTime(DateTime.UtcNow),
             FileName = VALID_FILE_NAME
         };
-        private static readonly InvoiceModel VALID_INVOICE = new InvoiceModel
+        private static readonly ImportModel VALID_IMPORT = new ImportModel
         {
             ProviderId = provider.Id,
             Provider = provider,
@@ -94,7 +94,7 @@ namespace StoreManager.Tests.Document.Service
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var response = await _service.DownloadChunk(VALID_INVOICE.Id.ToString(), 52);
+                var response = await _service.DownloadChunk(VALID_IMPORT.Id.ToString(), 52);
 
             });
             Assert.NotNull(exception);
@@ -109,7 +109,7 @@ namespace StoreManager.Tests.Document.Service
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var response = await _service.DownloadChunk(VALID_INVOICE.Id.ToString(), 0);
+                var response = await _service.DownloadChunk(VALID_IMPORT.Id.ToString(), 0);
                 Assert.NotNull(response);
                 Assert.Equal(VALID_RESPONSE, response);
             });
@@ -133,7 +133,7 @@ namespace StoreManager.Tests.Document.Service
 
             _documentRepository.Verify(repo => repo.FindByName(VALID_FILE_NAME), Times.Once);
             _documentRepository.Verify(repo => repo.SaveFile(VALID_FILE_NAME), Times.Never);
-            _invoiceRepository.Verify(repo => repo.Create(VALID_INVOICE), Times.Never);
+            _invoiceRepository.Verify(repo => repo.Create(VALID_IMPORT), Times.Never);
             _supaService.Verify(supa => supa.UploadFileChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentChunkModel>()), Times.Once);
         }
         public Task DisposeAsync()
@@ -163,8 +163,8 @@ namespace StoreManager.Tests.Document.Service
 
             _documentRepository.Setup(repo => repo.SaveFile(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
             _documentRepository.Setup(repo => repo.SaveChunk(VALID_FILE, VALID_FILE_NAME, 0)).ReturnsAsync(VALID_CHUNK);
-            _invoiceRepository.Setup(repo => repo.Create(VALID_INVOICE)).ReturnsAsync(VALID_INVOICE);
-            _invoiceRepository.Setup(repo => repo.FindById(VALID_INVOICE.Id)).ReturnsAsync(VALID_INVOICE);
+            _invoiceRepository.Setup(repo => repo.Create(VALID_IMPORT)).ReturnsAsync(VALID_IMPORT);
+            _invoiceRepository.Setup(repo => repo.FindById(VALID_IMPORT.Id)).ReturnsAsync(VALID_IMPORT);
 
             _providerRepository.Setup(repo => repo.FindById(It.IsAny<Guid>())).ReturnsAsync(provider);
             _providerRepository.Setup(repo => repo.Create(It.IsAny<ProviderModel>())).ReturnsAsync(provider);
@@ -172,12 +172,12 @@ namespace StoreManager.Tests.Document.Service
         }
         public async Task InitializeAsync()
         {
-            VALID_INVOICE.Document = VALID_DOCUMENT;
+            VALID_IMPORT.Document = VALID_DOCUMENT;
            
             _documentRepository = new Mock<IDocumentRepository>();
             _supaService = new Mock<ICloudStorageService>();
-            _invoiceRepository = new Mock<IInvoiceRepository>();
-            _invoiceService = new Mock<IInvoiceService>();
+            _invoiceRepository = new Mock<IImportRepository>();
+            _invoiceService = new Mock<IImportService>();
             _readerFactory = new Mock<IDocumentReaderFactory>();
             _env = new Mock<IWebHostEnvironment>();
             _providerRepository = new Mock<IProviderRepository>();

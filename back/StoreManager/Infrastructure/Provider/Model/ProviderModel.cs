@@ -1,4 +1,4 @@
-﻿using StoreManager.Infrastructure.Invoice.Model;
+﻿using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Infrastructure.Provider.Model
 {
@@ -8,6 +8,6 @@ namespace StoreManager.Infrastructure.Provider.Model
         public required string Name { get; set; }
         public required string Adress { get; set; }
         public required string PhoneNumber { get; set; }
-        public ICollection<InvoiceModel> Invoices { get; set; } = new List<InvoiceModel>();
+        public ICollection<ImportModel> Invoices { get; set; } = new List<ImportModel>();
     }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProviderCardInvoice from "./ProviderCardInvoice";
+import ProviderCardImport from "./ProviderCardImport";
 import { ProviderInvoiceResponse } from "../../../../../model/provider/ProviderInvoiceResponse";
 
 interface ProviderCardAccordionProps {
@@ -51,7 +51,7 @@ const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
       >
         {invoices.map((invoice: ProviderInvoiceResponse) => {
           return (
-            <ProviderCardInvoice
+            <ProviderCardImport
               key={invoice.id}
               dateIssued={invoice.dateIssued}
               id={invoice.id}

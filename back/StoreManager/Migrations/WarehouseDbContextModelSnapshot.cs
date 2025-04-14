@@ -104,7 +104,32 @@ namespace StoreManager.Migrations
                     b.ToTable("Documents", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceItemModel", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("DateIssued")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId")
+                        .IsUnique();
+
+                    b.ToTable("Invoices", "public");
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportItemModel", b =>
                 {
                     b.Property<Guid>("InvoiceId")
                         .HasColumnType("uuid");
@@ -122,37 +147,7 @@ namespace StoreManager.Migrations
 
                     b.HasIndex("ComponentId");
 
-                    b.ToTable("InvoiceItems", "public");
-                });
-
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateOnly>("DateIssued")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("DocumentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProviderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ProviderModelId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId")
-                        .IsUnique();
-
-                    b.HasIndex("ProviderId");
-
-                    b.HasIndex("ProviderModelId");
-
-                    b.ToTable("Invoices", "public");
+                    b.ToTable("ImportItems", "public");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", b =>
@@ -281,6 +276,30 @@ namespace StoreManager.Migrations
                     b.ToTable("Users", "public");
                 });
 
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
+                {
+                    b.HasBaseType("StoreManager.Infrastructure.Invoice.Base.InvoiceModel");
+
+                    b.ToTable("Exports", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", b =>
+                {
+                    b.HasBaseType("StoreManager.Infrastructure.Invoice.Base.InvoiceModel");
+
+                    b.Property<Guid>("ProviderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ProviderModelId")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("ProviderId");
+
+                    b.HasIndex("ProviderModelId");
+
+                    b.ToTable("Imports", "public");
+                });
+
             modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.HasOne("StoreManager.Infrastructure.User.Model.UserModel", "User")
@@ -303,7 +322,18 @@ namespace StoreManager.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceItemModel", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
+                        .WithOne()
+                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", "DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Document");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportItemModel", b =>
                 {
                     b.HasOne("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", "Component")
                         .WithMany("Items")
@@ -311,7 +341,7 @@ namespace StoreManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", "Invoice")
+                    b.HasOne("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", "Import")
                         .WithMany("Items")
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -319,30 +349,7 @@ namespace StoreManager.Migrations
 
                     b.Navigation("Component");
 
-                    b.Navigation("Invoice");
-                });
-
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", b =>
-                {
-                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
-                        .WithOne()
-                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", "DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreManager.Infrastructure.Provider.Model.ProviderModel", "Provider")
-                        .WithMany()
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreManager.Infrastructure.Provider.Model.ProviderModel", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("ProviderModelId");
-
-                    b.Navigation("Document");
-
-                    b.Navigation("Provider");
+                    b.Navigation("Import");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Product.Model.ProductComponentsModel", b =>
@@ -364,14 +371,39 @@ namespace StoreManager.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", null)
+                        .WithOne()
+                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", b =>
+                {
+                    b.HasOne("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", null)
+                        .WithOne()
+                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreManager.Infrastructure.Provider.Model.ProviderModel", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreManager.Infrastructure.Provider.Model.ProviderModel", null)
+                        .WithMany("Invoices")
+                        .HasForeignKey("ProviderModelId");
+
+                    b.Navigation("Provider");
+                });
+
             modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
                 {
                     b.Navigation("Chunks");
-                });
-
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Model.InvoiceModel", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.MechanicalComponent.Model.MechanicalComponentModel", b =>
@@ -389,6 +421,11 @@ namespace StoreManager.Migrations
             modelBuilder.Entity("StoreManager.Infrastructure.Provider.Model.ProviderModel", b =>
                 {
                     b.Navigation("Invoices");
+                });
+
+            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

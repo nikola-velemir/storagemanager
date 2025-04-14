@@ -26,9 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Invoice\Command\Info\" />
-    <Folder Include="Infrastructure\Invoice\DTO\Info\" />
-    <Folder Include="Infrastructure\Invoice\Handler\Info\" />
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

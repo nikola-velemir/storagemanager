@@ -61,7 +61,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
 
         public Task<MechanicalComponentModel?> FindById(Guid componentGuid)
         {
-            return _components.Include(mc => mc.Items).ThenInclude(ii => ii.Invoice).ThenInclude(i => i.Provider)
+            return _components.Include(mc => mc.Items).ThenInclude(ii => ii.Import).ThenInclude(i => i.Provider)
                 .FirstOrDefaultAsync(mc => mc.Id.Equals(componentGuid));
         }
 
@@ -76,7 +76,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             var query = _components.Include(mc => mc.Items).AsQueryable();
             if (providerId.HasValue)
             {
-                query = query.Where(mc => mc.Items.Any(ii => ii.Invoice.Provider.Id == providerId.Value));
+                query = query.Where(mc => mc.Items.Any(ii => ii.Import.Provider.Id == providerId.Value));
             }
 
             if (!string.IsNullOrEmpty(componentInfo))
@@ -103,19 +103,19 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
         {
             var query = _components
                 .Include(mc => mc.Items)
-                .ThenInclude(ii => ii.Invoice)
-                .ThenInclude(i => i.Provider).Where(mc => mc.Items.Any(ii => ii.Invoice.Provider.Id.Equals(id)));
+                .ThenInclude(ii => ii.Import)
+                .ThenInclude(i => i.Provider).Where(mc => mc.Items.Any(ii => ii.Import.Provider.Id.Equals(id)));
             return await query.ToListAsync();
         }
 
         public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(Guid? providerId,
             string? componentInfo, int pageNumber, int pageSize)
         {
-            var query = _components.Include(mc => mc.Items).ThenInclude(ii => ii.Invoice).ThenInclude(i => i.Provider)
+            var query = _components.Include(mc => mc.Items).ThenInclude(ii => ii.Import).ThenInclude(i => i.Provider)
                 .AsQueryable();
             if (providerId.HasValue)
             {
-                query = query.Where(mc => mc.Items.Any(ii => ii.Invoice.Provider.Id == providerId.Value));
+                query = query.Where(mc => mc.Items.Any(ii => ii.Import.Provider.Id == providerId.Value));
             }
 
             if (!string.IsNullOrEmpty(componentInfo))

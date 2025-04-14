@@ -1,4 +1,4 @@
-﻿using StoreManager.Infrastructure.Invoice.Repository;
+﻿using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Provider.DTO;
@@ -13,7 +13,7 @@ namespace StoreManager.Infrastructure.Provider.Service
     public class ProviderService(
         IProviderRepository repository,
         IMechanicalComponentRepository mechanicalComponentRepository,
-        IInvoiceRepository invoiceRepository)
+        IImportRepository importRepository)
         : IProviderService
     {
         public async Task<ProviderFindResponseDto> Create(ProviderCreateRequestDto request)
@@ -77,7 +77,7 @@ namespace StoreManager.Infrastructure.Provider.Service
                 throw new NotFoundException("Provider not found");
             }
             var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
-            var invoices = await invoiceRepository.FindByProviderId(provider.Id);
+            var invoices = await importRepository.FindByProviderId(provider.Id);
 
             return
                 new ProviderProfileResponseDto(

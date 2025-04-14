@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using StoreManager.Infrastructure.Invoice.Repository;
+using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Provider.Command.Info;
@@ -12,7 +12,7 @@ namespace StoreManager.Infrastructure.Provider.Handler.Info
     public class FindProviderProfileHandler(
         IMechanicalComponentRepository mechanicalComponentRepository,
         IProviderRepository providerRepository,
-        IInvoiceRepository invoiceRepository)
+        IImportRepository importRepository)
         : IRequestHandler<FindProviderProfileQuery, ProviderProfileResponseDto>
     {
         public async Task<ProviderProfileResponseDto> Handle(FindProviderProfileQuery request, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ namespace StoreManager.Infrastructure.Provider.Handler.Info
                 throw new NotFoundException("Provider not found");
             }
             var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
-            var invoices = await invoiceRepository.FindByProviderId(provider.Id);
+            var invoices = await importRepository.FindByProviderId(provider.Id);
 
             return
                 new ProviderProfileResponseDto(

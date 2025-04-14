@@ -3,13 +3,13 @@ using StoreManager.Infrastructure.Document.Command;
 using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
-using StoreManager.Infrastructure.Invoice.Repository;
+using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Infrastructure.Document.Handler
 {
     public class DownloadChunkHandler(
-        IInvoiceRepository invoiceRepository,
+        IImportRepository importRepository,
         ICloudStorageService cloudStorageService,
         IDocumentRepository documentRepository)
         : IRequestHandler<DownloadChunkQuery, DocumentDownloadResponseDto>
@@ -21,7 +21,7 @@ namespace StoreManager.Infrastructure.Document.Handler
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid invoiceGuid = Guid.Parse(request.InvoiceId);
-            var invoice = await invoiceRepository.FindById(invoiceGuid);
+            var invoice = await importRepository.FindById(invoiceGuid);
             if (invoice is null)
             {
                 throw new NotFoundException("Invoice not found");

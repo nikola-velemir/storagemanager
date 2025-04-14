@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { InvoiceFindCountForDayResponse } from "../../../../model/invoice/InvoiceFindCountForDayResponse";
+import { ImportFindCountForDayResponse } from "../../../../model/invoice/import/ImportFindCountForDayResponse";
 import { animate } from "framer-motion";
-import { InvoiceService } from "../../../../services/InvoiceService";
+import { ImportService } from "../../../../services/ImportService";
 
 export const useInvoiceStats = () => {
   const [count, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(0);
-  const [invoices, setInvoices] = useState<InvoiceFindCountForDayResponse[]>(
+  const [invoices, setInvoices] = useState<ImportFindCountForDayResponse[]>(
     []
   );
   useEffect(() => {
-    InvoiceService.findCountsThisWeek().then((response) => {
+    ImportService.findCountsThisWeek().then((response) => {
       const finalValue = response.data.counts.reduce(
         (sum, item) => sum + item.count,
         0

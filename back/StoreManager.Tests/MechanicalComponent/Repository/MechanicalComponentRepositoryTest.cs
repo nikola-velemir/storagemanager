@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Invoice.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.Provider.Model;
 using System.Diagnostics.Eventing.Reader;
+using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Tests.MechanicalComponent.Repository
 {
@@ -40,9 +40,9 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
             Id = Guid.NewGuid(),
             Name = "aaaa",
             PhoneNumber = "sadsadsa",
-            Invoices = new List<InvoiceModel>()
+            Invoices = new List<ImportModel>()
         };
-        private readonly static InvoiceModel VALID_INVOICE = new InvoiceModel
+        private readonly static ImportModel VALID_IMPORT = new ImportModel
         {
             DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
             Document = VALID_DOCUMENT,
@@ -52,12 +52,12 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
             ProviderId = VALID_PROVIDER.Id
 
         };
-        private readonly static InvoiceItemModel VALID_INVOICE_ITEM = new InvoiceItemModel
+        private readonly static ImportItemModel VALID_IMPORT_ITEM = new ImportItemModel
         {
             Component = EXISTING_COMPONENT,
             ComponentId = EXISTING_COMPONENT.Id,
-            Invoice = VALID_INVOICE,
-            InvoiceId = VALID_INVOICE.Id,
+            Import = VALID_IMPORT,
+            InvoiceId = VALID_IMPORT.Id,
             PricePerPiece = 512321.0,
             Quantity = 10
         };
@@ -114,7 +114,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Find by invoice id - valid id")]
         public async Task FindByInvoiceId_TestValidID()
         {
-            var components = await _repository.FindByInvoiceId(VALID_INVOICE.Id);
+            var components = await _repository.FindByInvoiceId(VALID_IMPORT.Id);
             Assert.True(components.Count == 1);
             Assert.Equal(EXISTING_COMPONENT, components.First());
         }
@@ -172,11 +172,11 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         }
         private async Task SeedTestData()
         {
-            VALID_PROVIDER.Invoices.Add(VALID_INVOICE);
+            VALID_PROVIDER.Invoices.Add(VALID_IMPORT);
             await _context.Providers.AddAsync(VALID_PROVIDER);
-            await _context.Invoices.AddAsync(VALID_INVOICE);
+            await _context.Imports.AddAsync(VALID_IMPORT);
             await _context.MechanicalComponents.AddAsync(EXISTING_COMPONENT);
-            await _context.InvoiceItems.AddAsync(VALID_INVOICE_ITEM);
+            await _context.ImportItems.AddAsync(VALID_IMPORT_ITEM);
             await _context.SaveChangesAsync();
         }
         public async Task InitializeAsync()

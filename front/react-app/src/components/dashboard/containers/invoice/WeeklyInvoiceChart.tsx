@@ -6,15 +6,15 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { InvoiceFindCountForDayResponse } from "../../../../model/invoice/InvoiceFindCountForDayResponse";
+import { ImportFindCountForDayResponse } from "../../../../model/invoice/import/ImportFindCountForDayResponse";
 import { useEffect, useState } from "react";
 
 interface WeeklyInvoiceChartProps {
-  data: InvoiceFindCountForDayResponse[];
+  data: ImportFindCountForDayResponse[];
 }
 
 const WeeklyInvoiceChart = ({ data }: WeeklyInvoiceChartProps) => {
-  const [invoices, setInvoices] = useState<InvoiceFindCountForDayResponse[]>(
+  const [invoices, setInvoices] = useState<ImportFindCountForDayResponse[]>(
     []
   );
   useEffect(() => {

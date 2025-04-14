@@ -1,5 +1,5 @@
 const ExportCreatePage = () => {
-  return <div>ExportCreatePage</div>;
+  return <div className="w-full">ExportCreatePage</div>;
 };
 
 export default ExportCreatePage;

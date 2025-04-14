@@ -3,12 +3,16 @@ using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.DB.Auth;
 using StoreManager.Infrastructure.DB.Document;
 using StoreManager.Infrastructure.DB.Invoice;
+using StoreManager.Infrastructure.DB.Invoice.Export;
+using StoreManager.Infrastructure.DB.Invoice.Import;
 using StoreManager.Infrastructure.DB.MechanicalComponent;
 using StoreManager.Infrastructure.DB.Product;
 using StoreManager.Infrastructure.DB.Provider;
 using StoreManager.Infrastructure.DB.Users;
 using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Invoice.Model;
+using StoreManager.Infrastructure.Invoice.Base;
+using StoreManager.Infrastructure.Invoice.Export.Model;
+using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Product.Model;
 using StoreManager.Infrastructure.Provider.Model;
@@ -31,7 +35,9 @@ namespace StoreManager.Infrastructure.DB
         public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
         public DbSet<DocumentChunkModel> DocumentChunks { get; set; }
         public DbSet<InvoiceModel> Invoices { get; set; }
-        public DbSet<InvoiceItemModel> InvoiceItems { get; set; }
+        public DbSet<ExportModel> Exports { get; set; }
+        public DbSet<ImportModel> Imports { get; set; }
+        public DbSet<ImportItemModel> ImportItems { get; set; }
         public DbSet<MechanicalComponentModel> MechanicalComponents { get; set; }
         public DbSet<ProviderModel> Providers { get; set; }
         public DbSet<ProductModel> Products { get; set; }
@@ -60,7 +66,9 @@ namespace StoreManager.Infrastructure.DB
             modelBuilder.ApplyConfiguration(new DocumentChunkModelConfiguration());
             modelBuilder.ApplyConfiguration(new ProviderModelConfiguration());
             modelBuilder.ApplyConfiguration(new InvoiceModelConfiguration());
-            modelBuilder.ApplyConfiguration(new InvoiceItemModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ExportModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ImportModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ImportItemModelConfiguration());
             modelBuilder.ApplyConfiguration(new MechanicalComponentModelConfiguration());
             modelBuilder.ApplyConfiguration(new ProductModelConfiguration());
             modelBuilder.ApplyConfiguration(new ProductComponentsModelConfiguration());

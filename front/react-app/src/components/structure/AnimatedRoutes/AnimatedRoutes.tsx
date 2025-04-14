@@ -5,11 +5,11 @@ import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../features/users/login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
-import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
-import InvoiceUpload from "../../features/invoice/upload/InvoiceUpload";
+import ImportSearch from "../../features/import/search/ImportSearch";
+import InvoiceUpload from "../../features/import/upload/InvoiceUpload";
 import ProviderSearch from "../../features/provider/search/ProviderSearch";
 import ProviderProfile from "../../features/provider/profile/ProviderProfile";
-import InvoiceInfo from "../../features/invoice/info/InvoiceInfo";
+import ImportInfo from "../../features/import/info/ImportInfo";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
 import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackContext";
@@ -54,7 +54,7 @@ const AnimatedRoutes = () => {
               path="/invoice-search"
               element={
                 <ContentContainer>
-                  <InvoiceSearch></InvoiceSearch>
+                  <ImportSearch></ImportSearch>
                 </ContentContainer>
               }
             />
@@ -102,7 +102,7 @@ const AnimatedRoutes = () => {
               path="/invoice-info/:id"
               element={
                 <ContentContainer>
-                  <InvoiceInfo />
+                  <ImportInfo />
                 </ContentContainer>
               }
             />
