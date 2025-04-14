@@ -3,6 +3,8 @@ using StoreManager.Infrastructure.Auth.Command;
 using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
+using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace StoreManager.Infrastructure.Auth.Handler
 {
@@ -13,8 +15,9 @@ namespace StoreManager.Infrastructure.Auth.Handler
     {
         public async Task<LoginResponseDto?> Handle(RefreshAuthenticationQuery request, CancellationToken cancellationToken)
         {
+            Validate(request);
             var refreshToken = await refreshTokenRepository.FindRefreshToken(request.RefreshToken)
-                ?? throw new InvalidOperationException("Not found");
+                ?? throw new NotFoundException("Not found");
 
             if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)
             {
@@ -25,6 +28,14 @@ namespace StoreManager.Infrastructure.Auth.Handler
 
             return new LoginResponseDto(accessToken, refreshToken.Token, refreshToken.User.Role.ToString());
         }
+
+        private static void Validate(RefreshAuthenticationQuery request)
+        {
+            if(string.IsNullOrEmpty(request.RefreshToken) || string.IsNullOrEmpty(request.RefreshToken))
+                throw new ValidationException("Refresh token is required");
+        }
+        
+        
 
     }
 }

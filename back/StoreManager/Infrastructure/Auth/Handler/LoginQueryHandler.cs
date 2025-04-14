@@ -3,6 +3,7 @@ using StoreManager.Infrastructure.Auth.Command;
 using StoreManager.Infrastructure.Auth.DTO;
 using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;
 
@@ -16,7 +17,8 @@ namespace StoreManager.Infrastructure.Auth.Handler
     {
         public async Task<LoginResponseDto?> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
-            UserModel user = await userRepository.FindByUsername(request.Username);
+            Validate(request);
+            var user = await userRepository.FindByUsername(request.Username);
             if (user.Password != request.Username)
             {
                 throw new UnauthorizedAccessException("Invalid password");
@@ -29,6 +31,17 @@ namespace StoreManager.Infrastructure.Auth.Handler
             var refreshToken = await refreshTokenRepository.Create(user);
 
             return new LoginResponseDto(accessToken, refreshToken.Token, role);
+        }
+
+        public static void Validate(LoginQuery request)
+        {
+            var errors = new List<string>();
+            if(string.IsNullOrEmpty(request.Username) || string.IsNullOrWhiteSpace(request.Username))
+                errors.Add("Username is required");
+            if(string.IsNullOrEmpty(request.Password) || string.IsNullOrWhiteSpace(request.Password))
+                errors.Add("Password is required");
+            if (errors.Count != 0)
+                throw new ValidationException(string.Join(" ", errors));
         }
     }
 }

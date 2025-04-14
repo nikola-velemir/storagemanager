@@ -31,6 +31,10 @@ public class ExceptionHandler(RequestDelegate next, ILogger<ExceptionHandler> lo
                 response.StatusCode = StatusCodes.Status404NotFound;
                 result = new { message = exception.Message };
                 break;
+            case ValidationException:
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                result = new { message = exception.Message };
+                break;
             default:
                 response.StatusCode = StatusCodes.Status500InternalServerError;
                 result =  new { message = "An unexpected error occurred." };

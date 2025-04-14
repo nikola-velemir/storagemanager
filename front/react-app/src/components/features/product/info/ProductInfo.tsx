@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductInfoResponse } from "../../../../model/product/ProductInfoResponse";
 import { ProductService } from "../../../../services/ProductService";
-import { ProductInfoComponentResponse } from "../../../../model/product/ProductInfoComponentResponse";
-import ProductInfoComponentCard from "./cards/ProductInfoComponentCard";
 import ProductContentTabs from "./ProductContentTabs";
 
 const ProductInfo = () => {
@@ -13,7 +11,6 @@ const ProductInfo = () => {
     if (!id) return;
     ProductService.findInfo(id).then((res) => {
       setProduct(res.data);
-      console.log(res.data);
     });
   }, [id]);
   return (
@@ -26,13 +23,13 @@ const ProductInfo = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 className="size-48"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
                 />
               </svg>

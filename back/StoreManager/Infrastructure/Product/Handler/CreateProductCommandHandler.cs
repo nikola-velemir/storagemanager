@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.Product.Command;
@@ -14,6 +15,8 @@ public class CreateProductCommandHandler(
 {
     public async Task<Unit> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
+        ValidateRequest(request);
+        
         var componentIds = ExtractComponentIds(request.Components);
 
         var productId = Guid.NewGuid();
@@ -31,6 +34,29 @@ public class CreateProductCommandHandler(
 
         await productRepository.Create(product);
         return Unit.Value;
+    }
+
+    private static void ValidateRequest(CreateProductCommand request)
+    {
+        var errors = new List<string>();
+
+        if (string.IsNullOrWhiteSpace(request.Name))
+            errors.Add("Product name is required.");
+
+        if (string.IsNullOrWhiteSpace(request.Identifier))
+            errors.Add("Identifier is required.");
+        else if (request.Identifier.Length < 6)
+            errors.Add("Identifier must not be under 6 characters.");
+
+        if (string.IsNullOrWhiteSpace(request.Description))
+            errors.Add("Description is required.");
+
+        var invalidQuantities = request.Components.Where(c => c.Quantity <= 0).ToList();
+        if (invalidQuantities.Count != 0)
+            errors.Add("All components must have a quantity greater than zero.");
+
+        if (errors.Count != 0)
+            throw new ValidationException(string.Join(" ", errors));
     }
 
     private static List<ProductComponentsModel> CreateComponentList(ProductModel product, Guid productId,

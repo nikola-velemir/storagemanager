@@ -28,12 +28,12 @@ namespace StoreManager.Tests.Auth.Service
         public static readonly string INVALID_JWT_TOKEN = "INVALID";
         public static readonly string INVALID_JWT_TOKEN_NO_JTI = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlcm5hbWUiLCJyb2xlIjoiTUFOQUdFUiIsIm5iZiI6MTc0MTQzMzA2MCwiZXhwIjoxNzQxNDMzMTIwLCJpYXQiOjE3NDE0MzMwNjAsImlzcyI6InN0b3JhZ2VfbWFuYWdlciIsImF1ZCI6ImFwcF9zdG9yYWdlX21hbmFnZXIifQ.1jmTMSeYJNyU7qs4XpmBxzTjvY-bGy6VsGPrNc8g6_k";
         public static readonly LoginResponseDto VALID_LOGIN_RESPONSE = new LoginResponseDto(VALID_JWT_TOKEN, VALID_REFRESH_TOKEN, VALID_USER.Role.ToString());
-        
+
         public static readonly RefreshTokenModel VALID_REFRESH_TOKEN_MODEL = new RefreshTokenModel
         {
             Token = VALID_REFRESH_TOKEN,
             User = VALID_USER,
-            ExpiresOnUtc = DateTime.Now.AddHours(4),
+            ExpiresOnUtc = DateTime.UtcNow.AddHours(4),
             Id = Guid.NewGuid(),
             UserId = VALID_USER.Id
         };
@@ -41,7 +41,7 @@ namespace StoreManager.Tests.Auth.Service
         {
             Token = VALID_REFRESH_TOKEN,
             User = VALID_USER,
-            ExpiresOnUtc = DateTime.Now.AddDays(-4),
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(-4),
             Id = Guid.NewGuid(),
             UserId = VALID_USER.Id
         };

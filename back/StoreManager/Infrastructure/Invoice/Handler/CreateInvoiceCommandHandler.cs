@@ -8,7 +8,7 @@ using StoreManager.Infrastructure.MechanicalComponent.Repository;
 
 namespace StoreManager.Infrastructure.Invoice.Handler
 {
-    public class CreateInvoiceCommandHanlder(
+    public class CreateInvoiceCommandHandler(
         IInvoiceItemRepository invoiceItemRepository,
         IMechanicalComponentRepository mechanicalComponentRepository,
         IInvoiceRepository invoiceRepository)

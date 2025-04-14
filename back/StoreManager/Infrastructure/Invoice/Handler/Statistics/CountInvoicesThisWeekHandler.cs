@@ -5,17 +5,12 @@ using StoreManager.Infrastructure.Invoice.Repository;
 
 namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
 {
-    public class CountInvoicesThisWeekHandler : IRequestHandler<CountInvoicesThisWeekQuery, ThisWeekInvoiceCountResponseDto>
+    public class CountInvoicesThisWeekHandler(IInvoiceRepository invoiceRepository)
+        : IRequestHandler<CountInvoicesThisWeekQuery, ThisWeekInvoiceCountResponseDto>
     {
-        private IInvoiceRepository _invoiceRepository;
-        public CountInvoicesThisWeekHandler(IInvoiceRepository invoiceRepository)
-        {
-            _invoiceRepository = invoiceRepository;
-        }
-
         public async Task<ThisWeekInvoiceCountResponseDto> Handle(CountInvoicesThisWeekQuery request, CancellationToken cancellationToken)
         {
-            return new ThisWeekInvoiceCountResponseDto(await _invoiceRepository.CountInvoicesThisWeek());
+            return new ThisWeekInvoiceCountResponseDto(await invoiceRepository.CountInvoicesThisWeek());
         }
     }
 }

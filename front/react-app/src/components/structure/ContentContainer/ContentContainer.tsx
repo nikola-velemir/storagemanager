@@ -26,7 +26,7 @@ const ContentContainer = ({ children }: ContentContainerProps) => {
       >
         {children}
       </motion.div>
-      <Sidenav isOpen={isOpen} toggleOffCanvas={toggleOffCanvas}></Sidenav>
+      <Sidenav isOpen={isOpen} toggleSidenav={toggleOffCanvas}></Sidenav>
     </>
   );
 };

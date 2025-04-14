@@ -16,6 +16,7 @@ import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackCon
 import ProductCreatePage from "../../features/product/create/ProductCreatePage";
 import ProductSearch from "../../features/product/search/ProductSearch";
 import ProductInfo from "../../features/product/info/ProductInfo";
+import ExportCreatePage from "../../features/export/create/ExportCreatePage";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -110,6 +111,14 @@ const AnimatedRoutes = () => {
               element={
                 <ContentContainer>
                   <ProviderSearch />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/export"
+              element={
+                <ContentContainer>
+                  <ExportCreatePage />
                 </ContentContainer>
               }
             />

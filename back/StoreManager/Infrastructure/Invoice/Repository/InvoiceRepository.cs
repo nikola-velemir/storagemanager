@@ -64,7 +64,7 @@ namespace StoreManager.Infrastructure.Invoice.Repository
         }
         public Task<int> CountInvoicesThisWeek()
         {
-            var startOfWeek = DateOnly.FromDateTime((DateTime.Now.StartOfWeek()));
+            var startOfWeek = DateOnly.FromDateTime(DateTime.UtcNow.StartOfWeek());
             var endOfWeek = startOfWeek.AddDays(7);
 
             var query = _invoices.Where(i => i.DateIssued >= startOfWeek && i.DateIssued < endOfWeek);

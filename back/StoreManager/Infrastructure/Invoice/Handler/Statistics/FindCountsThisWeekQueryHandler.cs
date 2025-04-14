@@ -15,7 +15,7 @@ namespace StoreManager.Infrastructure.Invoice.Handler.Statistics
 
         public async Task<FindCountsForWeekResponseDto> Handle(FindCountsThisWeekQuery request, CancellationToken cancellationToken)
         {
-            var startOfWeek = DateOnly.FromDateTime(DateTime.Now.StartOfWeek());
+            var startOfWeek = DateOnly.FromDateTime(DateTime.UtcNow.StartOfWeek());
             var endOfWeek = startOfWeek.AddDays(7);
             var counts = new List<FindCountForDayResponseDto>();
             for (var date = startOfWeek; date < endOfWeek; date = date.AddDays(1))
