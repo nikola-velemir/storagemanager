@@ -22,7 +22,7 @@ const ComponentAccordion = ({ invoiceArray }: ComponentAccordionProps) => {
           aria-controls="accordion-collapse-body-1"
           onClick={toggleOpen}
         >
-          <span>Invoices</span>
+          <span>Imports</span>
           <svg
             data-accordion-icon
             className="w-3 h-3 rotate-180 shrink-0"

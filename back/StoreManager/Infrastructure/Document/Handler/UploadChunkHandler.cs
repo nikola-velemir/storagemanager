@@ -7,6 +7,7 @@ using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using System.Text.RegularExpressions;
 using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;

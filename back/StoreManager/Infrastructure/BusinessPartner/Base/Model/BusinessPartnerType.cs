@@ -1,4 +1,4 @@
-﻿namespace StoreManager.Infrastructure.BusinessPartner.Base;
+﻿namespace StoreManager.Infrastructure.BusinessPartner.Base.Model;
 
 public enum BusinessPartnerType
 {

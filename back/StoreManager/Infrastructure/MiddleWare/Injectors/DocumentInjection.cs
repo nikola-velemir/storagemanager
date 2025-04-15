@@ -18,7 +18,7 @@ public static class DocumentInjection
         services.AddScoped<IDocumentService, DocumentService>();
 
         services.AddScoped<IDocumentReaderFactory, DocumentReaderFactory>();
-        services.AddScoped<PDFService>();
+        services.AddScoped<PdfService>();
         services.AddScoped<ExcelService>();
             
         services.AddScoped<IFileService, FileService>();

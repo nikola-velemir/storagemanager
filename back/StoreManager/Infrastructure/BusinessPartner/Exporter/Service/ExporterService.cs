@@ -1,4 +1,5 @@
 ﻿using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Model;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Repository;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;

@@ -1,4 +1,5 @@
 ﻿using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO.Info;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO.Search;

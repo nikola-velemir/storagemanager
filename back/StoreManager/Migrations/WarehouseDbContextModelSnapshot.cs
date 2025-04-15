@@ -50,7 +50,7 @@ namespace StoreManager.Migrations
                     b.ToTable("RefreshTokens", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Base.BusinessPartnerModel", b =>
+            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Base.Model.BusinessPartnerModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,9 +116,6 @@ namespace StoreManager.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<long>("ChunkCount")
-                        .HasColumnType("bigint");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
@@ -311,14 +308,14 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Exporter.Model.ExporterModel", b =>
                 {
-                    b.HasBaseType("StoreManager.Infrastructure.BusinessPartner.Base.BusinessPartnerModel");
+                    b.HasBaseType("StoreManager.Infrastructure.BusinessPartner.Base.Model.BusinessPartnerModel");
 
                     b.HasDiscriminator().HasValue("ExporterModel");
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Provider.Model.ProviderModel", b =>
                 {
-                    b.HasBaseType("StoreManager.Infrastructure.BusinessPartner.Base.BusinessPartnerModel");
+                    b.HasBaseType("StoreManager.Infrastructure.BusinessPartner.Base.Model.BusinessPartnerModel");
 
                     b.HasDiscriminator().HasValue("ProviderModel");
                 });

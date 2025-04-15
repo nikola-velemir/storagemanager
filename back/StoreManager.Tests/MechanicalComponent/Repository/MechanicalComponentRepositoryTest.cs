@@ -5,6 +5,7 @@ using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using System.Diagnostics.Eventing.Reader;
 using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
@@ -28,7 +29,6 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         private readonly static DocumentModel VALID_DOCUMENT = new DocumentModel
         {
             Type = "pdf",
-            ChunkCount = 0,
             Chunks = new List<DocumentChunkModel>(),
             Date = DateOnly.FromDateTime(DateTime.UtcNow),
             FileName = "test",

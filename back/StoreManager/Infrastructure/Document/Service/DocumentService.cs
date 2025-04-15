@@ -8,6 +8,7 @@ using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using System.Text.RegularExpressions;
 using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
@@ -35,7 +36,7 @@ namespace StoreManager.Infrastructure.Document.Service
                 throw new InvalidCastException("Guid cannot be parsed");
             }
 
-            Guid invoiceGuid = Guid.Parse(invoiceId);
+            var invoiceGuid = Guid.Parse(invoiceId);
             var invoice = await importRepository.FindById(invoiceGuid);
             if (invoice is null)
             {

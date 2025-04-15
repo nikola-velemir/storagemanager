@@ -24,7 +24,6 @@ namespace StoreManager.Tests.Document.Repository
 
         private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
         {
-            ChunkCount = 0,
             Id = VALID_FILE_ID,
             Type = VALID_FILE_EXTENSION,
             Chunks = new List<DocumentChunkModel>(),

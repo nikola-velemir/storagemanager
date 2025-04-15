@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Command;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO.Search;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;

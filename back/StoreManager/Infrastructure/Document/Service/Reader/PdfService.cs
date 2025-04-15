@@ -4,9 +4,9 @@ using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 
 namespace StoreManager.Infrastructure.Document.Service.Reader
 {
-    public class PDFService : IDocumentReaderService
+    public sealed class PdfService : IDocumentReaderService
     {
-        public virtual List<ExtractionMetadata> ExtractDataFromDocument(string filePath)
+        public List<ExtractionMetadata> ExtractDataFromDocument(string filePath)
         {
             var tableData = new List<ExtractionMetadata>();
 

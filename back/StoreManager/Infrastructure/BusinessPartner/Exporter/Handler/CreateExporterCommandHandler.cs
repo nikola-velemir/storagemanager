@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Command;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Model;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Repository;

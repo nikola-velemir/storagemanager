@@ -1,5 +1,6 @@
 ﻿using Moq;
 using StoreManager.Infrastructure.BusinessPartner.Base;
+using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
@@ -25,7 +26,7 @@ namespace StoreManager.Tests.Invoice.Service
 
         private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
         {
-            ChunkCount = 0, Chunks = new List<DocumentChunkModel>(), Type = "pdf",
+             Chunks = new List<DocumentChunkModel>(), Type = "pdf",
             Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid()
         };
 

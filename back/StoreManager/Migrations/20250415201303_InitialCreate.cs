@@ -40,8 +40,7 @@ namespace StoreManager.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    ChunkCount = table.Column<long>(type: "bigint", nullable: false)
+                    FileName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
