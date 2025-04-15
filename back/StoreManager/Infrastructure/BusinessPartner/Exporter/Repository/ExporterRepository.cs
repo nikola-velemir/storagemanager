@@ -21,4 +21,9 @@ public class ExporterRepository(WarehouseDbContext context) : IExporterRepositor
         await _context.SaveChangesAsync();
         return savedInstance.Entity;
     }
+
+    public Task<List<ExporterModel>> FindAll()
+    {
+        return _exporters.ToListAsync();
+    }
 }

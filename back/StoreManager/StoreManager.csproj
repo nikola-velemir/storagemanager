@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\DB\Exporter\" />
+    <Folder Include="Infrastructure\Invoice\Export\Service\" />
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

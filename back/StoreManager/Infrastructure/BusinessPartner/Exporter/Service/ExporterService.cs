@@ -1,5 +1,6 @@
 ﻿using StoreManager.Infrastructure.BusinessPartner.Base;
 using StoreManager.Infrastructure.BusinessPartner.Base.Model;
+using StoreManager.Infrastructure.BusinessPartner.Exporter.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Model;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Repository;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
@@ -21,5 +22,13 @@ public class ExporterService(IExporterRepository repository) : IExporterService
             Exports = new List<ExportModel>()
         };
         await repository.Create(exporter);
+    }
+
+    public async Task<FindExporterResponsesDto> FindAll()
+    {
+        var exporters = await repository.FindAll();
+        return new FindExporterResponsesDto(
+            exporters.Select(e => new FindExporterResponseDto(e.Id, e.Name, e.Address, e.PhoneNumber)).ToList()
+        );
     }
 }
