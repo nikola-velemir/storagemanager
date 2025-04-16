@@ -1,6 +1,5 @@
-import React from "react";
 import ImportSearchCardAccordion from "./ImportSearchCardAccordion";
-import { ImportSearchComponentResponse } from "../../../../../model/invoice/import/ImportSearchComponentResponse";
+import { ImportSearchComponentResponse } from "../../../../../../model/invoice/import/ImportSearchComponentResponse";
 import { useNavigate } from "react-router-dom";
 
 interface ImportSearchCardProps {

@@ -1,13 +1,11 @@
-import { FindExporterResponse } from "../../../../model/exporter/FindExporterResponse";
 import ExportProductSearchSection from "./sections/ExportProductSearchSection";
 import ExporterSelectBox from "./ExporterSelectBox";
-import ExportSelectedProductCard from "./cards/ExportSelectedProductCard";
 import ExportSelectedProductsSection from "./sections/ExportSelectedProductsSection";
 import { useEffect, useState } from "react";
-import { ProductSearchResponse } from "../../../../model/product/ProductSearchResponse";
 import { toast } from "react-toastify";
-import { error } from "console";
-import { ExportService } from "../../../../services/ExportService";
+import { FindExporterResponse } from "../../../../../model/exporter/FindExporterResponse";
+import { ProductSearchResponse } from "../../../../../model/product/ProductSearchResponse";
+import { ExportService } from "../../../../../services/ExportService";
 
 export interface ProductSelectionTuple {
   id: string;

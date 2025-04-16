@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import ImportSearchCard from "./cards/ImportSearchCard";
-import { ImportSearchResponse } from "../../../../model/invoice/import/ImportSearchResponse";
-import { ImportService } from "../../../../services/ImportService";
-import Paginator from "../../../common/inputs/Paginator";
-import DatePickerComponent from "../../../common/inputs/DatePickerComponent";
-import { ProviderService } from "../../../../services/ProviderService";
-import { ProviderGetResponse } from "../../../../model/provider/ProviderGetResponse";
-import SearchBox from "../../../common/inputs/SearchBox";
+import { ImportSearchResponse } from "../../../../../model/invoice/import/ImportSearchResponse";
+import { ImportService } from "../../../../../services/ImportService";
+import Paginator from "../../../../common/inputs/Paginator";
+import DatePickerComponent from "../../../../common/inputs/DatePickerComponent";
+import { ProviderService } from "../../../../../services/ProviderService";
+import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
+import SearchBox from "../../../../common/inputs/SearchBox";
 import SelectProviderBox from "./cards/SelectProviderBox";
 
 export const convertDateToString = (date: Date | null) => {

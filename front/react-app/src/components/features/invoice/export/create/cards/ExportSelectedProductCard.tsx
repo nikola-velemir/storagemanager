@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 interface ExportSelectedProductCardProps {
   id: string;
   identifier: string;

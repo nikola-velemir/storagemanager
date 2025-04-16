@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { ImportSearchComponentResponse } from "../../../../model/invoice/import/ImportSearchComponentResponse";
-import DocumentView from "../../documents/DocumentView";
+import { ImportSearchComponentResponse } from "../../../../../model/invoice/import/ImportSearchComponentResponse";
+import DocumentView from "../../../documents/DocumentView";
 import ImportSearchComponentItem from "../search/cards/ImportSearchComponentItem";
 import { useState, useEffect, useCallback } from "react";
-import { DocumentService } from "../../../../services/DocumentService";
-import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
+import { DocumentService } from "../../../../../services/DocumentService";
+import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
 
 const ImportInfo = () => {
   const { id } = useParams<{ id: string }>();
