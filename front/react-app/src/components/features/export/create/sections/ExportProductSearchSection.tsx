@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { ProductSearchResponse } from "../../../../model/product/ProductSearchResponse";
-import { ProductService } from "../../../../services/ProductService";
-import DatePickerComponent from "../../../common/inputs/DatePickerComponent";
-import Paginator from "../../../common/inputs/Paginator";
-import SearchBox from "../../../common/inputs/SearchBox";
-import ProductSearchCard from "../../product/search/cards/ProductSearchCard";
-import ExportProductCard from "./ExportProductCard";
+import { ProductSearchResponse } from "../../../../../model/product/ProductSearchResponse";
+import { ProductService } from "../../../../../services/ProductService";
+import DatePickerComponent from "../../../../common/inputs/DatePickerComponent";
+import Paginator from "../../../../common/inputs/Paginator";
+import SearchBox from "../../../../common/inputs/SearchBox";
+import ExportProductCard from "../cards/ExportProductCard";
 export const convertDateToString = (date: Date | null) => {
   if (!date) {
     return null;
@@ -15,7 +14,14 @@ export const convertDateToString = (date: Date | null) => {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
-const ExportProductSearchSection = () => {
+
+interface ExportProductSearchSectionProps {
+  emitProduct: (p: ProductSearchResponse | null) => void;
+}
+
+const ExportProductSearchSection = ({
+  emitProduct,
+}: ExportProductSearchSectionProps) => {
   const [products, setProducts] = useState<ProductSearchResponse[]>([]);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [pageSize, setPageSize] = useState(5);
@@ -47,6 +53,10 @@ const ExportProductSearchSection = () => {
   const handlePageNumberChange = (newPageNumber: number) => {
     setPageNumber(newPageNumber);
   };
+  const handleEmitProductId = (id: string) => {
+    const found = products.find((p) => p.id === id);
+    emitProduct(found ? found : null);
+  };
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
@@ -65,6 +75,7 @@ const ExportProductSearchSection = () => {
         {products.map((product: ProductSearchResponse) => {
           return (
             <ExportProductCard
+              emitProductId={handleEmitProductId}
               id={product.id}
               key={product.id}
               date={product.dateCreated}

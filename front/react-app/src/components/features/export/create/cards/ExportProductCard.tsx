@@ -3,13 +3,17 @@ interface ExportProductCardProps {
   identifier: string;
   date: string;
   name: string;
+  emitProductId: (id: string) => void;
 }
 const ExportProductCard = ({
   id,
   identifier,
   name,
   date,
+  emitProductId,
 }: ExportProductCardProps) => {
+  const handleAddClick = () => emitProductId(id);
+
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
       <div className="flex justify-between items-center">
@@ -53,7 +57,10 @@ const ExportProductCard = ({
           </div>
         </div>
 
-        <button className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+        <button
+          onClick={handleAddClick}
+          className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+        >
           Add
         </button>
       </div>
