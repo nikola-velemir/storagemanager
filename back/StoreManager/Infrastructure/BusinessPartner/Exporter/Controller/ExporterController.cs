@@ -21,4 +21,11 @@ public class ExporterController(IMediator mediator) : ControllerBase
     {
         return Ok(await mediator.Send(new FindAllExportersQuery()));
     }
+
+    [HttpGet("filtered")]
+    public async Task<IActionResult> FindFiltered([FromQuery] string? exporterInfo, [FromQuery] int pageNumber,[FromQuery] int pageSize)
+    {
+        var result = await mediator.Send(new FindFilteredQuery(exporterInfo, PageNumber:pageNumber, PageSize:pageSize));
+        return Ok(result);
+    }
 }

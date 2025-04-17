@@ -49,10 +49,7 @@ const ProductSearch = () => {
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
-        <SearchBox
-          placeholderText="Component info"
-          onInput={handleInputChange}
-        />
+        <SearchBox placeholderText="Product info" onInput={handleInputChange} />
         <DatePickerComponent onDateChange={handleDateChange} />
         <Paginator
           totalItems={totalItems}

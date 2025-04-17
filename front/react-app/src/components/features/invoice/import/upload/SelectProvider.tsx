@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ProviderService } from "../../../../../services/ProviderService";
 import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
+import { toast } from "react-toastify";
 
 interface SelectProviderProps {
   emitProvider: (provider: ProviderGetResponse | null) => void;
@@ -14,7 +15,7 @@ const SelectProvider = ({ emitProvider }: SelectProviderProps) => {
       .then((value) => {
         setProviders(value.data.providers);
       })
-      .catch((error) => {});
+      .catch(() => toast.error("Could not fetch providers!"));
   }, []);
   useEffect(() => {
     emitProvider(selectedProvider);

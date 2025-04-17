@@ -140,7 +140,7 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
               <span className="ms-3">Components search</span>
             </Link>
             <Link
-              to="/providers-search"
+              to="/business-partner-search"
               className="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -158,7 +158,7 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
                 />
               </svg>
 
-              <span className="ms-3">Providers search</span>
+              <span className="ms-3">Business Partner Search</span>
             </Link>
             <Link
               to="/create-product"

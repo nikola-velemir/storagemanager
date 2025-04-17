@@ -1,17 +1,15 @@
 import { useState } from "react";
-import ProviderCardImport from "./ProviderCardImport";
-import { ProviderInvoiceResponse } from "../../../../../model/provider/ProviderInvoiceResponse";
+import ExporterCardExport from "./ExporterCardExport";
+import { ExporterSearchExportResponse } from "../../../../../../model/exporter/ExporterSearchExportResponse";
 
-interface ProviderCardAccordionProps {
-  invoices: ProviderInvoiceResponse[];
+interface ExporterCardAccordionProps {
+  exps: ExporterSearchExportResponse[];
 }
-
-const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
+const ExporterCardAccordion = ({ exps }: ExporterCardAccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
-
   return (
     <div id="accordion-collapse" data-accordion="collapse">
       <h2 id="accordion-collapse-heading-1">
@@ -23,7 +21,7 @@ const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
           aria-controls="accordion-collapse-body-1"
           onClick={toggleOpen}
         >
-          <span>Invoices</span>
+          <span>Imports</span>
           <svg
             data-accordion-icon
             className="w-3 h-3 rotate-180 shrink-0"
@@ -49,12 +47,12 @@ const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
         } w-full flex justify-center items-center flex-col`}
         aria-labelledby="accordion-collapse-heading-1"
       >
-        {invoices.map((invoice: ProviderInvoiceResponse) => {
+        {exps.map((invoice: ExporterSearchExportResponse) => {
           return (
-            <ProviderCardImport
-              key={invoice.id}
+            <ExporterCardExport
               dateIssued={invoice.dateIssued}
               id={invoice.id}
+              key={invoice.id}
             />
           );
         })}
@@ -63,4 +61,4 @@ const ProviderCardAccordion = ({ invoices }: ProviderCardAccordionProps) => {
   );
 };
 
-export default ProviderCardAccordion;
+export default ExporterCardAccordion;

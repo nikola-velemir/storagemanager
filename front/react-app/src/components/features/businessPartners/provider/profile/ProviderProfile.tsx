@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ProviderProfileResponse } from "../../../../model/provider/ProviderProfileResponse";
-import { ProviderService } from "../../../../services/ProviderService";
+import { ProviderProfileResponse } from "../../../../../model/provider/ProviderProfileResponse";
+import { ProviderService } from "../../../../../services/ProviderService";
 import ProviderContentTabs from "./ProviderContentTabs";
 
 const ProviderProfile = () => {

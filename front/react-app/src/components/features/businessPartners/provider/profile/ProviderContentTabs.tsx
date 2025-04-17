@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ProviderProfileInvoiceResponse } from "../../../../model/provider/ProviderProfileInvoiceResponse";
-import { ProviderProfileComponentResponse } from "../../../../model/provider/ProviderProfileComponentResponse";
+import { ProviderProfileInvoiceResponse } from "../../../../../model/provider/ProviderProfileInvoiceResponse";
+import { ProviderProfileComponentResponse } from "../../../../../model/provider/ProviderProfileComponentResponse";
 import ProviderProfileImportCard from "./cards/ProviderProfileImportCard";
 import ProviderProfileComponentCard from "./cards/ProviderProfileComponentCard";
 
