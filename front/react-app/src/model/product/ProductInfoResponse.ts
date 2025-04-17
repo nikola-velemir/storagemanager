@@ -1,4 +1,5 @@
 import { ProductInfoComponentResponse } from "./ProductInfoComponentResponse";
+import { ProductInfoExportResponse } from "./ProductInfoExportResponse";
 
 export interface ProductInfoResponse {
   identifier: string;
@@ -6,4 +7,5 @@ export interface ProductInfoResponse {
   description: string;
   dateCreated: string;
   components: ProductInfoComponentResponse[];
+  exports: ProductInfoExportResponse[];
 }

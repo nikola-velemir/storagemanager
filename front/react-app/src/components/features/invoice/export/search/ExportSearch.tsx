@@ -31,8 +31,10 @@ const ExportSearch = () => {
   }, [fetchExports]);
   const handleExporterChange = (item: FindExporterResponse | null) =>
     setSelectedExporter(item);
-  const handleInputChange = (text: string) =>
+  const handleInputChange = (text: string) => {
     setProductInfo(text.trim().length > 0 ? text.trim() : null);
+    setPageNumber(1);
+  };
   const handleDateChange = (e: Date | null) => {
     setSelectedDate(e);
     setPageNumber(1);

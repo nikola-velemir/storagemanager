@@ -13,8 +13,11 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
     public Task<ProductModel?> FindById(Guid id)
     {
         return _products
+            .Include(p=>p.Exports)
+                .ThenInclude(ei=>ei.Export)
+                .ThenInclude(e=>e.Exporter)
             .Include(p=>p.Components)
-            .ThenInclude(mc=>mc.Component)
+                .ThenInclude(mc=>mc.Component)
             .FirstOrDefaultAsync(p => p.Id.Equals(id));
     }
 

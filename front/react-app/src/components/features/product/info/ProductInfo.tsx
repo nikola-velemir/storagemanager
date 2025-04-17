@@ -61,7 +61,10 @@ const ProductInfo = () => {
               </div>
             </div>
           </div>
-          <ProductContentTabs components={product ? product.components : []} />
+          <ProductContentTabs
+            exports={product ? product.exports : []}
+            components={product ? product.components : []}
+          />
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import ExportSearchCardAccordion from "./ExportSearchCardAccordion";
 import { ExportSearchProductResponse } from "../../../../../../model/invoice/export/ExportSearchProductResponse";
 

@@ -23,7 +23,8 @@ public class ExportSearchQueryHandler(IExportRepository repository)
                     e.DateIssued,
                     e.Exporter.Name,
                     e.Items.Select(i =>
-                        new ExportSearchProductResponseDto(i.Product.Name, i.Product.Identifier, i.Quantity,
+                        new ExportSearchProductResponseDto(i.ProductId, i.Product.Name, i.Product.Identifier,
+                            i.Quantity,
                             i.PricePerPiece)).ToList()
                 )
             ).ToList(),

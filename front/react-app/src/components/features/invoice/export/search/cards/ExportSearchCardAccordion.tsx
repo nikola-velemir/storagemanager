@@ -51,7 +51,15 @@ const ExportSearchCardAccordion = ({
         aria-labelledby="accordion-collapse-heading-1"
       >
         {products.map((component: ExportSearchProductResponse) => {
-          return <ExportSearchProductItem />;
+          return (
+            <ExportSearchProductItem
+              id={component.id}
+              identifier={component.identifier}
+              name={component.name}
+              price={component.price}
+              quantity={component.quantity}
+            />
+          );
         })}
       </div>
     </div>
