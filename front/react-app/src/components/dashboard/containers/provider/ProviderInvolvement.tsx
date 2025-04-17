@@ -3,7 +3,7 @@ import { useProviderStats } from "./useProviderStats";
 import ProviderInvolvementCarousel from "./ProviderInvolvementCarousel";
 
 const ProviderInvolvement = () => {
-  const { count, maxCount, invoiceInvolvements, componentInvolvements } =
+  const { count, maxCount, importInvolvements, componentInvolvements } =
     useProviderStats();
   return (
     <DashBoardCard
@@ -12,7 +12,7 @@ const ProviderInvolvement = () => {
       value={count}
       chart={
         <ProviderInvolvementCarousel
-          invoice={invoiceInvolvements}
+          import={importInvolvements}
           components={componentInvolvements}
         />
       }

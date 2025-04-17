@@ -9,7 +9,7 @@ import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { ProviderInvoiceInvolvementResponse } from "../../../../model/provider/ProviderInvoiceInvolvementResponse";
+import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
 import { useNavigate } from "react-router-dom";
 import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
 
@@ -48,7 +48,7 @@ const CustomTooltip = ({
 };
 interface ProviderInvolvementPieChartProps {
   data:
-    | ProviderInvoiceInvolvementResponse[]
+    | ProviderImportInvolvementResponse[]
     | ProviderComponentInvolvementResponse[];
   dataKey: string;
 }

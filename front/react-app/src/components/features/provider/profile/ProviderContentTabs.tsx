@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { ProviderProfileInvoiceResponse } from "../../../../model/provider/ProviderProfileInvoiceResponse";
 import { ProviderProfileComponentResponse } from "../../../../model/provider/ProviderProfileComponentResponse";
-import ProviderProfileInvoiceCard from "./cards/ProviderProfileInvoiceCard";
+import ProviderProfileImportCard from "./cards/ProviderProfileImportCard";
 import ProviderProfileComponentCard from "./cards/ProviderProfileComponentCard";
 
 enum TabState {
-  INVOICES,
+  IMPORTS,
   COMPONENTS,
 }
 
@@ -18,10 +18,10 @@ const ProviderContentTabs = ({
   invoices,
   components,
 }: ProviderContentTabsProps) => {
-  const [selectedTabState, setSelectedTabState] = useState(TabState.INVOICES);
+  const [selectedTabState, setSelectedTabState] = useState(TabState.IMPORTS);
   const handleInvoicesTab = () => {
-    if (selectedTabState !== TabState.INVOICES)
-      setSelectedTabState(TabState.INVOICES);
+    if (selectedTabState !== TabState.IMPORTS)
+      setSelectedTabState(TabState.IMPORTS);
   };
   const handleComponentsTab = () => {
     if (selectedTabState !== TabState.COMPONENTS)
@@ -33,7 +33,7 @@ const ProviderContentTabs = ({
     "cursor-pointer w-full inline-block p-4 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300";
   const renderInvoices = () => {
     return invoices.map((invoice: ProviderProfileInvoiceResponse) => (
-      <ProviderProfileInvoiceCard
+      <ProviderProfileImportCard
         key={invoice.id}
         dateIssued={invoice.dateIssued}
         id={invoice.id}
@@ -57,10 +57,10 @@ const ProviderContentTabs = ({
           <p
             onClick={handleInvoicesTab}
             className={`rounded-tl-xl ${
-              selectedTabState === TabState.INVOICES ? activeTab : inactiveTab
+              selectedTabState === TabState.IMPORTS ? activeTab : inactiveTab
             }`}
           >
-            Invoices
+            Imports
           </p>
         </li>
         <li className="w-full">
@@ -75,7 +75,7 @@ const ProviderContentTabs = ({
         </li>
       </ul>
       <div className="w-full h-96 flex flex-col gap-4">
-        {selectedTabState === TabState.INVOICES
+        {selectedTabState === TabState.IMPORTS
           ? renderInvoices()
           : renderComponents()}
       </div>

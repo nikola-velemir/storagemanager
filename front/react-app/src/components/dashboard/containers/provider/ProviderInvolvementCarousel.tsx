@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import ProviderInvolvementPieChart from "./ProviderInvolvementPieChart";
 import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
-import { ProviderInvoiceInvolvementResponse } from "../../../../model/provider/ProviderInvoiceInvolvementResponse";
+import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
 interface ProviderInvolvementCarouselProps {
-  invoice: ProviderInvoiceInvolvementResponse[];
+  import: ProviderImportInvolvementResponse[];
   components: ProviderComponentInvolvementResponse[];
 }
 
 const ProviderInvolvementCarousel = ({
-  invoice,
+  import: invoice,
   components,
 }: ProviderInvolvementCarouselProps) => {
   const [page, setPage] = useState(0);
   const [displayedProvidersByInvoice, setDisplayedProvidersByInvoice] =
-    useState<ProviderInvoiceInvolvementResponse[]>([]);
+    useState<ProviderImportInvolvementResponse[]>([]);
   const [displayedProvidersByComponents, setDisplayedProvidersByComponents] =
     useState<ProviderComponentInvolvementResponse[]>([]);
   useEffect(() => {
@@ -41,7 +41,7 @@ const ProviderInvolvementCarousel = ({
         >
           <div className="flex flex-col h-full w-full">
             <span className="text-base font-medium w-full flex justify-start">
-              Invoice involvement
+              Import involvement
             </span>
             <div className="w-full h-full flex justify-center p-4 pt-2 text-white text-lg font-medium">
               <ProviderInvolvementPieChart

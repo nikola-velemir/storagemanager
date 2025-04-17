@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ProductInfoComponentResponse } from "../../../../model/product/ProductInfoComponentResponse";
 import ProductInfoComponentCard from "./cards/ProductInfoComponentCard";
+import { ProductInfoExportResponse } from "../../../../model/product/ProductInfoExportResponse";
+import ProductInfoExportCard from "./cards/ProductInfoExportCard";
 
 enum TabState {
   COMPONENTS,
@@ -9,8 +11,12 @@ enum TabState {
 
 interface ProductContentTabsProps {
   components: ProductInfoComponentResponse[];
+  exports: ProductInfoExportResponse[];
 }
-const ProductContentTabs = ({ components }: ProductContentTabsProps) => {
+const ProductContentTabs = ({
+  components,
+  exports,
+}: ProductContentTabsProps) => {
   const activeTab =
     "w-full inline-block p-4 text-gray-700 bg-gray-100 active dark:bg-gray-800 dark:text-blue-500";
   const inactiveTab =
@@ -23,7 +29,14 @@ const ProductContentTabs = ({ components }: ProductContentTabsProps) => {
     setSelectedTabState(TabState.EXPORTS);
   };
   const renderExports = () => {
-    return <div></div>;
+    return exports.map((exp: ProductInfoExportResponse) => (
+      <ProductInfoExportCard
+        date={exp.date}
+        exporter={exp.exporter}
+        id={exp.id}
+        key={exp.id}
+      />
+    ));
   };
   const renderComponents = () => {
     return components.map((component: ProductInfoComponentResponse) => (

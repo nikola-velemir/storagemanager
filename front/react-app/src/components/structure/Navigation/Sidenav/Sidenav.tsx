@@ -203,6 +203,28 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
               <span className="ms-3">Product search</span>
             </Link>
             <Link
+              to="/create-exporter"
+              className="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+              >
+                <path d="M7 7h10v10" />
+                <path d="M7 17 17 7" />
+              </svg>
+
+              <span className="ms-3">Create Exporter</span>
+            </Link>
+            <Link
               to="/export"
               className="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >

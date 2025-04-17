@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.6.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="PdfPig" Version="0.1.10" />
+    <PackageReference Include="PDFsharp" Version="6.2.0-preview-3" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.24" />
     <PackageReference Include="Supabase" Version="1.1.1" />
     <PackageReference Include="Supabase.Storage" Version="2.0.2" />
@@ -26,9 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Invoice\Command\Info\" />
-    <Folder Include="Infrastructure\Invoice\DTO\Info\" />
-    <Folder Include="Infrastructure\Invoice\Handler\Info\" />
+    <Folder Include="Infrastructure\DB\Exporter\" />
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

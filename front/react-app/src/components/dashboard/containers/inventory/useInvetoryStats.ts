@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   InventoryValueByDay,
-  InvoiceService,
-} from "../../../../services/InvoiceService";
+  ImportService,
+} from "../../../../services/ImportService";
 import { animate } from "framer-motion";
 
 export const useInventoryStats = () => {
@@ -10,7 +10,7 @@ export const useInventoryStats = () => {
   const [currentValue, setCurrentValue] = useState(0);
   const [prices, setPrices] = useState<InventoryValueByDay[]>([]);
   useEffect(() => {
-    InvoiceService.findTotalInventoryValue().then((res) => {
+    ImportService.findTotalInventoryValue().then((res) => {
       var totalValue = parseFloat(res.data.total.toFixed(2));
       setTotal(totalValue);
       setPrices(res.data.values);

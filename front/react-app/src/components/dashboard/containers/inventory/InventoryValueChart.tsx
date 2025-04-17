@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AreaChart, CartesianGrid, XAxis, YAxis, Area } from "recharts";
-import { InventoryValueByDay } from "../../../../services/InvoiceService";
+import { InventoryValueByDay } from "../../../../services/ImportService";
 
 interface InventoryValueChartProps {
   data: InventoryValueByDay[];

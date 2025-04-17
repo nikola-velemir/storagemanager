@@ -9,7 +9,6 @@ namespace StoreManager.Infrastructure.Document.Model
         public required string Type { get; set; }
         public DateOnly Date { get; set; }
         public string FileName { get; set; } = string.Empty;
-        public long ChunkCount { get; set; }
         public ICollection<DocumentChunkModel> Chunks { get; set; } = new List<DocumentChunkModel>();
     }
 }
