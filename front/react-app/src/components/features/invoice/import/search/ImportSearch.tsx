@@ -7,7 +7,7 @@ import DatePickerComponent from "../../../../common/inputs/DatePickerComponent";
 import { ProviderService } from "../../../../../services/ProviderService";
 import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
 import SearchBox from "../../../../common/inputs/SearchBox";
-import SelectProviderBox from "./cards/SelectProviderBox";
+import SelectProviderBox from "./SelectProviderBox";
 
 export const convertDateToString = (date: Date | null) => {
   if (!date) {

@@ -4,7 +4,7 @@ import { MechanicalComponentService } from "../../../../services/MechanicalCompo
 import { ProviderService } from "../../../../services/ProviderService";
 import Paginator from "../../../common/inputs/Paginator";
 import SearchBox from "../../../common/inputs/SearchBox";
-import SelectProviderBox from "../../invoice/import/search/cards/SelectProviderBox";
+import SelectProviderBox from "../../invoice/import/search/SelectProviderBox";
 import ComponentCard from "./cards/ComponentCard";
 import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
 

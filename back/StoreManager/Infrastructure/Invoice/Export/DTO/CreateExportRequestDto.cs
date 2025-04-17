@@ -1,3 +1,5 @@
-﻿namespace StoreManager.Infrastructure.Invoice.Export.DTO;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
 
-public record CreateExportRequestDto();
+namespace StoreManager.Infrastructure.Invoice.Export.DTO;
+
+public sealed record CreateExportRequestDto(string providerId, List<CreateExportRequestProductDto> products);

@@ -1,6 +1,16 @@
-﻿namespace StoreManager.Infrastructure.MiddleWare.Injectors;
+﻿using StoreManager.Infrastructure.Invoice.Export.Repository;
+using StoreManager.Infrastructure.Invoice.Export.Service;
 
-public class ExportInjection
+namespace StoreManager.Infrastructure.MiddleWare.Injectors;
+
+public static class ExportInjection
 {
-    
+    public static IServiceCollection InjectExportDependencies(this IServiceCollection serviceCollection,
+        IConfiguration configuration)
+    {
+        serviceCollection.AddScoped<IExportRepository, ExportRepository>();
+        serviceCollection.AddScoped<IExportService, ExportService>();
+        serviceCollection.AddScoped<IExportItemRepository,ExportItemRepository>();
+        return serviceCollection;
+    }
 }

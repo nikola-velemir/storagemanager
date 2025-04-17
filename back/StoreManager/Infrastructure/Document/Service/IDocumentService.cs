@@ -8,5 +8,8 @@ namespace StoreManager.Infrastructure.Document.Service
         Task<DocumentDownloadResponseDto> DownloadChunk(string fileName, int chunkIndex);
 
         Task UploadChunk(string provider, IFormFile file, string fileName, int chunkIndex, int totalChunks);
+
+        Task<byte[]> GeneratePdfFile(List<ProductRow> rows, string fileName);
+        Task<DocumentModel> UploadExport(List<ProductRow> rows, string fileName);
     }
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ImportSearch from "./import/search/ImportSearch";
+import ExportSearch from "./export/search/ExportSearch";
 
 enum TabState {
   IMPORTS,
@@ -38,7 +39,7 @@ const InvoiceSearch = () => {
               selectedTabState === TabState.EXPORTS ? activeTab : inactiveTab
             }`}
           >
-            Components
+            Exports
           </p>
         </li>
       </ul>
@@ -54,7 +55,7 @@ const InvoiceSearch = () => {
           selectedTabState === TabState.EXPORTS ? "" : "hidden"
         } w-full h-96 flex flex-col gap-4`}
       >
-        <ImportSearch />
+        <ExportSearch />
       </div>
     </div>
   );

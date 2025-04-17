@@ -1,6 +1,3 @@
 ﻿namespace StoreManager.Infrastructure.Invoice.Export.DTO;
 
-public class CreateExportProductRequestDto
-{
-    
-}
+public sealed record CreateExportRequestProductDto(string id, int quantity, double price);
