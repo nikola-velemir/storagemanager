@@ -5,19 +5,20 @@ import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../features/users/login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
-import ProviderSearch from "../../features/provider/search/ProviderSearch";
-import ProviderProfile from "../../features/provider/profile/ProviderProfile";
+import ProviderSearch from "../../features/businessPartners/provider/search/ProviderSearch";
+import ProviderProfile from "../../features/businessPartners/provider/profile/ProviderProfile";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
 import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackContext";
 import ProductCreatePage from "../../features/product/create/ProductCreatePage";
 import ProductSearch from "../../features/product/search/ProductSearch";
 import ProductInfo from "../../features/product/info/ProductInfo";
-import ExporterCreatePage from "../../features/exporter/ExporterCreatePage";
+import ExporterCreatePage from "../../features/businessPartners/exporter/create/ExporterCreatePage";
+import ImportSearch from "../../features/invoice/import/search/ImportSearch";
 import ExportCreatePage from "../../features/invoice/export/create/ExportCreatePage";
 import ImportInfo from "../../features/invoice/import/info/ImportInfo";
 import InvoiceUpload from "../../features/invoice/import/upload/InvoiceUpload";
-import InvoiceSearch from "../../features/invoice/InvoiceSearch";
+import BusinessPartnersSearch from "../../features/businessPartners/search/BusinessPartnersSearch";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -55,7 +56,7 @@ const AnimatedRoutes = () => {
               path="/invoice-search"
               element={
                 <ContentContainer>
-                  <InvoiceSearch />
+                  <ImportSearch />
                 </ContentContainer>
               }
             />
@@ -108,10 +109,10 @@ const AnimatedRoutes = () => {
               }
             />
             <Route
-              path="/providers-search"
+              path="/business-partner-search"
               element={
                 <ContentContainer>
-                  <ProviderSearch />
+                  <BusinessPartnersSearch />
                 </ContentContainer>
               }
             />

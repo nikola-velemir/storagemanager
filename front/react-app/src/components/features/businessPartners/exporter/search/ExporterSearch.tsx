@@ -1,23 +1,24 @@
-import { useEffect, useState } from "react";
-import Paginator from "../../../common/inputs/Paginator";
-import SearchBox from "../../../common/inputs/SearchBox";
-import { ProviderService } from "../../../../services/ProviderService";
-import { ProviderSearchResponse } from "../../../../model/provider/ProviderSearchResponse";
-import ProviderCard from "./cards/ProviderCard";
+import { useState, useEffect } from "react";
+import Paginator from "../../../../common/inputs/Paginator";
+import SearchBox from "../../../../common/inputs/SearchBox";
+import ExporterCard from "./card/ExporterCard";
+import { ExporterService } from "../../../../../services/ExporterService";
+import { ExporterSearchResponse } from "../../../../../model/exporter/ExporterSearchResponse";
+import { toast } from "react-toastify";
 
-const ProviderSearch = () => {
-  const [providers, setProviders] = useState<ProviderSearchResponse[]>([]);
+const ExporterSearch = () => {
+  const [exporters, setExporters] = useState<ExporterSearchResponse[]>([]);
   const [searchText, setSearchText] = useState<string | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   useEffect(() => {
-    ProviderService.findFiltered({
+    ExporterService.findFiltered({
+      exporterInfo: searchText,
       pageNumber: pageNumber,
       pageSize: pageSize,
-      providerName: searchText,
-    }).then((response) => {
-      setProviders(response.data.items);
-    });
+    })
+      .then((res) => setExporters(res.data.items))
+      .catch(() => toast.error("Failed to fetch exporters"));
   }, [searchText, pageNumber, pageSize]);
   const handlePageSizeChange = (n: number) => {
     setPageSize(n);
@@ -43,11 +44,11 @@ const ProviderSearch = () => {
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {providers.map((provider: ProviderSearchResponse) => {
+        {exporters.map((provider: ExporterSearchResponse) => {
           return (
-            <ProviderCard
+            <ExporterCard
               key={provider.id}
-              invoices={provider.invoices}
+              exps={provider.exports}
               address={provider.address}
               id={provider.id}
               name={provider.name}
@@ -60,4 +61,4 @@ const ProviderSearch = () => {
   );
 };
 
-export default ProviderSearch;
+export default ExporterSearch;
