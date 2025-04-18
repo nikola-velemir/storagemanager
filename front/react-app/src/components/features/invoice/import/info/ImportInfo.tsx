@@ -5,13 +5,14 @@ import ImportSearchComponentItem from "../search/cards/ImportSearchComponentItem
 import { useState, useEffect, useCallback } from "react";
 import { DocumentService } from "../../../../../services/DocumentService";
 import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
+import { InvoiceService } from "../../../../../services/InvoiceService";
 
 const ImportInfo = () => {
   const { id } = useParams<{ id: string }>();
   const [progress, setProgress] = useState(0.0);
-  const [components, setComponents] = useState<
-    ImportSearchComponentResponse[]
-  >([]);
+  const [components, setComponents] = useState<ImportSearchComponentResponse[]>(
+    []
+  );
   const [documentSrc, setDocumentSrc] = useState<Blob | undefined>(undefined);
   const [fileType, setFileType] = useState("");
   const downloadDoc = useCallback(() => {
@@ -28,8 +29,11 @@ const ImportInfo = () => {
   useEffect(() => {
     if (!id || id.trim().length === 0) return;
     downloadDoc();
-    MechanicalComponentService.findByInvoiceId(id).then((response) => {
-      setComponents(response.data.responses);
+    InvoiceService.findInvoiceType(id).then((r) => {
+      if (r.data.type === "Import")
+        MechanicalComponentService.findByInvoiceId(id).then((response) => {
+          setComponents(response.data.responses);
+        });
     });
   }, [id, downloadDoc]);
 

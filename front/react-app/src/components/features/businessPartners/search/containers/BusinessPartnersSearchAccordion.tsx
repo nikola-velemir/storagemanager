@@ -1,11 +1,18 @@
-import { useState } from "react";
-import ExporterCardExport from "./ExporterCardExport";
-import { ExporterSearchExportResponse } from "../../../../../../model/exporter/ExporterSearchExportResponse";
+import React, { useState } from "react";
+import BusinessPartnersInvoice from "./BusinessPartnersInvoice";
+import { useNavigate } from "react-router-dom";
 
-interface ExporterCardAccordionProps {
-  exps: ExporterSearchExportResponse[];
+interface ExporterCardAccordionProps<T extends InvoiceLike> {
+  items: T[];
 }
-const ExporterCardAccordion = ({ exps }: ExporterCardAccordionProps) => {
+export interface InvoiceLike {
+  id: string;
+  dateIssued: string;
+}
+const BusinessPartnersSearchAccordion = <T extends InvoiceLike>({
+  items,
+}: ExporterCardAccordionProps<T>) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -47,9 +54,9 @@ const ExporterCardAccordion = ({ exps }: ExporterCardAccordionProps) => {
         } w-full flex justify-center items-center flex-col`}
         aria-labelledby="accordion-collapse-heading-1"
       >
-        {exps.map((invoice: ExporterSearchExportResponse) => {
+        {items.map((invoice: T) => {
           return (
-            <ExporterCardExport
+            <BusinessPartnersInvoice
               dateIssued={invoice.dateIssued}
               id={invoice.id}
               key={invoice.id}
@@ -61,4 +68,4 @@ const ExporterCardAccordion = ({ exps }: ExporterCardAccordionProps) => {
   );
 };
 
-export default ExporterCardAccordion;
+export default BusinessPartnersSearchAccordion;

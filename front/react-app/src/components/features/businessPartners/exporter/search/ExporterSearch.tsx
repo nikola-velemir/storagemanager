@@ -1,9 +1,11 @@
-import ExporterCard from "./card/ExporterCard";
 import { ExporterService } from "../../../../../services/ExporterService";
 import { ExporterSearchResponse } from "../../../../../model/exporter/ExporterSearchResponse";
-import BusinessPartnetsSearchTab from "../../search/BusinessPartnetsSearchTab";
+import BusinessPartnetsSearchTab from "../../search/containers/BusinessPartnetsSearchTab";
+import BusinessPartnerCard from "../../search/cards/BusinessPartnerCard";
+import { useNavigate } from "react-router-dom";
 
 const ExporterSearch = () => {
+  const navigate = useNavigate();
   const handleFetchData = async (
     searchText: string | null,
     page: number,
@@ -22,11 +24,12 @@ const ExporterSearch = () => {
     address: item.address,
     phoneNumber: item.phoneNumber,
     items: item.exports,
+    handleMoreInfoClick: () => navigate("/exporter-info/" + item.id),
   });
   return (
     <BusinessPartnetsSearchTab
       searchPlaceHolder="Exporter info"
-      CardComponent={ExporterCard}
+      CardComponent={BusinessPartnerCard}
       cardPropsMapper={cardPropsMapper}
       onFetchData={handleFetchData}
     />

@@ -1,14 +1,15 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
-interface ExporterCardExportProps {
+interface BusinessPartnersInvoiceProps {
   id: string;
   dateIssued: string;
 }
-const ExporterCardExport = ({ id, dateIssued }: ExporterCardExportProps) => {
+const BusinessPartnersInvoice = ({
+  id,
+  dateIssued,
+}: BusinessPartnersInvoiceProps) => {
   const navigate = useNavigate();
-  const handleOnMoreInfo = () => navigate("/exporter-profile/" + id);
-
+  const handleMoreInfoClick = () => navigate("/invoice-info/" + id);
   return (
     <>
       <div
@@ -50,7 +51,7 @@ const ExporterCardExport = ({ id, dateIssued }: ExporterCardExportProps) => {
             </div>
           </div>
           <button
-            onClick={handleOnMoreInfo}
+            onClick={handleMoreInfoClick}
             className="bg-green-600 text-white text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
           >
             More info
@@ -61,4 +62,4 @@ const ExporterCardExport = ({ id, dateIssued }: ExporterCardExportProps) => {
   );
 };
 
-export default ExporterCardExport;
+export default BusinessPartnersInvoice;

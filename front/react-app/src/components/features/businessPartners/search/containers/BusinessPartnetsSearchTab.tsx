@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { ExporterService } from "../../../../services/ExporterService";
-import SearchBox from "../../../common/inputs/SearchBox";
-import Paginator from "../../../common/inputs/Paginator";
+import { ExporterService } from "../../../../../services/ExporterService";
+import SearchBox from "../../../../common/inputs/SearchBox";
+import Paginator from "../../../../common/inputs/Paginator";
 
 interface BusinessPartnetsSearchTabProps<T> {
   onFetchData: (
