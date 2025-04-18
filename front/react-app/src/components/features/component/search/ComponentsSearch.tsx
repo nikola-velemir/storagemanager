@@ -4,10 +4,18 @@ import { MechanicalComponentService } from "../../../../services/MechanicalCompo
 import { ProviderService } from "../../../../services/ProviderService";
 import Paginator from "../../../common/inputs/Paginator";
 import SearchBox from "../../../common/inputs/SearchBox";
-import SelectProviderBox from "../../invoice/import/search/SelectProviderBox";
 import ComponentCard from "./cards/ComponentCard";
 import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
 
+export const convertDateToString = (date: Date | null) => {
+  if (!date) {
+    return null;
+  }
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 const ComponentsSearch = () => {
   const [components, setComponents] = useState<
     MechanicalComponentSearchResponse[]
@@ -57,10 +65,6 @@ const ComponentsSearch = () => {
           totalItems={totalItems}
           onPageSizeChange={handlePageSizeChange}
           onPageNumberChange={handlePageNumberChange}
-        />
-        <SelectProviderBox
-          emitProviderChange={handleProviderChange}
-          providers={providers}
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">

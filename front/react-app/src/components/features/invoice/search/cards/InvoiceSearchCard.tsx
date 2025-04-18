@@ -1,23 +1,28 @@
-import ImportSearchCardAccordion from "./ImportSearchCardAccordion";
-import { ImportSearchComponentResponse } from "../../../../../../model/invoice/import/ImportSearchComponentResponse";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
-interface ImportSearchCardProps {
+import InvoiceSearchCardAccordion, {
+  InvoiceLike,
+} from "./InvoiceSearchCardAccordion";
+interface InvoiceSearchCardProps<T> {
   id: string;
   date: string;
-  providerName: string;
-  components: ImportSearchComponentResponse[];
+  partnerName: string;
+  items: T[];
+  handleRouting: (id: string) => void;
 }
-
-const ImportSearchCard = ({
+const InvoiceSearchCard = <T extends InvoiceLike>({
   id,
   date,
-  providerName,
-  components,
-}: ImportSearchCardProps) => {
+  partnerName,
+  items,
+  handleRouting,
+}: InvoiceSearchCardProps<T>) => {
   const navigate = useNavigate();
   const handleMoreInfoClick = () => {
     navigate("/invoice-info/" + id);
+  };
+  const handleSubComponentRouting = (id: string) => {
+    handleRouting(id);
   };
   return (
     <div className="w-11/12 my-8 flex flex-col bg-slate-700 border border-gray-200 rounded-xl shadow-sm">
@@ -33,7 +38,7 @@ const ImportSearchCard = ({
           <div className="flex mt-4 w-full flex-col">
             <p className="text-gray-400 text-sm">Provider:</p>
             <p className="ms-4 font-normal text-white dark:text-gray-400">
-              {providerName}
+              {partnerName}
             </p>
           </div>
 
@@ -48,10 +53,13 @@ const ImportSearchCard = ({
       </div>
       <div className="flex flex-row justify-end px-8"></div>
       <div className="w-full flex flex-col">
-        <ImportSearchCardAccordion components={components} />
+        <InvoiceSearchCardAccordion
+          handleRouting={handleSubComponentRouting}
+          items={items}
+        />
       </div>
     </div>
   );
 };
 
-export default ImportSearchCard;
+export default InvoiceSearchCard;

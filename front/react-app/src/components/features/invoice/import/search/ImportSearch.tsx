@@ -1,13 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import ImportSearchCard from "./cards/ImportSearchCard";
 import { ImportSearchResponse } from "../../../../../model/invoice/import/ImportSearchResponse";
 import { ImportService } from "../../../../../services/ImportService";
-import Paginator from "../../../../common/inputs/Paginator";
-import DatePickerComponent from "../../../../common/inputs/DatePickerComponent";
 import { ProviderService } from "../../../../../services/ProviderService";
-import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
-import SearchBox from "../../../../common/inputs/SearchBox";
-import SelectProviderBox from "./SelectProviderBox";
+import InvoiceSearchTab from "../../search/InvoiceSearchTab";
+import InvoiceSearchCard from "../../search/cards/InvoiceSearchCard";
+import { useNavigate } from "react-router-dom";
 
 export const convertDateToString = (date: Date | null) => {
   if (!date) {
@@ -20,91 +16,46 @@ export const convertDateToString = (date: Date | null) => {
 };
 
 const ImportSearch = () => {
-  const [invoices, setInvoices] = useState<ImportSearchResponse[]>([]);
-  const [totalItems, setTotalItems] = useState<number>(0);
-  const [pageSize, setPageSize] = useState(5);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [providers, setProviders] = useState<ProviderGetResponse[]>([]);
-  const [selectedProvider, setSelectedProvider] =
-    useState<ProviderGetResponse | null>(null);
-  const [componentInfo, setComponentInfo] = useState<string | null>(null);
-  const fetchInvoices = useCallback(() => {
-    ImportService.findFiltered({
-      componentInfo: componentInfo,
-      date: convertDateToString(selectedDate),
-      id: selectedProvider ? selectedProvider.id : null,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-    }).then((response) => {
-      setInvoices(response.data.items);
-      setTotalItems(response.data.totalCount);
+  const handleFetchData = async (
+    page: number,
+    size: number,
+    searchText: string | null,
+    date: Date | null,
+    partnerId: string | null
+  ) => {
+    const res = await ImportService.findFiltered({
+      componentInfo: searchText,
+      date: convertDateToString(date),
+      id: partnerId,
+      pageNumber: page,
+      pageSize: size,
     });
-  }, [pageSize, pageNumber, selectedDate, selectedProvider, componentInfo]);
+    return { data: res.data.items, totalCount: res.data.totalCount };
+  };
+  const fetchPartners = async () => {
+    const res = await ProviderService.findAll();
+    return { data: res.data.providers };
+  };
 
-  const fetchProviders = () => {
-    ProviderService.findAll().then((response) => {
-      setProviders(response.data.providers);
-    });
-  };
-  useEffect(() => {
-    fetchProviders();
-  }, []);
-  useEffect(() => {
-    fetchInvoices();
-  }, [fetchInvoices]);
-  const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setPageNumber(1);
-  };
-  const handlePageNumberChange = (newPageNumber: number) => {
-    setPageNumber(newPageNumber);
-  };
-  const handleDateChange = (e: Date | null) => {
-    setSelectedDate(e);
-    setPageNumber(1);
-  };
-  const handleProviderChange = (p: ProviderGetResponse | null) => {
-    setSelectedProvider(p);
-    setPageNumber(1);
-  };
-  const handleInputChange = (text: string) => {
-    setComponentInfo(text.trim().length > 0 ? text.trim() : null);
-  };
+  const navigate = useNavigate();
+  const handleComponentPageSwitch = (id: string) =>
+    navigate("/component-info/" + id);
+
+  const cardPropsMapper = (item: ImportSearchResponse) => ({
+    id: item.id,
+    date: item.date,
+    partnerName: item.provider.name,
+    items: item.components,
+    handleRouting: handleComponentPageSwitch,
+  });
 
   return (
-    <div className="h-screen w-full p-8">
-      <div className="w-full pb-2 gap-4 flex flex-row justify-center items-end">
-        <SearchBox
-          onInput={handleInputChange}
-          placeholderText="Component info"
-        />
-        <DatePickerComponent onDateChange={handleDateChange} />
-        <Paginator
-          totalItems={totalItems}
-          onPageNumberChange={handlePageNumberChange}
-          onPageSizeChange={handlePageSizeChange}
-        />
-        <SelectProviderBox
-          emitProviderChange={handleProviderChange}
-          providers={providers}
-        />
-      </div>
-
-      <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {invoices.map((invoice: ImportSearchResponse) => {
-          return (
-            <ImportSearchCard
-              key={invoice.id}
-              id={invoice.id}
-              components={invoice.components}
-              date={invoice.date}
-              providerName={invoice.provider.name}
-            />
-          );
-        })}
-      </div>
-    </div>
+    <InvoiceSearchTab
+      CardComponent={InvoiceSearchCard}
+      fetchPartners={fetchPartners}
+      cardPropsMapper={cardPropsMapper}
+      fetchItems={handleFetchData}
+    />
   );
 };
 

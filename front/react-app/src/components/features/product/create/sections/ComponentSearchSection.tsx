@@ -5,7 +5,7 @@ import { MechanicalComponentService } from "../../../../../services/MechanicalCo
 import { ProviderService } from "../../../../../services/ProviderService";
 import Paginator from "../../../../common/inputs/Paginator";
 import SearchBox from "../../../../common/inputs/SearchBox";
-import SelectProviderBox from "../../../invoice/import/search/SelectProviderBox";
+import SelectBusinessPartnerBox from "../../../invoice/search/SelectPartnerSearchBox";
 import ComponentSearchSectionCard from "../cards/ComponentSearchSectionCard";
 
 interface ComponentSearchSectionProps {
@@ -68,10 +68,6 @@ const ComponentSearchSection = ({
           totalItems={totalItems}
           onPageSizeChange={handlePageSizeChange}
           onPageNumberChange={handlePageNumberChange}
-        />
-        <SelectProviderBox
-          emitProviderChange={handleProviderChange}
-          providers={providers}
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">

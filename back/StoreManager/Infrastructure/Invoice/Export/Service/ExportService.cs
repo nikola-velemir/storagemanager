@@ -4,6 +4,7 @@ using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Export.DTO;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Export.Repository;
+using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Service;
@@ -18,7 +19,7 @@ public class ExportService(IExportRepository repository, IExporterRepository exp
         }
 
         var exporterId = Guid.Parse(request.providerId);
-        var exporter = await exporterRepository.FindById((exporterId));
+        var exporter = await exporterRepository.FindById((exporterId)) ?? throw new NotFoundException("AA");
 
         var export = await repository.Create(new ExportModel
         {
@@ -33,13 +34,20 @@ public class ExportService(IExportRepository repository, IExporterRepository exp
         });
     }
 
-    public async Task<PaginatedResult<ExportSearchResponseDto>> FindFiltered(int pageNumber, int pageSize)
+    public async Task<PaginatedResult<ExportSearchResponseDto>> FindFiltered(string? ExporterId, string? ProductInfo, string? Date, int PageNumber, int PageSize)
     {
-        var result = await repository.FindFiltered(pageNumber, pageSize);
+        Guid? exporterId = null;
+        if (Guid.TryParse(ExporterId, out _))
+            exporterId = Guid.Parse(ExporterId);
+        DateOnly? date = null;
+        if(DateOnly.TryParse(Date, out _))
+            date = DateOnly.Parse(Date);
+        
+        var result = await repository.FindFiltered(exporterId,ProductInfo, date, PageNumber, PageSize);
         return new PaginatedResult<ExportSearchResponseDto>
         {
-            PageNumber = pageNumber,
-            PageSize = pageSize,
+            PageNumber = PageNumber,
+            PageSize = PageSize,
             Items = result.Items.Select(e =>
                 new ExportSearchResponseDto(
                     e.Id,
