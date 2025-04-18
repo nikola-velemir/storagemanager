@@ -2,12 +2,13 @@
 using StoreManager.Infrastructure.Document.Command;
 using StoreManager.Infrastructure.Document.DTO;
 using StoreManager.Infrastructure.Document.Repository;
+using StoreManager.Infrastructure.Invoice.Base.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Infrastructure.Document.Handler
 {
-    public class RequestDownloadHandler(IDocumentRepository documentRepository, IImportRepository importRepository)
+    public class RequestDownloadHandler(IDocumentRepository documentRepository, IInvoiceRepository importRepository)
         : IRequestHandler<RequestDownloadQuery, RequestDocumentDownloadResponseDto>
     {
         public async Task<RequestDocumentDownloadResponseDto> Handle(RequestDownloadQuery request, CancellationToken cancellationToken)
@@ -17,7 +18,7 @@ namespace StoreManager.Infrastructure.Document.Handler
             {
                 throw new InvalidCastException("Guid cannot be parsed");
             }
-            Guid invoiceGuid = Guid.Parse(request.InvoiceId);
+            var invoiceGuid = Guid.Parse(request.InvoiceId);
 
             var invoice = await importRepository.FindById(invoiceGuid);
             if (invoice is null)

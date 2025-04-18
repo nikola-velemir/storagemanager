@@ -35,7 +35,7 @@ public class CreateExportCommandHandler(
         var fileId = Guid.NewGuid();
         var productRows = await ConvertToProductRows(request.Products);
 
-        var document = await documentService.UploadExport(productRows, fileId.ToString());
+        var document = await documentService.UploadExport(productRows, fileId.ToString()+".pdf");
         var export = await exportRepository.Create(new ExportModel
         {
             Document = document,

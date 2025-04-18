@@ -1,4 +1,5 @@
 import api from "../infrastructure/Interceptor/Interceptor";
+import { ExportSearchProductResponse } from "../model/invoice/export/ExportSearchProductResponse";
 import { PaginatedResponse } from "../model/PaginatedResponse";
 import { ProductCreateRequest } from "../model/product/ProductCreateRequest";
 import { ProductFilterRequest } from "../model/product/ProductFilterRequest";
@@ -6,6 +7,11 @@ import { ProductInfoResponse } from "../model/product/ProductInfoResponse";
 import { ProductSearchResponse } from "../model/product/ProductSearchResponse";
 
 export class ProductService {
+  public static async findByInvoiceId(id: string) {
+    return api.get<{ products: ExportSearchProductResponse[] }>(
+      this.BASE_URL + "/find-by-invoice/" + id
+    );
+  }
   private static BASE_URL = "/products";
   public static async createProduct(request: ProductCreateRequest) {
     return api.post(this.BASE_URL, request);

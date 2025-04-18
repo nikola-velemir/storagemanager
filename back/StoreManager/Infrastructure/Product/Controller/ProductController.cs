@@ -33,4 +33,11 @@ public class ProductController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new FindProductInfoQuery(id));
         return Ok(result);
     }
+
+    [HttpGet("find-by-invoice/{invoiceId}")]
+    public async Task<IActionResult> FindProductByInvoice([FromRoute] string invoiceId)
+    {
+        var result = await mediator.Send(new FindProductByInvoiceIdQuery(invoiceId));
+        return Ok(result);
+    }
 }

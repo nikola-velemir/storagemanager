@@ -6,6 +6,9 @@ import { useState, useEffect, useCallback } from "react";
 import { DocumentService } from "../../../../../services/DocumentService";
 import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
 import { InvoiceService } from "../../../../../services/InvoiceService";
+import { ExportSearchProductResponse } from "../../../../../model/invoice/export/ExportSearchProductResponse";
+import { ProductService } from "../../../../../services/ProductService";
+import ExportSearchProductItem from "../../export/search/cards/ExportSearchProductItem";
 
 const ImportInfo = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,8 +16,10 @@ const ImportInfo = () => {
   const [components, setComponents] = useState<ImportSearchComponentResponse[]>(
     []
   );
+  const [products, setProducts] = useState<ExportSearchProductResponse[]>([]);
   const [documentSrc, setDocumentSrc] = useState<Blob | undefined>(undefined);
   const [fileType, setFileType] = useState("");
+  const [invoiceType, setInvoiceType] = useState("");
   const downloadDoc = useCallback(() => {
     setProgress(0);
     if (!id) return;
@@ -30,13 +35,42 @@ const ImportInfo = () => {
     if (!id || id.trim().length === 0) return;
     downloadDoc();
     InvoiceService.findInvoiceType(id).then((r) => {
+      setInvoiceType(r.data.type);
       if (r.data.type === "Import")
-        MechanicalComponentService.findByInvoiceId(id).then((response) => {
-          setComponents(response.data.responses);
-        });
+        MechanicalComponentService.findByInvoiceId(id).then((response) =>
+          setComponents(response.data.responses)
+        );
+      else
+        ProductService.findByInvoiceId(id).then((res) =>
+          setProducts(res.data.products)
+        );
     });
   }, [id, downloadDoc]);
 
+  const renderComponents = () => {
+    return components.map((component: ImportSearchComponentResponse) => (
+      <ImportSearchComponentItem
+        key={component.identifier}
+        id={component.id}
+        identifier={component.identifier}
+        name={component.name}
+        price={component.price}
+        quantity={component.quantity}
+      />
+    ));
+  };
+  const renderProducts = () => {
+    return products.map((product: ExportSearchProductResponse) => (
+      <ExportSearchProductItem
+        key={product.id}
+        id={product.id}
+        identifier={product.identifier}
+        name={product.name}
+        price={product.price}
+        quantity={product.quantity}
+      />
+    ));
+  };
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full h-5/6 overflow-auto">
@@ -48,18 +82,7 @@ const ImportInfo = () => {
           />
         </div>
         <div className="flex mx-8 flex-col h-5/6 overflow-y-scroll border-t-2 border-b-2 border-white items-center bg-gray-500">
-          {components.map((component: ImportSearchComponentResponse) => {
-            return (
-              <ImportSearchComponentItem
-                key={component.identifier}
-                id={component.id}
-                identifier={component.identifier}
-                name={component.name}
-                price={component.price}
-                quantity={component.quantity}
-              />
-            );
-          })}
+          {invoiceType === "Import" ? renderComponents() : renderProducts()}
         </div>
       </div>
     </div>

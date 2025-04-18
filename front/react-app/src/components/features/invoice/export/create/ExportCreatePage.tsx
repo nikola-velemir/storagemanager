@@ -21,7 +21,6 @@ const ExportCreatePage = () => {
   );
   const [selectedExporter, setSelectedExporter] =
     useState<null | FindExporterResponse>(null);
-  useEffect(() => console.log(addedProducts), [addedProducts]);
   const handleRemoveProduct = (tup: ProductSelectionTuple | null) => {
     if (!tup) return;
     const found = addedProducts.find((p) => p.id === tup.id);
@@ -29,7 +28,7 @@ const ExportCreatePage = () => {
     setAddedProducts(addedProducts.filter((p) => p.id !== found.id));
   };
   const handleEmitProducts = (tup: ProductSelectionTuple[]) => {
-    console.log(tup);
+    setAddedProducts(tup);
   };
   const handleAddProduct = (p: ProductSearchResponse | null) => {
     if (!p) return;
@@ -37,7 +36,6 @@ const ExportCreatePage = () => {
     if (found) return;
     setAddedProducts([...addedProducts, { ...p, price: 0.0, quantity: 0 }]);
   };
-  useEffect(() => console.log(addedProducts), [addedProducts]);
   const handleExporterChange = (item: FindExporterResponse | null) =>
     setSelectedExporter(item);
 

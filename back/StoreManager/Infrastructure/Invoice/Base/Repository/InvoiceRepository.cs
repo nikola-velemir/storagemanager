@@ -10,6 +10,6 @@ public class InvoiceRepository(WarehouseDbContext context) : IInvoiceRepository
 
     public Task<InvoiceModel?> FindById(Guid id)
     {
-        return _invoice.FirstOrDefaultAsync(i => i.Id.Equals(id));
+        return _invoice.Include(i=>i.Document).FirstOrDefaultAsync(i => i.Id.Equals(id));
     }
 }

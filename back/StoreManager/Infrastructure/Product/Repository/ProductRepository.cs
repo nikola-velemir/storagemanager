@@ -9,15 +9,14 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
 {
     private readonly DbSet<ProductModel> _products = context.Products;
 
-
     public Task<ProductModel?> FindById(Guid id)
     {
         return _products
-            .Include(p=>p.Exports)
-                .ThenInclude(ei=>ei.Export)
-                .ThenInclude(e=>e.Exporter)
-            .Include(p=>p.Components)
-                .ThenInclude(mc=>mc.Component)
+            .Include(p => p.Exports)
+            .ThenInclude(ei => ei.Export)
+            .ThenInclude(e => e.Exporter)
+            .Include(p => p.Components)
+            .ThenInclude(mc => mc.Component)
             .FirstOrDefaultAsync(p => p.Id.Equals(id));
     }
 
@@ -51,5 +50,14 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
         query = query.Skip(skip).Take(pageSize);
 
         return (await query.ToListAsync(), count);
+    }
+
+    public Task<List<ProductModel>> FindByInvoiceId(Guid invoiceId)
+    {
+        var products = _products
+            .Include(p => p.Exports)
+            .Where(p=>p.Exports
+                .Any(e=>e.ExportId.Equals(invoiceId)));
+        return products.ToListAsync();
     }
 }
