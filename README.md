@@ -39,12 +39,12 @@ Navigate to the backend project folder
 Restore dependencies:
 
 ```bash
-  [dotnet restore]
+  dotnet restore
 ```
 
 Run project
 ```bash
-  [dotnet run]
+  dotnet run
 ```
 2. *Frontend Setup (React):**
 
