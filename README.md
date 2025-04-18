@@ -31,4 +31,31 @@ To run the application locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/warehouse-management-system.git
+   [git clone https://github.com/](https://github.com/nikola-velemir/sretotest.git)
+2. **Backend Setup (.NET)**:
+
+Navigate to the backend project folder
+
+Restore dependencies:
+
+```bash
+  [dotnet restore]
+```
+
+Run project
+```bash
+  [dotnet run]
+```
+2. *Frontend Setup (React):**
+
+Navigate to the frontend folder
+
+Install dependencies:
+``` bash
+npm install
+```
+Run the development server:
+```bash
+npm start
+```
+  
