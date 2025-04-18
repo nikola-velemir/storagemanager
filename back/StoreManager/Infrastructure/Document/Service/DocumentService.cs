@@ -15,6 +15,7 @@ using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
+using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
@@ -131,30 +132,33 @@ namespace StoreManager.Infrastructure.Document.Service
             }
         }
 
-        public Task<byte[]> GeneratePdfFile(List<ProductRow> rows, string fileName)
+        private static void AddTitle(Section section)
         {
-            var doc = new MigraDoc.DocumentObjectModel.Document();
-            var section = doc.AddSection();
-
-            // Optional: Add title
-            var title = section.AddParagraph("Product Report");
-            title.Format.Font.Size = 16;
+            var title = section.AddParagraph("Export");
+            title.Format.Font.Size = 22;
             title.Format.Font.Bold = true;
             title.Format.SpaceAfter = "1cm";
+        }
 
+        private static void AddExporterSection(BusinessPartnerModel partner, Section section)
+        {
+            var exporterSection =
+                section.AddParagraph($"Exporter: \n{partner.Name}\n{partner.Address}\n{partner.PhoneNumber}");
+            exporterSection.Format.Font.Size = 12;
+            exporterSection.Format.SpaceAfter = "2cm";
+        }
+
+        private static Table AddTable(Section section)
+        {
             var table = section.AddTable();
             table.Borders.Width = 0.75;
             table.Borders.Color = Colors.Black;
             table.Rows.LeftIndent = 0;
+            return table;
+        }
 
-            // Define columns
-            var columns = new[] { "3cm", "6cm", "3cm", "3cm" };
-            foreach (var width in columns)
-            {
-                var col = table.AddColumn(width);
-                col.Format.Alignment = ParagraphAlignment.Left;
-            }
-
+        private static void AddTableHeaders(Table table)
+        {
             // Header row
             var headerRow = table.AddRow();
             headerRow.Shading.Color = Colors.LightGray;
@@ -165,9 +169,12 @@ namespace StoreManager.Infrastructure.Document.Service
             headerRow.Cells[0].AddParagraph("Name");
             headerRow.Cells[1].AddParagraph("Identifier");
             headerRow.Cells[2].AddParagraph("Quantity");
-            headerRow.Cells[3].AddParagraph("Price");
+            headerRow.Cells[3].AddParagraph("Price per piece");
 
-            // Data rows
+        }
+
+        private static void PopulateTable(List<ProductRow> rows, Table table)
+        {
             foreach (var row in rows)
             {
                 var r = table.AddRow();
@@ -178,8 +185,30 @@ namespace StoreManager.Infrastructure.Document.Service
                 r.Cells[2].AddParagraph(row.Quantity.ToString());
                 r.Cells[3].AddParagraph(row.Price.ToString("C"));
             }
+        }
+        public Task<byte[]> GeneratePdfFile(BusinessPartnerModel partner, DateOnly dateIssued, List<ProductRow> rows,
+            string fileName)
+        {
+            var doc = new MigraDoc.DocumentObjectModel.Document();
+            var section = doc.AddSection();
 
-            // Render PDF
+            // Optional: Add title
+            AddTitle(section);
+            AddExporterSection(partner, section);
+            var table = AddTable(section);
+
+
+            // Define columns
+            var columns = new[] { "3cm", "6cm", "3cm", "3cm" };
+            foreach (var width in columns)
+            {
+                var col = table.AddColumn(width);
+                col.Format.Alignment = ParagraphAlignment.Left;
+            }
+            
+            AddTableHeaders(table);
+            PopulateTable(rows, table);
+
             var renderer = new PdfDocumentRenderer(unicode: true)
             {
                 Document = doc
@@ -219,7 +248,7 @@ namespace StoreManager.Infrastructure.Document.Service
         private static Task<List<byte[]>> ConvertToChunks(byte[] file)
         {
             const double chunkSize = 0.5 * 1024 * 1024;
-            
+
             var chunks = new List<byte[]>();
             var offset = 0;
 
@@ -235,9 +264,10 @@ namespace StoreManager.Infrastructure.Document.Service
             return Task.FromResult(chunks);
         }
 
-        public async Task<DocumentModel> UploadExport(List<ProductRow> rows, string fileName)
+        public async Task<DocumentModel> UploadExport(BusinessPartnerModel partner, DateOnly dateIssued,
+            List<ProductRow> rows, string fileName)
         {
-            var file = await GeneratePdfFile(rows, fileName);
+            var file = await GeneratePdfFile(partner, dateIssued, rows, fileName);
             var chunks = await ConvertToChunks(file);
 
             var fileChunks = ConvertToFormFiles(chunks, fileName);
