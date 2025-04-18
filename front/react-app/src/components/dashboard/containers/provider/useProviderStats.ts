@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ProviderService } from "../../../../services/ProviderService";
 import { animate } from "framer-motion";
 import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
 import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
+import { ProviderService } from "../../../../services/businessPartner/ProviderService";
 
 export const useProviderStats = () => {
   const [count, setCount] = useState(0);

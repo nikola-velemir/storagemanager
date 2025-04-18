@@ -1,8 +1,8 @@
-import api from "../infrastructure/Interceptor/Interceptor";
-import { ExporterCreateRequest } from "../model/exporter/ExporterCreateRequest";
-import { ExporterSearchResponse } from "../model/exporter/ExporterSearchResponse";
-import { FindExporterResponses } from "../model/exporter/FindExporterResponses";
-import { PaginatedResponse } from "../model/PaginatedResponse";
+import api from "../../infrastructure/Interceptor/Interceptor";
+import { ExporterCreateRequest } from "../../model/exporter/ExporterCreateRequest";
+import { ExporterSearchResponse } from "../../model/exporter/ExporterSearchResponse";
+import { FindExporterResponses } from "../../model/exporter/FindExporterResponses";
+import { PaginatedResponse } from "../../model/PaginatedResponse";
 
 interface ExporterFilterRequest {
   exporterInfo: string | null;

@@ -12,7 +12,14 @@ public class ExportSearchQueryHandler(IExportRepository repository)
     public async Task<PaginatedResult<ExportSearchResponseDto>> Handle(ExportSearchQuery request,
         CancellationToken cancellationToken)
     {
-        var result = await repository.FindFiltered(request.PageNumber, request.PageSize);
+        Guid? exporterId = null;
+        if (Guid.TryParse(request.ExporterId, out _))
+            exporterId = Guid.Parse(request.ExporterId);
+        DateOnly? date = null;
+        if(DateOnly.TryParse(request.Date, out _))
+            date = DateOnly.Parse(request.Date);
+        
+        var result = await repository.FindFiltered(exporterId,request.ProductInfo, date, request.PageNumber, request.PageSize);
         return new PaginatedResult<ExportSearchResponseDto>
         {
             PageNumber = request.PageNumber,

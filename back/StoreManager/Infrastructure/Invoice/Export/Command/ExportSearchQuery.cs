@@ -4,4 +4,4 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Command;
 
-public record ExportSearchQuery(int PageNumber, int PageSize) : IRequest<PaginatedResult<ExportSearchResponseDto>>;
+public record ExportSearchQuery(string? ExporterId, string? ProductInfo, string? Date, int PageNumber, int PageSize) : IRequest<PaginatedResult<ExportSearchResponseDto>>;

@@ -7,13 +7,15 @@ using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using System.Text.RegularExpressions;
-using PdfSharp.Drawing;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
+using MigraDoc.Rendering;
 using PdfSharp.Pdf;
-using StoreManager.Infrastructure.BusinessPartner.Base;
 using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
+using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
@@ -130,63 +132,95 @@ namespace StoreManager.Infrastructure.Document.Service
             }
         }
 
-        public async Task<byte[]> GeneratePdfFile(List<ProductRow> rows, string fileName)
+        private static void AddTitle(Section section)
         {
-            using var stream = new MemoryStream();
-            var document = new PdfDocument();
-            var page = document.AddPage();
-            var gfx = XGraphics.FromPdfPage(page);
-            var headerFont = new XFont("Helvetica#", 14, XFontStyleEx.Bold);
-            var textFont = new XFont("Helvetica#", 12, XFontStyleEx.Regular);
+            var title = section.AddParagraph("Export");
+            title.Format.Font.Size = 22;
+            title.Format.Font.Bold = true;
+            title.Format.SpaceAfter = "1cm";
+        }
 
+        private static void AddExporterSection(BusinessPartnerModel partner, Section section)
+        {
+            var exporterSection =
+                section.AddParagraph($"Exporter: \n{partner.Name}\n{partner.Address}\n{partner.PhoneNumber}");
+            exporterSection.Format.Font.Size = 12;
+            exporterSection.Format.SpaceAfter = "2cm";
+        }
 
-            const double margin = 40;
-            const double tableTop = 80;
-            const double rowHeight = 25;
-            string[] headers = { "Name", "Identifier", "Quantity", "Price", };
-            double[] colWidths = { 60, 200, 80, 60 };
+        private static Table AddTable(Section section)
+        {
+            var table = section.AddTable();
+            table.Borders.Width = 0.75;
+            table.Borders.Color = Colors.Black;
+            table.Rows.LeftIndent = 0;
+            return table;
+        }
 
-            double x = margin;
-            double y = tableTop;
+        private static void AddTableHeaders(Table table)
+        {
+            // Header row
+            var headerRow = table.AddRow();
+            headerRow.Shading.Color = Colors.LightGray;
+            headerRow.Format.Font.Bold = true;
+            headerRow.Format.Alignment = ParagraphAlignment.Center;
+            headerRow.VerticalAlignment = VerticalAlignment.Center;
 
-            for (int i = 0; i < headers.Length; i++)
-            {
-                gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, x, y, colWidths[i], rowHeight);
-                gfx.DrawString(headers[i], textFont, XBrushes.Black,
-                    new XRect(x, y, colWidths[i], rowHeight), XStringFormats.Center);
-                x += colWidths[i];
-            }
+            headerRow.Cells[0].AddParagraph("Name");
+            headerRow.Cells[1].AddParagraph("Identifier");
+            headerRow.Cells[2].AddParagraph("Quantity");
+            headerRow.Cells[3].AddParagraph("Price per piece");
 
-            y += rowHeight;
+        }
 
+        private static void PopulateTable(List<ProductRow> rows, Table table)
+        {
             foreach (var row in rows)
             {
-                x = margin;
+                var r = table.AddRow();
+                r.VerticalAlignment = VerticalAlignment.Center;
 
-                string[] values =
-                {
-                    row.Name,
-                    row.Identifier,
-                    row.Quantity.ToString(),
-                    row.Price.ToString("C"),
-                };
-
-                for (int i = 0; i < values.Length; i++)
-                {
-                    gfx.DrawRectangle(XPens.Black, x, y, colWidths[i], rowHeight);
-                    gfx.DrawString(values[i], textFont, XBrushes.Black,
-                        new XRect(x + 2, y + 2, colWidths[i] - 4, rowHeight - 4), XStringFormats.TopLeft);
-                    x += colWidths[i];
-                }
-
-                y += rowHeight;
+                r.Cells[0].AddParagraph(row.Name);
+                r.Cells[1].AddParagraph(row.Identifier);
+                r.Cells[2].AddParagraph(row.Quantity.ToString());
+                r.Cells[3].AddParagraph(row.Price.ToString("C"));
             }
+        }
+        public Task<byte[]> GeneratePdfFile(BusinessPartnerModel partner, DateOnly dateIssued, List<ProductRow> rows,
+            string fileName)
+        {
+            var doc = new MigraDoc.DocumentObjectModel.Document();
+            var section = doc.AddSection();
 
-            // Save PDF to memory stream
-            document.Save(stream, false);
+            // Optional: Add title
+            AddTitle(section);
+            AddExporterSection(partner, section);
+            var table = AddTable(section);
+
+
+            // Define columns
+            var columns = new[] { "3cm", "6cm", "3cm", "3cm" };
+            foreach (var width in columns)
+            {
+                var col = table.AddColumn(width);
+                col.Format.Alignment = ParagraphAlignment.Left;
+            }
+            
+            AddTableHeaders(table);
+            PopulateTable(rows, table);
+
+            var renderer = new PdfDocumentRenderer(unicode: true)
+            {
+                Document = doc
+            };
+
+            renderer.RenderDocument();
+
+            using var stream = new MemoryStream();
+            renderer.PdfDocument.Save(stream, false);
             stream.Position = 0;
 
-            return stream.ToArray();
+            return Task.FromResult(stream.ToArray());
         }
 
         private static List<IFormFile> ConvertToFormFiles(List<byte[]> chunks, string originalFileName)
@@ -211,10 +245,10 @@ namespace StoreManager.Infrastructure.Document.Service
             return formFiles;
         }
 
-        private static async Task<List<byte[]>> ConvertToChunks(byte[] file)
+        private static Task<List<byte[]>> ConvertToChunks(byte[] file)
         {
             const double chunkSize = 0.5 * 1024 * 1024;
-            
+
             var chunks = new List<byte[]>();
             var offset = 0;
 
@@ -227,12 +261,13 @@ namespace StoreManager.Infrastructure.Document.Service
                 offset += size;
             }
 
-            return chunks;
+            return Task.FromResult(chunks);
         }
 
-        public async Task<DocumentModel> UploadExport(List<ProductRow> rows, string fileName)
+        public async Task<DocumentModel> UploadExport(BusinessPartnerModel partner, DateOnly dateIssued,
+            List<ProductRow> rows, string fileName)
         {
-            var file = await GeneratePdfFile(rows, fileName);
+            var file = await GeneratePdfFile(partner, dateIssued, rows, fileName);
             var chunks = await ConvertToChunks(file);
 
             var fileChunks = ConvertToFormFiles(chunks, fileName);
@@ -245,8 +280,6 @@ namespace StoreManager.Infrastructure.Document.Service
             }
 
             return doc;
-
-            //todo nastavi, treba uploadovati chunkove, spojiti sa providerom, documentom, exportom
         }
     }
 }

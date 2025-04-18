@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ImportSearch from "./import/search/ImportSearch";
-import ExportSearch from "./export/search/ExportSearch";
+import ImportSearch from "../import/search/ImportSearch";
+import ExportSearch from "../export/search/ExportSearch";
 
 enum TabState {
   IMPORTS,

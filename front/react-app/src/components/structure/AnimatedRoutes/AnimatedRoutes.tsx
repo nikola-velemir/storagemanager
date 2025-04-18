@@ -19,6 +19,7 @@ import ExportCreatePage from "../../features/invoice/export/create/ExportCreateP
 import ImportInfo from "../../features/invoice/import/info/ImportInfo";
 import InvoiceUpload from "../../features/invoice/import/upload/InvoiceUpload";
 import BusinessPartnersSearch from "../../features/businessPartners/search/BusinessPartnersSearch";
+import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -56,7 +57,7 @@ const AnimatedRoutes = () => {
               path="/invoice-search"
               element={
                 <ContentContainer>
-                  <ImportSearch />
+                  <InvoiceSearch />
                 </ContentContainer>
               }
             />

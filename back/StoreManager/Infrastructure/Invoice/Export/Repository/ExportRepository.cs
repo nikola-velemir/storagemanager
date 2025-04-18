@@ -22,15 +22,28 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFiltered(int pageNumber, int pageSize)
+    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFiltered(Guid? exporterId,
+        string? productInfo, DateOnly? date, int pageNumber, int pageSize)
     {
         var query = _exports
-            .Include(e=>e.Document)
-            .Include(e=>e.Exporter)
-            .Include(e=>e.Items)
-            .ThenInclude(i=>i.Product)
+            .Include(e => e.Document)
+            .Include(e => e.Exporter)
+            .Include(e => e.Items)
+            .ThenInclude(i => i.Product)
             .AsQueryable();
-        
+
+        if (exporterId.HasValue)
+            query = query.Where(e => e.ExporterId.Equals(exporterId.Value));
+
+        if (!string.IsNullOrEmpty(productInfo))
+            query =
+                query.Where(e => e.Items.Any(ii =>
+                    ii.Product.Description.ToLower().Contains(productInfo.ToLower()) ||
+                    ii.Product.Name.ToLower().Contains(productInfo.ToLower())));
+
+        if (date.HasValue)
+            query = query.Where(e => e.DateIssued.Equals(date));
+
         var skip = (pageNumber - 1) * pageSize;
         var items = await query.Skip(skip).Take(pageSize).ToListAsync();
         return (items, items.Count);

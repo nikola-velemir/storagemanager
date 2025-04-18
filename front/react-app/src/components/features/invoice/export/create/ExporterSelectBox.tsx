@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { FindExporterResponse } from "../../../../../model/exporter/FindExporterResponse";
-import { ExporterService } from "../../../../../services/ExporterService";
 import SelectBox from "../../../../common/inputs/SelectBox";
+import { ExporterService } from "../../../../../services/businessPartner/ExporterService";
 
 interface ExporterSelectBoxProps {
   emitExporterChange: (item: FindExporterResponse | null) => void;

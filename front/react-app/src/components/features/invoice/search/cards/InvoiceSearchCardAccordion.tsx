@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { ImportSearchComponentResponse } from "../../../../../../model/invoice/import/ImportSearchComponentResponse";
-import ImportSearchComponentItem from "./ImportSearchComponentItem";
+import InvoiceSearchComponentItem from "./InvoiceSearchComponentItem";
+import { useNavigate } from "react-router-dom";
 
-export interface ImportSearchCardAccordionProps {
-  components: ImportSearchComponentResponse[];
+export interface InvoiceSearchCardAccordionProps<T> {
+  items: T[];
+  handleRouting: (id: string) => void;
 }
 
-const ImportSearchCardAccordion = ({
-  components,
-}: ImportSearchCardAccordionProps) => {
+export interface InvoiceLike {
+  id: string;
+  name: string;
+  identifier: string;
+  price: number;
+  quantity: number;
+}
+
+const InvoiceSearchCardAccordion = <T extends InvoiceLike>({
+  items,
+  handleRouting,
+}: InvoiceSearchCardAccordionProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -50,15 +60,16 @@ const ImportSearchCardAccordion = ({
         } w-full flex justify-center items-center flex-col`}
         aria-labelledby="accordion-collapse-heading-1"
       >
-        {components.map((component: ImportSearchComponentResponse) => {
+        {items.map((item: T) => {
           return (
-            <ImportSearchComponentItem
-              id={component.id}
-              name={component.name}
-              identifier={component.identifier}
-              price={component.price}
-              quantity={component.quantity}
-              key={component.identifier}
+            <InvoiceSearchComponentItem
+              handleRouting={handleRouting}
+              id={item.id}
+              identifier={item.identifier}
+              name={item.name}
+              price={item.price}
+              quantity={item.quantity}
+              key={item.id}
             />
           );
         })}
@@ -67,4 +78,4 @@ const ImportSearchCardAccordion = ({
   );
 };
 
-export default ImportSearchCardAccordion;
+export default InvoiceSearchCardAccordion;

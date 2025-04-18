@@ -5,7 +5,7 @@ import ImportSearchComponentItem from "../search/cards/ImportSearchComponentItem
 import { useState, useEffect, useCallback } from "react";
 import { DocumentService } from "../../../../../services/DocumentService";
 import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
-import { InvoiceService } from "../../../../../services/InvoiceService";
+import { InvoiceService } from "../../../../../services/invoice/InvoiceService";
 import { ExportSearchProductResponse } from "../../../../../model/invoice/export/ExportSearchProductResponse";
 import { ProductService } from "../../../../../services/ProductService";
 import ExportSearchProductItem from "../../export/search/cards/ExportSearchProductItem";

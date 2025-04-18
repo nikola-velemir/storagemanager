@@ -35,13 +35,15 @@ public class CreateExportCommandHandler(
         var fileId = Guid.NewGuid();
         var productRows = await ConvertToProductRows(request.Products);
 
-        var document = await documentService.UploadExport(productRows, fileId.ToString()+".pdf");
+        var dateIssued = DateOnly.FromDateTime(DateTime.UtcNow);
+        
+        var document = await documentService.UploadExport(exporter,dateIssued,productRows, fileId.ToString()+".pdf");
         var export = await exportRepository.Create(new ExportModel
         {
             Document = document,
             Exporter = exporter,
             Id = exportId,
-            DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
+            DateIssued = dateIssued,
             DocumentId = document.Id,
             ExporterId = exporter.Id,
             Type = InvoiceType.Export

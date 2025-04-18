@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProviderProfileResponse } from "../../../../../model/provider/ProviderProfileResponse";
-import { ProviderService } from "../../../../../services/ProviderService";
 import ProviderContentTabs from "./ProviderContentTabs";
+import { ProviderService } from "../../../../../services/businessPartner/ProviderService";
 
 const ProviderProfile = () => {
   const { id } = useParams<{ id: string }>();

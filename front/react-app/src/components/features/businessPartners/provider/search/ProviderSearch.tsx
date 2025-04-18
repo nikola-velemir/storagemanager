@@ -1,8 +1,8 @@
-import { ProviderService } from "../../../../../services/ProviderService";
 import { ProviderSearchResponse } from "../../../../../model/provider/ProviderSearchResponse";
 import BusinessPartnetsSearchTab from "../../search/containers/BusinessPartnetsSearchTab";
 import BusinessPartnerCard from "../../search/cards/BusinessPartnerCard";
 import { useNavigate } from "react-router-dom";
+import { ProviderService } from "../../../../../services/businessPartner/ProviderService";
 
 const ProviderSearch = () => {
   const navigate = useNavigate();

@@ -1,9 +1,12 @@
-import api from "../infrastructure/Interceptor/Interceptor";
-import { CreateExportRequest } from "../model/invoice/export/CreateExportRequest";
-import { ExportSearchResponse } from "../model/invoice/export/ExportSearchResponse";
-import { PaginatedResponse } from "../model/PaginatedResponse";
+import api from "../../infrastructure/Interceptor/Interceptor";
+import { CreateExportRequest } from "../../model/invoice/export/CreateExportRequest";
+import { ExportSearchResponse } from "../../model/invoice/export/ExportSearchResponse";
+import { PaginatedResponse } from "../../model/PaginatedResponse";
 
 interface FilterExportsRequest {
+  productInfo: string | null;
+  date: string | null;
+  exporterId: string | null;
   pageNumber: number;
   pageSize: number;
 }
@@ -18,6 +21,9 @@ export class ExportService {
       this.BASE_URL + "/filtered",
       {
         params: {
+          date: request.date,
+          exporterId: request.exporterId,
+          productInfo: request.productInfo,
           pageNumber: request.pageNumber,
           pageSize: request.pageSize,
         },
