@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   InventoryValueByDay,
   ImportService,
-} from "../../../../services/ImportService";
+} from "../../../../services/invoice/ImportService";
 import { animate } from "framer-motion";
 
 export const useInventoryStats = () => {

@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { ExporterService } from "../../../../../services/ExporterService";
 import { validateField } from "./ExporterCreateValidators";
+import { ExporterService } from "../../../../../services/businessPartner/ExporterService";
 
 interface ExportCreateFormData {
   exporterName: string;
@@ -25,9 +25,6 @@ const ExporterCreatePage = () => {
     exporterNameError: "",
     exporterPhoneNumberError: "",
   });
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
   const handleCreateClick = () => {
     if (!validateAllFields()) {
       toast.error("Some fields are invalid!");

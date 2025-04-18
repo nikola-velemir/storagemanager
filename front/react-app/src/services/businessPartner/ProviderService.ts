@@ -1,10 +1,10 @@
-import api from "../infrastructure/Interceptor/Interceptor";
-import { PaginatedResponse } from "../model/PaginatedResponse";
-import { ProviderComponentInvolvementResponses } from "../model/provider/ProviderComponentInvolvementResponses";
-import { ProviderGetResponses } from "../model/provider/ProviderGetResponses";
-import { ProviderImportInvolvementResponses } from "../model/provider/ProviderImportInvolvementResponses";
-import { ProviderProfileResponse } from "../model/provider/ProviderProfileResponse";
-import { ProviderSearchResponse } from "../model/provider/ProviderSearchResponse";
+import api from "../../infrastructure/Interceptor/Interceptor";
+import { PaginatedResponse } from "../../model/PaginatedResponse";
+import { ProviderComponentInvolvementResponses } from "../../model/provider/ProviderComponentInvolvementResponses";
+import { ProviderGetResponses } from "../../model/provider/ProviderGetResponses";
+import { ProviderImportInvolvementResponses } from "../../model/provider/ProviderImportInvolvementResponses";
+import { ProviderProfileResponse } from "../../model/provider/ProviderProfileResponse";
+import { ProviderSearchResponse } from "../../model/provider/ProviderSearchResponse";
 
 interface ProviderFilterRequest {
   pageNumber: number;

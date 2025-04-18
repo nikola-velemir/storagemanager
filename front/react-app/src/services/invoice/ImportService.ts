@@ -1,7 +1,7 @@
-import api from "../infrastructure/Interceptor/Interceptor";
-import { ImportCountThisWeekResponse } from "../model/invoice/import/ImportFindCountsForWeekResponseDTO";
-import { ImportSearchResponse } from "../model/invoice/import/ImportSearchResponse";
-import { PaginatedResponse } from "../model/PaginatedResponse";
+import api from "../../infrastructure/Interceptor/Interceptor";
+import { ImportCountThisWeekResponse } from "../../model/invoice/import/ImportFindCountsForWeekResponseDTO";
+import { ImportSearchResponse } from "../../model/invoice/import/ImportSearchResponse";
+import { PaginatedResponse } from "../../model/PaginatedResponse";
 
 export interface ImportFilterRequest {
   componentInfo: string | null;

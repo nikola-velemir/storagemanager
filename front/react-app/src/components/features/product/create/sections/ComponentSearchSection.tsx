@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { MechanicalComponentSearchResponse } from "../../../../../model/components/search/MechanicalComponentSearchResponse";
 import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
 import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
-import { ProviderService } from "../../../../../services/ProviderService";
 import Paginator from "../../../../common/inputs/Paginator";
 import SearchBox from "../../../../common/inputs/SearchBox";
-import SelectBusinessPartnerBox from "../../../invoice/search/SelectPartnerSearchBox";
 import ComponentSearchSectionCard from "../cards/ComponentSearchSectionCard";
+import { ProviderService } from "../../../../../services/businessPartner/ProviderService";
+import SelectBusinessPartnerBox from "../../../invoice/search/SelectPartnerSearchBox";
 
 interface ComponentSearchSectionProps {
   emitComponent: (component: MechanicalComponentSearchResponse | null) => void;
@@ -15,6 +15,10 @@ interface ComponentSearchSectionProps {
 const ComponentSearchSection = ({
   emitComponent,
 }: ComponentSearchSectionProps) => {
+  const fetchProviders = async () => {
+    const res = await ProviderService.findAll();
+    return { data: res.data.providers };
+  };
   const handleComponentButtonClick = (id: string) => {
     const foundComponent = components.find((i) => i.id === id);
 
@@ -25,7 +29,6 @@ const ComponentSearchSection = ({
   >([]);
   const [selectedProvider, setSelectedProvider] =
     useState<ProviderGetResponse | null>(null);
-  const [providers, setProviders] = useState<ProviderGetResponse[]>([]);
   const [totalItems, setTotalItems] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -39,9 +42,6 @@ const ComponentSearchSection = ({
     }).then((response) => {
       setComponents(response.data.items);
       setTotalItems(response.data.totalCount);
-    });
-    ProviderService.findAll().then((response) => {
-      setProviders(response.data.providers);
     });
   }, [pageNumber, pageSize, selectedProvider, searchText]);
   const handlePageSizeChange = (n: number) => {
@@ -68,6 +68,10 @@ const ComponentSearchSection = ({
           totalItems={totalItems}
           onPageSizeChange={handlePageSizeChange}
           onPageNumberChange={handlePageNumberChange}
+        />
+        <SelectBusinessPartnerBox
+          emitPartnerChange={handleProviderChange}
+          onFetchPartners={fetchProviders}
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">

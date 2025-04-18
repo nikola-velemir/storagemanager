@@ -1,8 +1,8 @@
-import { ExporterService } from "../../../../../services/ExporterService";
 import { ExporterSearchResponse } from "../../../../../model/exporter/ExporterSearchResponse";
 import BusinessPartnetsSearchTab from "../../search/containers/BusinessPartnetsSearchTab";
 import BusinessPartnerCard from "../../search/cards/BusinessPartnerCard";
 import { useNavigate } from "react-router-dom";
+import { ExporterService } from "../../../../../services/businessPartner/ExporterService";
 
 const ExporterSearch = () => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import api from "../infrastructure/Interceptor/Interceptor";
+import api from "../../infrastructure/Interceptor/Interceptor";
 
 interface InvoiceTypeResponse {
   type: string;

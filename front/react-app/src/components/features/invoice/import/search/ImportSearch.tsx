@@ -1,6 +1,6 @@
 import { ImportSearchResponse } from "../../../../../model/invoice/import/ImportSearchResponse";
-import { ImportService } from "../../../../../services/ImportService";
-import { ProviderService } from "../../../../../services/ProviderService";
+import { ProviderService } from "../../../../../services/businessPartner/ProviderService";
+import { ImportService } from "../../../../../services/invoice/ImportService";
 import InvoiceSearchTab from "../../search/InvoiceSearchTab";
 import InvoiceSearchCard from "../../search/cards/InvoiceSearchCard";
 import { useNavigate } from "react-router-dom";

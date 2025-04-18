@@ -1,7 +1,7 @@
-import api from "../infrastructure/Interceptor/Interceptor";
-import { CreateExportRequest } from "../model/invoice/export/CreateExportRequest";
-import { ExportSearchResponse } from "../model/invoice/export/ExportSearchResponse";
-import { PaginatedResponse } from "../model/PaginatedResponse";
+import api from "../../infrastructure/Interceptor/Interceptor";
+import { CreateExportRequest } from "../../model/invoice/export/CreateExportRequest";
+import { ExportSearchResponse } from "../../model/invoice/export/ExportSearchResponse";
+import { PaginatedResponse } from "../../model/PaginatedResponse";
 
 interface FilterExportsRequest {
   productInfo: string | null;
