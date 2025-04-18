@@ -2,28 +2,25 @@
 
 ## Overview
 
-The **Warehouse Management System** is a modern web application designed to efficiently manage and streamline warehouse operations. Built using **.NET** on the backend and **React** on the frontend, the system offers a comprehensive suite of features to monitor and control all aspects of warehouse logistics.
+The **Warehouse Management System** is a modern web application designed to efficiently manage and streamline warehouse operations. Built using **.NET** as backend and **React** as frontend, the system offers a suite of features to monitor aspects of warehouse logistics.
 
 ## Features
 
 - 📊 **Statistics Tracking**  
-  Gain insight into key warehouse metrics including inventory levels, turnover rates, import/export volumes, and product movement trends.
+  View key warehouse metrics including inventory levels, import/export, and products.
 
 - 📦 **Import & Export Management**  
-  Log, monitor, and manage all incoming and outgoing shipments. Maintain detailed records of every import/export transaction.
+  Log, monitor, and view incoming and outgoing shipments.
 
 - 🛠️ **Mechanical Component Tracking**  
-  Keep tabs on all mechanical components within the warehouse – from availability and location to condition and usage.
-
-- 🛍️ **Product Inventory Management**  
-  Track products with precision. Organize inventory by categories, monitor stock levels, and automate restocking workflows.
-
+  Keep track of mechanical components within the warehouse.
+  
 ## Tech Stack
 
 - **Backend:** .NET (C#)
 - **Frontend:** React
-- **Database:** (Specify your DB here, e.g., SQL Server, PostgreSQL, etc.)
-- **API Architecture:** RESTful API or (GraphQL, if applicable)
+- **Database:** (PostgreSql)
+- **API Architecture:** REST
 
 ## Getting Started
 
