@@ -21,7 +21,7 @@ const ExporterCardAccordion = ({ exps }: ExporterCardAccordionProps) => {
           aria-controls="accordion-collapse-body-1"
           onClick={toggleOpen}
         >
-          <span>Imports</span>
+          <span>Exports</span>
           <svg
             data-accordion-icon
             className="w-3 h-3 rotate-180 shrink-0"

@@ -5,7 +5,7 @@ interface ExporterCardProps {
   name: string;
   phoneNumber: string;
   address: string;
-  exps: ExporterSearchExportResponse[];
+  items: ExporterSearchExportResponse[];
 }
 
 const ExporterCard = ({
@@ -13,7 +13,7 @@ const ExporterCard = ({
   name,
   phoneNumber,
   address,
-  exps,
+  items,
 }: ExporterCardProps) => {
   const handleMoreInfoClick = () => {};
 
@@ -69,7 +69,7 @@ const ExporterCard = ({
           More info
         </button>
       </div>
-      <ExporterCardAccordion exps={exps} />
+      <ExporterCardAccordion exps={items} />
     </div>
   );
 };
