@@ -1,63 +1,38 @@
-import { useState, useEffect } from "react";
-import Paginator from "../../../../common/inputs/Paginator";
-import SearchBox from "../../../../common/inputs/SearchBox";
-import ExporterCard from "./card/ExporterCard";
 import { ExporterService } from "../../../../../services/ExporterService";
 import { ExporterSearchResponse } from "../../../../../model/exporter/ExporterSearchResponse";
-import { toast } from "react-toastify";
+import BusinessPartnetsSearchTab from "../../search/containers/BusinessPartnetsSearchTab";
+import BusinessPartnerCard from "../../search/cards/BusinessPartnerCard";
+import { useNavigate } from "react-router-dom";
 
 const ExporterSearch = () => {
-  const [exporters, setExporters] = useState<ExporterSearchResponse[]>([]);
-  const [searchText, setSearchText] = useState<string | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  useEffect(() => {
-    ExporterService.findFiltered({
+  const navigate = useNavigate();
+  const handleFetchData = async (
+    searchText: string | null,
+    page: number,
+    size: number
+  ) => {
+    const res = await ExporterService.findFiltered({
       exporterInfo: searchText,
-      pageNumber: pageNumber,
-      pageSize: pageSize,
-    })
-      .then((res) => setExporters(res.data.items))
-      .catch(() => toast.error("Failed to fetch exporters"));
-  }, [searchText, pageNumber, pageSize]);
-  const handlePageSizeChange = (n: number) => {
-    setPageSize(n);
+      pageNumber: page,
+      pageSize: size,
+    });
+    return { items: res.data.items, totalItems: res.data.totalCount };
   };
-  const handlePageNumberChange = (n: number) => {
-    setPageNumber(n);
-  };
-  const handleSearchTextChange = (text: string) => {
-    if (text.trim().length > 0) setSearchText(text.trim());
-    else setSearchText(null);
-  };
+  const cardPropsMapper = (item: ExporterSearchResponse) => ({
+    id: item.id,
+    name: item.name,
+    address: item.address,
+    phoneNumber: item.phoneNumber,
+    items: item.exports,
+    handleMoreInfoClick: () => navigate("/exporter-info/" + item.id),
+  });
   return (
-    <div className="h-screen w-full p-8">
-      <div className="w-full flex flex-row items-end gap-4">
-        <SearchBox
-          onInput={handleSearchTextChange}
-          placeholderText={"Provider info"}
-        />
-        <Paginator
-          totalItems={15}
-          onPageSizeChange={handlePageSizeChange}
-          onPageNumberChange={handlePageNumberChange}
-        />
-      </div>
-      <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {exporters.map((provider: ExporterSearchResponse) => {
-          return (
-            <ExporterCard
-              key={provider.id}
-              exps={provider.exports}
-              address={provider.address}
-              id={provider.id}
-              name={provider.name}
-              phoneNumber={provider.phoneNumber}
-            />
-          );
-        })}
-      </div>
-    </div>
+    <BusinessPartnetsSearchTab
+      searchPlaceHolder="Exporter info"
+      CardComponent={BusinessPartnerCard}
+      cardPropsMapper={cardPropsMapper}
+      onFetchData={handleFetchData}
+    />
   );
 };
 

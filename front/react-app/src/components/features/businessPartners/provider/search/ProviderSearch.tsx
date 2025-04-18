@@ -1,62 +1,38 @@
-import { useEffect, useState } from "react";
-import Paginator from "../../../../common/inputs/Paginator";
-import SearchBox from "../../../../common/inputs/SearchBox";
 import { ProviderService } from "../../../../../services/ProviderService";
 import { ProviderSearchResponse } from "../../../../../model/provider/ProviderSearchResponse";
-import ProviderCard from "./cards/ProviderCard";
+import BusinessPartnetsSearchTab from "../../search/containers/BusinessPartnetsSearchTab";
+import BusinessPartnerCard from "../../search/cards/BusinessPartnerCard";
+import { useNavigate } from "react-router-dom";
 
 const ProviderSearch = () => {
-  const [providers, setProviders] = useState<ProviderSearchResponse[]>([]);
-  const [searchText, setSearchText] = useState<string | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  useEffect(() => {
-    ProviderService.findFiltered({
-      pageNumber: pageNumber,
-      pageSize: pageSize,
+  const navigate = useNavigate();
+  const handleFetchData = async (
+    searchText: string | null,
+    page: number,
+    size: number
+  ) => {
+    const res = await ProviderService.findFiltered({
       providerName: searchText,
-    }).then((response) => {
-      setProviders(response.data.items);
+      pageNumber: page,
+      pageSize: size,
     });
-  }, [searchText, pageNumber, pageSize]);
-  const handlePageSizeChange = (n: number) => {
-    setPageSize(n);
+    return { items: res.data.items, totalItems: res.data.totalCount };
   };
-  const handlePageNumberChange = (n: number) => {
-    setPageNumber(n);
-  };
-  const handleSearchTextChange = (text: string) => {
-    if (text.trim().length > 0) setSearchText(text.trim());
-    else setSearchText(null);
-  };
+  const cardPropsMapper = (item: ProviderSearchResponse) => ({
+    id: item.id,
+    name: item.name,
+    address: item.address,
+    phoneNumber: item.phoneNumber,
+    items: item.invoices,
+    handleMoreInfoClick: () => navigate("/exporter-info/" + item.id),
+  });
   return (
-    <div className="h-screen w-full p-8">
-      <div className="w-full flex flex-row items-end gap-4">
-        <SearchBox
-          onInput={handleSearchTextChange}
-          placeholderText={"Provider info"}
-        />
-        <Paginator
-          totalItems={15}
-          onPageSizeChange={handlePageSizeChange}
-          onPageNumberChange={handlePageNumberChange}
-        />
-      </div>
-      <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {providers.map((provider: ProviderSearchResponse) => {
-          return (
-            <ProviderCard
-              key={provider.id}
-              invoices={provider.invoices}
-              address={provider.address}
-              id={provider.id}
-              name={provider.name}
-              phoneNumber={provider.phoneNumber}
-            />
-          );
-        })}
-      </div>
-    </div>
+    <BusinessPartnetsSearchTab
+      searchPlaceHolder="Provider info"
+      CardComponent={BusinessPartnerCard}
+      cardPropsMapper={cardPropsMapper}
+      onFetchData={handleFetchData}
+    />
   );
 };
 

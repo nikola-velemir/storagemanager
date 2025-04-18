@@ -1,22 +1,24 @@
-import { ExporterSearchExportResponse } from "../../../../../../model/exporter/ExporterSearchExportResponse";
-import ExporterCardAccordion from "./ExporterCardAccordion";
-interface ExporterCardProps {
+import React from "react";
+import BusinessPartnersSearchAccordion, {
+  InvoiceLike,
+} from "../containers/BusinessPartnersSearchAccordion";
+interface BusinessPartnerCardProps<T extends InvoiceLike> {
   id: string;
   name: string;
   phoneNumber: string;
   address: string;
-  exps: ExporterSearchExportResponse[];
+  items: T[];
+  handleBusinessPartnerInfo: () => void;
 }
 
-const ExporterCard = ({
+const BusinessPartnerCard = <T extends InvoiceLike>({
   id,
   name,
   phoneNumber,
   address,
-  exps,
-}: ExporterCardProps) => {
-  const handleMoreInfoClick = () => {};
-
+  items,
+  handleBusinessPartnerInfo,
+}: BusinessPartnerCardProps<T>) => {
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
       <div className="flex justify-between items-center">
@@ -63,15 +65,15 @@ const ExporterCard = ({
         </div>
 
         <button
-          onClick={handleMoreInfoClick}
+          onClick={handleBusinessPartnerInfo}
           className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
         >
           More info
         </button>
       </div>
-      <ExporterCardAccordion exps={exps} />
+      <BusinessPartnersSearchAccordion items={items} />
     </div>
   );
 };
 
-export default ExporterCard;
+export default BusinessPartnerCard;

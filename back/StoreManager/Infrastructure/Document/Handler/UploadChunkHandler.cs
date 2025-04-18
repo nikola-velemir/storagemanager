@@ -6,16 +6,15 @@ using StoreManager.Infrastructure.Document.Service.FileService;
 using StoreManager.Infrastructure.Document.Service.Reader;
 using StoreManager.Infrastructure.Document.SupaBase.Service;
 using System.Text.RegularExpressions;
-using StoreManager.Infrastructure.BusinessPartner.Base;
 using StoreManager.Infrastructure.BusinessPartner.Base.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
 using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
+using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
-using StoreManager.Infrastructure.Product.Command;
 
 namespace StoreManager.Infrastructure.Document.Handler
 {
@@ -70,6 +69,7 @@ namespace StoreManager.Infrastructure.Document.Handler
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
+                        Type = InvoiceType.Import,
                         DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
                         Document = foundFile,
                         DocumentId = foundFile.Id,
