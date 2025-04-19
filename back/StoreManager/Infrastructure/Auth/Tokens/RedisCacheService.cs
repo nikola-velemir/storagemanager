@@ -7,7 +7,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens
     {
         private readonly IDatabase _redisDb = redis.GetDatabase();
 
-        public async Task RevokeToken(string jti, DateTime expiry)
+        public async Task RevokeTokenAsync(string jti, DateTime expiry)
         {
             var expirySeconds = (int)(expiry - DateTime.UtcNow.AddMinutes(0)).TotalSeconds;
             var span = TimeSpan.FromSeconds(expirySeconds);
@@ -17,7 +17,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens
             }
         }
 
-        public async Task<bool> IsTokenRevoked(string jti)
+        public async Task<bool> IsTokenRevokedAsync(string jti)
         {
             return await _redisDb.KeyExistsAsync($"revoked_token:{jti}");
         }

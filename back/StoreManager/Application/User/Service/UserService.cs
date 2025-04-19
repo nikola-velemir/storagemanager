@@ -15,7 +15,7 @@ namespace StoreManager.Application.User.Service
             }
             
 
-            var createdUser = await repository.Create(new UserModel(request.Username, request.Password, request.FirstName, request.LastName, role));
+            var createdUser = await repository.CreateAsync(new UserModel(request.Username, request.Password, request.FirstName, request.LastName, role));
             var response = new UserCreateResponseDto(createdUser.Username, createdUser.Password, createdUser.FirstName, createdUser.LastName, createdUser.Role.ToString());
             return response;
         }

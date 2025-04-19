@@ -15,7 +15,7 @@ namespace StoreManager.Infrastructure.MiddleWare
                 var jwtToken = handler.ReadJwtToken(token);
                 var jti = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
 
-                if (jti != null && await redisCacheService.IsTokenRevoked(jti))
+                if (jti != null && await redisCacheService.IsTokenRevokedAsync(jti))
                 {
                     context.Response.StatusCode = 401;
                     await context.Response.WriteAsync("Token has been revoked");

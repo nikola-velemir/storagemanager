@@ -27,10 +27,10 @@ namespace StoreManager.Application.Invoice.Import.Service
         {
             var invoice = await importRepository.FindByDocumentId(id);
             if (invoice is null) { return; }
-            var components = await mechanicalComponentRepository.CreateFromExtractionMetadata(metadata);
+            var components = await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(metadata);
             foreach (var data in metadata)
             {
-                var component = await mechanicalComponentRepository.FindByIdentifier(data.Identifier);
+                var component = await mechanicalComponentRepository.FindByIdentifierAsync(data.Identifier);
                 if (component is null) { continue; }
                 var foundItem = await importItemRepository.FindByImportAndComponentId(invoice.Id, component.Id);
                 if (foundItem is null)

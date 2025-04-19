@@ -34,7 +34,7 @@ namespace StoreManager.Tests.Auth.Service
             Assert.NotNull(exception);
             Assert.IsType<InvalidOperationException>(exception);
             Assert.Equal("Not found", exception.Message);
-            _userRepository.Verify(repo => repo.FindByUsername(AuthServiceTestData.INVALID_USERNAME), Times.Once);
+            _userRepository.Verify(repo => repo.FindByUsernameAsync(AuthServiceTestData.INVALID_USERNAME), Times.Once);
 
         }
         [Fact(DisplayName = "Authenticate test - Valid")]
@@ -46,7 +46,7 @@ namespace StoreManager.Tests.Auth.Service
                 Assert.Equal(AuthServiceTestData.VALID_RESPONSE, response);
             });
             Assert.Null(exception);
-            _userRepository.Verify(repo => repo.FindByUsername(AuthServiceTestData.VALID_USERNAME), Times.Once);
+            _userRepository.Verify(repo => repo.FindByUsernameAsync(AuthServiceTestData.VALID_USERNAME), Times.Once);
 
         }
 
@@ -60,7 +60,7 @@ namespace StoreManager.Tests.Auth.Service
             Assert.NotNull(exception);
             Assert.IsType<UnauthorizedAccessException>(exception);
             Assert.Equal("Invalid password", exception.Message);
-            _userRepository.Verify(repo => repo.FindByUsername(AuthServiceTestData.VALID_USERNAME), Times.Once);
+            _userRepository.Verify(repo => repo.FindByUsernameAsync(AuthServiceTestData.VALID_USERNAME), Times.Once);
         }
 
         [Fact(DisplayName = "DeAuthenticate test - Invalid Access Token")]
@@ -105,7 +105,7 @@ namespace StoreManager.Tests.Auth.Service
             Assert.NotNull(ex);
             Assert.IsType<TimeoutException>(ex);
             Assert.Equal("The refresh token has expired", ex.Message);
-            _refreshTokenRepository.Verify(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED), Times.Once);
+            _refreshTokenRepository.Verify(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED), Times.Once);
         }
 
         [Fact(DisplayName = "RefreshAuthentication test - Expired Token")]
@@ -118,7 +118,7 @@ namespace StoreManager.Tests.Auth.Service
             Assert.NotNull(ex);
             Assert.IsType<InvalidOperationException>(ex);
             Assert.Equal("Not found", ex.Message);
-            _refreshTokenRepository.Verify(repo => repo.FindRefreshToken(AuthServiceTestData.INVALID_REFRESH_TOKEN), Times.Once);
+            _refreshTokenRepository.Verify(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.INVALID_REFRESH_TOKEN), Times.Once);
         }
 
         [Fact(DisplayName = "RefreshAuthentication test - Valid")]
@@ -130,8 +130,8 @@ namespace StoreManager.Tests.Auth.Service
                 Assert.Equal(AuthServiceTestData.VALID_RESPONSE, response);
             });
             Assert.Null(ex);
-            _refreshTokenRepository.Verify(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN), Times.Once);
-            _refreshTokenRepository.Verify(repo => repo.Create(AuthServiceTestData.VALID_USER), Times.Never);
+            _refreshTokenRepository.Verify(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.VALID_REFRESH_TOKEN), Times.Once);
+            _refreshTokenRepository.Verify(repo => repo.CreateAsync(AuthServiceTestData.VALID_USER), Times.Never);
         }
         public async Task DisposeAsync()
         {
@@ -167,22 +167,22 @@ namespace StoreManager.Tests.Auth.Service
         }
         private void MockUserRepository()
         {
-            _userRepository.Setup(repo => repo.FindByUsername(AuthServiceTestData.VALID_USERNAME)).ReturnsAsync(AuthServiceTestData.VALID_USER);
-            _userRepository.Setup(repo => repo.FindByUsername(AuthServiceTestData.INVALID_USERNAME)).ThrowsAsync(new InvalidOperationException("Not found"));
+            _userRepository.Setup(repo => repo.FindByUsernameAsync(AuthServiceTestData.VALID_USERNAME)).ReturnsAsync(AuthServiceTestData.VALID_USER);
+            _userRepository.Setup(repo => repo.FindByUsernameAsync(AuthServiceTestData.INVALID_USERNAME)).ThrowsAsync(new InvalidOperationException("Not found"));
 
         }
         private void MockRedis()
         {
-            _redis.Setup(cache => cache.RevokeToken(AuthServiceTestData.VALID_JTI, DateTime.UtcNow.AddHours(2))).Returns(Task.CompletedTask);
-            _redis.Setup(cache => cache.IsTokenRevoked(AuthServiceTestData.VALID_JTI)).ReturnsAsync(true);
+            _redis.Setup(cache => cache.RevokeTokenAsync(AuthServiceTestData.VALID_JTI, DateTime.UtcNow.AddHours(2))).Returns(Task.CompletedTask);
+            _redis.Setup(cache => cache.IsTokenRevokedAsync(AuthServiceTestData.VALID_JTI)).ReturnsAsync(true);
 
         }
         private void MockRefreshTokenRepository()
         {
-            _refreshTokenRepository.Setup(repo => repo.Create(It.Is<UserModel>(u => u.Equals(AuthServiceTestData.VALID_USER)))).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
-            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN)).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
-            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(AuthServiceTestData.INVALID_REFRESH_TOKEN)).ReturnsAsync((RefreshTokenModel?)null);
-            _refreshTokenRepository.Setup(repo => repo.FindRefreshToken(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED)).ReturnsAsync(AuthServiceTestData.EXPIRED_REFRESH_TOKEN_MODEL);
+            _refreshTokenRepository.Setup(repo => repo.CreateAsync(It.Is<UserModel>(u => u.Equals(AuthServiceTestData.VALID_USER)))).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
+            _refreshTokenRepository.Setup(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.VALID_REFRESH_TOKEN)).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
+            _refreshTokenRepository.Setup(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.INVALID_REFRESH_TOKEN)).ReturnsAsync((RefreshTokenModel?)null);
+            _refreshTokenRepository.Setup(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED)).ReturnsAsync(AuthServiceTestData.EXPIRED_REFRESH_TOKEN_MODEL);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace StoreManager.Tests.User.Repository
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var user = await _repository.FindByUsername(VALID_USERNAME);
+                var user = await _repository.FindByUsernameAsync(VALID_USERNAME);
                 Assert.NotNull(user);
 
             });
@@ -34,7 +34,7 @@ namespace StoreManager.Tests.User.Repository
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var user = await _repository.FindByUsername(INVALID_USERNAME);
+                var user = await _repository.FindByUsernameAsync(INVALID_USERNAME);
 
             });
             Assert.NotNull(exception);
@@ -45,9 +45,9 @@ namespace StoreManager.Tests.User.Repository
         public async Task Create_Test()
         {
             UserModel user = new UserModel(2, VALID_CREATION_USERNAME, "test2", "test2", "test2", UserRole.MANAGER);
-            await _repository.Create(user);
+            await _repository.CreateAsync(user);
 
-            UserModel fetchUser = await _repository.FindByUsername(VALID_CREATION_USERNAME);
+            UserModel fetchUser = await _repository.FindByUsernameAsync(VALID_CREATION_USERNAME);
             Assert.Equal(user, fetchUser);
         }
 

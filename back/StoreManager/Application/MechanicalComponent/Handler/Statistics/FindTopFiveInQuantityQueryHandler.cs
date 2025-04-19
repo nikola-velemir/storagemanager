@@ -11,11 +11,11 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Statistics
         public async Task<MechanicalComponentTopFiveQuantityResponsesDto> Handle(FindTopFiveInQuantityQuery request, CancellationToken cancellationToken)
         {
 
-            var result = await repository.FindTopFiveInQuantity();
+            var result = await repository.FindTopFiveInQuantityAsync();
             var responses = new List<MechanicalComponentTopFiveQuantityResponseDto>();
             foreach (var r in result)
             {
-                var quantity = await repository.CountQuantity(r);
+                var quantity = await repository.CountQuantityAsync(r);
                 responses.Add(new MechanicalComponentTopFiveQuantityResponseDto(r.Id,r.Name, r.Identifier, quantity));
             }
             return new MechanicalComponentTopFiveQuantityResponsesDto(responses);

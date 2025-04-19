@@ -38,7 +38,7 @@ public class CreateExportCommandHandler(
         var dateIssued = DateOnly.FromDateTime(DateTime.UtcNow);
         
         var document = await documentService.UploadExport(exporter,dateIssued,productRows, fileId.ToString()+".pdf");
-        var export = await exportRepository.Create(new ExportModel
+        var export = await exportRepository.CreateAsync(new ExportModel
         {
             Document = document,
             Exporter = exporter,
@@ -48,7 +48,7 @@ public class CreateExportCommandHandler(
             ExporterId = exporter.Id,
             Type = InvoiceType.Export
         });
-        await exportItemRepository.CreateFromProductRows(export, productRows);
+        await exportItemRepository.CreateFromProductRowsAsync(export, productRows);
         return Unit.Value;
     }
 
@@ -61,7 +61,7 @@ public class CreateExportCommandHandler(
 
             var productId = Guid.Parse(p.id);
 
-            var product = await productRepository.FindById(productId);
+            var product = await productRepository.FindByIdAsync(productId);
             if (product is null) return null;
 
             return new ProductRow

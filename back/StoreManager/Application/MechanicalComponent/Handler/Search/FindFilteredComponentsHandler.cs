@@ -19,7 +19,7 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Search
                 id = tempId;
             }
 
-            var result = await repository.FindFiltered(id, request.ComponentInfo, request.PageNumber, request.PageSize);
+            var result = await repository.FindFilteredAsync(id, request.ComponentInfo, request.PageNumber, request.PageSize);
             return new PaginatedResult<MechanicalComponentSearchResponseDto>
             {
                 Items = result.Items.Select(mc =>

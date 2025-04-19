@@ -5,10 +5,10 @@ namespace StoreManager.Application.Invoice.Export.Repository;
 
 public interface IExportRepository
 {
-    Task<ExportModel?> FindById(Guid id);
-    Task<ExportModel> Create(ExportModel exportModel);
+    Task<ExportModel?> FindByIdAsync(Guid id);
+    Task<ExportModel> CreateAsync(ExportModel exportModel);
 
-    Task<(ICollection<ExportModel> Items, int TotalCount)> FindFiltered(FindFilteredExportsSpecification spec,
+    Task<(ICollection<ExportModel> Items, int TotalCount)> FindFilteredAsync(FindFilteredExportsSpecification spec,
         Guid? exporterId,
         string? productInfo, DateOnly? date, int pageNumber, int pageSize);
 }

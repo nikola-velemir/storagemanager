@@ -19,20 +19,20 @@ namespace StoreManager.Infrastructure.Document.Repository
             return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.Id.Equals(id));
         }
 
-        public Task<DocumentModel?> FindByName(ISpecification<DocumentModel> spec, string fileName)
+        public Task<DocumentModel?> FindByNameAsync(ISpecification<DocumentModel> spec, string fileName)
         {
             var query = spec.Apply(_files);
             return query.FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
 
-        public async Task<DocumentChunkModel> SaveChunk(IFormFile? file, string fileName, int chunkIndex)
+        public async Task<DocumentChunkModel> SaveChunkAsync(IFormFile? file, string fileName, int chunkIndex)
         {
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
             if (file == null || file.Length == 0)
             {
                 throw new NotFoundException("Invalid chunk");
             }
-            var foundDoc = await FindByName(new DocumentWithDocumentChunks(), processedFileName);
+            var foundDoc = await FindByNameAsync(new DocumentWithDocumentChunks(), processedFileName);
             if (foundDoc == null)
             {
                 throw new NotFoundException("Invalid file");
@@ -51,7 +51,7 @@ namespace StoreManager.Infrastructure.Document.Repository
             return savedChunk.Entity;
         }
 
-        public async Task<DocumentModel> SaveFile(string fileName)
+        public async Task<DocumentModel> SaveFileAsync(string fileName)
         {
             var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
 

@@ -21,7 +21,7 @@ public class ExportSearchQueryHandler(IExportRepository repository)
         if(DateOnly.TryParse(request.Date, out _))
             date = DateOnly.Parse(request.Date);
         
-        var result = await repository.FindFiltered(new FindFilteredExportsSpecification(), exporterId,request.ProductInfo, date, request.PageNumber, request.PageSize);
+        var result = await repository.FindFilteredAsync(new FindFilteredExportsSpecification(), exporterId,request.ProductInfo, date, request.PageNumber, request.PageSize);
         return new PaginatedResult<ExportSearchResponseDto>
         {
             PageNumber = request.PageNumber,

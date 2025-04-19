@@ -21,7 +21,7 @@ namespace StoreManager.Application.Auth.Handler
                 throw new BadHttpRequestException("Invalid token");
             }
 
-            await redis.RevokeToken(jti, jwtToken.ValidTo);
+            await redis.RevokeTokenAsync(jti, jwtToken.ValidTo);
             
             return Unit.Value;
         }

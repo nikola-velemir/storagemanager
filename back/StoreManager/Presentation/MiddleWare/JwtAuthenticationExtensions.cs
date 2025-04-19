@@ -51,7 +51,7 @@ namespace StoreManager.Infrastructure.MiddleWare
                             {
                                 var redisCacheService = context.HttpContext.RequestServices.GetRequiredService<IRedisCacheService>();
 
-                                var isRevoked = await redisCacheService.IsTokenRevoked(jti);
+                                var isRevoked = await redisCacheService.IsTokenRevokedAsync(jti);
 
                                 if (isRevoked)
                                 {

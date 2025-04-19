@@ -43,14 +43,14 @@ namespace StoreManager.Tests.Document.Repository
         [Fact(DisplayName = "Find by name test - invalid name")]
         public async Task FindByName_InvalidNameTest()
         {
-            var result = await _repository.FindByName(new DocumentWithDocumentChunks(), INVALID_FILE_NAME);
+            var result = await _repository.FindByNameAsync(new DocumentWithDocumentChunks(), INVALID_FILE_NAME);
             Assert.Null(result);
         }
 
         [Fact(DisplayName = "Find by name test - valid name")]
         public async Task FindByName_ValidNameTest()
         {
-            var result = await _repository.FindByName(new DocumentWithDocumentChunks(), VALID_FILE_NAME);
+            var result = await _repository.FindByNameAsync(new DocumentWithDocumentChunks(), VALID_FILE_NAME);
             Assert.NotNull(result);
             Assert.Equal(VALID_DOCUMENT, result);
         }
@@ -58,7 +58,7 @@ namespace StoreManager.Tests.Document.Repository
         [Fact(DisplayName = "Save file - valid name")]
         public async Task SaveFile_ValidNameTest()
         {
-            var result = await _repository.SaveFile($"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}");
+            var result = await _repository.SaveFileAsync($"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}");
             Assert.NotNull(result);
             Assert.Equal(VALID_FILE_NAME, result.FileName);
             Assert.Equal(VALID_FILE_EXTENSION, result.Type);
@@ -70,7 +70,7 @@ namespace StoreManager.Tests.Document.Repository
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var result = await _repository.SaveChunk(null, $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
+                var result = await _repository.SaveChunkAsync(null, $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
             });
             Assert.NotNull(exception);
             Assert.Equal("Invalid chunk", exception.Message);
@@ -82,7 +82,7 @@ namespace StoreManager.Tests.Document.Repository
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var result = await _repository.SaveChunk(GenerateInvalidMockFile(),
+                var result = await _repository.SaveChunkAsync(GenerateInvalidMockFile(),
                     $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
             });
             Assert.NotNull(exception);
@@ -95,7 +95,7 @@ namespace StoreManager.Tests.Document.Repository
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var result = await _repository.SaveChunk(GenerateValidMockFile(),
+                var result = await _repository.SaveChunkAsync(GenerateValidMockFile(),
                     $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
             });
             Assert.NotNull(exception);
@@ -108,7 +108,7 @@ namespace StoreManager.Tests.Document.Repository
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var result = await _repository.SaveChunk(GenerateValidMockFile(),
+                var result = await _repository.SaveChunkAsync(GenerateValidMockFile(),
                     $"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
                 Assert.Equal(VALID_DOCUMENT, result.Document);
                 Assert.Equal(VALID_FILE_ID, result.DocumentId);

@@ -23,7 +23,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshTokens
             _refreshTokenGenerator = refreshTokenGenerator;
         }
 
-        public async Task<RefreshTokenModel> Create(UserModel user)
+        public async Task<RefreshTokenModel> CreateAsync(UserModel user)
         {
             var token = new RefreshTokenModel
             {
@@ -42,7 +42,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshTokens
 
         }
 
-        public async Task<RefreshTokenModel?> FindRefreshToken(string token)
+        public async Task<RefreshTokenModel?> FindRefreshTokenAsync(string token)
         {
             return await _refreshTokens.Include(r => r.User).FirstOrDefaultAsync(r => r.Token == token);
 

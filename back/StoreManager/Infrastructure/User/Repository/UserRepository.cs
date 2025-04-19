@@ -9,14 +9,14 @@ namespace StoreManager.Infrastructure.User.Repository
     {
         private readonly DbSet<UserModel> _users = context.Users;
 
-        public async Task<UserModel> Create(UserModel user)
+        public async Task<UserModel> CreateAsync(UserModel user)
         {
             var saved = await _users.AddAsync(user);
             await context.SaveChangesAsync();
             return saved.Entity;
         }
 
-        public async Task<UserModel> FindByUsername(string username)
+        public async Task<UserModel> FindByUsernameAsync(string username)
         {
             return await context.Users.FirstOrDefaultAsync(i => i.Username.Equals(username))
                 ?? throw new InvalidOperationException("Not found");

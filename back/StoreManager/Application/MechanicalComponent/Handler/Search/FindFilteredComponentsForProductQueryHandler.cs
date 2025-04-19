@@ -18,7 +18,7 @@ public class FindFilteredComponentsForProductQueryHandler(IMechanicalComponentRe
             id = tempId;
         }
 
-        var result = await repository.FindFilteredForProduct(id, request.ComponentInfo, request.PageNumber, request.PageSize);
+        var result = await repository.FindFilteredForProductAsync(id, request.ComponentInfo, request.PageNumber, request.PageSize);
         return new PaginatedResult<MechanicalComponentProductSearchResponseDto>
         {
             Items = result.Items.Select(mc =>

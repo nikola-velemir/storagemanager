@@ -10,7 +10,7 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Statistics
     {
         public async Task<MechanicalComponentQuantitySumResponseDto> Handle(FindComponentQuantitySumQuery request, CancellationToken cancellationToken)
         {
-            return new MechanicalComponentQuantitySumResponseDto(await repository.FindQuantitySum());
+            return new MechanicalComponentQuantitySumResponseDto(await repository.FindQuantitySumAsync());
         }
     }
 }

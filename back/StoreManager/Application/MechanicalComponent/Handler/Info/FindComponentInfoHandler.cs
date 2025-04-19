@@ -16,12 +16,12 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Info
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid componentGuid = Guid.Parse(request.ComponentId);
-            var component = await repository.FindById(componentGuid);
+            var component = await repository.FindByIdAsync(componentGuid);
             if (component is null)
             {
                 throw new NotFoundException("Component not found");
             }
-            var quantity = await repository.CountQuantity(component);
+            var quantity = await repository.CountQuantityAsync(component);
             return new MechanicalComponentInfoResponseDto(
                 component.Name,
                 component.Identifier,

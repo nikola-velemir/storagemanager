@@ -18,7 +18,7 @@ public class FindProductInfoQueryHandler(IProductRepository productRepository)
         }
 
         productGuid = Guid.Parse(request.Id);
-        var product = await productRepository.FindById(productGuid.Value);
+        var product = await productRepository.FindByIdAsync(productGuid.Value);
         if (product is null)
         {
             throw new NotFoundException("Product not found");

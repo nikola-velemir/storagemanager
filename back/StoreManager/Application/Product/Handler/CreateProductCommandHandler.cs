@@ -20,7 +20,7 @@ public class CreateProductCommandHandler(
         var componentIds = ExtractComponentIds(request.Components);
 
         var productId = Guid.NewGuid();
-        var components = await mechanicalComponentRepository.FindByIds(componentIds);
+        var components = await mechanicalComponentRepository.FindByIdsAsync(componentIds);
         var product = new ProductModel
         {
             Identifier = request.Identifier,
@@ -32,7 +32,7 @@ public class CreateProductCommandHandler(
 
         product.Components = CreateComponentList(product, productId, request, components);
 
-        await productRepository.Create(product);
+        await productRepository.CreateAsync(product);
         return Unit.Value;
     }
 

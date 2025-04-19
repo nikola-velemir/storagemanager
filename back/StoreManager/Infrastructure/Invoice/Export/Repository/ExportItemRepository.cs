@@ -12,7 +12,7 @@ public class ExportItemRepository(WarehouseDbContext context) : IExportItemRepos
     private readonly DbSet<ExportItemModel> _exportItems = context.ExportItems;
     private readonly DbSet<ProductModel> _products = context.Products;
 
-    public async Task CreateFromProductRows(ExportModel export, List<ProductRow> productRows)
+    public async Task CreateFromProductRowsAsync(ExportModel export, List<ProductRow> productRows)
     {
         foreach (var productRow in productRows)
         {

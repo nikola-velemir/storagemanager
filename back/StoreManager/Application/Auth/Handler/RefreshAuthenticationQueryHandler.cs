@@ -15,7 +15,7 @@ namespace StoreManager.Application.Auth.Handler
         public async Task<LoginResponseDto?> Handle(RefreshAuthenticationQuery request, CancellationToken cancellationToken)
         {
             Validate(request);
-            var refreshToken = await refreshTokenRepository.FindRefreshToken(request.RefreshToken)
+            var refreshToken = await refreshTokenRepository.FindRefreshTokenAsync(request.RefreshToken)
                 ?? throw new NotFoundException("Not found");
 
             if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)

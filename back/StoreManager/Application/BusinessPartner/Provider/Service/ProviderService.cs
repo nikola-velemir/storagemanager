@@ -22,7 +22,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
     {
         public async Task<ProviderFindResponseDto> Create(ProviderCreateRequestDto request)
         {
-            var saved = await repository.Create(new ProviderModel
+            var saved = await repository.CreateAsync(new ProviderModel
             {
                 Address = request.Address,
                 Id = Guid.NewGuid(),
@@ -35,14 +35,14 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
 
         public async Task<ProviderFindResponsesDto> FindAll()
         {
-            var providers = await repository.FindAll();
+            var providers = await repository.FindAllAsync();
             var responses = providers.Select(p => new ProviderFindResponseDto(p.Id, p.Name, p.Address, p.PhoneNumber)).ToList();
             return new ProviderFindResponsesDto(responses);
         }
 
         public async Task<ProviderFindResponseDto?> FindById(Guid id)
         {
-            var provider = await repository.FindById(id);
+            var provider = await repository.FindByIdAsync(id);
             if (provider is null) { return null; }
 
             return new ProviderFindResponseDto(provider.Id, provider.Name, provider.Address, provider.PhoneNumber);
@@ -50,8 +50,8 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
 
         public async Task<PaginatedResult<ProviderSearchResponseDto>> FindFiltered(string? providerName, int pageNumber, int pageSize)
         {
-            var pr = await repository.FindById(Guid.Parse("2a2986ec-3206-4379-a26e-5f06b58b90aa"));
-            var result = await repository.FindFiltered(providerName, pageNumber, pageSize);
+            var pr = await repository.FindByIdAsync(Guid.Parse("2a2986ec-3206-4379-a26e-5f06b58b90aa"));
+            var result = await repository.FindFilteredAsync(providerName, pageNumber, pageSize);
             return new PaginatedResult<ProviderSearchResponseDto>
             {
                 Items = result.Items.Select(p =>
@@ -76,12 +76,12 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
                 throw new InvalidCastException("Could not parse the guid");
             }
             Guid providerGuid = Guid.Parse(providerId);
-            var provider = await repository.FindById(providerGuid);
+            var provider = await repository.FindByIdAsync(providerGuid);
             if (provider is null)
             {
                 throw new NotFoundException("Provider not found");
             }
-            var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
+            var components = await mechanicalComponentRepository.FindByProviderIdAsync(provider.Id);
             var invoices = await importRepository.FindByProviderId(new ImportWithProvider(),provider.Id);
 
             return
@@ -96,11 +96,11 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
 
         public async Task<ProviderComponentInvolvementResponsesDto> FindProviderComponentInvolements()
         {
-            var providers = await repository.FindAll();
+            var providers = await repository.FindAllAsync();
             var responses = new List<ProviderComponentInvolvementResponseDto>();
             foreach (var provider in providers)
             {
-                var count = await repository.FindComponentCountForProvider(provider);
+                var count = await repository.FindComponentCountForProviderAsync(provider);
                 responses.Add(new ProviderComponentInvolvementResponseDto(provider.Id, provider.Name, count));
 
             }
@@ -109,11 +109,11 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
 
         public async Task<ProviderInvoiceInvolvementResponsesDto> FindProviderInvoiceInvolements()
         {
-            var providers = await repository.FindAll();
+            var providers = await repository.FindAllAsync();
             var responses = new List<ProviderInvoiceInvolvementResponseDto>();
             foreach (var provider in providers)
             {
-                var count = await repository.FindInvoiceCountForProvider(provider);
+                var count = await repository.FindInvoiceCountForProviderAsync(provider);
                 responses.Add(new ProviderInvoiceInvolvementResponseDto(provider.Id, provider.Name, count));
             }
             return new ProviderInvoiceInvolvementResponsesDto(responses);

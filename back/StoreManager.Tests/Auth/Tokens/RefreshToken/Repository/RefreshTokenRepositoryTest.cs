@@ -25,7 +25,7 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
         [Fact(DisplayName = "Create refresh token")]
         public async Task Create_Test()
         {
-            var token = await _repository.Create(USER);
+            var token = await _repository.CreateAsync(USER);
             var foundToken = await _context.RefreshTokens.FirstOrDefaultAsync(t => t.Token == "hjdjklsahdjalskdhjkasdhjkasdhkas");
             Assert.NotNull(token);
             Assert.NotNull(foundToken);
@@ -35,7 +35,7 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
         [Fact(DisplayName = "Find refresh token - Invalid token")]
         public async Task FindRefreshToken_InvalidTokenTest()
         {
-            var token = await _repository.FindRefreshToken("asdjasdas");
+            var token = await _repository.FindRefreshTokenAsync("asdjasdas");
             Assert.NotNull(token);
             Assert.Equal(EXISTING_TOKEN, token);
             Assert.NotNull(token.User);

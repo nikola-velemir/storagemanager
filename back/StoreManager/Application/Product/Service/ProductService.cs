@@ -22,7 +22,7 @@ public class ProductService(
             .ToList();
 
         var productId = Guid.NewGuid();
-        var components = await mechanicalComponentRepository.FindByIds(componentIds);
+        var components = await mechanicalComponentRepository.FindByIdsAsync(componentIds);
         var product = new ProductModel
         {
             Identifier = dto.Identifier,
@@ -45,7 +45,7 @@ public class ProductService(
             };
         }).ToList();
 
-        await productRepository.Create(product);
+        await productRepository.CreateAsync(product);
     }
 
     public async Task<PaginatedResult<ProductSearchResponseDto>> FindFiltered(string? productInfo, string? dateCreated,
@@ -58,7 +58,7 @@ public class ProductService(
             date = tempDate;
         }
 
-        var products = await productRepository.FindFiltered(productInfo, date, pageNumber, pageSize);
+        var products = await productRepository.FindFilteredAsync(productInfo, date, pageNumber, pageSize);
         return new PaginatedResult<ProductSearchResponseDto>
         {
             Items = products.Items.Select(p => new ProductSearchResponseDto(p.Id, p.Name, p.Identifier, p.DateCreated))
@@ -78,7 +78,7 @@ public class ProductService(
         }
 
         productGuid = Guid.Parse(id);
-        var product = await productRepository.FindById(productGuid.Value);
+        var product = await productRepository.FindByIdAsync(productGuid.Value);
         if (product is null)
         {
             throw new NotFoundException("Product not found!");

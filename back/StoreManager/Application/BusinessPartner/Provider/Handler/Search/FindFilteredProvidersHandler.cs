@@ -11,7 +11,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler.Search
     {
         public async Task<PaginatedResult<ProviderSearchResponseDto>> Handle(FindFilteredProvidersQuery request, CancellationToken cancellationToken)
         {
-            var result = await providerRepository.FindFiltered(request.ProviderName, request.PageNumber, request.PageSize);
+            var result = await providerRepository.FindFilteredAsync(request.ProviderName, request.PageNumber, request.PageSize);
             return new PaginatedResult<ProviderSearchResponseDto>
             {
                 Items = result.Items.Select(p =>

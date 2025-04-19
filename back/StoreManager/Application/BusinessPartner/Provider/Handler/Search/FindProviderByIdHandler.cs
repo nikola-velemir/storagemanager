@@ -15,7 +15,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler.Search
                 throw new InvalidCastException("Could not cast guid!");
             }
             var providerGuid = Guid.Parse(request.Id);
-            var provider = await providerRepository.FindById(providerGuid);
+            var provider = await providerRepository.FindByIdAsync(providerGuid);
             if (provider is null) { return null; }
 
             return new ProviderFindResponseDto(provider.Id, provider.Name, provider.Address, provider.PhoneNumber);

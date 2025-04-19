@@ -5,8 +5,8 @@ namespace StoreManager.Application.Auth.Tokens.RefreshToken
 {
     public interface IRefreshTokenRepository
     {
-        Task<RefreshTokenModel> Create(UserModel user);
+        Task<RefreshTokenModel> CreateAsync(UserModel user);
 
-        Task<RefreshTokenModel?> FindRefreshToken(string token);
+        Task<RefreshTokenModel?> FindRefreshTokenAsync(string token);
     }
 }

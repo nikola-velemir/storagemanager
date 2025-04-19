@@ -6,7 +6,7 @@ namespace StoreManager.Application.User.Repository
 {
     public interface IUserRepository
     {
-        Task<UserModel> FindByUsername(string username);
-        Task<UserModel> Create(UserModel user);
+        Task<UserModel> FindByUsernameAsync(string username);
+        Task<UserModel> CreateAsync(UserModel user);
     }
 }

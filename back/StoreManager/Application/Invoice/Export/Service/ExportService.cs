@@ -23,7 +23,7 @@ public class ExportService(IExportRepository repository, IExporterRepository exp
         var exporterId = Guid.Parse(request.providerId);
         var exporter = await exporterRepository.FindById((exporterId)) ?? throw new NotFoundException("AA");
 
-        var export = await repository.Create(new ExportModel
+        var export = await repository.CreateAsync(new ExportModel
         {
             Document = null,
             Exporter = exporter,
@@ -45,7 +45,7 @@ public class ExportService(IExportRepository repository, IExporterRepository exp
         if(DateOnly.TryParse(Date, out _))
             date = DateOnly.Parse(Date);
         
-        var result = await repository.FindFiltered(new FindFilteredExportsSpecification(), exporterId,ProductInfo, date, PageNumber, PageSize);
+        var result = await repository.FindFilteredAsync(new FindFilteredExportsSpecification(), exporterId,ProductInfo, date, PageNumber, PageSize);
         return new PaginatedResult<ExportSearchResponseDto>
         {
             PageNumber = PageNumber,

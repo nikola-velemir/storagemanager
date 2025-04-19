@@ -45,12 +45,12 @@ namespace StoreManager.Application.Document.Handler
                 ProviderModel? provider;
                 if (!string.IsNullOrEmpty(parsedProvider.ProviderId))
                 {
-                    provider = await providerRepository.FindById(Guid.Parse(parsedProvider.ProviderId));
+                    provider = await providerRepository.FindByIdAsync(Guid.Parse(parsedProvider.ProviderId));
                     if (provider is null) throw new ArgumentNullException("provider is null");
                 }
                 else
                 {
-                    provider = await providerRepository.Create(new ProviderModel
+                    provider = await providerRepository.CreateAsync(new ProviderModel
                     {
                         Address = parsedProvider.ProviderAddress,
                         Id = Guid.NewGuid(),
@@ -62,10 +62,10 @@ namespace StoreManager.Application.Document.Handler
 
                 var parsedFileName =
                     Regex.Replace(Path.GetFileNameWithoutExtension(request.FileName), @"[^a-zA-Z0-9]", "");
-                var foundFile = await documentRepository.FindByName(new DocumentWithDocumentChunks(), parsedFileName);
+                var foundFile = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), parsedFileName);
                 if (foundFile == null)
                 {
-                    foundFile = await documentRepository.SaveFile(request.FileName);
+                    foundFile = await documentRepository.SaveFileAsync(request.FileName);
                     var invoice = await importRepository.Create(new ImportModel
                     {
                         Provider = provider,
@@ -76,10 +76,10 @@ namespace StoreManager.Application.Document.Handler
                         DocumentId = foundFile.Id,
                         Id = Guid.NewGuid()
                     });
-                    await providerRepository.AddInvoice(provider, invoice);
+                    await providerRepository.AddInvoiceAsync(provider, invoice);
                 }
 
-                var savedChunk = await documentRepository.SaveChunk(request.File, request.FileName, request.ChunkIndex);
+                var savedChunk = await documentRepository.SaveChunkAsync(request.File, request.FileName, request.ChunkIndex);
                 await supaService.UploadFileChunk(request.File, savedChunk);
 
                 await fileService.AppendChunk(request.File, foundFile);

@@ -14,7 +14,7 @@ public class FindProductByInvoiceIdQueryHandler(IProductRepository repository)
         if (!Guid.TryParse(request.InvoiceId, out _))
             throw new InvalidCastException("Could not cast Invoice Id to Guid");
         var invoiceId = Guid.Parse(request.InvoiceId);
-        var products = await repository.FindByInvoiceId(invoiceId);
+        var products = await repository.FindByInvoiceIdAsync(invoiceId);
         return new FindProductByInvoiceIdResponsesDto(
             products.Select(p => new FindProductByInvoiceIdResponseDto(
                     p.Id, 

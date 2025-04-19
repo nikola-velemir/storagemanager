@@ -72,7 +72,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Create from extraction data list")]
         public async Task CreateFromExtractionMetadataList_Test()
         {
-            var components = await _repository.CreateFromExtractionMetadata(METADATA_LIST);
+            var components = await _repository.CreateFromExtractionMetadataAsync(METADATA_LIST);
             Assert.True(components.Count == 2);
             var foundComponets = _context.MechanicalComponents
                 .Where(c => c.Identifier.Equals("MC-111") || c.Identifier.Equals("MC-4001")).ToList();
@@ -92,7 +92,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         public async Task CreateFromExtractionMetadata_NonExistantIdentifier()
         {
             var component =
-                await _repository.CreateFromExtractionMetadata(new ExtractionMetadata("MC-500", "test2", 400, 24.3));
+                await _repository.CreateFromExtractionMetadataAsync(new ExtractionMetadata("MC-500", "test2", 400, 24.3));
             Assert.NotNull(component);
             var foundComponent =
                 await _context.MechanicalComponents.FirstOrDefaultAsync(c => c.Identifier.Equals("MC-500"));
@@ -103,7 +103,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         public async Task CreateFromExtractionMetadata_ExistantIdentifier()
         {
             var component =
-                await _repository.CreateFromExtractionMetadata(new ExtractionMetadata(EXISTING_IDENTIFIER, "test2", 400,
+                await _repository.CreateFromExtractionMetadataAsync(new ExtractionMetadata(EXISTING_IDENTIFIER, "test2", 400,
                     24.3));
             Assert.NotNull(component);
             Assert.Equal(EXISTING_COMPONENT, component);
@@ -112,28 +112,28 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Count quantity - invalid model")]
         public async Task CountQuantity_InvalidModel()
         {
-            var quantity = await _repository.CountQuantity(VALID_COMPONENT);
+            var quantity = await _repository.CountQuantityAsync(VALID_COMPONENT);
             Assert.Equal(0, quantity);
         }
 
         [Fact(DisplayName = "Count quantity - valid model")]
         public async Task CountQuantity_ValidModel()
         {
-            var quantity = await _repository.CountQuantity(EXISTING_COMPONENT);
+            var quantity = await _repository.CountQuantityAsync(EXISTING_COMPONENT);
             Assert.Equal(10, quantity);
         }
 
         [Fact(DisplayName = "Find by invoice id - invalid id")]
         public async Task FindByInvoiceId_TestInvalidID()
         {
-            var components = await _repository.FindByProviderId(Guid.NewGuid());
+            var components = await _repository.FindByProviderIdAsync(Guid.NewGuid());
             Assert.True(components.Count == 0);
         }
 
         [Fact(DisplayName = "Find by invoice id - valid id")]
         public async Task FindByInvoiceId_TestValidID()
         {
-            var components = await _repository.FindByInvoiceId(VALID_IMPORT.Id);
+            var components = await _repository.FindByInvoiceIdAsync(VALID_IMPORT.Id);
             Assert.True(components.Count == 1);
             Assert.Equal(EXISTING_COMPONENT, components.First());
         }
@@ -141,14 +141,14 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Find by provider id - invalid id")]
         public async Task FindByProviderId_TestInvalidID()
         {
-            var components = await _repository.FindByProviderId(Guid.NewGuid());
+            var components = await _repository.FindByProviderIdAsync(Guid.NewGuid());
             Assert.True(components.Count == 0);
         }
 
         [Fact(DisplayName = "Find by provider id - valid id")]
         public async Task FindByProviderId_TestValidID()
         {
-            var components = await _repository.FindByProviderId(VALID_PROVIDER.Id);
+            var components = await _repository.FindByProviderIdAsync(VALID_PROVIDER.Id);
             Assert.True(components.Count == 1);
             Assert.Equal(EXISTING_COMPONENT, components.First());
         }
@@ -156,7 +156,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Create test - valid test")]
         public async Task Create()
         {
-            var component = await _repository.Create(VALID_COMPONENT);
+            var component = await _repository.CreateAsync(VALID_COMPONENT);
             Assert.NotNull(component);
             Assert.Equal(VALID_COMPONENT, component);
         }
@@ -164,7 +164,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Find by identifier test - valid identifier")]
         public async Task FindByIndentifier_TestValidIndentifier()
         {
-            var component = await _repository.FindByIdentifier(EXISTING_IDENTIFIER);
+            var component = await _repository.FindByIdentifierAsync(EXISTING_IDENTIFIER);
             Assert.NotNull(component);
             Assert.Equal(EXISTING_COMPONENT, component);
         }
@@ -172,14 +172,14 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Find by identifier test - invalid identifier")]
         public async Task FindByIndentifier_TestInvalidIndentifier()
         {
-            var component = await _repository.FindByIdentifier(INVALID_IDENTIFIER);
+            var component = await _repository.FindByIdentifierAsync(INVALID_IDENTIFIER);
             Assert.Null(component);
         }
 
         [Fact(DisplayName = "Find by id - Valid id")]
         public async Task FindById_TestValidId()
         {
-            var component = await _repository.FindById(EXISTING_COMPONENT.Id);
+            var component = await _repository.FindByIdAsync(EXISTING_COMPONENT.Id);
             Assert.NotNull(component);
             Assert.Equal(EXISTING_COMPONENT, component);
         }
@@ -187,7 +187,7 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         [Fact(DisplayName = "Find all")]
         public async Task FindAll_Test()
         {
-            var components = await _repository.FindAll();
+            var components = await _repository.FindAllAsync();
             Assert.True(components.Count == 1);
             Assert.Equal(components.ElementAt(0), EXISTING_COMPONENT);
         }

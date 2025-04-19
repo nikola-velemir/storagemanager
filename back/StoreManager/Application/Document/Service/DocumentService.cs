@@ -48,7 +48,7 @@ namespace StoreManager.Application.Document.Service
                 throw new NotFoundException("Invoice not found");
             }
 
-            var file = await repository.FindByName(new DocumentWithDocumentChunks(), invoice.Document.FileName) ??
+            var file = await repository.FindByNameAsync(new DocumentWithDocumentChunks(), invoice.Document.FileName) ??
                        throw new NotFoundException("File not found");
 
 
@@ -74,12 +74,12 @@ namespace StoreManager.Application.Document.Service
                 ProviderModel? provider;
                 if (!string.IsNullOrEmpty(parsedProvider.ProviderId))
                 {
-                    provider = await providerRepository.FindById(Guid.Parse(parsedProvider.ProviderId));
+                    provider = await providerRepository.FindByIdAsync(Guid.Parse(parsedProvider.ProviderId));
                     if (provider is null) throw new ArgumentNullException("provider is null");
                 }
                 else
                 {
-                    provider = await providerRepository.Create(new ProviderModel
+                    provider = await providerRepository.CreateAsync(new ProviderModel
                     {
                         Address = parsedProvider.ProviderAddress,
                         Id = Guid.NewGuid(),
@@ -90,10 +90,10 @@ namespace StoreManager.Application.Document.Service
                 }
 
                 var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
-                var foundFile = await repository.FindByName(new DocumentWithDocumentChunks(), parsedFileName);
+                var foundFile = await repository.FindByNameAsync(new DocumentWithDocumentChunks(), parsedFileName);
                 if (foundFile == null)
                 {
-                    foundFile = await repository.SaveFile(fileName);
+                    foundFile = await repository.SaveFileAsync(fileName);
                     var invoice = await importRepository.Create(new ImportModel
                     {
                         Provider = provider,
@@ -103,10 +103,10 @@ namespace StoreManager.Application.Document.Service
                         DocumentId = foundFile.Id,
                         Id = Guid.NewGuid()
                     });
-                    await providerRepository.AddInvoice(provider, invoice);
+                    await providerRepository.AddInvoiceAsync(provider, invoice);
                 }
 
-                var savedChunk = await repository.SaveChunk(file, fileName, chunkIndex);
+                var savedChunk = await repository.SaveChunkAsync(file, fileName, chunkIndex);
                 await supabase.UploadFileChunk(file, savedChunk);
 
                 await fileService.AppendChunk(file, foundFile);
@@ -272,11 +272,11 @@ namespace StoreManager.Application.Document.Service
             var chunks = await ConvertToChunks(file);
 
             var fileChunks = ConvertToFormFiles(chunks, fileName);
-            var doc = await repository.SaveFile(fileName);
+            var doc = await repository.SaveFileAsync(fileName);
 
             for (var i = 0; i < chunks.Count; ++i)
             {
-                var chunk = await repository.SaveChunk(fileChunks[i], fileName, i);
+                var chunk = await repository.SaveChunkAsync(fileChunks[i], fileName, i);
                 await supabase.UploadFileChunk(fileChunks[i], chunk);
             }
 

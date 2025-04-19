@@ -24,7 +24,7 @@ namespace StoreManager.Tests.User.Service
         {
             var response = await _service.CreateUser(VALID_CREATE_REQUEST);
             Assert.Equal(VALID_CREATE_RESPONSE, response);
-            _userRepositoryMock.Verify(repo => repo.Create(It.Is<UserModel>(u=>u.Equals(VALID_USER))), Times.Once);
+            _userRepositoryMock.Verify(repo => repo.CreateAsync(It.Is<UserModel>(u=>u.Equals(VALID_USER))), Times.Once);
         }
 
         public async Task DisposeAsync()
@@ -50,8 +50,8 @@ namespace StoreManager.Tests.User.Service
 
         private void MockRepository()
         {
-            _userRepositoryMock.Setup(repo => repo.FindByUsername(VALID_USERNAME)).ReturnsAsync(VALID_USER);
-            _userRepositoryMock.Setup(repo => repo.Create(It.Is<UserModel>(u=>u.Equals(VALID_USER)))).ReturnsAsync(VALID_USER);
+            _userRepositoryMock.Setup(repo => repo.FindByUsernameAsync(VALID_USERNAME)).ReturnsAsync(VALID_USER);
+            _userRepositoryMock.Setup(repo => repo.CreateAsync(It.Is<UserModel>(u=>u.Equals(VALID_USER)))).ReturnsAsync(VALID_USER);
         }
     }
 }

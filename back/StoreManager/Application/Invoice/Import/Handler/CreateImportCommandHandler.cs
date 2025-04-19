@@ -19,10 +19,10 @@ namespace StoreManager.Application.Invoice.Import.Handler
 
             if (invoice is null) return Unit.Value;
 
-            var components = await mechanicalComponentRepository.CreateFromExtractionMetadata(request.Metadata);
+            var components = await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(request.Metadata);
             foreach (var data in request.Metadata)
             {
-                var component = await mechanicalComponentRepository.FindByIdentifier(data.Identifier);
+                var component = await mechanicalComponentRepository.FindByIdentifierAsync(data.Identifier);
                 if (component is null) { continue; }
                 var foundItem = await importItemRepository.FindByImportAndComponentId(invoice.Id, component.Id);
                 if (foundItem is null)

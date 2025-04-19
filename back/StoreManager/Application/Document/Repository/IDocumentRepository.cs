@@ -5,10 +5,10 @@ namespace StoreManager.Application.Document.Repository
 {
     public interface IDocumentRepository
     {
-        Task<DocumentModel?> FindByName(ISpecification<DocumentModel> spec, string fileName);
-        Task<DocumentModel> SaveFile(string fileName);
+        Task<DocumentModel?> FindByNameAsync(ISpecification<DocumentModel> spec, string fileName);
+        Task<DocumentModel> SaveFileAsync(string fileName);
 
-        Task<DocumentChunkModel> SaveChunk(IFormFile file, string fileName, int chunkIndex);
+        Task<DocumentChunkModel> SaveChunkAsync(IFormFile file, string fileName, int chunkIndex);
 
     }
 }

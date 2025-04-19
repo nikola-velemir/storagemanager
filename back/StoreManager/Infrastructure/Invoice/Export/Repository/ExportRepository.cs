@@ -11,19 +11,19 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
 {
     private readonly DbSet<ExportModel> _exports = context.Exports;
 
-    public Task<ExportModel?> FindById(Guid id)
+    public Task<ExportModel?> FindByIdAsync(Guid id)
     {
         return _exports.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 
-    public async Task<ExportModel> Create(ExportModel exportModel)
+    public async Task<ExportModel> CreateAsync(ExportModel exportModel)
     {
         var savedInstance = await _exports.AddAsync(exportModel);
         await context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFiltered(FindFilteredExportsSpecification spec, Guid? exporterId,
+    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFilteredAsync(FindFilteredExportsSpecification spec, Guid? exporterId,
         string? productInfo, DateOnly? date, int pageNumber, int pageSize)
     {
         var query = spec.Apply(_exports);

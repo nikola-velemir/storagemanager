@@ -28,7 +28,7 @@ namespace StoreManager.Application.Document.Handler
                 throw new NotFoundException("Invoice not found");
             }
 
-            var file = await documentRepository.FindByName(new DocumentWithDocumentChunks(), invoice.Document.FileName) ?? throw new NotFoundException("File not found");
+            var file = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), invoice.Document.FileName) ?? throw new NotFoundException("File not found");
 
 
 

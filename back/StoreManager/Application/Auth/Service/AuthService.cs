@@ -17,14 +17,14 @@ namespace StoreManager.Application.Auth.Service
     {
         public async Task<LoginResponseDto?> Authenticate(LoginRequestDto request)
         {
-            UserModel user = await userRepository.FindByUsername(request.Username);
+            UserModel user = await userRepository.FindByUsernameAsync(request.Username);
             if (user.Password != request.Password) { throw new UnauthorizedAccessException("Invalid password"); }
 
 
             var role = user.Role.ToString();
             var accessToken =  tokenGenerator.GenerateToken(request.Username, role);
 
-            var refreshToken = await refreshTokenRepository.Create(user);
+            var refreshToken = await refreshTokenRepository.CreateAsync(user);
 
             return new LoginResponseDto(accessToken, refreshToken.Token, role);
 
@@ -44,13 +44,13 @@ namespace StoreManager.Application.Auth.Service
                 throw new BadHttpRequestException("Invalid token");
             }
 
-            await redis.RevokeToken(jti, jwtToken.ValidTo);
+            await redis.RevokeTokenAsync(jti, jwtToken.ValidTo);
 
         }
 
         public async Task<LoginResponseDto?> RefreshAuthentication(RefreshRequestDto request)
         {
-            var refreshToken = await refreshTokenRepository.FindRefreshToken(request.RefreshToken)
+            var refreshToken = await refreshTokenRepository.FindRefreshTokenAsync(request.RefreshToken)
                 ?? throw new InvalidOperationException("Not found");
 
             if (refreshToken.ExpiresOnUtc < DateTime.UtcNow)

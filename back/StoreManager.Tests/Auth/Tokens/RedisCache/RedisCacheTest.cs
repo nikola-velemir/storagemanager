@@ -21,7 +21,7 @@ namespace StoreManager.Tests.Auth.Tokens.ReishCahce
         public async Task RevokeToken_ExpiredTest()
         {
             var expectedExpiry = VALID_EXPIRY - DateTime.UtcNow;
-            await _redis.RevokeToken(JTI, VALID_EXPIRY);
+            await _redis.RevokeTokenAsync(JTI, VALID_EXPIRY);
             _db.Verify(db => db.StringSetAsync(It.Is<RedisKey>(key => key == $"revoked_token:{JTI}"),
                 It.Is<RedisValue>(val => val == "revoked"),
                 It.IsAny<TimeSpan>(),
@@ -35,7 +35,7 @@ namespace StoreManager.Tests.Auth.Tokens.ReishCahce
             DateTime futureExpiry = DateTime.UtcNow.AddMinutes(10);
 
             var expectedExpiry = futureExpiry - DateTime.UtcNow;
-            await _redis.RevokeToken(JTI, futureExpiry);
+            await _redis.RevokeTokenAsync(JTI, futureExpiry);
             _db.Verify(db => db.StringSetAsync(
                    It.Is<RedisKey>(key => key == $"revoked_token:{JTI}"),
                    It.Is<RedisValue>(val => val == "revoked"),
@@ -47,13 +47,13 @@ namespace StoreManager.Tests.Auth.Tokens.ReishCahce
         [Fact(DisplayName = "Is revoked - Revoked JTI")]
         public async Task IsRevoked_RevokedJTITest()
         {
-            var isRevoked = await _redis.IsTokenRevoked(REVOKED_JTI);
+            var isRevoked = await _redis.IsTokenRevokedAsync(REVOKED_JTI);
             Assert.True(isRevoked);
         }
         [Fact(DisplayName = "Is revoked - Revoked JTI")]
         public async Task IsRevoked_UnrevokedJTITest()
         {
-            var isRevoked = await _redis.IsTokenRevoked(JTI);
+            var isRevoked = await _redis.IsTokenRevokedAsync(JTI);
             Assert.False(isRevoked);
         }
 

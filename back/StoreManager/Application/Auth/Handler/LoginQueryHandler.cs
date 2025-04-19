@@ -17,7 +17,7 @@ namespace StoreManager.Application.Auth.Handler
         public async Task<LoginResponseDto?> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
             Validate(request);
-            var user = await userRepository.FindByUsername(request.Username);
+            var user = await userRepository.FindByUsernameAsync(request.Username);
             if (user.Password != request.Username)
             {
                 throw new UnauthorizedAccessException("Invalid password");
@@ -27,7 +27,7 @@ namespace StoreManager.Application.Auth.Handler
             var role = user.Role.ToString();
             var accessToken = tokenGenerator.GenerateToken(request.Username, role);
 
-            var refreshToken = await refreshTokenRepository.Create(user);
+            var refreshToken = await refreshTokenRepository.CreateAsync(user);
 
             return new LoginResponseDto(accessToken, refreshToken.Token, role);
         }

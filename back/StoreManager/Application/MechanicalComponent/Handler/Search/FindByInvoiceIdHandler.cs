@@ -15,7 +15,7 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Search
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid invoiceGuid = Guid.Parse(request.InvoiceId);
-            var result = await repository.FindByInvoiceId(invoiceGuid);
+            var result = await repository.FindByInvoiceIdAsync(invoiceGuid);
 
             return new MechanicalComponentFindResponsesDto(
                 result.Select(mc =>

@@ -9,7 +9,7 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
 {
     private readonly DbSet<ProductModel> _products = context.Products;
 
-    public Task<ProductModel?> FindById(Guid id)
+    public Task<ProductModel?> FindByIdAsync(Guid id)
     {
         return _products
             .Include(p => p.Exports)
@@ -20,14 +20,14 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
             .FirstOrDefaultAsync(p => p.Id.Equals(id));
     }
 
-    public async Task<ProductModel> Create(ProductModel product)
+    public async Task<ProductModel> CreateAsync(ProductModel product)
     {
         var savedInstance = await _products.AddAsync(product);
         await context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<ProductModel> Items, int TotalCount)> FindFiltered(string? productInfo,
+    public async Task<(ICollection<ProductModel> Items, int TotalCount)> FindFilteredAsync(string? productInfo,
         DateOnly? dateCreated, int pageNumber, int pageSize)
     {
         var query = _products.Include(p => p.Components).AsQueryable();
@@ -52,7 +52,7 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
         return (await query.ToListAsync(), count);
     }
 
-    public Task<List<ProductModel>> FindByInvoiceId(Guid invoiceId)
+    public Task<List<ProductModel>> FindByInvoiceIdAsync(Guid invoiceId)
     {
         var products = _products
             .Include(p => p.Exports)

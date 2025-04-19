@@ -61,9 +61,9 @@ namespace StoreManager.Tests.Invoice.Service
         {
             await _service.Create(INVALID_GUID, METADATA_LIST);
             _invoiceRepository.Verify(repo => repo.FindByDocumentId(INVALID_GUID), Times.Once);
-            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifier(It.IsAny<string>()), Times.Never);
+            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifierAsync(It.IsAny<string>()), Times.Never);
             _mechanicalComponentRepository.Verify(
-                repo => repo.CreateFromExtractionMetadata(It.IsAny<List<ExtractionMetadata>>()), Times.Never);
+                repo => repo.CreateFromExtractionMetadataAsync(It.IsAny<List<ExtractionMetadata>>()), Times.Never);
             _invoiceItemRepository.Verify(repo => repo.Create(It.IsAny<ImportItemModel>()), Times.Never);
         }
 
@@ -74,11 +74,11 @@ namespace StoreManager.Tests.Invoice.Service
 
             _invoiceRepository.Verify(repo => repo.FindByDocumentId(VALID_DOCUMENT.Id), Times.Once);
 
-            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifier(It.IsAny<string>()), Times.Exactly(2));
-            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifier("MC-111"), Times.Once);
-            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifier("MC-4001"), Times.Once);
+            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifierAsync(It.IsAny<string>()), Times.Exactly(2));
+            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifierAsync("MC-111"), Times.Once);
+            _mechanicalComponentRepository.Verify(repo => repo.FindByIdentifierAsync("MC-4001"), Times.Once);
             _mechanicalComponentRepository.Verify(
-                repo => repo.CreateFromExtractionMetadata(It.IsAny<List<ExtractionMetadata>>()), Times.Once);
+                repo => repo.CreateFromExtractionMetadataAsync(It.IsAny<List<ExtractionMetadata>>()), Times.Once);
 
             _invoiceItemRepository.Verify(repo => repo.Create(It.IsAny<ImportItemModel>()), Times.Exactly(2));
         }
@@ -92,11 +92,11 @@ namespace StoreManager.Tests.Invoice.Service
         {
             _invoiceRepository.Setup(repo => repo.FindByDocumentId(VALID_DOCUMENT.Id)).ReturnsAsync(VALID_IMPORT);
             _invoiceRepository.Setup(repo => repo.FindByDocumentId(INVALID_GUID)).ReturnsAsync((ImportModel?)null);
-            _mechanicalComponentRepository.Setup(repo => repo.CreateFromExtractionMetadata(METADATA_LIST))
+            _mechanicalComponentRepository.Setup(repo => repo.CreateFromExtractionMetadataAsync(METADATA_LIST))
                 .ReturnsAsync(COMPONENTS);
-            _mechanicalComponentRepository.Setup(repo => repo.FindByIdentifier("MC-111"))
+            _mechanicalComponentRepository.Setup(repo => repo.FindByIdentifierAsync("MC-111"))
                 .ReturnsAsync(COMPONENTS.Find(c => c.Identifier.Equals("MC-111")));
-            _mechanicalComponentRepository.Setup(repo => repo.FindByIdentifier("MC-4001"))
+            _mechanicalComponentRepository.Setup(repo => repo.FindByIdentifierAsync("MC-4001"))
                 .ReturnsAsync(COMPONENTS.Find(c => c.Identifier.Equals("MC-4001")));
         }
 

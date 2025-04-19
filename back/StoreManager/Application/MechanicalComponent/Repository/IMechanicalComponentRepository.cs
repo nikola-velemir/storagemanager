@@ -5,24 +5,24 @@ namespace StoreManager.Application.MechanicalComponent.Repository
 {
     public interface IMechanicalComponentRepository
     {
-        Task<MechanicalComponentModel?> FindByIdentifier(string identifier);
-        Task<MechanicalComponentModel?> Create(MechanicalComponentModel component);
-        Task<MechanicalComponentModel> CreateFromExtractionMetadata(ExtractionMetadata metadata);
-        Task<List<MechanicalComponentModel>> CreateFromExtractionMetadata(List<ExtractionMetadata> metadata);
-        Task<List<MechanicalComponentModel>> FindAll();
+        Task<MechanicalComponentModel?> FindByIdentifierAsync(string identifier);
+        Task<MechanicalComponentModel?> CreateAsync(MechanicalComponentModel component);
+        Task<MechanicalComponentModel> CreateFromExtractionMetadataAsync(ExtractionMetadata metadata);
+        Task<List<MechanicalComponentModel>> CreateFromExtractionMetadataAsync(List<ExtractionMetadata> metadata);
+        Task<List<MechanicalComponentModel>> FindAllAsync();
 
-        Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(Guid? providerId,
+        Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFilteredAsync(Guid? providerId,
             string? componentInfo, int pageNumber, int pageSize);
 
-        Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFilteredForProduct(Guid? providerId,
+        Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFilteredForProductAsync(Guid? providerId,
             string? componentInfo, int pageNumber, int pageSize);
 
-        Task<List<MechanicalComponentModel>> FindByInvoiceId(Guid invoiceId);
-        Task<List<MechanicalComponentModel>> FindByProviderId(Guid id);
-        Task<MechanicalComponentModel?> FindById(Guid componentGuid);
-        Task<int> CountQuantity(MechanicalComponentModel componentModel);
-        Task<int> FindQuantitySum();
-        Task<List<MechanicalComponentModel>> FindTopFiveInQuantity();
-        Task<List<MechanicalComponentModel>> FindByIds(List<Guid> componentIds);
+        Task<List<MechanicalComponentModel>> FindByInvoiceIdAsync(Guid invoiceId);
+        Task<List<MechanicalComponentModel>> FindByProviderIdAsync(Guid id);
+        Task<MechanicalComponentModel?> FindByIdAsync(Guid componentGuid);
+        Task<int> CountQuantityAsync(MechanicalComponentModel componentModel);
+        Task<int> FindQuantitySumAsync();
+        Task<List<MechanicalComponentModel>> FindTopFiveInQuantityAsync();
+        Task<List<MechanicalComponentModel>> FindByIdsAsync(List<Guid> componentIds);
     }
 }

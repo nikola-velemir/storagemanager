@@ -19,7 +19,7 @@ public class FindFilteredProductsQueryHandler(IProductRepository productReposito
             date = tempDate;
         }
 
-        var products = await productRepository.FindFiltered(request.ProductInfo, date,
+        var products = await productRepository.FindFilteredAsync(request.ProductInfo, date,
             request.PageNumber, request.PageSize);
         return new PaginatedResult<ProductSearchResponseDto>
         {

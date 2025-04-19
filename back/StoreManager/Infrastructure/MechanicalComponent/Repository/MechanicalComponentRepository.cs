@@ -10,7 +10,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
     {
         private readonly DbSet<MechanicalComponentModel> _components = context.MechanicalComponents;
 
-        public async Task<int> CountQuantity(MechanicalComponentModel componentModel)
+        public async Task<int> CountQuantityAsync(MechanicalComponentModel componentModel)
         {
             var query = _components
                 .Where(mc => mc.Id.Equals(componentModel.Id))
@@ -19,19 +19,19 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return await query;
         }
 
-        public async Task<MechanicalComponentModel?> Create(MechanicalComponentModel component)
+        public async Task<MechanicalComponentModel?> CreateAsync(MechanicalComponentModel component)
         {
             var savedInstance = await _components.AddAsync(component);
             await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 
-        public async Task<MechanicalComponentModel> CreateFromExtractionMetadata(ExtractionMetadata metadata)
+        public async Task<MechanicalComponentModel> CreateFromExtractionMetadataAsync(ExtractionMetadata metadata)
         {
             var component = new MechanicalComponentModel
                 { Id = Guid.NewGuid(), Identifier = metadata.Identifier, Name = metadata.Name };
 
-            var foundComponent = await FindByIdentifier(metadata.Identifier);
+            var foundComponent = await FindByIdentifierAsync(metadata.Identifier);
 
             if (foundComponent != null)
             {
@@ -43,35 +43,35 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return savedInstance.Entity;
         }
 
-        public async Task<List<MechanicalComponentModel>> CreateFromExtractionMetadata(
+        public async Task<List<MechanicalComponentModel>> CreateFromExtractionMetadataAsync(
             List<ExtractionMetadata> metadata)
         {
             List<MechanicalComponentModel> components = new();
             foreach (var data in metadata)
             {
-                components.Add(await CreateFromExtractionMetadata(data));
+                components.Add(await CreateFromExtractionMetadataAsync(data));
             }
 
             return components;
         }
 
-        public Task<List<MechanicalComponentModel>> FindAll()
+        public Task<List<MechanicalComponentModel>> FindAllAsync()
         {
             return _components.Select(c => c).ToListAsync();
         }
 
-        public Task<MechanicalComponentModel?> FindById(Guid componentGuid)
+        public Task<MechanicalComponentModel?> FindByIdAsync(Guid componentGuid)
         {
             return _components.Include(mc => mc.Items).ThenInclude(ii => ii.Import).ThenInclude(i => i.Provider)
                 .FirstOrDefaultAsync(mc => mc.Id.Equals(componentGuid));
         }
 
-        public Task<MechanicalComponentModel?> FindByIdentifier(string identifier)
+        public Task<MechanicalComponentModel?> FindByIdentifierAsync(string identifier)
         {
             return _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier));
         }
 
-        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFilteredForProduct(
+        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFilteredForProductAsync(
             Guid? providerId, string? componentInfo, int pageNumber, int pageSize)
         {
             var query = _components.Include(mc => mc.Items).AsQueryable();
@@ -94,13 +94,13 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return (items, count);
         }
 
-        public Task<List<MechanicalComponentModel>> FindByInvoiceId(Guid invoiceId)
+        public Task<List<MechanicalComponentModel>> FindByInvoiceIdAsync(Guid invoiceId)
         {
             return _components.Include(mc => mc.Items).Where(mc => mc.Items.Any(ii => ii.ImportId.Equals(invoiceId)))
                 .ToListAsync();
         }
 
-        public async Task<List<MechanicalComponentModel>> FindByProviderId(Guid id)
+        public async Task<List<MechanicalComponentModel>> FindByProviderIdAsync(Guid id)
         {
             var query = _components
                 .Include(mc => mc.Items)
@@ -109,7 +109,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return await query.ToListAsync();
         }
 
-        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFiltered(Guid? providerId,
+        public async Task<(ICollection<MechanicalComponentModel> Items, int TotalCount)> FindFilteredAsync(Guid? providerId,
             string? componentInfo, int pageNumber, int pageSize)
         {
             var query = _components.Include(mc => mc.Items).ThenInclude(ii => ii.Import).ThenInclude(i => i.Provider)
@@ -133,13 +133,13 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return (items, count);
         }
 
-        public Task<int> FindQuantitySum()
+        public Task<int> FindQuantitySumAsync()
         {
             return _components.Include(mc => mc.Items).SelectMany(mc => mc.Items).Where(i => i.Quantity > 0)
                 .SumAsync(i => i.Quantity);
         }
 
-        public Task<List<MechanicalComponentModel>> FindTopFiveInQuantity()
+        public Task<List<MechanicalComponentModel>> FindTopFiveInQuantityAsync()
         {
             return _components
                 .Include(mc => mc.Items)
@@ -148,7 +148,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
                 .ToListAsync();
         }
 
-        public Task<List<MechanicalComponentModel>> FindByIds(List<Guid> componentIds)
+        public Task<List<MechanicalComponentModel>> FindByIdsAsync(List<Guid> componentIds)
         {
             return _components.Where(p => componentIds.Contains(p.Id)).ToListAsync();
         }

@@ -19,7 +19,7 @@ namespace StoreManager.Application.MechanicalComponent.Service
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid invoiceGuid = Guid.Parse(invoiceId);
-            var result = await repository.FindByInvoiceId(invoiceGuid);
+            var result = await repository.FindByInvoiceIdAsync(invoiceGuid);
 
             return new MechanicalComponentFindResponsesDto(
                 result.Select(mc =>
@@ -41,7 +41,7 @@ namespace StoreManager.Application.MechanicalComponent.Service
                 id = tempId;
             }
 
-            var result = await repository.FindFiltered(id, componentInfo, pageNumber, pageSize);
+            var result = await repository.FindFilteredAsync(id, componentInfo, pageNumber, pageSize);
             return new PaginatedResult<MechanicalComponentSearchResponseDto>
             {
                 Items = result.Items.Select(mc =>
@@ -77,7 +77,7 @@ namespace StoreManager.Application.MechanicalComponent.Service
                 id = tempId;
             }
 
-            var result = await repository.FindFilteredForProduct(id, componentInfo, pageNumber, pageSize);
+            var result = await repository.FindFilteredForProductAsync(id, componentInfo, pageNumber, pageSize);
             return new PaginatedResult<MechanicalComponentProductSearchResponseDto>
             {
                 Items = result.Items.Select(mc =>
@@ -101,12 +101,12 @@ namespace StoreManager.Application.MechanicalComponent.Service
                 throw new InvalidCastException("Guid cannot be parsed");
             }
             Guid componentGuid = Guid.Parse(componentId);
-            var component = await repository.FindById(componentGuid);
+            var component = await repository.FindByIdAsync(componentGuid);
             if (component is null)
             {
                 throw new NotFoundException("Component not found");
             }
-            var quantity = await repository.CountQuantity(component);
+            var quantity = await repository.CountQuantityAsync(component);
             return new MechanicalComponentInfoResponseDto(
                 component.Name,
                 component.Identifier,
@@ -121,16 +121,16 @@ namespace StoreManager.Application.MechanicalComponent.Service
 
         public async Task<MechanicalComponentQuantitySumResponseDto> FindQuantitySum()
         {
-            return new MechanicalComponentQuantitySumResponseDto(await repository.FindQuantitySum());
+            return new MechanicalComponentQuantitySumResponseDto(await repository.FindQuantitySumAsync());
         }
 
         public async Task<MechanicalComponentTopFiveQuantityResponsesDto> FindTopFiveInQuantity()
         {
-            var result = await repository.FindTopFiveInQuantity();
+            var result = await repository.FindTopFiveInQuantityAsync();
             var responses = new List<MechanicalComponentTopFiveQuantityResponseDto>();
             foreach (var r in result)
             {
-                var quantity = await repository.CountQuantity(r);
+                var quantity = await repository.CountQuantityAsync(r);
                 responses.Add(new MechanicalComponentTopFiveQuantityResponseDto(r.Id, r.Name, r.Identifier, quantity));
             }
             return new MechanicalComponentTopFiveQuantityResponsesDto(responses);

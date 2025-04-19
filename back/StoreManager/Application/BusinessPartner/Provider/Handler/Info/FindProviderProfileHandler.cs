@@ -23,12 +23,12 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler.Info
                 throw new InvalidCastException("Could not parse the guid");
             }
             Guid providerGuid = Guid.Parse(request.ProviderId);
-            var provider = await providerRepository.FindById(providerGuid);
+            var provider = await providerRepository.FindByIdAsync(providerGuid);
             if (provider is null)
             {
                 throw new NotFoundException("Provider not found");
             }
-            var components = await mechanicalComponentRepository.FindByProviderId(provider.Id);
+            var components = await mechanicalComponentRepository.FindByProviderIdAsync(provider.Id);
             var invoices = await importRepository.FindByProviderId(new ImportWithProvider(),provider.Id);
 
             return
