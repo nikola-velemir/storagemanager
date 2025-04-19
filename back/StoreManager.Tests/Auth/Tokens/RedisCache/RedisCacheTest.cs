@@ -1,7 +1,7 @@
 ﻿using Moq;
 using StackExchange.Redis;
-using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
 using System.Threading.Tasks;
+using StoreManager.Infrastructure.Auth.Tokens;
 
 namespace StoreManager.Tests.Auth.Tokens.ReishCahce
 {

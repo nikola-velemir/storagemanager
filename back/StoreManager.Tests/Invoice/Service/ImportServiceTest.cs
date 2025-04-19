@@ -1,13 +1,14 @@
 ﻿using Moq;
-using StoreManager.Infrastructure.BusinessPartner.Base;
-using StoreManager.Infrastructure.BusinessPartner.Base.Model;
-using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
-using StoreManager.Infrastructure.Document.Model;
+using StoreManager.Application.Invoice.Import.Repository;
+using StoreManager.Application.Invoice.Import.Service;
+using StoreManager.Application.MechanicalComponent.Repository;
+using StoreManager.Domain.BusinessPartner.Base.Model;
+using StoreManager.Domain.BusinessPartner.Provider.Model;
+using StoreManager.Domain.Document.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
-using StoreManager.Infrastructure.MechanicalComponent.Repository;
 
 namespace StoreManager.Tests.Invoice.Service
 {

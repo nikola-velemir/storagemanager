@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.BusinessPartner.Base;
-using StoreManager.Infrastructure.BusinessPartner.Base.Model;
-using StoreManager.Infrastructure.BusinessPartner.Exporter.Model;
-using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
-using StoreManager.Infrastructure.Invoice.Export.Model;
+using StoreManager.Domain.BusinessPartner.Base.Model;
+using StoreManager.Domain.BusinessPartner.Exporter.Model;
+using StoreManager.Domain.BusinessPartner.Provider.Model;
 
 namespace StoreManager.Infrastructure.DB.BusinessPartner;
 

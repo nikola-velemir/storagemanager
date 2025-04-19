@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StoreManager.Infrastructure.BusinessPartner.Base;
-using StoreManager.Infrastructure.BusinessPartner.Base.Model;
-using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
+using StoreManager.Application.Invoice.Import.Repository;
+using StoreManager.Domain.BusinessPartner.Base.Model;
+using StoreManager.Domain.BusinessPartner.Provider.Model;
+using StoreManager.Domain.Document.Model;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 

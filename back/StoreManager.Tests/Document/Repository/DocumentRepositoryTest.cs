@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Document.Repository;
 using System.Text;
+using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Document.Specification;
+using StoreManager.Infrastructure.Document.Repository;
 
 namespace StoreManager.Tests.Document.Repository
 {
@@ -31,24 +32,29 @@ namespace StoreManager.Tests.Document.Repository
             FileName = VALID_FILE_NAME
         };
 
-        private static readonly DocumentChunkModel VALID_CHUNK = new DocumentChunkModel { Document = VALID_DOCUMENT, ChunkNumber = 0, DocumentId = VALID_FILE_ID };
+        private static readonly DocumentChunkModel VALID_CHUNK = new DocumentChunkModel
+            { Document = VALID_DOCUMENT, ChunkNumber = 0, DocumentId = VALID_FILE_ID };
+
         public async Task DisposeAsync()
         {
             await _context.DisposeAsync();
         }
+
         [Fact(DisplayName = "Find by name test - invalid name")]
         public async Task FindByName_InvalidNameTest()
         {
-            var result = await _repository.FindByName(INVALID_FILE_NAME);
+            var result = await _repository.FindByName(new DocumentWithDocumentChunks(), INVALID_FILE_NAME);
             Assert.Null(result);
         }
+
         [Fact(DisplayName = "Find by name test - valid name")]
         public async Task FindByName_ValidNameTest()
         {
-            var result = await _repository.FindByName(VALID_FILE_NAME);
+            var result = await _repository.FindByName(new DocumentWithDocumentChunks(), VALID_FILE_NAME);
             Assert.NotNull(result);
             Assert.Equal(VALID_DOCUMENT, result);
         }
+
         [Fact(DisplayName = "Save file - valid name")]
         public async Task SaveFile_ValidNameTest()
         {
@@ -57,8 +63,8 @@ namespace StoreManager.Tests.Document.Repository
             Assert.Equal(VALID_FILE_NAME, result.FileName);
             Assert.Equal(VALID_FILE_EXTENSION, result.Type);
             Assert.Equal(DateOnly.FromDateTime(DateTime.UtcNow), result.Date);
-
         }
+
         [Fact(DisplayName = "Save chunk - null file test")]
         public async Task SaveChunk_NullFileTest()
         {
@@ -69,46 +75,48 @@ namespace StoreManager.Tests.Document.Repository
             Assert.NotNull(exception);
             Assert.Equal("Invalid chunk", exception.Message);
             Assert.IsType<FileNotFoundException>(exception);
-
         }
+
         [Fact(DisplayName = "Save chunk - empty file test")]
         public async Task SaveChunk_EmptyFileTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var result = await _repository.SaveChunk(GenerateInvalidMockFile(), $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
+                var result = await _repository.SaveChunk(GenerateInvalidMockFile(),
+                    $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
             });
             Assert.NotNull(exception);
             Assert.Equal("Invalid chunk", exception.Message);
             Assert.IsType<FileNotFoundException>(exception);
-
         }
+
         [Fact(DisplayName = "Save chunk - invalid file name")]
         public async Task SaveChunk_InvalidFileNameTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
             {
-                var result = await _repository.SaveChunk(GenerateValidMockFile(), $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
+                var result = await _repository.SaveChunk(GenerateValidMockFile(),
+                    $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
             });
             Assert.NotNull(exception);
             Assert.Equal("Invalid file", exception.Message);
             Assert.IsType<EntryPointNotFoundException>(exception);
-
         }
+
         [Fact(DisplayName = "Save chunk - valid test")]
         public async Task SaveChunk_ValidTest()
         {
             Exception exception = await Record.ExceptionAsync(async () =>
-          {
-              var result = await _repository.SaveChunk(GenerateValidMockFile(), $"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
-              Assert.Equal(VALID_DOCUMENT, result.Document);
-              Assert.Equal(VALID_FILE_ID, result.DocumentId);
-              Assert.Equal(0, result.ChunkNumber);
-          });
+            {
+                var result = await _repository.SaveChunk(GenerateValidMockFile(),
+                    $"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}", 0);
+                Assert.Equal(VALID_DOCUMENT, result.Document);
+                Assert.Equal(VALID_FILE_ID, result.DocumentId);
+                Assert.Equal(0, result.ChunkNumber);
+            });
             Assert.Null(exception);
-
-
         }
+
         public IFormFile GenerateValidMockFile()
         {
             var fileName = $"{VALID_FILE_NAME}.{VALID_FILE_EXTENSION}";
@@ -122,6 +130,7 @@ namespace StoreManager.Tests.Document.Repository
             };
             return formFile;
         }
+
         public IFormFile GenerateInvalidMockFile()
         {
             var fileName = $"{INVALID_FILE_NAME}.{VALID_FILE_EXTENSION}";
@@ -133,17 +142,19 @@ namespace StoreManager.Tests.Document.Repository
             };
             return formFile;
         }
+
         private async Task SeedTestData()
         {
             _context.Documents.Add(VALID_DOCUMENT);
             await _context.SaveChangesAsync();
             _repository = new DocumentRepository(_context);
         }
+
         public async Task InitializeAsync()
         {
             var options = new DbContextOptionsBuilder<WarehouseDbContext>()
-               .UseInMemoryDatabase(Guid.NewGuid().ToString())
-               .Options;
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
             _context = new WarehouseDbContext(options);
             await SeedTestData();
         }

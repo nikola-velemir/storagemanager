@@ -1,5 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2019.Presentation;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Application.Product.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Product.Model;
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 

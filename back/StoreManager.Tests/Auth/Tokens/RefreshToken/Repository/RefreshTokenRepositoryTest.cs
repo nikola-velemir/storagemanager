@@ -2,13 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Moq;
-using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Generator;
-using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
-using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.User.Model;
-using StoreManager.Infrastructure.User.Repository;
 using System.Threading.Tasks;
+using StoreManager.Application.Auth.Tokens.RefreshToken;
+using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Infrastructure.Auth.Tokens.RefreshTokens;
 
 namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
 {

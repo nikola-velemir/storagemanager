@@ -1,9 +1,9 @@
-﻿using StoreManager.Infrastructure.Document.DTO;
-using StoreManager.Infrastructure.Document.Model;
+﻿using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Document.Storage.Service;
 using Supabase;
 using Supabase.Storage;
 
-namespace StoreManager.Infrastructure.Document.SupaBase.Service
+namespace StoreManager.Infrastructure.Document.Storage.Service
 {
     public sealed class SupabaseService : ICloudStorageService
     {

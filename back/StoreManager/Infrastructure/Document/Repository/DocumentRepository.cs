@@ -1,10 +1,12 @@
-﻿
+﻿using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
+using StoreManager.Application.Document.Repository;
+using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Document.Specification;
 using StoreManager.Infrastructure.DB;
-
-using StoreManager.Infrastructure.Document.Model;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
-using System.Text.RegularExpressions;
+using StoreManager.Infrastructure.Shared;
+
 namespace StoreManager.Infrastructure.Document.Repository
 {
     public class DocumentRepository(WarehouseDbContext context) : IDocumentRepository
@@ -17,10 +19,12 @@ namespace StoreManager.Infrastructure.Document.Repository
             return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.Id.Equals(id));
         }
 
-        public Task<DocumentModel?> FindByName(string fileName)
+        public Task<DocumentModel?> FindByName(ISpecification<DocumentModel> spec, string fileName)
         {
-            return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.FileName == fileName);
+            var query = spec.Apply(_files);
+            return query.FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
+
         public async Task<DocumentChunkModel> SaveChunk(IFormFile? file, string fileName, int chunkIndex)
         {
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
@@ -28,7 +32,7 @@ namespace StoreManager.Infrastructure.Document.Repository
             {
                 throw new NotFoundException("Invalid chunk");
             }
-            var foundDoc = await FindByName(processedFileName);
+            var foundDoc = await FindByName(new DocumentWithDocumentChunks(), processedFileName);
             if (foundDoc == null)
             {
                 throw new NotFoundException("Invalid file");

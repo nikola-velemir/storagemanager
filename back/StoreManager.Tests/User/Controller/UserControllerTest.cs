@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using StoreManager.Infrastructure.User.DTO;
 using StoreManager.Infrastructure.User.Model;
 using System;
 using System.Collections.Generic;

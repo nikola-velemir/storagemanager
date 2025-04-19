@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
-using StoreManager.Infrastructure.Auth.Service;
-using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
-using StoreManager.Infrastructure.Auth.Tokens.RedisCache;
-using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
-using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Repository;
+using StoreManager.Application.Auth.Service;
+using StoreManager.Application.Auth.Tokens;
+using StoreManager.Application.Auth.Tokens.RefreshToken;
+using StoreManager.Application.User.Repository;
+using StoreManager.Domain.Auth.Service;
+using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.User.Model;
-using StoreManager.Infrastructure.User.Repository;
 
 namespace StoreManager.Tests.Auth.Service
 {

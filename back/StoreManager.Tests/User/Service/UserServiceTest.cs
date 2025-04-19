@@ -1,7 +1,8 @@
 ﻿using Moq;
-using StoreManager.Infrastructure.User.DTO;
+using StoreManager.Application.User.DTO;
+using StoreManager.Application.User.Repository;
+using StoreManager.Application.User.Service;
 using StoreManager.Infrastructure.User.Model;
-using StoreManager.Infrastructure.User.Repository;
 using StoreManager.Infrastructure.User.Service;
 
 namespace StoreManager.Tests.User.Service

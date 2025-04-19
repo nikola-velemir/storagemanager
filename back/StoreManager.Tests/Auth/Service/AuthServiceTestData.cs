@@ -1,11 +1,11 @@
-﻿using StoreManager.Infrastructure.Auth.DTO;
-using StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model;
-using StoreManager.Infrastructure.User.Model;
+﻿using StoreManager.Infrastructure.User.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StoreManager.Application.Auth.DTO;
+using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
 
 namespace StoreManager.Tests.Auth.Service
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
+using StoreManager.Domain.BusinessPartner.Provider.Model;
 
 namespace StoreManager.Infrastructure.DB.BusinessPartner.Provider
 {

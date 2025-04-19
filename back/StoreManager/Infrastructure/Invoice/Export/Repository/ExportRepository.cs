@@ -1,5 +1,6 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Application.Invoice.Export.Repository;
+using StoreManager.Domain.Invoice.Export.Specification;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 
@@ -22,16 +23,10 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFiltered(Guid? exporterId,
+    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFiltered(FindFilteredExportsSpecification spec, Guid? exporterId,
         string? productInfo, DateOnly? date, int pageNumber, int pageSize)
     {
-        var query = _exports
-            .Include(e => e.Document)
-            .Include(e => e.Exporter)
-            .Include(e => e.Items)
-            .ThenInclude(i => i.Product)
-            .AsQueryable();
-
+        var query = spec.Apply(_exports);
         if (exporterId.HasValue)
             query = query.Where(e => e.ExporterId.Equals(exporterId.Value));
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Application.User.Repository;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Repository;

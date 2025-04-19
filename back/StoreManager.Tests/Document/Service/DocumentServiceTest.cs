@@ -1,24 +1,26 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Moq;
 using Newtonsoft.Json;
-using StoreManager.Infrastructure.Document.DTO;
-using StoreManager.Infrastructure.Document.Model;
-using StoreManager.Infrastructure.Document.Repository;
-using StoreManager.Infrastructure.Document.Service;
-using StoreManager.Infrastructure.Document.Service.FileService;
-using StoreManager.Infrastructure.Document.Service.Reader;
-using StoreManager.Infrastructure.Document.SupaBase.Service;
 using System.Text;
-using System.Threading.Tasks;
-using StoreManager.Infrastructure.BusinessPartner.Base;
-using StoreManager.Infrastructure.BusinessPartner.Base.Model;
-using StoreManager.Infrastructure.BusinessPartner.Provider.DTO;
-using StoreManager.Infrastructure.BusinessPartner.Provider.Model;
-using StoreManager.Infrastructure.BusinessPartner.Provider.Repository;
+using StoreManager.Application.BusinessPartner.Provider.DTO;
+using StoreManager.Application.BusinessPartner.Provider.Repository;
+using StoreManager.Application.Document.DTO;
+using StoreManager.Application.Document.Repository;
+using StoreManager.Application.Document.Service;
+using StoreManager.Application.Document.Service.FileService;
+using StoreManager.Application.Document.Service.Reader;
+using StoreManager.Application.Invoice.Import.Repository;
+using StoreManager.Domain.BusinessPartner.Base.Model;
+using StoreManager.Domain.BusinessPartner.Provider.Model;
+using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Document.Service;
+using StoreManager.Domain.Document.Specification;
+using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Infrastructure.Document.Reader;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
+using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
 using StoreManager.Infrastructure.Invoice.Import.Service;
 
 namespace StoreManager.Tests.Document.Service
@@ -102,7 +104,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Equal("Guid cannot be parsed", exception.Message);
             Assert.IsType<InvalidCastException>(exception);
 
-            _documentRepository.Verify(repo => repo.FindByName(INVALID_FILE_NAME), Times.Never);
+            _documentRepository.Verify(repo => repo.FindByName( new DocumentWithDocumentChunks(),INVALID_FILE_NAME), Times.Never);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Never);
         }
 
@@ -117,7 +119,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Equal("Chunk not found", exception.Message);
             Assert.IsType<EntryPointNotFoundException>(exception);
 
-            _documentRepository.Verify(repo => repo.FindByName(VALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindByName(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Never);
         }
 
@@ -133,7 +135,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Null(exception);
 
 
-            _documentRepository.Verify(repo => repo.FindByName(VALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindByName(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Once);
         }
 
@@ -148,7 +150,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Null(exception);
 
 
-            _documentRepository.Verify(repo => repo.FindByName(VALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindByName(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _documentRepository.Verify(repo => repo.SaveFile(VALID_FILE_NAME), Times.Never);
             _invoiceRepository.Verify(repo => repo.Create(VALID_IMPORT), Times.Never);
             _supaService.Verify(supa => supa.UploadFileChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentChunkModel>()),
@@ -184,13 +186,13 @@ namespace StoreManager.Tests.Document.Service
 
         private Task MockRepository()
         {
-            _documentRepository.Setup(repo => repo.FindByName(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
-            _documentRepository.Setup(repo => repo.FindByName(INVALID_FILE_NAME)).ReturnsAsync((DocumentModel?)null);
+            _documentRepository.Setup(repo => repo.FindByName(new DocumentWithDocumentChunks(),VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
+            _documentRepository.Setup(repo => repo.FindByName(new DocumentWithDocumentChunks(),INVALID_FILE_NAME)).ReturnsAsync((DocumentModel?)null);
 
             _documentRepository.Setup(repo => repo.SaveFile(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
             _documentRepository.Setup(repo => repo.SaveChunk(VALID_FILE, VALID_FILE_NAME, 0)).ReturnsAsync(VALID_CHUNK);
             _invoiceRepository.Setup(repo => repo.Create(VALID_IMPORT)).ReturnsAsync(VALID_IMPORT);
-            _invoiceRepository.Setup(repo => repo.FindById(VALID_IMPORT.Id)).ReturnsAsync(VALID_IMPORT);
+            _invoiceRepository.Setup(repo => repo.FindById(new ImportWithDocument(),VALID_IMPORT.Id)).ReturnsAsync(VALID_IMPORT);
 
             _providerRepository.Setup(repo => repo.FindById(It.IsAny<Guid>())).ReturnsAsync(provider);
             _providerRepository.Setup(repo => repo.Create(It.IsAny<ProviderModel>())).ReturnsAsync(provider);

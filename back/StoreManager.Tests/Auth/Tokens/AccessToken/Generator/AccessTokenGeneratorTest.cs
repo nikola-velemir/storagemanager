@@ -1,10 +1,10 @@
 ﻿using Castle.Core.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
-using StoreManager.Infrastructure.Auth.Tokens.AcessToken.Generator;
 using StoreManager.Infrastructure.User.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using StoreManager.Infrastructure.Auth.Tokens;
 
 namespace StoreManager.Tests.Auth.Tokens.AccessToken.Generator
 {

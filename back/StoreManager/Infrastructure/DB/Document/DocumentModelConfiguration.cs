@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.Document.Model;
+using StoreManager.Domain.Document.Model;
 
 namespace StoreManager.Infrastructure.DB.Document
 {
