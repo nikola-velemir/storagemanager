@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.Invoice.Base;
-using StoreManager.Infrastructure.Invoice.Export.Model;
-using StoreManager.Infrastructure.Invoice.Import.Model;
 
-namespace StoreManager.Infrastructure.DB.Invoice;
+namespace StoreManager.Infrastructure.Invoice.Configuration;
 
 public class InvoiceModelConfiguration : IEntityTypeConfiguration<InvoiceModel>
 {

@@ -6,18 +6,18 @@ using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Infrastructure.DB.Auth;
 using StoreManager.Infrastructure.DB.BusinessPartner.Provider;
-using StoreManager.Infrastructure.DB.Document;
-using StoreManager.Infrastructure.DB.Invoice;
-using StoreManager.Infrastructure.DB.Invoice.Export;
-using StoreManager.Infrastructure.DB.Invoice.Import;
-using StoreManager.Infrastructure.DB.MechanicalComponent;
-using StoreManager.Infrastructure.DB.Product;
-using StoreManager.Infrastructure.DB.Users;
+using StoreManager.Infrastructure.Document.Configuration;
 using StoreManager.Infrastructure.Invoice.Base;
+using StoreManager.Infrastructure.Invoice.Configuration;
+using StoreManager.Infrastructure.Invoice.Export.Configuration;
 using StoreManager.Infrastructure.Invoice.Export.Model;
+using StoreManager.Infrastructure.Invoice.Import.Configuration;
 using StoreManager.Infrastructure.Invoice.Import.Model;
+using StoreManager.Infrastructure.MechanicalComponent.Configuration;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
+using StoreManager.Infrastructure.Product.Configuration;
 using StoreManager.Infrastructure.Product.Model;
+using StoreManager.Infrastructure.User.Configuration;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Infrastructure.DB

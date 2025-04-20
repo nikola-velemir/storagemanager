@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Domain.Document.Model;
 
-namespace StoreManager.Infrastructure.DB.Document
+namespace StoreManager.Infrastructure.Document.Configuration
 {
     internal sealed class DocumentModelConfiguration : IEntityTypeConfiguration<DocumentModel>
     {

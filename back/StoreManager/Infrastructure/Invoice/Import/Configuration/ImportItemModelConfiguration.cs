@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
-namespace StoreManager.Infrastructure.DB.Invoice.Import
+namespace StoreManager.Infrastructure.Invoice.Import.Configuration
 {
     public class ImportItemModelConfiguration : IEntityTypeConfiguration<ImportItemModel>
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 
-namespace StoreManager.Infrastructure.DB.Invoice.Export;
+namespace StoreManager.Infrastructure.Invoice.Export.Configuration;
 
 public class ExportItemModelConfiguration : IEntityTypeConfiguration<ExportItemModel>
 {

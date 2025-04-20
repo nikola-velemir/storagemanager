@@ -1,11 +1,8 @@
-﻿using DocumentFormat.OpenXml.Office2010.CustomUI;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 
-namespace StoreManager.Infrastructure.DB.Invoice.Export;
+namespace StoreManager.Infrastructure.Invoice.Export.Configuration;
 
 public class ExportModelConfiguration : IEntityTypeConfiguration<ExportModel>
 {

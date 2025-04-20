@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.Product.Model;
 
-namespace StoreManager.Infrastructure.DB.Product;
+namespace StoreManager.Infrastructure.Product.Configuration;
 
 public class ProductModelConfiguration : IEntityTypeConfiguration<ProductModel>
 {

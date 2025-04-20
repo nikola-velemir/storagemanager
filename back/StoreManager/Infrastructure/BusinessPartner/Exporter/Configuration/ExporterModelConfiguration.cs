@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 
-namespace StoreManager.Infrastructure.DB.BusinessPartner.Exporter;
+namespace StoreManager.Infrastructure.BusinessPartner.Exporter.Configuration;
 
 public class ExporterModelConfiguration : IEntityTypeConfiguration<ExporterModel>
 {

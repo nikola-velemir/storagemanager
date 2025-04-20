@@ -4,7 +4,7 @@ using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 
-namespace StoreManager.Infrastructure.DB.BusinessPartner;
+namespace StoreManager.Infrastructure.BusinessPartner.Base.Configuration;
 
 public class BusinessPartnerModelConfiguration : IEntityTypeConfiguration<BusinessPartnerModel>
 {

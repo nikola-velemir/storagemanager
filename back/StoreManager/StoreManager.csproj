@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\User\Repository\" />
-    <Folder Include="Infrastructure\Auth\" />
     <Folder Include="Migrations\" />
     <Folder Include="Presentation\BusinessPartner\Exporter\" />
     <Folder Include="Presentation\BusinessPartner\Provider\" />

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Infrastructure.User.Model;
 
-namespace StoreManager.Infrastructure.DB.Users
+namespace StoreManager.Infrastructure.User.Configuration
 {
     public class UserModelConfiguration : IEntityTypeConfiguration<UserModel>
     {

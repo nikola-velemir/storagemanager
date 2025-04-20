@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.Invoice.Base;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
-namespace StoreManager.Infrastructure.DB.Invoice.Import
+namespace StoreManager.Infrastructure.Invoice.Import.Configuration
 {
     public class ImportModelConfiguration : IEntityTypeConfiguration<ImportModel>
     {

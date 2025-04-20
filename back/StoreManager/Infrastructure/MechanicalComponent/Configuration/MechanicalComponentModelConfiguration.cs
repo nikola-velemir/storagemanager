@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
 
-namespace StoreManager.Infrastructure.DB.MechanicalComponent
+namespace StoreManager.Infrastructure.MechanicalComponent.Configuration
 {
     public class MechanicalComponentModelConfiguration : IEntityTypeConfiguration<MechanicalComponentModel>
     {
