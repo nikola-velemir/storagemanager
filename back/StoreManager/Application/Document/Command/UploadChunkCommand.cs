@@ -3,7 +3,7 @@
 namespace StoreManager.Application.Document.Command
 {
     public record UploadChunkCommand(
-        string ProviderFormData,
+        string ProviderId,
         IFormFile File,
         string FileName,
         int ChunkIndex,

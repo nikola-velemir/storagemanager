@@ -11,11 +11,11 @@ namespace StoreManager.Presentation.Document.Controller
     public class DocumentController(IMediator mediator) : ControllerBase
     {
         [HttpPost("upload-chunks")]
-        public async Task<ActionResult> UploadFileFromChunks([FromForm] string provider, [FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
+        public async Task<ActionResult> UploadFileFromChunks([FromForm] string providerId, [FromForm] IFormFile file, [FromForm] string fileName, [FromForm] int chunkIndex, [FromForm] int totalChunks)
         {
             try
             {
-                await mediator.Send(new UploadChunkCommand(provider, file, fileName, chunkIndex, totalChunks));
+                await mediator.Send(new UploadChunkCommand(providerId, file, fileName, chunkIndex, totalChunks));
                 return Ok(new { Message = "File uploaded successfully" });
 
             }

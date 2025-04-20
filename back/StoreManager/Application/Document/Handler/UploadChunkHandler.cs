@@ -35,31 +35,10 @@ namespace StoreManager.Application.Document.Handler
             try
             {
                 ValidateRequest(request);
-                var parsedProvider =
-                    JsonConvert.DeserializeObject<ProviderFormDataRequestDto>(request.ProviderFormData);
-                if (parsedProvider is null)
-                {
-                    throw new ArgumentNullException("provider is null");
-                }
 
-                ProviderModel? provider;
-                if (!string.IsNullOrEmpty(parsedProvider.ProviderId))
-                {
-                    provider = await providerRepository.FindByIdAsync(Guid.Parse(parsedProvider.ProviderId));
-                    if (provider is null) throw new ArgumentNullException("provider is null");
-                }
-                else
-                {
-                    provider = await providerRepository.CreateAsync(new ProviderModel
-                    {
-                        Address = parsedProvider.ProviderAddress,
-                        Id = Guid.NewGuid(),
-                        Name = parsedProvider.ProviderName,
-                        Type = BusinessPartnerType.Provider,
-                        PhoneNumber = parsedProvider.ProviderPhoneNumber
-                    });
-                }
-
+                var providerId = Guid.Parse(request.ProviderId);
+                var provider = await providerRepository.FindByIdAsync(providerId);
+                
                 var parsedFileName =
                     Regex.Replace(Path.GetFileNameWithoutExtension(request.FileName), @"[^a-zA-Z0-9]", "");
                 var foundFile = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), parsedFileName);
@@ -84,21 +63,20 @@ namespace StoreManager.Application.Document.Handler
 
                 await fileService.AppendChunk(request.File, foundFile);
 
-                if (request.ChunkIndex == request.TotalChunks - 1)
-                {
-                    var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundFile.Type));
+                if (request.ChunkIndex != request.TotalChunks - 1) return Unit.Value;
+                
+                var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundFile.Type));
 
-                    var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
+                var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
 
-                    var filePath = Path.Combine(webRootPath,
-                        $"{foundFile.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundFile.Type)}");
+                var filePath = Path.Combine(webRootPath,
+                    $"{foundFile.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundFile.Type)}");
 
-                    var metadata = documentReader.ExtractDataFromDocument(filePath);
+                var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                    await importService.Create(foundFile.Id, metadata);
+                await importService.Create(foundFile.Id, metadata);
 
-                    await fileService.DeleteAllChunks(foundFile);
-                }
+                await fileService.DeleteAllChunks(foundFile);
 
                 return Unit.Value;
             }
@@ -112,8 +90,10 @@ namespace StoreManager.Application.Document.Handler
         {
             var errors = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(request.ProviderFormData))
+            if (string.IsNullOrWhiteSpace(request.ProviderId))
                 errors.Add("Provider form data is empty!");
+            else if (!Guid.TryParse(request.ProviderId, out _))
+                errors.Add("Provider id is invalid!");
 
             if (string.IsNullOrWhiteSpace(request.FileName))
                 errors.Add("FileName is required.");
