@@ -5,7 +5,6 @@ import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../features/users/login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
-import ProviderSearch from "../../features/businessPartners/provider/search/ProviderSearch";
 import ProviderProfile from "../../features/businessPartners/provider/profile/ProviderProfile";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
@@ -13,13 +12,12 @@ import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackCon
 import ProductCreatePage from "../../features/product/create/ProductCreatePage";
 import ProductSearch from "../../features/product/search/ProductSearch";
 import ProductInfo from "../../features/product/info/ProductInfo";
-import ExporterCreatePage from "../../features/businessPartners/exporter/create/ExporterCreatePage";
-import ImportSearch from "../../features/invoice/import/search/ImportSearch";
 import ExportCreatePage from "../../features/invoice/export/create/ExportCreatePage";
 import ImportInfo from "../../features/invoice/import/info/ImportInfo";
 import InvoiceUpload from "../../features/invoice/import/upload/InvoiceUpload";
 import BusinessPartnersSearch from "../../features/businessPartners/search/BusinessPartnersSearch";
 import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
+import BusinessPartnerCreatePage from "../../features/businessPartners/create/BusinessPartnerCreatePage";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -129,7 +127,7 @@ const AnimatedRoutes = () => {
               path="/create-exporter"
               element={
                 <ContentContainer>
-                  <ExporterCreatePage />
+                  <BusinessPartnerCreatePage />
                 </ContentContainer>
               }
             />

@@ -1,42 +1,51 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
-import { validateField } from "./ExporterCreateValidators";
-import { ExporterService } from "../../../../../services/businessPartner/ExporterService";
+import { validateField } from "../../product/create/ProductCreateFormValidators";
+import BusinessPartnerSelectRole from "./BusinessPartnerSelectRole";
+import { BusinessPartnerRoles } from "../../../../model/businessPartner/BusinessPartnerRoles";
+import { BusinessPartnerService } from "../../../../services/businessPartner/BusinessPartnerService";
 
-interface ExportCreateFormData {
-  exporterName: string;
-  exporterAddress: string;
-  exporterPhoneNumber: string;
+interface BusinessPartnerCreateFormData {
+  partnerName: string;
+  partnerAddress: string;
+  partnerPhoneNumber: string;
 }
 interface ExportCreateFormDataErrors {
-  exporterNameError: string;
-  exporterAddressError: string;
-  exporterPhoneNumberError: string;
+  partnerNameError: string;
+  partnerAddressError: string;
+  partnerPhoneNumberError: string;
 }
 
-const ExporterCreatePage = () => {
-  const [formData, setFormData] = useState<ExportCreateFormData>({
-    exporterAddress: "",
-    exporterName: "",
-    exporterPhoneNumber: "",
+const BusinessPartnerCreatePage = () => {
+  const [selectedRole, setSelectedRole] = useState(
+    BusinessPartnerRoles.PROVIDER
+  );
+  const [formData, setFormData] = useState<BusinessPartnerCreateFormData>({
+    partnerAddress: "",
+    partnerName: "",
+    partnerPhoneNumber: "",
   });
   const [errors, setErrors] = useState<ExportCreateFormDataErrors>({
-    exporterAddressError: "",
-    exporterNameError: "",
-    exporterPhoneNumberError: "",
+    partnerAddressError: "",
+    partnerNameError: "",
+    partnerPhoneNumberError: "",
   });
   const handleCreateClick = () => {
     if (!validateAllFields()) {
       toast.error("Some fields are invalid!");
       return;
     }
-    ExporterService.create({
-      address: formData.exporterAddress,
-      name: formData.exporterName,
-      phoneNumber: formData.exporterPhoneNumber,
+    BusinessPartnerService.create({
+      address: formData.partnerAddress,
+      name: formData.partnerName,
+      phoneNumber: formData.partnerPhoneNumber,
+      role: selectedRole,
     })
-      .then(() => toast.success("Exporter created!"))
+      .then(() => toast.success("Partner created!"))
       .catch(() => toast.error("Something went wrong"));
+  };
+  const handleRoleChange = (e: BusinessPartnerRoles) => {
+    setSelectedRole(e);
   };
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,48 +57,48 @@ const ExporterCreatePage = () => {
   };
   const validateAllFields = () => {
     return (
-      validateField(formData.exporterName) &&
-      validateField(formData.exporterAddress) &&
-      validateField(formData.exporterPhoneNumber)
+      validateField(formData.partnerName) &&
+      validateField(formData.partnerAddress) &&
+      validateField(formData.partnerPhoneNumber)
     );
   };
   const validate = (name: string, value: string) => {
     let valid = true;
-    if (name === "exporterName") {
+    if (name === "partnerName") {
       if (!validateField(value)) {
         setErrors({
           ...errors,
-          exporterNameError: "Name is required",
+          partnerNameError: "Name is required",
         });
         valid = false;
       } else
         setErrors({
           ...errors,
-          exporterNameError: "",
+          partnerNameError: "",
         });
-    } else if (name === "exporterPhoneNumber") {
+    } else if (name === "partnerPhoneNumber") {
       if (!validateField(value)) {
         setErrors({
           ...errors,
-          exporterPhoneNumberError: "Phone number is required",
+          partnerPhoneNumberError: "Phone number is required",
         });
         valid = false;
       } else
         setErrors({
           ...errors,
-          exporterPhoneNumberError: "",
+          partnerPhoneNumberError: "",
         });
     } else {
       if (!validateField(value)) {
         setErrors({
           ...errors,
-          exporterAddressError: "Address is required",
+          partnerAddressError: "Address is required",
         });
         valid = false;
       } else
         setErrors({
           ...errors,
-          exporterAddressError: "",
+          partnerAddressError: "",
         });
     }
     return valid;
@@ -97,71 +106,75 @@ const ExporterCreatePage = () => {
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full h-5/6 py-8 overflow-auto">
+        <div className="relative z-0 w-full mb-5 group">
+          <BusinessPartnerSelectRole
+            role={selectedRole}
+            emitRole={handleRoleChange}
+          />
+        </div>
         <form className="max-w-lg mx-auto">
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="text"
-              name="exporterName"
-              id="exporterName"
+              name="partnerName"
+              id="partnerName"
               onChange={handleOnChange}
               className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-400 focus:outline-none focus:ring-0 focus:border-blue-400 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="exporterName"
+              htmlFor="partnerName"
               className="peer-focus:font-medium absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Name
             </label>
-            <div className="h-4 text-red-600">{errors.exporterNameError}</div>
+            <div className="h-4 text-red-600">{errors.partnerNameError}</div>
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="text"
-              name="exporterPhoneNumber"
-              id="exporterPhoneNumber"
+              name="partnerPhoneNumber"
+              id="partnerPhoneNumber"
               onChange={handleOnChange}
               className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-400 focus:outline-none focus:ring-0 focus:border-blue-400 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="exporterPhoneNumber"
+              htmlFor="partnerPhoneNumber"
               className="peer-focus:font-medium absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Phone number
             </label>
             <div className="h-4 text-red-600">
-              {errors.exporterPhoneNumberError}
+              {errors.partnerPhoneNumberError}
             </div>
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="text"
-              name="exporterAddress"
-              id="exporterAddress"
+              name="partnerAddress"
+              id="partnerAddress"
               onChange={handleOnChange}
               className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-400 focus:outline-none focus:ring-0 focus:border-blue-400 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="exporterAddress"
+              htmlFor="partnerAddress"
               className="peer-focus:font-medium absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Address
             </label>
-            <div className="h-4 text-red-600">
-              {errors.exporterAddressError}
-            </div>
+            <div className="h-4 text-red-600">{errors.partnerAddressError}</div>
           </div>
           <button
             type="button"
             onClick={handleCreateClick}
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           >
-            Create product
+            Create partner
           </button>
         </form>
       </div>
@@ -169,4 +182,4 @@ const ExporterCreatePage = () => {
   );
 };
 
-export default ExporterCreatePage;
+export default BusinessPartnerCreatePage;
