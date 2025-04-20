@@ -6,7 +6,7 @@ import SelectProvider from "./SelectProvider";
 import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
 import { DocumentService } from "../../../../../services/DocumentService";
 
-const InvoiceUpload = () => {
+const ImportUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null | undefined>(
     null
   );
@@ -129,4 +129,4 @@ const InvoiceUpload = () => {
   );
 };
 
-export default InvoiceUpload;
+export default ImportUpload;
