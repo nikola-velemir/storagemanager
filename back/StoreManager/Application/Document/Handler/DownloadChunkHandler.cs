@@ -15,12 +15,14 @@ namespace StoreManager.Application.Document.Handler
         IDocumentRepository documentRepository)
         : IRequestHandler<DownloadChunkQuery, DocumentDownloadResponseDto>
     {
-        public async Task<DocumentDownloadResponseDto> Handle(DownloadChunkQuery request, CancellationToken cancellationToken)
+        public async Task<DocumentDownloadResponseDto> Handle(DownloadChunkQuery request,
+            CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(request.InvoiceId, out var tempId))
             {
                 throw new InvalidCastException("Guid cannot be parsed");
             }
+
             var invoiceGuid = Guid.Parse(request.InvoiceId);
             var invoice = await importRepository.FindById(invoiceGuid);
             if (invoice is null)
@@ -28,14 +30,15 @@ namespace StoreManager.Application.Document.Handler
                 throw new NotFoundException("Invoice not found");
             }
 
-            var file = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), invoice.Document.FileName) ?? throw new NotFoundException("File not found");
-
-
-
+            var file = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(),
+                           invoice.Document.FileName)
+                       ?? throw new NotFoundException("File not found");
+            
             var chunk = file.Chunks.FirstOrDefault(chunk => chunk.ChunkNumber == request.ChunkIndex)
-                ?? throw new NotFoundException("Chunk not found");
+                        ?? throw new NotFoundException("Chunk not found");
 
-            var response = new DocumentDownloadResponseDto(await cloudStorageService.DownloadChunk(chunk), DocumentUtils.GetPresentationalMimeType(file.Type));
+            var response = new DocumentDownloadResponseDto(await cloudStorageService.DownloadChunk(chunk),
+                DocumentUtils.GetPresentationalMimeType(file.Type));
             return response;
         }
     }

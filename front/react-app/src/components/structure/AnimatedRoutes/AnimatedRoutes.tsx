@@ -14,7 +14,7 @@ import ProductSearch from "../../features/product/search/ProductSearch";
 import ProductInfo from "../../features/product/info/ProductInfo";
 import ExportCreatePage from "../../features/invoice/export/create/ExportCreatePage";
 import ImportInfo from "../../features/invoice/import/info/ImportInfo";
-import InvoiceUpload from "../../features/invoice/import/upload/InvoiceUpload";
+import ImportUpload from "../../features/invoice/import/upload/ImportUpload";
 import BusinessPartnersSearch from "../../features/businessPartners/search/BusinessPartnersSearch";
 import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
 import BusinessPartnerCreatePage from "../../features/businessPartners/create/BusinessPartnerCreatePage";
@@ -60,10 +60,10 @@ const AnimatedRoutes = () => {
               }
             />
             <Route
-              path="/invoice-upload"
+              path="/import-upload"
               element={
                 <ContentContainer>
-                  <InvoiceUpload />
+                  <ImportUpload />
                 </ContentContainer>
               }
             />
@@ -124,7 +124,7 @@ const AnimatedRoutes = () => {
               }
             />
             <Route
-              path="/create-exporter"
+              path="/create-partner"
               element={
                 <ContentContainer>
                   <BusinessPartnerCreatePage />

@@ -1,4 +1,3 @@
-import { InvoiceUploadFormData } from "../components/features/invoice/import/upload/InvoiceUpload";
 import api from "../infrastructure/Interceptor/Interceptor";
 import { RequestDownloadResponse } from "../model/document/Response/RequestDownloadResponse";
 
@@ -58,7 +57,7 @@ export class DocumentService {
     return chunks;
   }
   static async uploadDocumentInChunks(
-    provider: InvoiceUploadFormData,
+    provider: string,
     file: File,
     onProgress: (progress: number) => void
   ) {
@@ -68,7 +67,7 @@ export class DocumentService {
     for (let i = 0; i < totalChunks; ++i) {
       const chunk = chunks[i];
       const formData = new FormData();
-      formData.append("provider", JSON.stringify(provider));
+      formData.append("providerId", provider);
       formData.append("file", chunk);
       formData.append("fileName", file.name);
       formData.append("chunkIndex", "" + i);

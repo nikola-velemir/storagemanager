@@ -94,7 +94,7 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
               <span className="ms-3">Invoice search</span>
             </Link>
             <Link
-              to="/invoice-upload"
+              to="/import-upload"
               className="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -112,7 +112,7 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
                 />
               </svg>
 
-              <span className="ms-3">Invoice upload</span>
+              <span className="ms-3">Import upload</span>
             </Link>
             <Link
               to="/components-search"
@@ -203,7 +203,7 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
               <span className="ms-3">Product search</span>
             </Link>
             <Link
-              to="/create-exporter"
+              to="/create-partner"
               className="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg
@@ -222,7 +222,7 @@ const Sidenav = ({ isOpen, toggleSidenav: toggleOffCanvas }: SidenavProps) => {
                 <path d="M7 17 17 7" />
               </svg>
 
-              <span className="ms-3">Create Exporter</span>
+              <span className="ms-3">Create Partner</span>
             </Link>
             <Link
               to="/export"
