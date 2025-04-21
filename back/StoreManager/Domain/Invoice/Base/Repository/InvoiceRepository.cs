@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 
 namespace StoreManager.Infrastructure.Invoice.Base.Repository;

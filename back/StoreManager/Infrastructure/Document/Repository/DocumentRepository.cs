@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Document.Repository;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Document.Specification;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Shared;

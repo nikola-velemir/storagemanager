@@ -12,7 +12,8 @@ public class BusinessPartnerController(IMediator mediator) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateBusinessPartnerRequest request)
     {
-        await mediator.Send(new CreateBusinessPartnerCommand(request.Name, request.Address, request.PhoneNumber, request.Role ));
+        await mediator.Send(new CreateBusinessPartnerCommand(request.Name, request.PhoneNumber,
+            request.Role, request.City, request.Street, request.StreetNumber));
         return Ok();
     }
 }

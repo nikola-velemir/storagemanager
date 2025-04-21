@@ -3,6 +3,7 @@ using StoreManager.Application.BusinessPartner.Exporter.Command;
 using StoreManager.Application.BusinessPartner.Exporter.Repository;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
+using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Application.BusinessPartner.Exporter.Handler;
@@ -13,7 +14,7 @@ public class CreateExporterCommandHandler(IExporterRepository repository) : IReq
     {
         var exporter = new ExporterModel
         {
-            Address = request.Address,
+            Address = new Address("c","c","C",1,4),
             Id = Guid.NewGuid(),
             Name = request.Name,
             PhoneNumber = request.PhoneNumber,

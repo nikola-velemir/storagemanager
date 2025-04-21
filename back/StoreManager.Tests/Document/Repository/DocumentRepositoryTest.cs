@@ -6,6 +6,7 @@ using StoreManager.Infrastructure.DB;
 using System.Text;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Document.Specification;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.Document.Repository;
 
 namespace StoreManager.Tests.Document.Repository

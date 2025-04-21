@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
+using StoreManager.Infrastructure.Context;
 
 namespace StoreManager.Infrastructure.DB
 {

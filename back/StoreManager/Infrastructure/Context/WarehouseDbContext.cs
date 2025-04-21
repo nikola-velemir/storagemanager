@@ -4,6 +4,8 @@ using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Infrastructure.BusinessPartner.Base.Configuration;
+using StoreManager.Infrastructure.BusinessPartner.Exporter.Configuration;
 using StoreManager.Infrastructure.DB.Auth;
 using StoreManager.Infrastructure.DB.BusinessPartner.Provider;
 using StoreManager.Infrastructure.Document.Configuration;
@@ -20,7 +22,7 @@ using StoreManager.Infrastructure.Product.Model;
 using StoreManager.Infrastructure.User.Configuration;
 using StoreManager.Infrastructure.User.Model;
 
-namespace StoreManager.Infrastructure.DB
+namespace StoreManager.Infrastructure.Context
 {
     public class WarehouseDbContext : DbContext
     {
@@ -76,6 +78,9 @@ namespace StoreManager.Infrastructure.DB
             modelBuilder.ApplyConfiguration(new MechanicalComponentModelConfiguration());
             modelBuilder.ApplyConfiguration(new ProductModelConfiguration());
             modelBuilder.ApplyConfiguration(new ProductComponentsModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ExporterModelConfiguration());
+            modelBuilder.ApplyConfiguration(new BusinessPartnerModelConfiguration());
+
         }
     }
 }

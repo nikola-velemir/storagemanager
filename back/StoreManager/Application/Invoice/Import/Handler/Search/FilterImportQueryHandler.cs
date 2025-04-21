@@ -3,6 +3,7 @@ using StoreManager.Application.Invoice.Import.Command.Search;
 using StoreManager.Application.Invoice.Import.DTO.Search;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.Shared;
+using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
 using StoreManager.Infrastructure.Shared;
@@ -31,7 +32,7 @@ namespace StoreManager.Application.Invoice.Import.Handler.Search
                     new ImportInvoiceSearchResponseDto(
                         invoice.Id,
                         invoice.DateIssued,
-                        new ImportInvoiceSearchProviderResponseDto(invoice.Provider.Name, invoice.Provider.Address, invoice.Provider.PhoneNumber),
+                        new ImportInvoiceSearchProviderResponseDto(invoice.Provider.Name, FormatAddress(invoice.Provider.Address), invoice.Provider.PhoneNumber),
                         invoice.Items.Select(
                             item => new ImportInvoiceSearchComponentResponseDto(
                                 item.Component.Id, item.Component.Name, item.Component.Identifier, item.Quantity, item.PricePerPiece
@@ -43,6 +44,11 @@ namespace StoreManager.Application.Invoice.Import.Handler.Search
                 PageSize = request.PageSize,
                 TotalCount = result.TotalCount
             };
+        }
+
+        private static string FormatAddress(Address address)
+        {
+            return address.City + ", " + address.Street + " " + address.StreetNumber;
         }
     }
 }

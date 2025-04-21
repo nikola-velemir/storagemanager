@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
@@ -38,10 +39,12 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
             var query = _providers.Include(p => p.Imports).AsQueryable();
             if (!string.IsNullOrEmpty(providerInfo))
             {
-                query = query.Where(p =>
-                p.Name.ToLower().Contains(providerInfo.ToLower()) ||
-                p.Address.ToLower().Contains(providerInfo.ToLower()) ||
-                p.PhoneNumber.ToLower().Contains(providerInfo.ToLower()));
+                query = query.Where(e =>
+                    e.Name.ToLower().Contains(providerInfo.ToLower()) ||
+                    e.PhoneNumber.ToLower().Contains(providerInfo.ToLower()) ||
+                    e.Address.Street.ToLower().Contains(providerInfo.ToLower()) || 
+                    e.Address.City.ToLower().Contains(providerInfo.ToLower()) ||
+                    e.Address.StreetNumber.ToLower().Contains(providerInfo.ToLower()));
             }
             var count = await query.CountAsync();
             int skip = (pageNumber - 1) * pageSize;

@@ -12,6 +12,7 @@ using StoreManager.Application.Document.Service.Reader;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
+using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Document.Specification;
@@ -81,7 +82,7 @@ namespace StoreManager.Application.Document.Service
                 {
                     provider = await providerRepository.CreateAsync(new ProviderModel
                     {
-                        Address = parsedProvider.ProviderAddress,
+                        Address = new Address("a","a","a",1,4),
                         Id = Guid.NewGuid(),
                         Type = BusinessPartnerType.Provider,
                         Name = parsedProvider.ProviderName,

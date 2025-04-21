@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.BusinessPartner.Exporter.Repository;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 
 namespace StoreManager.Infrastructure.BusinessPartner.Exporter.Repository;
@@ -36,7 +37,9 @@ public class ExporterRepository(WarehouseDbContext context) : IExporterRepositor
             query = query.Where(e =>
                 e.Name.ToLower().Contains(exporterInfo.ToLower()) ||
                 e.PhoneNumber.ToLower().Contains(exporterInfo.ToLower()) ||
-                e.Address.ToLower().Contains(exporterInfo.ToLower()));
+                e.Address.Street.ToLower().Contains(exporterInfo.ToLower()) || 
+                e.Address.City.ToLower().Contains(exporterInfo.ToLower()) ||
+                e.Address.StreetNumber.ToLower().Contains(exporterInfo.ToLower()));
         }
 
         var count = await query.CountAsync();
