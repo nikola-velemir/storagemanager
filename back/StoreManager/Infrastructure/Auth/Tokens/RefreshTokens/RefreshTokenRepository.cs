@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Auth.Tokens.RefreshToken;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.User.Model;
 

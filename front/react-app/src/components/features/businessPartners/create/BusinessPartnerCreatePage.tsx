@@ -7,12 +7,16 @@ import { BusinessPartnerService } from "../../../../services/businessPartner/Bus
 
 interface BusinessPartnerCreateFormData {
   partnerName: string;
-  partnerAddress: string;
+  partnerCity: string;
+  partnerStreet: string;
+  partnerStreetNumber: string;
   partnerPhoneNumber: string;
 }
 interface ExportCreateFormDataErrors {
   partnerNameError: string;
-  partnerAddressError: string;
+  partnerCityError: string;
+  partnerStreetError: string;
+  partnerStreetNumberError: string;
   partnerPhoneNumberError: string;
 }
 
@@ -21,14 +25,18 @@ const BusinessPartnerCreatePage = () => {
     BusinessPartnerRoles.PROVIDER
   );
   const [formData, setFormData] = useState<BusinessPartnerCreateFormData>({
-    partnerAddress: "",
+    partnerCity: "",
+    partnerStreet: "",
+    partnerStreetNumber: "",
     partnerName: "",
     partnerPhoneNumber: "",
   });
   const [errors, setErrors] = useState<ExportCreateFormDataErrors>({
-    partnerAddressError: "",
+    partnerCityError: "",
     partnerNameError: "",
     partnerPhoneNumberError: "",
+    partnerStreetError: "",
+    partnerStreetNumberError: "",
   });
   const handleCreateClick = () => {
     if (!validateAllFields()) {
@@ -36,8 +44,10 @@ const BusinessPartnerCreatePage = () => {
       return;
     }
     BusinessPartnerService.create({
-      address: formData.partnerAddress,
+      city: formData.partnerCity,
       name: formData.partnerName,
+      street: formData.partnerStreet,
+      streetNumber: formData.partnerStreetNumber,
       phoneNumber: formData.partnerPhoneNumber,
       role: selectedRole,
     })
@@ -58,7 +68,7 @@ const BusinessPartnerCreatePage = () => {
   const validateAllFields = () => {
     return (
       validateField(formData.partnerName) &&
-      validateField(formData.partnerAddress) &&
+      validateField(formData.partnerCity) &&
       validateField(formData.partnerPhoneNumber)
     );
   };
@@ -76,6 +86,30 @@ const BusinessPartnerCreatePage = () => {
           ...errors,
           partnerNameError: "",
         });
+    } else if (name === "partnerCity") {
+      if (!validateField(value)) {
+        setErrors({
+          ...errors,
+          partnerCityError: "City is required",
+        });
+        valid = false;
+      } else
+        setErrors({
+          ...errors,
+          partnerCityError: "",
+        });
+    } else if (name === "partnerStreet") {
+      if (!validateField(value)) {
+        setErrors({
+          ...errors,
+          partnerStreetError: "Street is required",
+        });
+        valid = false;
+      } else
+        setErrors({
+          ...errors,
+          partnerStreetError: "",
+        });
     } else if (name === "partnerPhoneNumber") {
       if (!validateField(value)) {
         setErrors({
@@ -92,13 +126,13 @@ const BusinessPartnerCreatePage = () => {
       if (!validateField(value)) {
         setErrors({
           ...errors,
-          partnerAddressError: "Address is required",
+          partnerStreetNumberError: "Street number is required",
         });
         valid = false;
       } else
         setErrors({
           ...errors,
-          partnerAddressError: "",
+          partnerStreetNumberError: "",
         });
     }
     return valid;
@@ -154,20 +188,58 @@ const BusinessPartnerCreatePage = () => {
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="text"
-              name="partnerAddress"
-              id="partnerAddress"
+              name="partnerCity"
+              id="partnerCity"
               onChange={handleOnChange}
               className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-400 focus:outline-none focus:ring-0 focus:border-blue-400 peer"
               placeholder=" "
               required
             />
             <label
-              htmlFor="partnerAddress"
+              htmlFor="partnerCity"
               className="peer-focus:font-medium absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Address
+              City
             </label>
-            <div className="h-4 text-red-600">{errors.partnerAddressError}</div>
+            <div className="h-4 text-red-600">{errors.partnerCityError}</div>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              name="partnerStreet"
+              id="partnerStreet"
+              onChange={handleOnChange}
+              className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-400 focus:outline-none focus:ring-0 focus:border-blue-400 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              htmlFor="partnerStreet"
+              className="peer-focus:font-medium absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Street
+            </label>
+            <div className="h-4 text-red-600">{errors.partnerStreetError}</div>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <input
+              type="text"
+              name="partnerStreetNumber"
+              id="partnerStreetNumber"
+              onChange={handleOnChange}
+              className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-400 focus:outline-none focus:ring-0 focus:border-blue-400 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              htmlFor="partnerStreetNumber"
+              className="peer-focus:font-medium absolute text-sm text-gray-300 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-400 peer-focus:dark:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Street Number
+            </label>
+            <div className="h-4 text-red-600">
+              {errors.partnerStreetNumberError}
+            </div>
           </div>
           <button
             type="button"

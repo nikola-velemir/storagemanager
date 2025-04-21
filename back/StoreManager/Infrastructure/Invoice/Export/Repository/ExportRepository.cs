@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Domain.Invoice.Export.Specification;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 

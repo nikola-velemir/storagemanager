@@ -39,8 +39,9 @@ public class FindProductInfoQueryHandler(IProductRepository productRepository)
             product.Exports.Select(e =>
             {
                 var exporter = e.Export.Exporter;
-                var exporterDto = new FindProductInfoExporterResponseDto(exporter.Id, exporter.Name, exporter.Address, exporter.PhoneNumber);
-                return new ProductInfoExportResponseDto(e.ExportId, e.Export.DateIssued,exporterDto);
+                var exporterDto = new FindProductInfoExporterResponseDto(exporter.Id, exporter.Name,
+                    Utils.FormatAddress(exporter.Address), exporter.PhoneNumber);
+                return new ProductInfoExportResponseDto(e.ExportId, e.Export.DateIssued, exporterDto);
             }).ToList());
     }
 }

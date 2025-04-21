@@ -20,7 +20,7 @@ public class FindFilteredQueryHandler(IExporterRepository repository)
             Items = result.Items.Select(e => new ExporterSearchResponseDto(
                 e.Id,
                 e.Name,
-                e.Address,
+                Utils.FormatAddress(e.Address),
                 e.PhoneNumber,
                 e.Exports.Select(ee => new ExporterSearchExportResponse(
                     ee.Id, ee.DateIssued)).ToList())).ToList()

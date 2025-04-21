@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.BusinessPartner.Base.Repository;
 using StoreManager.Domain.BusinessPartner.Base.Model;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 
 namespace StoreManager.Infrastructure.BusinessPartner.Base.Repository;

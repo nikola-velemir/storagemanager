@@ -16,27 +16,31 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler.Info
         IImportRepository importRepository)
         : IRequestHandler<FindProviderProfileQuery, ProviderProfileResponseDto>
     {
-        public async Task<ProviderProfileResponseDto> Handle(FindProviderProfileQuery request, CancellationToken cancellationToken)
+        public async Task<ProviderProfileResponseDto> Handle(FindProviderProfileQuery request,
+            CancellationToken cancellationToken)
         {
             if (!Guid.TryParse(request.ProviderId, out _))
             {
                 throw new InvalidCastException("Could not parse the guid");
             }
+
             Guid providerGuid = Guid.Parse(request.ProviderId);
             var provider = await providerRepository.FindByIdAsync(providerGuid);
             if (provider is null)
             {
                 throw new NotFoundException("Provider not found");
             }
+
             var components = await mechanicalComponentRepository.FindByProviderIdAsync(provider.Id);
-            var invoices = await importRepository.FindByProviderId(new ImportWithProvider(),provider.Id);
+            var invoices = await importRepository.FindByProviderId(new ImportWithProvider(), provider.Id);
 
             return
                 new ProviderProfileResponseDto(
                     provider.Name,
-                    provider.Address,
+                    Utils.FormatAddress(provider.Address),
                     provider.PhoneNumber,
-                    components.Select(c => new ProviderProfileComponentResponseDto(c.Id, c.Name, c.Identifier)).ToList(),
+                    components.Select(c => new ProviderProfileComponentResponseDto(c.Id, c.Name, c.Identifier))
+                        .ToList(),
                     invoices.Select(i => new ProviderProfileInvoiceResponseDto(i.Id, i.DateIssued)).ToList()
                 );
         }

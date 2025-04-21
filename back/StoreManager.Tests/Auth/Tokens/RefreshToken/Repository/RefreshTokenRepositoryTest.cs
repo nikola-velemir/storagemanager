@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using StoreManager.Application.Auth.Tokens.RefreshToken;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshTokens;
+using StoreManager.Infrastructure.Context;
 
 namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.MechanicalComponent.Model;
 

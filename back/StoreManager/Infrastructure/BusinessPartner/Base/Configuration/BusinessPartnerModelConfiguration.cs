@@ -10,13 +10,23 @@ public class BusinessPartnerModelConfiguration : IEntityTypeConfiguration<Busine
 {
     public void Configure(EntityTypeBuilder<BusinessPartnerModel> builder)
     {
-        
         builder.ToTable("BusinessPartners");
-        
+
         builder.HasKey(p => p.Id);
         builder.Property(p => p.PhoneNumber).IsRequired();
+        builder.Property(p => p.Name).IsRequired();
+
+        builder.OwnsOne(b => b.Address, a =>
+        {
+            a.Property(p => p.City).HasColumnName("City");
+            a.Property(p => p.Street).HasColumnName("Street");
+            a.Property(p => p.StreetNumber).HasColumnName("StreetNumber");
+            a.Property(p => p.Latitude).HasColumnName("Latitude").IsRequired();
+            a.Property(p => p.Longitude).HasColumnName("Longitude").IsRequired();
+        });
 
         builder.HasDiscriminator<BusinessPartnerType>("Type")
+            .HasValue<BusinessPartnerModel>(BusinessPartnerType.None)
             .HasValue<ExporterModel>(BusinessPartnerType.Exporter)
             .HasValue<ProviderModel>(BusinessPartnerType.Provider);
     }

@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using StoreManager.Infrastructure.DB;
+using StoreManager.Infrastructure.Context;
 
 #nullable disable
 
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250415201303_InitialCreate")]
+    [Migration("20250421223717_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace StoreManager.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,20 +53,11 @@ namespace StoreManager.Migrations
                     b.ToTable("RefreshTokens", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Base.Model.BusinessPartnerModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Base.Model.BusinessPartnerModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("character varying(21)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -83,12 +74,12 @@ namespace StoreManager.Migrations
 
                     b.ToTable("BusinessPartners", "public");
 
-                    b.HasDiscriminator().HasValue("BusinessPartnerModel");
+                    b.HasDiscriminator<int>("Type").HasValue(0);
 
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Document.Model.DocumentChunkModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,7 +105,7 @@ namespace StoreManager.Migrations
                     b.ToTable("DocumentChunks", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Document.Model.DocumentModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -309,18 +300,18 @@ namespace StoreManager.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Exporter.Model.ExporterModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Exporter.Model.ExporterModel", b =>
                 {
-                    b.HasBaseType("StoreManager.Infrastructure.BusinessPartner.Base.Model.BusinessPartnerModel");
+                    b.HasBaseType("StoreManager.Domain.BusinessPartner.Base.Model.BusinessPartnerModel");
 
-                    b.HasDiscriminator().HasValue("ExporterModel");
+                    b.HasDiscriminator().HasValue(2);
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Provider.Model.ProviderModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Provider.Model.ProviderModel", b =>
                 {
-                    b.HasBaseType("StoreManager.Infrastructure.BusinessPartner.Base.Model.BusinessPartnerModel");
+                    b.HasBaseType("StoreManager.Domain.BusinessPartner.Base.Model.BusinessPartnerModel");
 
-                    b.HasDiscriminator().HasValue("ProviderModel");
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
@@ -352,7 +343,7 @@ namespace StoreManager.Migrations
                     b.ToTable("Imports", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Auth.Tokens.RefreshToken.Model.RefreshTokenModel", b =>
                 {
                     b.HasOne("StoreManager.Infrastructure.User.Model.UserModel", "User")
                         .WithMany()
@@ -363,9 +354,51 @@ namespace StoreManager.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentChunkModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Base.Model.BusinessPartnerModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
+                    b.OwnsOne("StoreManager.Domain.BusinessPartner.Shared.Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("BusinessPartnerModelId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("City");
+
+                            b1.Property<double>("Latitude")
+                                .HasColumnType("double precision")
+                                .HasColumnName("Latitude");
+
+                            b1.Property<double>("Longitude")
+                                .HasColumnType("double precision")
+                                .HasColumnName("Longitude");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("Street");
+
+                            b1.Property<string>("StreetNumber")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("StreetNumber");
+
+                            b1.HasKey("BusinessPartnerModelId");
+
+                            b1.ToTable("BusinessPartners", "public");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BusinessPartnerModelId");
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreManager.Domain.Document.Model.DocumentChunkModel", b =>
+                {
+                    b.HasOne("StoreManager.Domain.Document.Model.DocumentModel", "Document")
                         .WithMany("Chunks")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -376,7 +409,7 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.Document.Model.DocumentModel", "Document")
+                    b.HasOne("StoreManager.Domain.Document.Model.DocumentModel", "Document")
                         .WithOne()
                         .HasForeignKey("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", "DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,7 +477,7 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.BusinessPartner.Exporter.Model.ExporterModel", "Exporter")
+                    b.HasOne("StoreManager.Domain.BusinessPartner.Exporter.Model.ExporterModel", "Exporter")
                         .WithMany("Exports")
                         .HasForeignKey("ExporterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -467,20 +500,20 @@ namespace StoreManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreManager.Infrastructure.BusinessPartner.Provider.Model.ProviderModel", "Provider")
+                    b.HasOne("StoreManager.Domain.BusinessPartner.Provider.Model.ProviderModel", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreManager.Infrastructure.BusinessPartner.Provider.Model.ProviderModel", null)
+                    b.HasOne("StoreManager.Domain.BusinessPartner.Provider.Model.ProviderModel", null)
                         .WithMany("Imports")
                         .HasForeignKey("ProviderModelId");
 
                     b.Navigation("Provider");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Document.Model.DocumentModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Document.Model.DocumentModel", b =>
                 {
                     b.Navigation("Chunks");
                 });
@@ -499,12 +532,12 @@ namespace StoreManager.Migrations
                     b.Navigation("Exports");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Exporter.Model.ExporterModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Exporter.Model.ExporterModel", b =>
                 {
                     b.Navigation("Exports");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.BusinessPartner.Provider.Model.ProviderModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Provider.Model.ProviderModel", b =>
                 {
                     b.Navigation("Imports");
                 });

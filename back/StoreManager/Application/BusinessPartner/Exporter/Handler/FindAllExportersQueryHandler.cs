@@ -13,7 +13,8 @@ public class FindAllExportersQueryHandler(IExporterRepository repository)
     {
         var exporters = await repository.FindAll();
         return new FindExporterResponsesDto(
-            exporters.Select(e => new FindExporterResponseDto(e.Id, e.Name, e.Address, e.PhoneNumber)).ToList()
+            exporters.Select(e =>
+                new FindExporterResponseDto(e.Id, e.Name, Utils.FormatAddress(e.Address), e.PhoneNumber)).ToList()
         );
     }
 }

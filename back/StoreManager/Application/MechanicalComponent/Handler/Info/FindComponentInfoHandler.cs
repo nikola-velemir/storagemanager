@@ -29,7 +29,7 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Info
                 component.Items.Select(ii => new MechanicalComponentInfoInvoiceResponseDto(
                     ii.Import.Id,
                     ii.Import.DateIssued,
-                    new MechanicalComponentInfoProviderResponseDto(ii.Import.Provider.Id, ii.Import.Provider.Name, ii.Import.Provider.Address, ii.Import.Provider.PhoneNumber))
+                    new MechanicalComponentInfoProviderResponseDto(ii.Import.Provider.Id, ii.Import.Provider.Name, Utils.FormatAddress(ii.Import.Provider.Address) , ii.Import.Provider.PhoneNumber))
                 ).ToList()
             );
         }
