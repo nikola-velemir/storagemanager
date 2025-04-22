@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using StoreManager.Application.Invoice.Base.Command;
 using StoreManager.Application.Invoice.Base.DTO;
-using StoreManager.Infrastructure.Invoice.Base.Repository;
+using StoreManager.Domain.Invoice.Base.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Invoice.Base.Handler;

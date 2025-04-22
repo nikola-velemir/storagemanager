@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Infrastructure.Context;
-using StoreManager.Infrastructure.DB;
+using StoreManager.Infrastructure.Invoice.Base;
 
-namespace StoreManager.Infrastructure.Invoice.Base.Repository;
+namespace StoreManager.Domain.Invoice.Base.Repository;
 
 public class InvoiceRepository(WarehouseDbContext context) : IInvoiceRepository
 {
@@ -12,5 +12,10 @@ public class InvoiceRepository(WarehouseDbContext context) : IInvoiceRepository
     public Task<InvoiceModel?> FindById(Guid id)
     {
         return _invoice.Include(i=>i.Document).FirstOrDefaultAsync(i => i.Id.Equals(id));
+    }
+
+    public Task<List<InvoiceModel>> FindByPartnerId(Guid partnerId)
+    {
+        return _invoice.ToListAsync();
     }
 }

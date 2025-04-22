@@ -24,7 +24,7 @@ const ExporterSearch = () => {
     address: item.address,
     phoneNumber: item.phoneNumber,
     items: item.exports,
-    handleMoreInfoClick: () => navigate("/exporter-info/" + item.id),
+    handleMoreInfoClick: () => navigate("/partner-profile/" + item.id),
   });
   return (
     <BusinessPartnetsSearchTab

@@ -16,4 +16,11 @@ public class BusinessPartnerController(IMediator mediator) : ControllerBase
             request.Role, request.City, request.Street, request.StreetNumber));
         return Ok();
     }
+
+    [HttpGet("info/{id}")]
+    public async Task<IActionResult> Create(string id)
+    {
+        var result = await mediator.Send(new FindBusinessPartnerProfileQuery(id));
+        return Ok(result);
+    }
 }

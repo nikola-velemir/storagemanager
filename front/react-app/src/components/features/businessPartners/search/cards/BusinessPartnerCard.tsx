@@ -2,13 +2,13 @@ import React from "react";
 import BusinessPartnersSearchAccordion, {
   InvoiceLike,
 } from "../containers/BusinessPartnersSearchAccordion";
+import { useNavigate } from "react-router-dom";
 interface BusinessPartnerCardProps<T extends InvoiceLike> {
   id: string;
   name: string;
   phoneNumber: string;
   address: string;
   items: T[];
-  handleBusinessPartnerInfo: () => void;
 }
 
 const BusinessPartnerCard = <T extends InvoiceLike>({
@@ -17,8 +17,11 @@ const BusinessPartnerCard = <T extends InvoiceLike>({
   phoneNumber,
   address,
   items,
-  handleBusinessPartnerInfo,
 }: BusinessPartnerCardProps<T>) => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/partner-profile/" + id);
+  };
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
       <div className="flex justify-between items-center">
@@ -65,7 +68,7 @@ const BusinessPartnerCard = <T extends InvoiceLike>({
         </div>
 
         <button
-          onClick={handleBusinessPartnerInfo}
+          onClick={handleNavigate}
           className="bg-green-600 text-sm font-medium hover:bg-green-700 px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition"
         >
           More info

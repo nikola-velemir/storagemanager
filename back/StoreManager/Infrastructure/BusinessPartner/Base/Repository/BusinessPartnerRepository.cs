@@ -9,11 +9,14 @@ namespace StoreManager.Infrastructure.BusinessPartner.Base.Repository;
 public class BusinessPartnerRepository(WarehouseDbContext context) : IBusinessPartnerRepository
 {
     private readonly DbSet<BusinessPartnerModel> _businessPartners = context.BusinessPartners;
-
     public async Task<BusinessPartnerModel> CreateAsync(BusinessPartnerModel businessPartner)
     {
         var savedInstance = await _businessPartners.AddAsync(businessPartner);
         await context.SaveChangesAsync();
         return savedInstance.Entity;
+    }
+    public Task<BusinessPartnerModel?> FindById(Guid id)
+    {
+        return _businessPartners.FirstOrDefaultAsync(bp => bp.Id.Equals(id));
     }
 }

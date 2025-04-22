@@ -11,6 +11,7 @@ using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Service;
 using StoreManager.Domain.BusinessPartner.Shared;
+using StoreManager.Domain.Invoice.Import.Specification;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 

@@ -18,6 +18,7 @@ import ImportUpload from "../../features/invoice/import/upload/ImportUpload";
 import BusinessPartnersSearch from "../../features/businessPartners/search/BusinessPartnersSearch";
 import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
 import BusinessPartnerCreatePage from "../../features/businessPartners/create/BusinessPartnerCreatePage";
+import BusinessPartnerProfile from "../../features/businessPartners/profile/BusinessPartnerProfile";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -84,10 +85,10 @@ const AnimatedRoutes = () => {
               }
             />
             <Route
-              path="/provider-profile/:id"
+              path="/partner-profile/:id"
               element={
                 <ContentContainer>
-                  <ProviderProfile />
+                  <BusinessPartnerProfile />
                 </ContentContainer>
               }
             />

@@ -1,6 +1,6 @@
 ﻿using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.Invoice.Import.Service;
-using StoreManager.Infrastructure.Invoice.Base.Repository;
+using StoreManager.Domain.Invoice.Base.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
 

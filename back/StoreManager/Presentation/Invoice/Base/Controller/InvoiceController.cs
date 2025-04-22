@@ -14,4 +14,10 @@ public class InvoiceController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new FIndInvoiceTypeQuery(id));
         return Ok(result);
     }
+
+    [HttpGet("/partner/{id}")]
+    public async Task<IActionResult> GetByPartnerId([FromRoute] string id)
+    {
+        var 
+    }
 }

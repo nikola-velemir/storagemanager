@@ -6,4 +6,7 @@ export class BusinessPartnerService {
   public static async create(request: BusinessPartnerCreateRequest) {
     return api.post(this.BASE_URL, request);
   }
+  public static async findPartnerProfile(id: string) {
+    return api.get(this.BASE_URL + "/info/" + id);
+  }
 }

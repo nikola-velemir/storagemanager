@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Domain.Invoice.Import.Specification;
 
-public class ImportWithProvider : ISpecification<ImportModel>
+public class ImportBlank : ISpecification<ImportModel>
 {
     public IQueryable<ImportModel> Apply(IQueryable<ImportModel> query)
     {
-        return query.Include(i => i.Document);
+        return query;
     }
 }

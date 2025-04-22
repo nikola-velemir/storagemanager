@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BusinessPartnersInvoice from "./BusinessPartnersInvoice";
 import { useNavigate } from "react-router-dom";
 
-interface ExporterCardAccordionProps<T extends InvoiceLike> {
+interface BusinessPartnersSearchAccordionProps<T extends InvoiceLike> {
   items: T[];
 }
 export interface InvoiceLike {
@@ -11,8 +11,7 @@ export interface InvoiceLike {
 }
 const BusinessPartnersSearchAccordion = <T extends InvoiceLike>({
   items,
-}: ExporterCardAccordionProps<T>) => {
-  const navigate = useNavigate();
+}: BusinessPartnersSearchAccordionProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => {
     setIsOpen(!isOpen);

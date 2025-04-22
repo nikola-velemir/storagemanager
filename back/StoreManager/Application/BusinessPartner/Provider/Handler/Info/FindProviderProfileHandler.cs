@@ -5,6 +5,7 @@ using StoreManager.Application.BusinessPartner.Provider.DTO.Info;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.MechanicalComponent.Repository;
+using StoreManager.Domain.Invoice.Import.Specification;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
