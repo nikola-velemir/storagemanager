@@ -57,8 +57,17 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
     {
         var products = _products
             .Include(p => p.Exports)
-            .Where(p=>p.Exports
-                .Any(e=>e.ExportId.Equals(invoiceId)));
+            .Where(p => p.Exports
+                .Any(e => e.ExportId.Equals(invoiceId)));
         return products.ToListAsync();
+    }
+
+    public Task<List<ProductModel>> FindByExporterIdAsync(Guid exporterId)
+    {
+        var query = _products
+            .Include(p => p.Exports)
+            .ThenInclude(e => e.Export)
+            .Where(p=>p.Exports.Any(e=>e.Export.ExporterId.Equals(exporterId)));
+        return query.ToListAsync();
     }
 }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import ProviderContentTabs from "../provider/profile/ProviderContentTabs";
 import { useParams } from "react-router-dom";
-import { ProviderProfileResponse } from "../../../../model/provider/ProviderProfileResponse";
-import { ProviderService } from "../../../../services/businessPartner/ProviderService";
 import { BusinessPartnerService } from "../../../../services/businessPartner/BusinessPartnerService";
 import { BusinessPartnerProfileResponse } from "../../../../model/businessPartner/BusinessPartnerProfileResponse";
 import { BusinessPartnerAddressResponse } from "../../../../model/businessPartner/BusinessPartnerAddressResponse";
+import ExporterContentTabs from "../exporter/profile/ExporterContentTabs";
+import { BusinessPartnerRoles } from "../../../../model/businessPartner/BusinessPartnerRoles";
 
 const BusinessPartnerProfile = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,13 +13,14 @@ const BusinessPartnerProfile = () => {
   const [partner, setPartner] = useState<BusinessPartnerProfileResponse | null>(
     null
   );
-  const [components, setComponents] = useState();
   useEffect(() => {
     if (!id || id.trim().length === 0) return;
     BusinessPartnerService.findPartnerProfile(id).then((res) => {
+      console.log(res.data);
       setPartner(res.data);
     });
   }, [id]);
+
   const formatAddress = (
     address: BusinessPartnerAddressResponse | undefined | null
   ) => {
@@ -68,6 +69,12 @@ const BusinessPartnerProfile = () => {
               </div>
             </div>
           </div>
+          {id && partner?.partnerType === BusinessPartnerRoles.PROVIDER && (
+            <ProviderContentTabs id={id} />
+          )}
+          {id && partner?.partnerType === BusinessPartnerRoles.EXPORTER && (
+            <ExporterContentTabs id={id} />
+          )}
         </div>
       </div>
     </div>

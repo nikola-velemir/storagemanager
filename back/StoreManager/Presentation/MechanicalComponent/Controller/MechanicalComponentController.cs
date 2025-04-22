@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StoreManager.Application.MechanicalComponent.Command;
 using StoreManager.Application.MechanicalComponent.Command.Info;
 using StoreManager.Application.MechanicalComponent.Command.Search;
 using StoreManager.Application.MechanicalComponent.Command.Statistics;
@@ -46,6 +47,13 @@ namespace StoreManager.Presentation.MechanicalComponent.Controller
         public async Task<IActionResult> FindTopFiveInQuantity()
         {
             var result = await service.Send(new FindTopFiveInQuantityQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("partner/{id}")]
+        public async Task<IActionResult> FindByPartnerId([FromRoute] string id)
+        {
+            var result = await service.Send(new FindComponentsByPartnerQuery(id));
             return Ok(result);
         }
     }

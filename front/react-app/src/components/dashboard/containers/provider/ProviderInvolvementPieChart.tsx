@@ -66,7 +66,7 @@ const ProviderInvolvementPieChart = ({
 }: ProviderInvolvementPieChartProps) => {
   const navigate = useNavigate();
   const handlePieSliceClick = (data: any) => {
-    navigate("/provider-profile/" + data.id);
+    navigate("/partner-profile/" + data.id);
   };
   return (
     <ResponsiveContainer height="100%" width="100%">

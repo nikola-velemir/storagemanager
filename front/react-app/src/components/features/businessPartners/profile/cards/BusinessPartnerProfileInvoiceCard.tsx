@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-interface ProviderModalImportCardProps {
+
+interface BusinessPartnerProfileInvoiceCardProps {
   id: string;
   dateIssued: string;
 }
-const ProviderProfileImportCard = ({
+const BusinessPartnerProfileInvoiceCard = ({
   id,
   dateIssued,
-}: ProviderModalImportCardProps) => {
+}: BusinessPartnerProfileInvoiceCardProps) => {
   const navigate = useNavigate();
   const handleInvoicePageNavigate = () => {
     navigate("/invoice-info/" + id);
@@ -64,4 +65,4 @@ const ProviderProfileImportCard = ({
   );
 };
 
-export default ProviderProfileImportCard;
+export default BusinessPartnerProfileInvoiceCard;

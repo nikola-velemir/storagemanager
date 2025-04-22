@@ -1,40 +1,38 @@
 import { useEffect, useState } from "react";
-import { ProviderProfileComponentResponse } from "../../../../../model/provider/ProviderProfileComponentResponse";
-import ProviderProfileComponentCard from "./cards/ProviderProfileComponentCard";
-import { InvoiceService } from "../../../../../services/invoice/InvoiceService";
-import { InvoiceFindResponse } from "../../../../../model/invoice/InvoiceFindResponse";
-import { ComponentInfoResponse } from "../../../component/ComponentInfoResponse";
-import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
 import { toast } from "react-toastify";
+import { InvoiceFindResponse } from "../../../../../model/invoice/InvoiceFindResponse";
+import { InvoiceService } from "../../../../../services/invoice/InvoiceService";
 import BusinessPartnerProfileInvoiceCard from "../../profile/cards/BusinessPartnerProfileInvoiceCard";
+import { ProductService } from "../../../../../services/ProductService";
+import { ProductFindResponse } from "../../../../../model/product/ProductFindResponse";
+import ExporterProfileProductCard from "./cards/ExporterProfileProductCard";
 
 enum TabState {
-  IMPORTS,
-  COMPONENTS,
+  EXPORTS,
+  PRODUCTS,
 }
-
-interface ProviderContentTabsProps {
+interface ExporterContentTabsProps {
   id: string;
 }
 
-const ProviderContentTabs = ({ id }: ProviderContentTabsProps) => {
+const ExporterContentTabs = ({ id }: ExporterContentTabsProps) => {
   const [invoices, setInvoices] = useState<InvoiceFindResponse[]>([]);
-  const [components, setComponents] = useState<ComponentInfoResponse[]>([]);
-  const [selectedTabState, setSelectedTabState] = useState(TabState.IMPORTS);
+  const [products, setProducts] = useState<ProductFindResponse[]>([]);
+  const [selectedTabState, setSelectedTabState] = useState(TabState.EXPORTS);
   const handleInvoicesTab = () => {
-    if (selectedTabState !== TabState.IMPORTS)
-      setSelectedTabState(TabState.IMPORTS);
+    if (selectedTabState !== TabState.EXPORTS)
+      setSelectedTabState(TabState.EXPORTS);
   };
-  const handleComponentsTab = () => {
-    if (selectedTabState !== TabState.COMPONENTS)
-      setSelectedTabState(TabState.COMPONENTS);
+  const handleProductsTab = () => {
+    if (selectedTabState !== TabState.PRODUCTS)
+      setSelectedTabState(TabState.PRODUCTS);
   };
   useEffect(() => {
     InvoiceService.findInvoiceByPartner(id)
       .then((res) => setInvoices(res.data))
       .catch(() => toast.error("Could not fetch invoices!"));
-    MechanicalComponentService.findByPartner(id)
-      .then((res) => setComponents(res.data))
+    ProductService.findByPartner(id)
+      .then((res) => setProducts(res.data))
       .catch(() => toast.error("Could not fetch components!"));
   }, [id]);
   const activeTab =
@@ -50,13 +48,13 @@ const ProviderContentTabs = ({ id }: ProviderContentTabsProps) => {
       />
     ));
   };
-  const renderComponents = () => {
-    return components.map((component: ProviderProfileComponentResponse) => (
-      <ProviderProfileComponentCard
-        key={component.identifier}
-        id={component.id}
-        identifier={component.identifier}
-        name={component.name}
+  const renderProducts = () => {
+    return products.map((product: ProductFindResponse) => (
+      <ExporterProfileProductCard
+        key={product.identifier}
+        id={product.id}
+        identifier={product.identifier}
+        name={product.name}
       />
     ));
   };
@@ -67,30 +65,30 @@ const ProviderContentTabs = ({ id }: ProviderContentTabsProps) => {
           <p
             onClick={handleInvoicesTab}
             className={`rounded-tl-xl ${
-              selectedTabState === TabState.IMPORTS ? activeTab : inactiveTab
+              selectedTabState === TabState.EXPORTS ? activeTab : inactiveTab
             }`}
           >
-            Imports
+            Exports
           </p>
         </li>
         <li className="w-full">
           <p
-            onClick={handleComponentsTab}
+            onClick={handleProductsTab}
             className={`rounded-tr-xl ${
-              selectedTabState === TabState.COMPONENTS ? activeTab : inactiveTab
+              selectedTabState === TabState.PRODUCTS ? activeTab : inactiveTab
             }`}
           >
-            Components
+            Products
           </p>
         </li>
       </ul>
       <div className="w-full h-96 flex flex-col gap-4">
-        {selectedTabState === TabState.IMPORTS
+        {selectedTabState === TabState.EXPORTS
           ? renderInvoices()
-          : renderComponents()}
+          : renderProducts()}
       </div>
     </div>
   );
 };
 
-export default ProviderContentTabs;
+export default ExporterContentTabs;

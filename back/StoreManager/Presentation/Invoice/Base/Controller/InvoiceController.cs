@@ -9,15 +9,16 @@ namespace StoreManager.Presentation.Invoice.Base.Controller;
 public class InvoiceController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] string id)
+    public async Task<IActionResult> FindById([FromRoute] string id)
     {
         var result = await mediator.Send(new FIndInvoiceTypeQuery(id));
         return Ok(result);
     }
 
-    [HttpGet("/partner/{id}")]
-    public async Task<IActionResult> GetByPartnerId([FromRoute] string id)
+    [HttpGet("partner/{id}")]
+    public async Task<IActionResult> FindByPartnerId([FromRoute] string id)
     {
-        var 
+        var result = await mediator.Send(new FindInvoicesByPartnerIdQuery(id));
+        return Ok(result);
     }
 }

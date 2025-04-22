@@ -19,7 +19,7 @@ const ProviderCard = ({
 }: ProviderCardProps) => {
   const navigate = useNavigate();
   const handleMoreInfoClick = () => {
-    navigate("/provider-profile/" + id);
+    navigate("/partner-profile/" + id);
   };
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
