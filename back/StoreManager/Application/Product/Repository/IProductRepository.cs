@@ -8,4 +8,5 @@ public interface IProductRepository
     Task<ProductModel> CreateAsync(ProductModel product);
     Task<(ICollection<ProductModel> Items, int TotalCount)> FindFilteredAsync(string? productInfo, DateOnly? dateCreated, int pageNumber, int pageSize);
     Task<List<ProductModel>> FindByInvoiceIdAsync(Guid invoiceId);
+    Task<List<ProductModel>> FindByExporterIdAsync(Guid exporterId);
 }

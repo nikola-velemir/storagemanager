@@ -44,4 +44,9 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
         var items = await query.Skip(skip).Take(pageSize).ToListAsync();
         return (items, items.Count);
     }
+
+    public Task<List<ExportModel>> FindByExporterIdAsync(Guid partnerId)
+    {
+        return _exports.Where(e=>e.ExporterId.Equals(partnerId)).ToListAsync();
+    }
 }

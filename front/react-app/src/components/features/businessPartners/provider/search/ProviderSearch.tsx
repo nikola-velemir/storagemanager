@@ -24,7 +24,7 @@ const ProviderSearch = () => {
     address: item.address,
     phoneNumber: item.phoneNumber,
     items: item.invoices,
-    handleMoreInfoClick: () => navigate("/exporter-info/" + item.id),
+    handleMoreInfoClick: () => navigate("/partner-profile/" + item.id),
   });
   return (
     <BusinessPartnetsSearchTab

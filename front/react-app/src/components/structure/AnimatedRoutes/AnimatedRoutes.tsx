@@ -5,7 +5,6 @@ import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../features/users/login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
 import { AnimatePresence } from "framer-motion";
-import ProviderProfile from "../../features/businessPartners/provider/profile/ProviderProfile";
 import ComponentsSearch from "../../features/component/search/ComponentsSearch";
 import ComponentInfo from "../../features/component/info/ComponentInfo";
 import { RouteStackProvider } from "../../../infrastructure/Routes/RouteStackContext";
@@ -18,6 +17,7 @@ import ImportUpload from "../../features/invoice/import/upload/ImportUpload";
 import BusinessPartnersSearch from "../../features/businessPartners/search/BusinessPartnersSearch";
 import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
 import BusinessPartnerCreatePage from "../../features/businessPartners/create/BusinessPartnerCreatePage";
+import BusinessPartnerProfile from "../../features/businessPartners/profile/BusinessPartnerProfile";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -84,10 +84,10 @@ const AnimatedRoutes = () => {
               }
             />
             <Route
-              path="/provider-profile/:id"
+              path="/partner-profile/:id"
               element={
                 <ContentContainer>
-                  <ProviderProfile />
+                  <BusinessPartnerProfile />
                 </ContentContainer>
               }
             />

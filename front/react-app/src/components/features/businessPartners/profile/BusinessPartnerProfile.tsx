@@ -1,21 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import ProviderContentTabs from "../provider/profile/ProviderContentTabs";
 import { useParams } from "react-router-dom";
-import { ProviderProfileResponse } from "../../../../../model/provider/ProviderProfileResponse";
-import ProviderContentTabs from "./ProviderContentTabs";
-import { ProviderService } from "../../../../../services/businessPartner/ProviderService";
+import { BusinessPartnerService } from "../../../../services/businessPartner/BusinessPartnerService";
+import { BusinessPartnerProfileResponse } from "../../../../model/businessPartner/BusinessPartnerProfileResponse";
+import { BusinessPartnerAddressResponse } from "../../../../model/businessPartner/BusinessPartnerAddressResponse";
+import ExporterContentTabs from "../exporter/profile/ExporterContentTabs";
+import { BusinessPartnerRoles } from "../../../../model/businessPartner/BusinessPartnerRoles";
 
-const ProviderProfile = () => {
+const BusinessPartnerProfile = () => {
   const { id } = useParams<{ id: string }>();
 
-  const [provider, setProvider] = useState<ProviderProfileResponse | null>(
+  const [partner, setPartner] = useState<BusinessPartnerProfileResponse | null>(
     null
   );
   useEffect(() => {
     if (!id || id.trim().length === 0) return;
-    ProviderService.findProviderProfile(id).then((response) => {
-      setProvider(response.data);
+    BusinessPartnerService.findPartnerProfile(id).then((res) => {
+      console.log(res.data);
+      setPartner(res.data);
     });
   }, [id]);
+
+  const formatAddress = (
+    address: BusinessPartnerAddressResponse | undefined | null
+  ) => {
+    if (!address) return "";
+    return address.city + ", " + address.street + " " + address.streetNumber;
+  };
   return (
     <div className="h-screen w-full p-8">
       <div className="w-full h-5/6 overflow-auto">
@@ -41,31 +52,33 @@ const ProviderProfile = () => {
               <div className="mt-2 flex flex-row items-center text-sm">
                 Name:
                 <span className="ms-3 text-white text-lg font-medium">
-                  {provider?.name}
+                  {partner?.name}
                 </span>
               </div>
               <div className="mt-2 flex flex-row items-center text-sm">
                 Address:
                 <span className="ms-3 text-white text-lg font-medium">
-                  {provider?.address}
+                  {formatAddress(partner?.address)}
                 </span>
               </div>
               <div className="mt-2 flex flex-row items-center text-sm">
                 Phone number:
                 <span className="ms-3 text-white text-lg font-medium">
-                  {provider?.phoneNumber}
+                  {partner?.phoneNumber}
                 </span>
               </div>
             </div>
           </div>
-          <ProviderContentTabs
-            components={provider ? provider.components : []}
-            invoices={provider ? provider.invoices : []}
-          />
+          {id && partner?.partnerType === BusinessPartnerRoles.PROVIDER && (
+            <ProviderContentTabs id={id} />
+          )}
+          {id && partner?.partnerType === BusinessPartnerRoles.EXPORTER && (
+            <ExporterContentTabs id={id} />
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default ProviderProfile;
+export default BusinessPartnerProfile;

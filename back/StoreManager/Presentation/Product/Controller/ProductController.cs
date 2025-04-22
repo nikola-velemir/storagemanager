@@ -40,4 +40,11 @@ public class ProductController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new FindProductByInvoiceIdQuery(invoiceId));
         return Ok(result);
     }
+
+    [HttpGet("partner/{partnerId}")]
+    public async Task<IActionResult> FindProductByPartner([FromRoute] string partnerId)
+    {
+        var result = await mediator.Send(new FindProductsByPartnerQuery(partnerId));
+        return Ok(result);
+    }
 }

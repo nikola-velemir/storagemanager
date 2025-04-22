@@ -17,7 +17,7 @@ const ComponentInfoImportCard = ({
     navigate("/invoice-info/" + id);
   };
   const handleProviderMoreInfoClick = () => {
-    navigate("/provider-profile/" + provider.id);
+    navigate("/partner-profile/" + provider.id);
   };
   return (
     <div

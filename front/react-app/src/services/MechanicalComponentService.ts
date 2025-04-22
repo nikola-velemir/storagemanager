@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import api from "../infrastructure/Interceptor/Interceptor";
 import { MechanicalComponentFindResponses } from "../model/components/find/MechanicalComponentFindResponses";
 import { MechanicalComponentInfoResponse } from "../model/components/info/MechanicalComponentInfoResponse";
@@ -6,6 +5,7 @@ import { MechanicalComponentQuantitySumResponse } from "../model/components/Mech
 import { MechanicalComponentSearchResponse } from "../model/components/search/MechanicalComponentSearchResponse";
 import { PaginatedResponse } from "../model/PaginatedResponse";
 import { MechanicalComponentTopFiveQuantityResponses } from "../model/components/MechanicalComponentTopFiveQuantityResponses";
+import { ComponentInfoResponse } from "../components/features/component/ComponentInfoResponse";
 
 export interface MechanicalComponentFilterRequest {
   pageSize: number;
@@ -41,6 +41,11 @@ export class MechanicalComponentService {
   public static findInfo(id: string) {
     return api.get<MechanicalComponentInfoResponse>(
       this.BASE_URL + "/info/" + id
+    );
+  }
+  public static async findByPartner(partnerId: string) {
+    return api.get<ComponentInfoResponse[]>(
+      this.BASE_URL + "/partner/" + partnerId
     );
   }
   public static async findByInvoiceId(invoiceId: string) {

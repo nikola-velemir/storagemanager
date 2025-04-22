@@ -3,7 +3,7 @@ import { ExportSearchProductResponse } from "../model/invoice/export/ExportSearc
 import { PaginatedResponse } from "../model/PaginatedResponse";
 import { ProductCreateRequest } from "../model/product/ProductCreateRequest";
 import { ProductFilterRequest } from "../model/product/ProductFilterRequest";
-import { ProductInfoResponse } from "../model/product/ProductInfoResponse";
+import { ProductFindResponse } from "../model/product/ProductFindResponse";
 import { ProductSearchResponse } from "../model/product/ProductSearchResponse";
 
 export class ProductService {
@@ -29,7 +29,10 @@ export class ProductService {
       }
     );
   }
+  public static async findByPartner(id: string) {
+    return api.get<ProductFindResponse[]>(this.BASE_URL + "/partner/" + id);
+  }
   public static async findInfo(id: string) {
-    return api.get<ProductInfoResponse>(this.BASE_URL + "/info/" + id);
+    return api.get(this.BASE_URL + "/info/" + id);
   }
 }

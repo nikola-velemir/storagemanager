@@ -41,6 +41,7 @@ const ProductContentTabs = ({
   const renderComponents = () => {
     return components.map((component: ProductInfoComponentResponse) => (
       <ProductInfoComponentCard
+        key={component.id}
         id={component.id}
         identifier={component.identifier}
         name={component.name}
