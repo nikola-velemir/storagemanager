@@ -1,4 +1,5 @@
-﻿using StoreManager.Infrastructure.Product.Model;
+﻿using StoreManager.Domain.Invoice.Export.Model;
+using StoreManager.Infrastructure.Product.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Model;
 

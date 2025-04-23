@@ -12,7 +12,6 @@ public static class ExportInjection
     {
         serviceCollection.AddScoped<IExportRepository, ExportRepository>();
         serviceCollection.AddScoped<IExportService, ExportService>();
-        serviceCollection.AddScoped<IExportItemRepository,ExportItemRepository>();
         return serviceCollection;
     }
 }

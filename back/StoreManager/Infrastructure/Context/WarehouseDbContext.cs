@@ -4,6 +4,7 @@ using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.BusinessPartner.Base.Configuration;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Configuration;
 using StoreManager.Infrastructure.DB.Auth;

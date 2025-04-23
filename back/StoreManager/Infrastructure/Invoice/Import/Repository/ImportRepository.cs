@@ -88,5 +88,37 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
             var query = _imports.Where(i => i.DateIssued.Equals(date));
             return query.CountAsync();
         }
+
+        public Task<ImportItemModel?> FindByImportAndComponentIdAsync(Guid invoiceId, Guid componentId)
+        {
+            var query = 
+                _imports.Include(i => i.Items)
+                    .Where(i=>i.Items.Any(ii=>ii.ImportId.Equals(invoiceId) && ii.ComponentId.Equals(componentId)))
+                    .SelectMany(ii=>ii.Items).FirstOrDefaultAsync(ii=>ii.ImportId.Equals(invoiceId) && ii.ComponentId.Equals(componentId));
+            return query;
+
+
+        }
+
+        public async Task UpdateAsync(ImportModel import)
+        {
+            _imports.Update(import);
+            await context.SaveChangesAsync();
+        }
+
+        public Task<double> FindTotalPrice()
+        {
+            var query = _imports.Include(i => i.Items)
+                .SelectMany(ii => ii.Items);
+            return query.SumAsync(ii => ii.Quantity * ii.PricePerPiece);
+        }
+
+        public Task<double> FindSumForDate(DateOnly date)
+        {
+            var query = _imports.Include(i => i.Items)
+                .Where(i => i.DateIssued.Equals(date))
+                .SelectMany(ii => ii.Items);
+            return query.SumAsync(ii=>ii.Quantity * ii.PricePerPiece);
+        }
     }
 }

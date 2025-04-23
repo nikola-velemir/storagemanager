@@ -5,6 +5,7 @@ using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Service;
 using StoreManager.Domain.BusinessPartner.Shared;
+using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Application.BusinessPartner.Exporter.Service;

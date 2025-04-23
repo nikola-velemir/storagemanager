@@ -8,7 +8,6 @@ using StoreManager.Infrastructure.Invoice.Import.Repository;
 namespace StoreManager.Application.Invoice.Import.Handler
 {
     public class CreateImportCommandHandler(
-        IImportItemRepository importItemRepository,
         IMechanicalComponentRepository mechanicalComponentRepository,
         IImportRepository importRepository)
         : IRequestHandler<CreateImportCommand>
@@ -19,15 +18,30 @@ namespace StoreManager.Application.Invoice.Import.Handler
 
             if (invoice is null) return Unit.Value;
 
-            var components = await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(request.Metadata);
+            await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(request.Metadata);
             foreach (var data in request.Metadata)
             {
                 var component = await mechanicalComponentRepository.FindByIdentifierAsync(data.Identifier);
-                if (component is null) { continue; }
-                var foundItem = await importItemRepository.FindByImportAndComponentId(invoice.Id, component.Id);
-                if (foundItem is null)
-                    await importItemRepository.Create(new ImportItemModel { Component = component, ComponentId = component.Id, Import = invoice, ImportId = invoice.Id, PricePerPiece = data.Price, Quantity = data.Quantity });
+                if (component is null)
+                {
+                    continue;
+                }
+
+                var foundItem = await importRepository.FindByImportAndComponentIdAsync(invoice.Id, component.Id);
+                if (foundItem is not null) continue;
+                
+                invoice.AddItem(new ImportItemModel
+                {
+                    Component = component,
+                    ComponentId = component.Id, 
+                    Import = invoice,
+                    ImportId = invoice.Id,
+                    PricePerPiece = data.Price,
+                    Quantity = data.Quantity
+                });
+//                await importRepository.UpdateAsync(invoice);
             }
+
             return Unit.Value;
         }
     }

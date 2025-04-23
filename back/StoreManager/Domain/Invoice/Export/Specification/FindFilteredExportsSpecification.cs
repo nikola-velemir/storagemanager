@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 using StoreManager.Infrastructure.Shared;
 

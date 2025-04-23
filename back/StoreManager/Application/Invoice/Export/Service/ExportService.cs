@@ -2,6 +2,7 @@
 using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Application.Shared;
+using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Domain.Invoice.Export.Specification;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Export.Model;

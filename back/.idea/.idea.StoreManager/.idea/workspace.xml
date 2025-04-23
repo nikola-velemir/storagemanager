@@ -9,16 +9,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a3165c4-d92a-4166-b83d-7538ad30ca1c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/.idea/react-app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/CreateExporterCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/CreateExporterCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Repository/IExportItemRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Repository/IExportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Repository/IExportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Service/ExportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Service/ExportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportFromDocumentCommandHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindTotalInventoryValueQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindTotalInventoryValueQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Repository/IImportItemRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Repository/IImportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Repository/IImportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/BusinessPartner/Exporter/Model/ExporterModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/BusinessPartner/Exporter/Model/ExporterModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportItemModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportItemModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Specification/FindFilteredExportsSpecification.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Specification/FindFilteredExportsSpecification.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Import/Model/ImportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Import/Model/ImportModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Configuration/ExportModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Configuration/ExportModelConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportItemRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportItemRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ExportInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ExportInjection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/InvoiceInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/InvoiceInjection.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +47,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2w6VKqS3BvGHh5sYib6kpA6tVsB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,11 +58,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.StoreManager: http.executor": "Run",
+    ".NET Launch Settings Profile.StoreManager: http.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "refactor/item-repositories",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,6 +111,9 @@
       <option name="presentableId" value="Default" />
       <updated>1745361951648</updated>
       <workItem from="1745361952281" duration="3067000" />
+      <workItem from="1745368494672" duration="205000" />
+      <workItem from="1745368718894" duration="844000" />
+      <workItem from="1745369602324" duration="1351000" />
     </task>
     <servers />
   </component>
@@ -120,6 +139,19 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs</url>
+          <line>20</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Invoice\Import\Handler\CreateImportCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="849" />
+            </startOffsets>
+            <endOffsets>
+              <option value="937" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

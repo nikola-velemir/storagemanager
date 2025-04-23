@@ -14,7 +14,6 @@ using StoreManager.Infrastructure.Shared;
 namespace StoreManager.Application.Invoice.Import.Service
 {
     public class ImportService(
-        IImportItemRepository importItemRepository,
         IMechanicalComponentRepository mechanicalComponentRepository,
         IImportRepository importRepository)
         : IImportService
@@ -46,13 +45,19 @@ namespace StoreManager.Application.Invoice.Import.Service
                     continue;
                 }
 
-                var foundItem = await importItemRepository.FindByImportAndComponentId(invoice.Id, component.Id);
-                if (foundItem is null)
-                    await importItemRepository.Create(new ImportItemModel
-                    {
-                        Component = component, ComponentId = component.Id, Import = invoice, ImportId = invoice.Id,
-                        PricePerPiece = data.Price, Quantity = data.Quantity
-                    });
+                var foundItem = await importRepository.FindByImportAndComponentIdAsync(invoice.Id, component.Id);
+                if (foundItem is not null) continue;
+                
+                invoice.AddItem(new ImportItemModel
+                {
+                    Component = component,
+                    ComponentId = component.Id, 
+                    Import = invoice,
+                    ImportId = invoice.Id,
+                    PricePerPiece = data.Price,
+                    Quantity = data.Quantity
+                });
+                await importRepository.UpdateAsync(invoice);
             }
         }
 
