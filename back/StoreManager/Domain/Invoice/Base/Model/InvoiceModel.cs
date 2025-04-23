@@ -1,7 +1,7 @@
 ﻿using StoreManager.Domain.Document.Model;
-using StoreManager.Infrastructure.Invoice.Import.Model;
+using StoreManager.Infrastructure.Invoice.Base;
 
-namespace StoreManager.Infrastructure.Invoice.Base;
+namespace StoreManager.Domain.Invoice.Base.Model;
 
 public class InvoiceModel
 {

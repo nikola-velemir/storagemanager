@@ -9,6 +9,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Configuration
         {
             builder.HasKey(mc => mc.Id);
             builder.HasAlternateKey(mc => mc.Identifier);
+            builder.Property(mc=>mc.Identifier).HasMaxLength(15);
             builder.HasMany(mc => mc.Items).WithOne(i => i.Component);
         }
     }

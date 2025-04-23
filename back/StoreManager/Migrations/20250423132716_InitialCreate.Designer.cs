@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.Context;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250421223717_InitialCreate")]
+    [Migration("20250423132716_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,11 +61,13 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
@@ -116,7 +118,8 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -130,7 +133,7 @@ namespace StoreManager.Migrations
                     b.ToTable("Documents", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Base.Model.InvoiceModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -205,7 +208,8 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("Identifier")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -247,15 +251,18 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Identifier")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -275,22 +282,26 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
@@ -314,9 +325,9 @@ namespace StoreManager.Migrations
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Export.Model.ExportModel", b =>
                 {
-                    b.HasBaseType("StoreManager.Infrastructure.Invoice.Base.InvoiceModel");
+                    b.HasBaseType("StoreManager.Domain.Invoice.Base.Model.InvoiceModel");
 
                     b.Property<Guid>("ExporterId")
                         .HasColumnType("uuid");
@@ -328,7 +339,7 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", b =>
                 {
-                    b.HasBaseType("StoreManager.Infrastructure.Invoice.Base.InvoiceModel");
+                    b.HasBaseType("StoreManager.Domain.Invoice.Base.Model.InvoiceModel");
 
                     b.Property<Guid>("ProviderId")
                         .HasColumnType("uuid");
@@ -407,11 +418,11 @@ namespace StoreManager.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Base.Model.InvoiceModel", b =>
                 {
                     b.HasOne("StoreManager.Domain.Document.Model.DocumentModel", "Document")
                         .WithOne()
-                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", "DocumentId")
+                        .HasForeignKey("StoreManager.Domain.Invoice.Base.Model.InvoiceModel", "DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -420,7 +431,7 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportItemModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", "Export")
+                    b.HasOne("StoreManager.Domain.Invoice.Export.Model.ExportModel", "Export")
                         .WithMany("Items")
                         .HasForeignKey("ExportId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -475,7 +486,7 @@ namespace StoreManager.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Export.Model.ExportModel", b =>
                 {
                     b.HasOne("StoreManager.Domain.BusinessPartner.Exporter.Model.ExporterModel", "Exporter")
                         .WithMany("Exports")
@@ -483,9 +494,9 @@ namespace StoreManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", null)
+                    b.HasOne("StoreManager.Domain.Invoice.Base.Model.InvoiceModel", null)
                         .WithOne()
-                        .HasForeignKey("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", "Id")
+                        .HasForeignKey("StoreManager.Domain.Invoice.Export.Model.ExportModel", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -494,7 +505,7 @@ namespace StoreManager.Migrations
 
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", b =>
                 {
-                    b.HasOne("StoreManager.Infrastructure.Invoice.Base.InvoiceModel", null)
+                    b.HasOne("StoreManager.Domain.Invoice.Base.Model.InvoiceModel", null)
                         .WithOne()
                         .HasForeignKey("StoreManager.Infrastructure.Invoice.Import.Model.ImportModel", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -542,7 +553,7 @@ namespace StoreManager.Migrations
                     b.Navigation("Imports");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Export.Model.ExportModel", b =>
                 {
                     b.Navigation("Items");
                 });

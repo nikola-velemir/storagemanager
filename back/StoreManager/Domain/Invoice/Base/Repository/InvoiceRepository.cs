@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Domain.Invoice.Base.Model;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.Invoice.Base;
 

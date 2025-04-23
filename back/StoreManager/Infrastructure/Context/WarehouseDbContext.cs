@@ -4,10 +4,10 @@ using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Invoice.Base.Model;
 using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.BusinessPartner.Base.Configuration;
 using StoreManager.Infrastructure.BusinessPartner.Exporter.Configuration;
-using StoreManager.Infrastructure.DB.Auth;
 using StoreManager.Infrastructure.DB.BusinessPartner.Provider;
 using StoreManager.Infrastructure.Document.Configuration;
 using StoreManager.Infrastructure.Invoice.Base;
@@ -66,21 +66,7 @@ namespace StoreManager.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
-            modelBuilder.ApplyConfiguration(new UserModelConfiguration());
-            modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
-            modelBuilder.ApplyConfiguration(new DocumentModelConfiguration());
-            modelBuilder.ApplyConfiguration(new DocumentChunkModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ProviderModelConfiguration());
-            modelBuilder.ApplyConfiguration(new InvoiceModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ExportModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ExportItemModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ImportModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ImportItemModelConfiguration());
-            modelBuilder.ApplyConfiguration(new MechanicalComponentModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductComponentsModelConfiguration());
-            modelBuilder.ApplyConfiguration(new ExporterModelConfiguration());
-            modelBuilder.ApplyConfiguration(new BusinessPartnerModelConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(WarehouseDbContext).Assembly);
 
         }
     }

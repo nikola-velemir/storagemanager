@@ -1,4 +1,5 @@
-﻿using StoreManager.Infrastructure.Invoice.Base;
+﻿using StoreManager.Domain.Invoice.Base.Model;
+using StoreManager.Infrastructure.Invoice.Base;
 
 namespace StoreManager.Domain.Invoice.Base.Repository;
 
