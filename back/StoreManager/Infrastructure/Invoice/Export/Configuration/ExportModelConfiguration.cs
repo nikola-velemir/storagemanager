@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Configuration;

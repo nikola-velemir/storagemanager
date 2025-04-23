@@ -9,5 +9,10 @@ namespace StoreManager.Infrastructure.Invoice.Import.Model
 
         public required Guid ProviderId { get; set; }
         public ICollection<ImportItemModel> Items { get; set; } = new List<ImportItemModel>();
+
+        public void AddItem(ImportItemModel item)
+        {
+            Items.Add(item);
+        }
     }
 }

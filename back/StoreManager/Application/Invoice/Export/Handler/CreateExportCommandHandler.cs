@@ -5,6 +5,7 @@ using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Application.Product.Repository;
 using StoreManager.Domain.Document.Service;
+using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
@@ -14,7 +15,6 @@ namespace StoreManager.Application.Invoice.Export.Handler;
 public class CreateExportCommandHandler(
     IExporterRepository exporterRepository,
     IExportRepository exportRepository,
-    IExportItemRepository  exportItemRepository,
     IProductRepository productRepository,
     IDocumentService documentService)
     : IRequestHandler<CreateExportCommand>
@@ -48,7 +48,7 @@ public class CreateExportCommandHandler(
             ExporterId = exporter.Id,
             Type = InvoiceType.Export
         });
-        await exportItemRepository.CreateFromProductRowsAsync(export, productRows);
+        await exportRepository.CreateFromProductRowsAsync(export, productRows);
         return Unit.Value;
     }
 

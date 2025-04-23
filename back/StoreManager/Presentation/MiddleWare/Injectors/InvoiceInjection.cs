@@ -13,7 +13,6 @@ public static class InvoiceInjection
     {
         services.AddScoped<IInvoiceRepository,InvoiceRepository>();
         services.AddScoped<IImportRepository, ImportRepository>();
-        services.AddScoped<IImportItemRepository, ImportItemRepository>();
         services.AddScoped<IImportService, ImportService>();
 
         return services;

@@ -17,5 +17,9 @@ namespace StoreManager.Application.Invoice.Import.Repository
         Task<List<ImportModel>> FindByProviderId(ISpecification<ImportModel> spec, Guid id);
         Task<int> CountImportsThisWeek();
         Task<int> FindCountForTheDate(DateOnly date);
+        Task<ImportItemModel?> FindByImportAndComponentIdAsync(Guid invoiceId, Guid componentId);
+        Task UpdateAsync(ImportModel import);
+        Task<double> FindTotalPrice();
+        Task<double> FindSumForDate(DateOnly date);
     }
 }
