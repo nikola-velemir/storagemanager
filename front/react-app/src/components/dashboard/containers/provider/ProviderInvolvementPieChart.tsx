@@ -12,6 +12,8 @@ import {
 import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
 import { useNavigate } from "react-router-dom";
 import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
+import { ExporterExportInvolvementResponse } from "../../../../model/exporter/ExporterExportInvolvementResponse";
+import { ExporterProductInvolvementResponse } from "../../../../model/exporter/ExporterProductInvolvementResponse";
 
 const CustomTooltip = ({
   active,
@@ -49,7 +51,9 @@ const CustomTooltip = ({
 interface ProviderInvolvementPieChartProps {
   data:
     | ProviderImportInvolvementResponse[]
-    | ProviderComponentInvolvementResponse[];
+    | ProviderComponentInvolvementResponse[]
+    | ExporterExportInvolvementResponse[]
+    | ExporterProductInvolvementResponse[];
   dataKey: string;
 }
 const generateRandomColor = () => {

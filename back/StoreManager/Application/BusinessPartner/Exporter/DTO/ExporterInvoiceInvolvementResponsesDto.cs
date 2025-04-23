@@ -1,0 +1,3 @@
+﻿namespace StoreManager.Application.BusinessPartner.Exporter.DTO;
+
+public record ExporterInvoiceInvolvementResponsesDto(List<ExporterInvoiceInvolvementResponseDto> Exporters);

@@ -43,7 +43,7 @@ namespace StoreManager.Application.Document.Service
             }
 
             var invoiceGuid = Guid.Parse(invoiceId);
-            var invoice = await importRepository.FindById(new ImportWithDocument(),invoiceGuid);
+            var invoice = await importRepository.FindById(new ImportWithDocument(), invoiceGuid);
             if (invoice is null)
             {
                 throw new NotFoundException("Invoice not found");
@@ -82,7 +82,7 @@ namespace StoreManager.Application.Document.Service
                 {
                     provider = await providerRepository.CreateAsync(new ProviderModel
                     {
-                        Address = new Address("a","a","a",1,4),
+                        Address = new Address("a", "a", "a", 1, 4),
                         Id = Guid.NewGuid(),
                         Type = BusinessPartnerType.Provider,
                         Name = parsedProvider.ProviderName,
@@ -145,7 +145,18 @@ namespace StoreManager.Application.Document.Service
         private static void AddExporterSection(BusinessPartnerModel partner, Section section)
         {
             var exporterSection =
-                section.AddParagraph($"Exporter: \n{partner.Name}\n{partner.Address}\n{partner.PhoneNumber}");
+                section.AddParagraph(
+                    $"Exporter: \n{partner.Name}\n{Utils.FormatAddress(partner.Address)}\n{partner.PhoneNumber}");
+            exporterSection.Format.Font.Size = 12;
+            exporterSection.Format.SpaceAfter = "2cm";
+        }
+
+        private static void AddTotalSection(List<ProductRow> rows, Section section)
+        {
+            var sum = rows.Sum(r => r.Quantity * r.Price);
+            var exporterSection =
+                section.AddParagraph(
+                    $"Total: {Math.Round(sum, 2)}");
             exporterSection.Format.Font.Size = 12;
             exporterSection.Format.SpaceAfter = "2cm";
         }
@@ -197,6 +208,7 @@ namespace StoreManager.Application.Document.Service
             // Optional: Add title
             AddTitle(section);
             AddExporterSection(partner, section);
+            AddTotalSection(rows, section);
             var table = AddTable(section);
 
 

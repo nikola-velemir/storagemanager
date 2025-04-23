@@ -1,5 +1,7 @@
 import api from "../../infrastructure/Interceptor/Interceptor";
 import { ExporterCreateRequest } from "../../model/exporter/ExporterCreateRequest";
+import { ExporterExportInvolvementResponses } from "../../model/exporter/ExporterExportInvovlementResponses";
+import { ExporterProductInvolvementResponse } from "../../model/exporter/ExporterProductInvolvementResponse";
 import { ExporterSearchResponse } from "../../model/exporter/ExporterSearchResponse";
 import { FindExporterResponses } from "../../model/exporter/FindExporterResponses";
 import { PaginatedResponse } from "../../model/PaginatedResponse";
@@ -11,6 +13,16 @@ interface ExporterFilterRequest {
 }
 
 export class ExporterService {
+  public static async findExporterProductInvolvement() {
+    return api.get<{ products: ExporterProductInvolvementResponse[] }>(
+      this.BASE_URL + "/find-product-involvement"
+    );
+  }
+  public static async findExporterInvoiceInvolvement() {
+    return api.get<ExporterExportInvolvementResponses>(
+      this.BASE_URL + "/find-invoice-involvement"
+    );
+  }
   private static BASE_URL = "/exporters";
   static async findFiltered(request: ExporterFilterRequest) {
     return api.get<PaginatedResponse<ExporterSearchResponse>>(

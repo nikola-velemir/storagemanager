@@ -9,23 +9,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a3165c4-d92a-4166-b83d-7538ad30ca1c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindExporterProductInvolvementsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindInvoiceInvolvementsQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/DTO/ExporterInvoiceInvolvementResponseDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/DTO/ExporterInvoiceInvolvementResponsesDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/DTO/ExporterProductInvolvementResponseDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/DTO/ExporterProductInvolvementResponsesDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindExporterInvoiceInvolvementsQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindExporterProductInvolvementsQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/CountExportsThisWeekQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/FindExportCountThisWeekQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CountExportsThisWeekQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/FindExportCountThisWeekQueryHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Base/Model/InvoiceModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Base/Model/InvoiceModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Base/Repository/IInvoiceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Base/Repository/IInvoiceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Base/Repository/InvoiceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Base/Repository/InvoiceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Import/Model/ImportModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Import/Model/ImportModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Auth/Configuration/RefreshTokenConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Auth/Configuration/RefreshTokenConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Base/Configuration/BusinessPartnerModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Base/Configuration/BusinessPartnerModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Document/Configuration/DocumentModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Document/Configuration/DocumentModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Configuration/InvoiceModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Configuration/InvoiceModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/MechanicalComponent/Configuration/MechanicalComponentModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/MechanicalComponent/Configuration/MechanicalComponentModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Configuration/ProductModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Configuration/ProductModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/20250421223717_InitialCreate.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/20250421223717_InitialCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/WarehouseDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/assets/icon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../front/assets/icon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindAllExportersQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindAllExportersQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Repository/IExporterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Repository/IExporterRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Service/DocumentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Service/DocumentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Repository/IExportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Repository/IExportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/CountInvoicesThisWeekQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/CountImportsThisWeekQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/CountImportsThisWeekHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/CountImportsThisWeekHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindImportCountThisWeekQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindImportCountThisWeekQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Repository/IImportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Repository/IImportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Exporter/Repository/ExporterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Exporter/Repository/ExporterRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Exporter/Controller/ExporterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Exporter/Controller/ExporterController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Export/Controller/ExportController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Export/Controller/ExportController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Import/Controller/ImportController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Import/Controller/ImportController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/dashboard/containers/provider/useProviderStats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/dashboard/containers/provider/useProviderStats.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/react-app/src/services/businessPartner/ExporterService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/services/businessPartner/ExporterService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +67,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "feature/dashboard-exports",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -106,6 +120,7 @@
       <workItem from="1745368718894" duration="844000" />
       <workItem from="1745369602324" duration="1351000" />
       <workItem from="1745414370625" duration="322000" />
+      <workItem from="1745446377286" duration="5326000" />
     </task>
     <servers />
   </component>

@@ -1,8 +1,6 @@
 ﻿using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Domain.Invoice.Export.Specification;
-using StoreManager.Infrastructure.Invoice.Base;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Application.Invoice.Export.Repository;
 
@@ -17,4 +15,6 @@ public interface IExportRepository
 
     Task<List<ExportModel>> FindByExporterIdAsync(Guid partnerId);
     Task CreateFromProductRowsAsync(ExportModel export, List<ProductRow> productRows);
+    Task<int> FindCountForDateAsync(DateOnly date);
+    Task<int> CountExportsThisWeekAsync();
 }

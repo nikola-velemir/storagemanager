@@ -3,6 +3,7 @@ using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Domain.Invoice.Export.Specification;
+using StoreManager.Domain.Utils;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Invoice.Export.Model;
@@ -79,5 +80,21 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
         }
         
         await context.SaveChangesAsync();
+    }
+
+    public Task<int> FindCountForDateAsync(DateOnly date)
+    {
+        var query = _exports.Where(e => e.DateIssued.Equals(date));
+        return query.CountAsync();
+    }
+
+    public Task<int> CountExportsThisWeekAsync()
+    {
+        
+        var startOfWeek = DateOnly.FromDateTime(DateTime.UtcNow.StartOfWeek());
+        var endOfWeek = startOfWeek.AddDays(7);
+        
+        var query = _exports.Where(e=>e.DateIssued >= startOfWeek && e.DateIssued < endOfWeek);
+        return query.CountAsync();
     }
 }

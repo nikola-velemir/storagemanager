@@ -28,7 +28,7 @@ public class ExporterService(IExporterRepository repository) : IExporterService
 
     public async Task<FindExporterResponsesDto> FindAll()
     {
-        var exporters = await repository.FindAll();
+        var exporters = await repository.FindAllAsync();
         return new FindExporterResponsesDto(
             exporters.Select(e => new FindExporterResponseDto(e.Id, e.Name, Utils.FormatAddress(e.Address), e.PhoneNumber)).ToList()
         );

@@ -26,7 +26,7 @@ namespace StoreManager.Presentation.Invoice.Import.Controller
         [HttpGet("count-this-week")]
         public async Task<IActionResult> CountImportsThisWeek()
         {
-            var result = await mediator.Send(new CountInvoicesThisWeekQuery());
+            var result = await mediator.Send(new CountImportsThisWeekQuery());
             return Ok(result);
         }
         [HttpGet("total-value")]

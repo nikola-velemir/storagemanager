@@ -83,7 +83,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
             return query.CountAsync();
         }
 
-        public Task<int> FindCountForTheDate(DateOnly date)
+        public Task<int> FindCountForTheDateAsync(DateOnly date)
         {
             var query = _imports.Where(i => i.DateIssued.Equals(date));
             return query.CountAsync();

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using StoreManager.Application.BusinessPartner.Exporter.Command;
+using StoreManager.Application.BusinessPartner.Provider.Command.Statistics;
 using StoreManager.Application.BusinessPartner.Provider.DTO;
 
 namespace StoreManager.Presentation.BusinessPartner.Exporter.Controller;
@@ -27,5 +28,16 @@ public class ExporterController(IMediator mediator) : ControllerBase
     {
         var result = await mediator.Send(new FindFilteredQuery(exporterInfo, PageNumber:pageNumber, PageSize:pageSize));
         return Ok(result);
+    }
+    [HttpGet("find-invoice-involvement")]
+    public async Task<IActionResult> FindInvoiceInvolvement()
+    {
+        var result = await mediator.Send(new FindInvoiceInvolvementsQuery());
+        return Ok(result);
+    }
+    [HttpGet("find-product-involvement")]
+    public async Task<IActionResult> FindComponentInvolvement()
+    {
+        return Ok(await mediator.Send(new FindExporterProductInvolvementsQuery()));
     }
 }
