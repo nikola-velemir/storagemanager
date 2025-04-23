@@ -12,6 +12,7 @@ function createMainWindow() {
     autoHideMenuBar: true,
     title: "Sreto",
     titleBarStyle: "hiddenInset",
+    icon: path.join(__dirname, "assets", "icon.ico"),
     frame: false,
     webPreferences: {
       contextIsolation: true,
@@ -23,13 +24,10 @@ function createMainWindow() {
     },
   });
   const isDev = process.env.NODE_ENV === "development";
-  const startUrl = "http://localhost:3000";
-  //   const startUrl = isDev
-  //     ? "http://localhost:3000"
-  //     : url.format({
-  //         pathname: path.join(__dirname, "./react-app/build/index.html"),
-  //         protocol: "file",
-  //       });
+  const startUrl = url.format({
+    pathname: path.join(__dirname, "./react-app/build/index.html"),
+    protocol: "file",
+  });
   mainWindow.loadURL(startUrl);
 
   ipcMain.on("window-minimize", () => mainWindow.minimize());

@@ -23,7 +23,7 @@ const AppHeader = () => {
             </svg>
           }
           transitionColor="hover:bg-stone-500"
-          windowHandler={() => window.electron.maximize()}
+          windowHandler={() => window.electron.minimize()}
         ></WindowControllButton>
         <WindowControllButton
           icon={
