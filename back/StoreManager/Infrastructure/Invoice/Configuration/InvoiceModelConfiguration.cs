@@ -5,16 +5,16 @@ using StoreManager.Infrastructure.Invoice.Base;
 
 namespace StoreManager.Infrastructure.Invoice.Configuration;
 
-public class InvoiceModelConfiguration : IEntityTypeConfiguration<InvoiceModel>
+public class InvoiceModelConfiguration : IEntityTypeConfiguration<Domain.Invoice.Base.Model.Invoice>
 {
-    public void Configure(EntityTypeBuilder<InvoiceModel> builder)
+    public void Configure(EntityTypeBuilder<Domain.Invoice.Base.Model.Invoice> builder)
     {
         builder.ToTable("Invoices");
         
         builder.HasKey(i => i.Id);
         
         builder.HasOne(i => i.Document)
-            .WithOne().HasForeignKey<InvoiceModel>(i => i.DocumentId);
+            .WithOne().HasForeignKey<Domain.Invoice.Base.Model.Invoice>(i => i.DocumentId);
         
     }
 }

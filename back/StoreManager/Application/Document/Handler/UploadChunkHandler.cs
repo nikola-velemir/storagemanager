@@ -45,7 +45,7 @@ namespace StoreManager.Application.Document.Handler
                 if (foundFile == null)
                 {
                     foundFile = await documentRepository.SaveFileAsync(request.FileName);
-                    var invoice = await importRepository.Create(new ImportModel
+                    var invoice = await importRepository.Create(new Import
                     {
                         Provider = provider,
                         ProviderId = provider.Id,

@@ -9,26 +9,26 @@ namespace StoreManager.Infrastructure.BusinessPartner.Exporter.Repository;
 public class ExporterRepository(WarehouseDbContext context) : IExporterRepository
 {
     private readonly WarehouseDbContext _context = context;
-    private readonly DbSet<ExporterModel> _exporters = context.Exporters;
+    private readonly DbSet<Domain.BusinessPartner.Exporter.Model.Exporter> _exporters = context.Exporters;
 
-    public Task<ExporterModel?> FindById(Guid id)
+    public Task<Domain.BusinessPartner.Exporter.Model.Exporter?> FindById(Guid id)
     {
         return _exporters.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 
-    public async Task<ExporterModel> Create(ExporterModel exporter)
+    public async Task<Domain.BusinessPartner.Exporter.Model.Exporter> Create(Domain.BusinessPartner.Exporter.Model.Exporter exporter)
     {
         var savedInstance = await _exporters.AddAsync(exporter);
         await _context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 
-    public Task<List<ExporterModel>> FindAllAsync()
+    public Task<List<Domain.BusinessPartner.Exporter.Model.Exporter>> FindAllAsync()
     {
         return _exporters.ToListAsync();
     }
 
-    public async Task<(ICollection<ExporterModel> Items, int TotalCount)> FindFiltered(string? exporterInfo,
+    public async Task<(ICollection<Domain.BusinessPartner.Exporter.Model.Exporter> Items, int TotalCount)> FindFiltered(string? exporterInfo,
         int pageNumber,
         int pageSize)
     {
@@ -51,7 +51,7 @@ public class ExporterRepository(WarehouseDbContext context) : IExporterRepositor
         return (result, count);
     }
 
-    public async Task<int> FindInvoiceCountForProviderAsync(ExporterModel exporter)
+    public async Task<int> FindInvoiceCountForProviderAsync(Domain.BusinessPartner.Exporter.Model.Exporter exporter)
     {
         var query = await _exporters.Include(e => e.Exports)
             .FirstOrDefaultAsync(e => e.Id.Equals(exporter.Id));
@@ -59,9 +59,9 @@ public class ExporterRepository(WarehouseDbContext context) : IExporterRepositor
         return query?.Exports.Count ?? 0;
     }
 
-    public async Task<int> FindProductCountForExporterAsync(ExporterModel exporterModel)
+    public async Task<int> FindProductCountForExporterAsync(Domain.BusinessPartner.Exporter.Model.Exporter exporter)
     {
-        var query = await _exporters.Where(e => e.Id.Equals(exporterModel.Id))
+        var query = await _exporters.Where(e => e.Id.Equals(exporter.Id))
             .Include(e => e.Exports)
             .ThenInclude(e => e.Items)
             .ThenInclude(ei => ei.Product).FirstOrDefaultAsync();

@@ -4,9 +4,9 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Domain.Document.Specification;
 
-public class DocumentWithDocumentChunks : ISpecification<DocumentModel>
+public class DocumentWithDocumentChunks : ISpecification<Model.Document>
 {
-    public IQueryable<DocumentModel> Apply(IQueryable<DocumentModel> query)
+    public IQueryable<Model.Document> Apply(IQueryable<Model.Document> query)
     {
         return query.Include(d => d.Chunks);
     }

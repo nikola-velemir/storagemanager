@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.Product.Model;
+using StoreManager.Domain.Product.Model;
 
 namespace StoreManager.Infrastructure.Product.Configuration;
 
-public class ProductModelConfiguration : IEntityTypeConfiguration<ProductModel>
+public class ProductBlueprintModelConfiguration : IEntityTypeConfiguration<ProductBlueprint>
 {
-    public void Configure(EntityTypeBuilder<ProductModel> builder)
+    public void Configure(EntityTypeBuilder<ProductBlueprint> builder)
     {
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.Identifier).IsUnique();

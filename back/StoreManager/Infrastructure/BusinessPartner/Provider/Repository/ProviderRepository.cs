@@ -9,32 +9,32 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
 {
     public class ProviderRepository(WarehouseDbContext context) : IProviderRepository
     {
-        private readonly DbSet<ProviderModel> _providers = context.Providers;
+        private readonly DbSet<Domain.BusinessPartner.Provider.Model.Provider> _providers = context.Providers;
 
-        public async Task AddInvoiceAsync(ProviderModel provider, ImportModel import)
+        public async Task AddInvoiceAsync(Domain.BusinessPartner.Provider.Model.Provider provider, Import import)
         {
             provider.Imports.Add(import);
             await context.SaveChangesAsync();
         }
 
-        public async Task<ProviderModel> CreateAsync(ProviderModel provider)
+        public async Task<Domain.BusinessPartner.Provider.Model.Provider> CreateAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
         {
             var savedInstance = await _providers.AddAsync(provider);
             await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 
-        public async Task<List<ProviderModel>> FindAllAsync()
+        public async Task<List<Domain.BusinessPartner.Provider.Model.Provider>> FindAllAsync()
         {
             return await _providers.Select(p => p).ToListAsync();
         }
 
-        public async Task<ProviderModel?> FindByIdAsync(Guid id)
+        public async Task<Domain.BusinessPartner.Provider.Model.Provider?> FindByIdAsync(Guid id)
         {
             return await _providers.Include(p => p.Imports).FirstOrDefaultAsync(p => p.Id.Equals(id));
         }
 
-        public async Task<(ICollection<ProviderModel> Items, int TotalCount)> FindFilteredAsync(string? providerInfo, int pageNumber, int pageSize)
+        public async Task<(ICollection<Domain.BusinessPartner.Provider.Model.Provider> Items, int TotalCount)> FindFilteredAsync(string? providerInfo, int pageNumber, int pageSize)
         {
             var query = _providers.Include(p => p.Imports).AsQueryable();
             if (!string.IsNullOrEmpty(providerInfo))
@@ -53,14 +53,14 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
             return (items, count);
         }
 
-        public async Task<int> FindInvoiceCountForProviderAsync(ProviderModel provider)
+        public async Task<int> FindInvoiceCountForProviderAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
         {
             var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Imports)
                 .FirstOrDefaultAsync();
             return query?.Imports.Count ?? 0;
         }
 
-        public async Task<int> FindComponentCountForProviderAsync(ProviderModel provider)
+        public async Task<int> FindComponentCountForProviderAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
         {
             var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Imports).ThenInclude(i => i.Items).ThenInclude(ii => ii.Component).FirstOrDefaultAsync();
             if (query is null) return 0;
@@ -69,7 +69,7 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
             return components;
         }
 
-        public async Task<ProviderModel> UpdateAsync(ProviderModel provider)
+        public async Task<Domain.BusinessPartner.Provider.Model.Provider> UpdateAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
         {
             var savedEntity = _providers.Update(provider);
             await context.SaveChangesAsync();

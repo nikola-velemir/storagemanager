@@ -4,9 +4,9 @@ using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Import.Configuration
 {
-    public class ImportModelConfiguration : IEntityTypeConfiguration<ImportModel>
+    public class ImportModelConfiguration : IEntityTypeConfiguration<Model.Import>
     {
-        public void Configure(EntityTypeBuilder<ImportModel> builder)
+        public void Configure(EntityTypeBuilder<Model.Import> builder)
         {
             builder.ToTable("Imports");
             

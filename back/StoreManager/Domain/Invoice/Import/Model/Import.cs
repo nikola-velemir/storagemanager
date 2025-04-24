@@ -4,9 +4,9 @@ using StoreManager.Infrastructure.Invoice.Base;
 
 namespace StoreManager.Infrastructure.Invoice.Import.Model
 {
-    public class ImportModel : InvoiceModel
+    public class Import : Domain.Invoice.Base.Model.Invoice
     {
-        public required ProviderModel Provider { get; set; }
+        public required Provider Provider { get; set; }
 
         public required Guid ProviderId { get; set; }
         public ICollection<ImportItemModel> Items { get; set; } = new List<ImportItemModel>();

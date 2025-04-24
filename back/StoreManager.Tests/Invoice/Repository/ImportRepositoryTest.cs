@@ -12,19 +12,19 @@ namespace StoreManager.Tests.Invoice.Repository
 {
     public class ImportRepositoryTest : IAsyncLifetime
     {
-        private static readonly ProviderModel provider = new ProviderModel
+        private static readonly Provider provider = new Provider
         {
             Address = "aaa", Type = BusinessPartnerType.Provider, Id = Guid.NewGuid(), Name = "kita",
             PhoneNumber = "adsa"
         };
 
-        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
+        private static readonly Domain.Document.Model.Document VALID_DOCUMENT = new Domain.Document.Model.Document
         {
-            Chunks = new List<DocumentChunkModel>(), Type = "pdf",
+            Chunks = new List<DocumentChunk>(), Type = "pdf",
             Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid()
         };
 
-        private static readonly ImportModel VALID_IMPORT = new ImportModel
+        private static readonly Import VALID_IMPORT = new Import
         {
             Provider = provider,
             ProviderId = provider.Id,

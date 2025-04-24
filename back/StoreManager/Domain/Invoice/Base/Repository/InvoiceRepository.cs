@@ -8,14 +8,14 @@ namespace StoreManager.Domain.Invoice.Base.Repository;
 public class InvoiceRepository(WarehouseDbContext context) : IInvoiceRepository
 {
     private readonly WarehouseDbContext _context = context;
-    private readonly DbSet<InvoiceModel> _invoice = context.Invoices;
+    private readonly DbSet<Model.Invoice> _invoice = context.Invoices;
 
-    public Task<InvoiceModel?> FindById(Guid id)
+    public Task<Model.Invoice?> FindById(Guid id)
     {
         return _invoice.Include(i=>i.Document).FirstOrDefaultAsync(i => i.Id.Equals(id));
     }
 
-    public Task<List<InvoiceModel>> FindByPartnerId(Guid partnerId)
+    public Task<List<Model.Invoice>> FindByPartnerId(Guid partnerId)
     {
         return _invoice.ToListAsync();
     }

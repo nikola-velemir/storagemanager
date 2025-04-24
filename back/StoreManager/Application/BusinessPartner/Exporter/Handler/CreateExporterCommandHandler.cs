@@ -13,14 +13,14 @@ public class CreateExporterCommandHandler(IExporterRepository repository) : IReq
 {
     public async Task<Unit> Handle(CreateExporterCommand request, CancellationToken cancellationToken)
     {
-        var exporter = new ExporterModel
+        var exporter = new Domain.BusinessPartner.Exporter.Model.Exporter
         {
             Address = new Address("c","c","C",1,4),
             Id = Guid.NewGuid(),
             Name = request.Name,
             PhoneNumber = request.PhoneNumber,
             Type = BusinessPartnerType.Exporter,
-            Exports = new List<ExportModel>()
+            Exports = new List<Export>()
         };
         await repository.Create(exporter);
         return Unit.Value;

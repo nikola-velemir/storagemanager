@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StoreManager.Application.Auth.DTO;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Domain.User.Model;
 
 namespace StoreManager.Tests.Auth.Service
 {
@@ -18,7 +19,7 @@ namespace StoreManager.Tests.Auth.Service
         public static readonly string INVALID_USERNAME = "INVALID";
         public static readonly string INVALID_PASSWORD = "INVALID";
 
-        public static readonly UserModel VALID_USER = new(1, VALID_USERNAME, VALID_PASSWORD, "TEST", "TEST", UserRole.ADMIN);
+        public static readonly Domain.User.Model.User VALID_USER = new(1, VALID_USERNAME, VALID_PASSWORD, "TEST", "TEST", UserRole.ADMIN);
         public static readonly string VALID_JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyYTA4ODNkOS01ODNhLTQ3MTctYWNmMC1kOWFmMGJjZWQwYzYiLCJuYW1lIjoidXNlcm5hbWUiLCJyb2xlIjoiTUFOQUdFUiIsIm5iZiI6MTc0MTQzMzA2MCwiZXhwIjoxNzQxNDMzMTIwLCJpYXQiOjE3NDE0MzMwNjAsImlzcyI6InN0b3JhZ2VfbWFuYWdlciIsImF1ZCI6ImFwcF9zdG9yYWdlX21hbmFnZXIifQ.lWEZGkELFmIj3uGaFhmAWVmVyD3K5VdyAGN4CfBLKmA";
         public static readonly string VALID_JTI = "2a0883d9-583a-4717-acf0-d9af0bced0c6";
         public static readonly string VALID_REFRESH_TOKEN = "/ZvvyVtCy+4O5hH5HdgJcYAApL6D1LZpArL8GaO+E6Y=";

@@ -5,9 +5,9 @@ using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Domain.Invoice.Export.Model;
 
-public class ExportModel : InvoiceModel
+public class Export : Base.Model.Invoice
 {
-    public required ExporterModel Exporter { get; set; }
+    public required Exporter Exporter { get; set; }
     public required Guid ExporterId { get; set; }
     public ICollection<ExportItemModel> Items { get; set; } = new List<ExportItemModel>();
 

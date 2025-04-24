@@ -24,16 +24,16 @@ namespace StoreManager.Tests.Document.Repository
         private static readonly string INVALID_FILE_NAME = "INVALID";
         private static readonly Guid VALID_FILE_ID = Guid.NewGuid();
 
-        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
+        private static readonly Domain.Document.Model.Document VALID_DOCUMENT = new Domain.Document.Model.Document
         {
             Id = VALID_FILE_ID,
             Type = VALID_FILE_EXTENSION,
-            Chunks = new List<DocumentChunkModel>(),
+            Chunks = new List<DocumentChunk>(),
             Date = DateOnly.FromDateTime(DateTime.UtcNow),
             FileName = VALID_FILE_NAME
         };
 
-        private static readonly DocumentChunkModel VALID_CHUNK = new DocumentChunkModel
+        private static readonly DocumentChunk VALID_CHUNK = new DocumentChunk
             { Document = VALID_DOCUMENT, ChunkNumber = 0, DocumentId = VALID_FILE_ID };
 
         public async Task DisposeAsync()

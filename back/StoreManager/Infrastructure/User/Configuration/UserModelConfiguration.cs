@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Infrastructure.User.Configuration
 {
-    public class UserModelConfiguration : IEntityTypeConfiguration<UserModel>
+    public class UserModelConfiguration : IEntityTypeConfiguration<Domain.User.Model.User>
     {
-        public void Configure(EntityTypeBuilder<UserModel> builder)
+        public void Configure(EntityTypeBuilder<Domain.User.Model.User> builder)
         {
             builder.HasKey(u => u.Id);
             builder.HasIndex(u => u.Username).IsUnique();

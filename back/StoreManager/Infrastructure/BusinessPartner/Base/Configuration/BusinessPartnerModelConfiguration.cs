@@ -6,9 +6,9 @@ using StoreManager.Domain.BusinessPartner.Provider.Model;
 
 namespace StoreManager.Infrastructure.BusinessPartner.Base.Configuration;
 
-public class BusinessPartnerModelConfiguration : IEntityTypeConfiguration<BusinessPartnerModel>
+public class BusinessPartnerModelConfiguration : IEntityTypeConfiguration<Domain.BusinessPartner.Base.Model.BusinessPartner>
 {
-    public void Configure(EntityTypeBuilder<BusinessPartnerModel> builder)
+    public void Configure(EntityTypeBuilder<Domain.BusinessPartner.Base.Model.BusinessPartner> builder)
     {
         builder.ToTable("BusinessPartners");
 
@@ -28,8 +28,8 @@ public class BusinessPartnerModelConfiguration : IEntityTypeConfiguration<Busine
         });
 
         builder.HasDiscriminator<BusinessPartnerType>("Type")
-            .HasValue<BusinessPartnerModel>(BusinessPartnerType.None)
-            .HasValue<ExporterModel>(BusinessPartnerType.Exporter)
-            .HasValue<ProviderModel>(BusinessPartnerType.Provider);
+            .HasValue<Domain.BusinessPartner.Base.Model.BusinessPartner>(BusinessPartnerType.None)
+            .HasValue<Domain.BusinessPartner.Exporter.Model.Exporter>(BusinessPartnerType.Exporter)
+            .HasValue<Domain.BusinessPartner.Provider.Model.Provider>(BusinessPartnerType.Provider);
     }
 }

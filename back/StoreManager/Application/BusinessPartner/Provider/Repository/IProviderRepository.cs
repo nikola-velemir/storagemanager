@@ -5,13 +5,13 @@ namespace StoreManager.Application.BusinessPartner.Provider.Repository
 {
     public interface IProviderRepository
     {
-        Task<ProviderModel> CreateAsync(ProviderModel provider);
-        Task<ProviderModel> UpdateAsync(ProviderModel provider);
-        Task AddInvoiceAsync(ProviderModel provider, ImportModel import);
-        Task<List<ProviderModel>> FindAllAsync();
-        Task<ProviderModel?> FindByIdAsync(Guid id);
-        Task<(ICollection<ProviderModel> Items, int TotalCount)> FindFilteredAsync(string? providerName, int pageNumber, int pageSize);
-        Task<int> FindInvoiceCountForProviderAsync(ProviderModel provider);
-        Task<int> FindComponentCountForProviderAsync(ProviderModel provider);
+        Task<Domain.BusinessPartner.Provider.Model.Provider> CreateAsync(Domain.BusinessPartner.Provider.Model.Provider provider);
+        Task<Domain.BusinessPartner.Provider.Model.Provider> UpdateAsync(Domain.BusinessPartner.Provider.Model.Provider provider);
+        Task AddInvoiceAsync(Domain.BusinessPartner.Provider.Model.Provider provider, Import import);
+        Task<List<Domain.BusinessPartner.Provider.Model.Provider>> FindAllAsync();
+        Task<Domain.BusinessPartner.Provider.Model.Provider?> FindByIdAsync(Guid id);
+        Task<(ICollection<Domain.BusinessPartner.Provider.Model.Provider> Items, int TotalCount)> FindFilteredAsync(string? providerName, int pageNumber, int pageSize);
+        Task<int> FindInvoiceCountForProviderAsync(Domain.BusinessPartner.Provider.Model.Provider provider);
+        Task<int> FindComponentCountForProviderAsync(Domain.BusinessPartner.Provider.Model.Provider provider);
     }
 }

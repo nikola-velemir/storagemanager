@@ -4,7 +4,7 @@ using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Domain.BusinessPartner.Exporter.Model;
 
-public class ExporterModel : BusinessPartnerModel
+public class Exporter : Base.Model.BusinessPartner
 {
-    public ICollection<ExportModel> Exports { get; set; } = new List<ExportModel>();
+    public ICollection<Export> Exports { get; set; } = new List<Export>();
 }

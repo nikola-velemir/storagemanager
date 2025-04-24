@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.MechanicalComponent.Repository;
@@ -20,16 +20,16 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
         private readonly static string EXISTING_IDENTIFIER = "MC-400";
         private readonly static string VALID_IDENTIFIER = "MC-100";
 
-        private readonly static MechanicalComponentModel EXISTING_COMPONENT = new MechanicalComponentModel
+        private readonly static Domain.MechanicalComponent.Model.MechanicalComponent EXISTING_COMPONENT = new Domain.MechanicalComponent.Model.MechanicalComponent
             { Id = Guid.NewGuid(), Identifier = EXISTING_IDENTIFIER, Name = "Test" };
 
-        private readonly static MechanicalComponentModel VALID_COMPONENT = new MechanicalComponentModel
+        private readonly static Domain.MechanicalComponent.Model.MechanicalComponent VALID_COMPONENT = new Domain.MechanicalComponent.Model.MechanicalComponent
             { Id = Guid.NewGuid(), Identifier = VALID_IDENTIFIER, Name = "Test" };
 
-        private readonly static DocumentModel VALID_DOCUMENT = new DocumentModel
+        private readonly static Domain.Document.Model.Document VALID_DOCUMENT = new Domain.Document.Model.Document
         {
             Type = "pdf",
-            Chunks = new List<DocumentChunkModel>(),
+            Chunks = new List<DocumentChunk>(),
             Date = DateOnly.FromDateTime(DateTime.UtcNow),
             FileName = "test",
             Id = Guid.NewGuid()
@@ -41,16 +41,16 @@ namespace StoreManager.Tests.MechanicalComponent.Repository
             new ExtractionMetadata("MC-4001", "B", 121, 1.3)
         };
 
-        private static readonly ProviderModel VALID_PROVIDER = new ProviderModel
+        private static readonly Provider VALID_PROVIDER = new Provider
         {
             Address = "aa",
             Id = Guid.NewGuid(), Type = BusinessPartnerType.Provider,
             Name = "aaaa",
             PhoneNumber = "sadsadsa",
-            Imports = new List<ImportModel>()
+            Imports = new List<Import>()
         };
 
-        private readonly static ImportModel VALID_IMPORT = new ImportModel
+        private readonly static Import VALID_IMPORT = new Import
         {
             DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
             Document = VALID_DOCUMENT,

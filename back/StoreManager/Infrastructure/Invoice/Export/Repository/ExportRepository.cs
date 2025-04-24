@@ -3,33 +3,33 @@ using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Domain.Invoice.Export.Specification;
+using StoreManager.Domain.Product.Model;
 using StoreManager.Domain.Utils;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.Invoice.Export.Model;
-using StoreManager.Infrastructure.Product.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Repository;
 
 public class ExportRepository(WarehouseDbContext context) : IExportRepository
 
 {
-    private readonly DbSet<ExportModel> _exports = context.Exports;
-    private readonly DbSet<ProductModel> _products = context.Products;
+    private readonly DbSet<Domain.Invoice.Export.Model.Export> _exports = context.Exports;
+    private readonly DbSet<ProductBlueprint> _products = context.ProductBlueprints;
 
-    public Task<ExportModel?> FindByIdAsync(Guid id)
+    public Task<Domain.Invoice.Export.Model.Export?> FindByIdAsync(Guid id)
     {
         return _exports.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 
-    public async Task<ExportModel> CreateAsync(ExportModel exportModel)
+    public async Task<Domain.Invoice.Export.Model.Export> CreateAsync(Domain.Invoice.Export.Model.Export export)
     {
-        var savedInstance = await _exports.AddAsync(exportModel);
+        var savedInstance = await _exports.AddAsync(export);
         await context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<ExportModel> Items, int TotalCount)> FindFilteredAsync(FindFilteredExportsSpecification spec, Guid? exporterId,
+    public async Task<(ICollection<Domain.Invoice.Export.Model.Export> Items, int TotalCount)> FindFilteredAsync(FindFilteredExportsSpecification spec, Guid? exporterId,
         string? productInfo, DateOnly? date, int pageNumber, int pageSize)
     {
         var query = spec.Apply(_exports);
@@ -50,12 +50,12 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
         return (items, items.Count);
     }
 
-    public Task<List<ExportModel>> FindByExporterIdAsync(Guid partnerId)
+    public Task<List<Domain.Invoice.Export.Model.Export>> FindByExporterIdAsync(Guid partnerId)
     {
         return _exports.Where(e=>e.ExporterId.Equals(partnerId)).ToListAsync();
     }
 
-    public async Task CreateFromProductRowsAsync(ExportModel export, List<ProductRow> productRows)
+    public async Task CreateFromProductRowsAsync(Domain.Invoice.Export.Model.Export export, List<ProductRow> productRows)
     {
         foreach (var productRow in productRows)
         {

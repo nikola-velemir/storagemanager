@@ -57,16 +57,18 @@ namespace StoreManager.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Identifier = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CurrentStock = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MechanicalComponents", x => x.Id);
                     table.UniqueConstraint("AK_MechanicalComponents_Identifier", x => x.Identifier);
+                    table.CheckConstraint("CK_MECHANICAL_COMPONENT_STOCK_NONNEGATIVE", "\"CurrentStock\" >= 0");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "ProductBlueprints",
                 schema: "public",
                 columns: table => new
                 {
@@ -78,7 +80,7 @@ namespace StoreManager.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_ProductBlueprints", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,10 +165,10 @@ namespace StoreManager.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductComponents_Products_ProductId",
+                        name: "FK_ProductComponents_ProductBlueprints_ProductId",
                         column: x => x.ProductId,
                         principalSchema: "public",
-                        principalTable: "Products",
+                        principalTable: "ProductBlueprints",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -227,7 +229,7 @@ namespace StoreManager.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProviderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProviderModelId = table.Column<Guid>(type: "uuid", nullable: true)
+                    ProviderId1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,8 +242,8 @@ namespace StoreManager.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Imports_BusinessPartners_ProviderModelId",
-                        column: x => x.ProviderModelId,
+                        name: "FK_Imports_BusinessPartners_ProviderId1",
+                        column: x => x.ProviderId1,
                         principalSchema: "public",
                         principalTable: "BusinessPartners",
                         principalColumn: "Id");
@@ -275,10 +277,10 @@ namespace StoreManager.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ExportItems_Products_ProductId",
+                        name: "FK_ExportItems_ProductBlueprints_ProductId",
                         column: x => x.ProductId,
                         principalSchema: "public",
-                        principalTable: "Products",
+                        principalTable: "ProductBlueprints",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -357,10 +359,10 @@ namespace StoreManager.Migrations
                 column: "ProviderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Imports_ProviderModelId",
+                name: "IX_Imports_ProviderId1",
                 schema: "public",
                 table: "Imports",
-                column: "ProviderModelId");
+                column: "ProviderId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_DocumentId",
@@ -370,17 +372,17 @@ namespace StoreManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductBlueprints_Identifier",
+                schema: "public",
+                table: "ProductBlueprints",
+                column: "Identifier",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductComponents_ComponentId",
                 schema: "public",
                 table: "ProductComponents",
                 column: "ComponentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_Identifier",
-                schema: "public",
-                table: "Products",
-                column: "Identifier",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_Token",
@@ -439,7 +441,7 @@ namespace StoreManager.Migrations
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Products",
+                name: "ProductBlueprints",
                 schema: "public");
 
             migrationBuilder.DropTable(

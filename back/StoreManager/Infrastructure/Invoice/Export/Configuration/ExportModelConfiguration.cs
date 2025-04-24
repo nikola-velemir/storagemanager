@@ -5,9 +5,9 @@ using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Configuration;
 
-public class ExportModelConfiguration : IEntityTypeConfiguration<ExportModel>
+public class ExportModelConfiguration : IEntityTypeConfiguration<Domain.Invoice.Export.Model.Export>
 {
-    public void Configure(EntityTypeBuilder<ExportModel> builder)
+    public void Configure(EntityTypeBuilder<Domain.Invoice.Export.Model.Export> builder)
     {
        builder.ToTable("Exports");
 

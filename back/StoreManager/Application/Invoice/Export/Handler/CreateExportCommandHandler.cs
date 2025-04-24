@@ -38,7 +38,7 @@ public class CreateExportCommandHandler(
         var dateIssued = DateOnly.FromDateTime(DateTime.UtcNow);
         
         var document = await documentService.UploadExport(exporter,dateIssued,productRows, fileId.ToString()+".pdf");
-        var export = await exportRepository.CreateAsync(new ExportModel
+        var export = await exportRepository.CreateAsync(new Domain.Invoice.Export.Model.Export
         {
             Document = document,
             Exporter = exporter,

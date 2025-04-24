@@ -1,10 +1,9 @@
 ﻿using StoreManager.Application.Product.DTO;
 using StoreManager.Application.Shared;
-using StoreManager.Infrastructure.Shared;
 
-namespace StoreManager.Infrastructure.Product.Service;
+namespace StoreManager.Domain.Product.Service;
 
-public interface IProductService
+public interface IProductBlueprintService
 {
     Task CreateProduct(ProductCreateRequestDto dto);
 

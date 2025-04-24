@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.User.Repository;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.User.Model;
@@ -45,10 +46,10 @@ namespace StoreManager.Tests.User.Repository
         [Fact(DisplayName = "Create user")]
         public async Task Create_Test()
         {
-            UserModel user = new UserModel(2, VALID_CREATION_USERNAME, "test2", "test2", "test2", UserRole.MANAGER);
+            Domain.User.Model.User user = new Domain.User.Model.User(2, VALID_CREATION_USERNAME, "test2", "test2", "test2", UserRole.MANAGER);
             await _repository.CreateAsync(user);
 
-            UserModel fetchUser = await _repository.FindByUsernameAsync(VALID_CREATION_USERNAME);
+            Domain.User.Model.User fetchUser = await _repository.FindByUsernameAsync(VALID_CREATION_USERNAME);
             Assert.Equal(user, fetchUser);
         }
 
@@ -63,7 +64,7 @@ namespace StoreManager.Tests.User.Repository
 
         private async Task SeedTestData()
         {
-            _context.Users.Add(new UserModel(1, VALID_USERNAME, "testuser", "Test", "Test", UserRole.ADMIN));
+            _context.Users.Add(new Domain.User.Model.User(1, VALID_USERNAME, "testuser", "Test", "Test", UserRole.ADMIN));
             await _context.SaveChangesAsync();
             _repository = new UserRepository(_context);
         }

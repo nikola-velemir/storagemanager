@@ -1,5 +1,6 @@
 ﻿using StoreManager.Application.User.DTO;
 using StoreManager.Application.User.Repository;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.User.Model;
 using StoreManager.Infrastructure.User.Service;
 
@@ -15,7 +16,7 @@ namespace StoreManager.Application.User.Service
             }
             
 
-            var createdUser = await repository.CreateAsync(new UserModel(request.Username, request.Password, request.FirstName, request.LastName, role));
+            var createdUser = await repository.CreateAsync(new Domain.User.Model.User(request.Username, request.Password, request.FirstName, request.LastName, role));
             var response = new UserCreateResponseDto(createdUser.Username, createdUser.Password, createdUser.FirstName, createdUser.LastName, createdUser.Role.ToString());
             return response;
         }

@@ -2,7 +2,6 @@
 using StoreManager.Application.Product.Command;
 using StoreManager.Application.Product.DTO;
 using StoreManager.Application.Product.Repository;
-using StoreManager.Infrastructure.Product.Model;
 
 namespace StoreManager.Application.Product.Handler;
 

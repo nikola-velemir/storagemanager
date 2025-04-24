@@ -5,6 +5,6 @@ namespace StoreManager.Domain.Invoice.Base.Repository;
 
 public interface IInvoiceRepository
 {
-    Task<InvoiceModel?> FindById(Guid id);
-    Task<List<InvoiceModel>> FindByPartnerId(Guid partnerId);
+    Task<Model.Invoice?> FindById(Guid id);
+    Task<List<Model.Invoice>> FindByPartnerId(Guid partnerId);
 }
