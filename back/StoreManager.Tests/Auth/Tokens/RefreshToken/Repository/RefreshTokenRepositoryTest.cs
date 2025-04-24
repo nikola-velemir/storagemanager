@@ -7,6 +7,7 @@ using StoreManager.Infrastructure.User.Model;
 using System.Threading.Tasks;
 using StoreManager.Application.Auth.Tokens.RefreshToken;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.Auth.Tokens.RefreshTokens;
 using StoreManager.Infrastructure.Context;
 
@@ -21,7 +22,7 @@ namespace StoreManager.Tests.Auth.Tokens.RefreshToken.Repository
         private Mock<IRefreshTokenGenerator> _generator;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
-        private static readonly UserModel USER = new(1, "test", "testuser", "Test", "Test", UserRole.ADMIN);
+        private static readonly Domain.User.Model.User USER = new(1, "test", "testuser", "Test", "Test", UserRole.ADMIN);
         private static readonly RefreshTokenModel EXISTING_TOKEN = new RefreshTokenModel { Token = "asdjasdas", User = USER, ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30), Id = Guid.NewGuid(), UserId = USER.Id };
         [Fact(DisplayName = "Create refresh token")]
         public async Task Create_Test()

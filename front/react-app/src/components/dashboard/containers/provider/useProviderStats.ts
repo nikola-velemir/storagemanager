@@ -7,7 +7,7 @@ import { ProviderService } from "../../../../services/businessPartner/ProviderSe
 export const useProviderStats = () => {
   const [count, setCount] = useState(0);
   const [maxCount, setMaxCount] = useState(0);
-  const [importInvolvements, setInvoiceInvolvements] = useState<
+  const [importInvolvements, setImportInvolvements] = useState<
     ProviderImportInvolvementResponse[]
   >([]);
   const [componentInvolvements, setComponentInvolvements] = useState<
@@ -18,7 +18,7 @@ export const useProviderStats = () => {
     ProviderService.findProviderInvoiceInvolvement().then((response) => {
       const finalValue = response.data.providers.length;
       setMaxCount(finalValue);
-      setInvoiceInvolvements(response.data.providers);
+      setImportInvolvements(response.data.providers);
       ProviderService.findProviderComponentInvolvement().then((response) => {
         setComponentInvolvements(response.data.components);
       });

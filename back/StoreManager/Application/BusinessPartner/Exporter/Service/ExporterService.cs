@@ -14,21 +14,21 @@ public class ExporterService(IExporterRepository repository) : IExporterService
 {
     public async Task CreateExporter(ProviderCreateRequestDto request)
     {
-        var exporter = new ExporterModel
+        var exporter = new Domain.BusinessPartner.Exporter.Model.Exporter
         {
             Address = new Address("a","a","a",1,4),
             Id = Guid.NewGuid(),
             Name = request.Name,
             PhoneNumber = request.PhoneNumber,
             Type = BusinessPartnerType.Exporter,
-            Exports = new List<ExportModel>()
+            Exports = new List<Export>()
         };
         await repository.Create(exporter);
     }
 
     public async Task<FindExporterResponsesDto> FindAll()
     {
-        var exporters = await repository.FindAll();
+        var exporters = await repository.FindAllAsync();
         return new FindExporterResponsesDto(
             exporters.Select(e => new FindExporterResponseDto(e.Id, e.Name, Utils.FormatAddress(e.Address), e.PhoneNumber)).ToList()
         );

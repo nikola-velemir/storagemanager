@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.MechanicalComponent.Model;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
@@ -16,11 +16,11 @@ namespace StoreManager.Tests.Invoice.Repository
     {
         private ImportItemRepository _repository;
         private WarehouseDbContext _context;
-        private static readonly ProviderModel provider = new ProviderModel {Type = BusinessPartnerType.Provider, Address = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
+        private static readonly Provider provider = new Provider {Type = BusinessPartnerType.Provider, Address = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa" };
 
-        private static readonly MechanicalComponentModel VALID_COMPONENT = new MechanicalComponentModel { Id = Guid.NewGuid(), Identifier = "MC-12321", Name = "Test" };
-        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel { Chunks = new List<DocumentChunkModel>(), Type = "pdf", Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid() };
-        private static readonly ImportModel VALID_IMPORT = new ImportModel
+        private static readonly Domain.MechanicalComponent.Model.MechanicalComponent VALID_COMPONENT = new Domain.MechanicalComponent.Model.MechanicalComponent { Id = Guid.NewGuid(), Identifier = "MC-12321", Name = "Test" };
+        private static readonly Domain.Document.Model.Document VALID_DOCUMENT = new Domain.Document.Model.Document { Chunks = new List<DocumentChunk>(), Type = "pdf", Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid() };
+        private static readonly Import VALID_IMPORT = new Import
         {
             Provider = provider,
             ProviderId = provider.Id,

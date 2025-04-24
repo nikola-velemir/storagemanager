@@ -17,7 +17,7 @@ namespace StoreManager.Infrastructure.Document.Storage.Service
                 throw new ArgumentException(); ;
             _client = new Supabase.Client(url, key, new SupabaseOptions { AutoConnectRealtime = true });
         }
-        public async Task<string> UploadFileChunk(IFormFile fileChunk, DocumentChunkModel chunk)
+        public async Task<string> UploadFileChunk(IFormFile fileChunk, DocumentChunk chunk)
         {
             if (fileChunk == null || fileChunk.Length == 0)
             {
@@ -39,7 +39,7 @@ namespace StoreManager.Infrastructure.Document.Storage.Service
 
         }
        
-        public async Task<byte[]> DownloadChunk(DocumentChunkModel chunk)
+        public async Task<byte[]> DownloadChunk(DocumentChunk chunk)
         {
             var storage = _client.Storage.From(_bucketName);
             var fileGuid = chunk.Id;

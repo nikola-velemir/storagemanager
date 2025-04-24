@@ -28,9 +28,9 @@ public class CreateBusinessPartnerCommandHandler(
 
         var address = new Address(request.City, request.Street, request.StreetNumber, coordinates.Latitude,
             coordinates.Longitude);
-        BusinessPartnerModel partner = role switch
+        Domain.BusinessPartner.Base.Model.BusinessPartner partner = role switch
         {
-            BusinessPartnerType.Exporter => new ExporterModel
+            BusinessPartnerType.Exporter => new Domain.BusinessPartner.Exporter.Model.Exporter
             {
                 Address =address,
                 Id = Guid.NewGuid(),
@@ -38,7 +38,7 @@ public class CreateBusinessPartnerCommandHandler(
                 PhoneNumber = request.PhoneNumber,
                 Type = role
             },
-            BusinessPartnerType.Provider => new ProviderModel
+            BusinessPartnerType.Provider => new Domain.BusinessPartner.Provider.Model.Provider
             {
                 Address = address,
                 Id = Guid.NewGuid(),

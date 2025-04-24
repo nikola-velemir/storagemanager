@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Product.Repository;
+using StoreManager.Domain.Product.Model;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.Product.Model;
 
 namespace StoreManager.Infrastructure.Product.Repository;
 
 public class ProductRepository(WarehouseDbContext context) : IProductRepository
 {
-    private readonly DbSet<ProductModel> _products = context.Products;
+    private readonly DbSet<ProductBlueprint> _products = context.ProductBlueprints;
 
-    public Task<ProductModel?> FindByIdAsync(Guid id)
+    public Task<ProductBlueprint?> FindByIdAsync(Guid id)
     {
         return _products
             .Include(p => p.Exports)
@@ -21,14 +21,14 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
             .FirstOrDefaultAsync(p => p.Id.Equals(id));
     }
 
-    public async Task<ProductModel> CreateAsync(ProductModel product)
+    public async Task<ProductBlueprint> CreateAsync(ProductBlueprint product)
     {
         var savedInstance = await _products.AddAsync(product);
         await context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<ProductModel> Items, int TotalCount)> FindFilteredAsync(string? productInfo,
+    public async Task<(ICollection<ProductBlueprint> Items, int TotalCount)> FindFilteredAsync(string? productInfo,
         DateOnly? dateCreated, int pageNumber, int pageSize)
     {
         var query = _products.Include(p => p.Components).AsQueryable();
@@ -53,7 +53,7 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
         return (await query.ToListAsync(), count);
     }
 
-    public Task<List<ProductModel>> FindByInvoiceIdAsync(Guid invoiceId)
+    public Task<List<ProductBlueprint>> FindByInvoiceIdAsync(Guid invoiceId)
     {
         var products = _products
             .Include(p => p.Exports)
@@ -62,7 +62,7 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
         return products.ToListAsync();
     }
 
-    public Task<List<ProductModel>> FindByExporterIdAsync(Guid exporterId)
+    public Task<List<ProductBlueprint>> FindByExporterIdAsync(Guid exporterId)
     {
         var query = _products
             .Include(p => p.Exports)

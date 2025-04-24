@@ -7,7 +7,7 @@ namespace StoreManager.Infrastructure.Document.FileService
 {
     public sealed class FileService(IWebHostEnvironment env) : IFileService
     {
-        public async Task AppendChunk(IFormFile file, DocumentModel foundFile)
+        public async Task AppendChunk(IFormFile file, Domain.Document.Model.Document foundFile)
         {
             var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
             if (!Directory.Exists(webRootPath))
@@ -32,7 +32,7 @@ namespace StoreManager.Infrastructure.Document.FileService
                 await file.CopyToAsync(fileStream);
             }
         }
-        public async Task DeleteAllChunks(DocumentModel file)
+        public async Task DeleteAllChunks(Domain.Document.Model.Document file)
         {
 
             var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");

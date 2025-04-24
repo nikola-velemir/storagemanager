@@ -4,6 +4,7 @@ using StoreManager.Application.Auth.Tokens;
 using StoreManager.Application.Auth.Tokens.RefreshToken;
 using StoreManager.Application.User.Repository;
 using StoreManager.Domain.Auth.Service;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Application.Auth.Service
@@ -17,7 +18,7 @@ namespace StoreManager.Application.Auth.Service
     {
         public async Task<LoginResponseDto?> Authenticate(LoginRequestDto request)
         {
-            UserModel user = await userRepository.FindByUsernameAsync(request.Username);
+            Domain.User.Model.User user = await userRepository.FindByUsernameAsync(request.Username);
             if (user.Password != request.Password) { throw new UnauthorizedAccessException("Invalid password"); }
 
 

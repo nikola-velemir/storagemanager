@@ -17,7 +17,7 @@ namespace StoreManager.Application.Invoice.Import.Handler.Statistics
             var counts = new List<FindCountForDayResponseDto>();
             for (var date = startOfWeek; date < endOfWeek; date = date.AddDays(1))
             {
-                var count = await importRepository.FindCountForTheDate(date);
+                var count = await importRepository.FindCountForTheDateAsync(date);
                 counts.Add(new FindCountForDayResponseDto(date.DayOfWeek.ToString(), count));
             }
             return new FindCountsForWeekResponseDto(counts);

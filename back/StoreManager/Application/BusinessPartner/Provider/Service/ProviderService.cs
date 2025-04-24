@@ -26,7 +26,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Service
     {
         public async Task<ProviderFindResponseDto> Create(ProviderCreateRequestDto request)
         {
-            var saved = await repository.CreateAsync(new ProviderModel
+            var saved = await repository.CreateAsync(new Domain.BusinessPartner.Provider.Model.Provider
             {
                 Address = new Address("AA", "AA", "AA", 0.4, 0.4),
                 Id = Guid.NewGuid(),

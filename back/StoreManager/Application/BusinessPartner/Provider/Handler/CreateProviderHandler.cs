@@ -15,7 +15,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler
         public async Task<ProviderFindResponseDto> Handle(CreateProviderCommand request,
             CancellationToken cancellationToken)
         {
-            var saved = await providerRepository.CreateAsync(new ProviderModel
+            var saved = await providerRepository.CreateAsync(new Domain.BusinessPartner.Provider.Model.Provider
             {
                 Address = new Address("c", "c", "c", 1, 4),
                 Id = Guid.NewGuid(),

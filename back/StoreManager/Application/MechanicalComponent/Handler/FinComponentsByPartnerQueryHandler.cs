@@ -2,7 +2,6 @@
 using StoreManager.Application.MechanicalComponent.Command;
 using StoreManager.Application.MechanicalComponent.DTO.Search;
 using StoreManager.Application.MechanicalComponent.Repository;
-using StoreManager.Infrastructure.MechanicalComponent.Model;
 
 namespace StoreManager.Application.MechanicalComponent.Handler;
 

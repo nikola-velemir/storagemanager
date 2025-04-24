@@ -10,7 +10,7 @@ namespace StoreManager.Domain.Document.Service
 
         Task UploadChunk(string provider, IFormFile file, string fileName, int chunkIndex, int totalChunks);
 
-        Task<byte[]> GeneratePdfFile(BusinessPartnerModel partner,DateOnly dateIssued, List<ProductRow> rows, string fileName);
-        Task<DocumentModel> UploadExport(BusinessPartnerModel partner,DateOnly dateIssued, List<ProductRow> rows, string fileName);
+        Task<byte[]> GeneratePdfFile(BusinessPartner.Base.Model.BusinessPartner partner,DateOnly dateIssued, List<ProductRow> rows, string fileName);
+        Task<Model.Document> UploadExport(BusinessPartner.Base.Model.BusinessPartner partner,DateOnly dateIssued, List<ProductRow> rows, string fileName);
     }
 }

@@ -27,7 +27,7 @@ namespace StoreManager.Tests.Document.Service
 {
     public sealed class DocumentServiceTest : IAsyncLifetime
     {
-        private static readonly ProviderModel provider = new ProviderModel
+        private static readonly Provider provider = new Provider
         {
             Address = "aaa", Id = Guid.NewGuid(), Name = "kita", PhoneNumber = "adsa",
             Type = BusinessPartnerType.Provider
@@ -57,7 +57,7 @@ namespace StoreManager.Tests.Document.Service
         private static readonly RequestDocumentDownloadResponseDto VALID_DOWNLOAD_REQUEST_RESPONSE =
             new RequestDocumentDownloadResponseDto(VALID_FILE_NAME, "text/plain", 1);
 
-        private static readonly DocumentChunkModel VALID_CHUNK = new DocumentChunkModel
+        private static readonly DocumentChunk VALID_CHUNK = new DocumentChunk
         {
             Id = Guid.NewGuid(),
             DocumentId = VALID_FILE_ID,
@@ -66,11 +66,11 @@ namespace StoreManager.Tests.Document.Service
             Document = null
         };
 
-        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
+        private static readonly Domain.Document.Model.Document VALID_DOCUMENT = new Domain.Document.Model.Document
         {
             Id = VALID_FILE_ID,
             Type = VALID_FILE_EXTENSION,
-            Chunks = new List<DocumentChunkModel>
+            Chunks = new List<DocumentChunk>
             {
                 VALID_CHUNK
             },
@@ -78,7 +78,7 @@ namespace StoreManager.Tests.Document.Service
             FileName = VALID_FILE_NAME
         };
 
-        private static readonly ImportModel VALID_IMPORT = new ImportModel
+        private static readonly Import VALID_IMPORT = new Import
         {
             ProviderId = provider.Id,
             Provider = provider,
@@ -105,7 +105,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.IsType<InvalidCastException>(exception);
 
             _documentRepository.Verify(repo => repo.FindByNameAsync( new DocumentWithDocumentChunks(),INVALID_FILE_NAME), Times.Never);
-            _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Never);
+            _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()), Times.Never);
         }
 
         [Fact(DisplayName = "Download chunk - invalid chunk index")]
@@ -120,7 +120,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.IsType<EntryPointNotFoundException>(exception);
 
             _documentRepository.Verify(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
-            _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Never);
+            _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()), Times.Never);
         }
 
         [Fact(DisplayName = "Download chunk - valid test")]
@@ -136,7 +136,7 @@ namespace StoreManager.Tests.Document.Service
 
 
             _documentRepository.Verify(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
-            _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()), Times.Once);
+            _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()), Times.Once);
         }
 
         [Fact(DisplayName = "Upload chunk - valid test")]
@@ -153,7 +153,7 @@ namespace StoreManager.Tests.Document.Service
             _documentRepository.Verify(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _documentRepository.Verify(repo => repo.SaveFileAsync(VALID_FILE_NAME), Times.Never);
             _invoiceRepository.Verify(repo => repo.Create(VALID_IMPORT), Times.Never);
-            _supaService.Verify(supa => supa.UploadFileChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentChunkModel>()),
+            _supaService.Verify(supa => supa.UploadFileChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentChunk>()),
                 Times.Once);
         }
 
@@ -164,13 +164,13 @@ namespace StoreManager.Tests.Document.Service
 
         private void MockService()
         {
-            _supaService.Setup(supa => supa.DownloadChunk(It.IsAny<DocumentChunkModel>()))
+            _supaService.Setup(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()))
                 .ReturnsAsync(VALID_RESPONSE.bytes);
             _supaService.Setup(supa => supa.UploadFileChunk(VALID_FILE, VALID_CHUNK)).ReturnsAsync(string.Empty);
             _invoiceService.Setup(s => s.Create(It.IsAny<Guid>(), It.IsAny<List<ExtractionMetadata>>()))
                 .Returns(Task.CompletedTask);
-            _fileService.Setup(s => s.DeleteAllChunks(It.IsAny<DocumentModel>())).Returns(Task.CompletedTask);
-            _fileService.Setup(s => s.AppendChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentModel>()))
+            _fileService.Setup(s => s.DeleteAllChunks(It.IsAny<Domain.Document.Model.Document>())).Returns(Task.CompletedTask);
+            _fileService.Setup(s => s.AppendChunk(It.IsAny<IFormFile>(), It.IsAny<Domain.Document.Model.Document>()))
                 .Returns(Task.CompletedTask);
             //  _supaService.Setup(supa=>supa.)
         }
@@ -187,7 +187,7 @@ namespace StoreManager.Tests.Document.Service
         private Task MockRepository()
         {
             _documentRepository.Setup(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
-            _documentRepository.Setup(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),INVALID_FILE_NAME)).ReturnsAsync((DocumentModel?)null);
+            _documentRepository.Setup(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),INVALID_FILE_NAME)).ReturnsAsync((Domain.Document.Model.Document?)null);
 
             _documentRepository.Setup(repo => repo.SaveFileAsync(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
             _documentRepository.Setup(repo => repo.SaveChunkAsync(VALID_FILE, VALID_FILE_NAME, 0)).ReturnsAsync(VALID_CHUNK);
@@ -195,7 +195,7 @@ namespace StoreManager.Tests.Document.Service
             _invoiceRepository.Setup(repo => repo.FindById(new ImportWithDocument(),VALID_IMPORT.Id)).ReturnsAsync(VALID_IMPORT);
 
             _providerRepository.Setup(repo => repo.FindByIdAsync(It.IsAny<Guid>())).ReturnsAsync(provider);
-            _providerRepository.Setup(repo => repo.CreateAsync(It.IsAny<ProviderModel>())).ReturnsAsync(provider);
+            _providerRepository.Setup(repo => repo.CreateAsync(It.IsAny<Provider>())).ReturnsAsync(provider);
             return Task.CompletedTask;
         }
 

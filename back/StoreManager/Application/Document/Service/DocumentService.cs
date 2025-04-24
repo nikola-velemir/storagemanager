@@ -43,7 +43,7 @@ namespace StoreManager.Application.Document.Service
             }
 
             var invoiceGuid = Guid.Parse(invoiceId);
-            var invoice = await importRepository.FindById(new ImportWithDocument(),invoiceGuid);
+            var invoice = await importRepository.FindById(new ImportWithDocument(), invoiceGuid);
             if (invoice is null)
             {
                 throw new NotFoundException("Invoice not found");
@@ -72,7 +72,7 @@ namespace StoreManager.Application.Document.Service
                         throw new ArgumentNullException("provider is null");
                 }
 
-                ProviderModel? provider;
+                Provider? provider;
                 if (!string.IsNullOrEmpty(parsedProvider.ProviderId))
                 {
                     provider = await providerRepository.FindByIdAsync(Guid.Parse(parsedProvider.ProviderId));
@@ -80,9 +80,9 @@ namespace StoreManager.Application.Document.Service
                 }
                 else
                 {
-                    provider = await providerRepository.CreateAsync(new ProviderModel
+                    provider = await providerRepository.CreateAsync(new Provider
                     {
-                        Address = new Address("a","a","a",1,4),
+                        Address = new Address("a", "a", "a", 1, 4),
                         Id = Guid.NewGuid(),
                         Type = BusinessPartnerType.Provider,
                         Name = parsedProvider.ProviderName,
@@ -95,7 +95,7 @@ namespace StoreManager.Application.Document.Service
                 if (foundFile == null)
                 {
                     foundFile = await repository.SaveFileAsync(fileName);
-                    var invoice = await importRepository.Create(new ImportModel
+                    var invoice = await importRepository.Create(new Import
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
@@ -142,10 +142,21 @@ namespace StoreManager.Application.Document.Service
             title.Format.SpaceAfter = "1cm";
         }
 
-        private static void AddExporterSection(BusinessPartnerModel partner, Section section)
+        private static void AddExporterSection(Domain.BusinessPartner.Base.Model.BusinessPartner partner, Section section)
         {
             var exporterSection =
-                section.AddParagraph($"Exporter: \n{partner.Name}\n{partner.Address}\n{partner.PhoneNumber}");
+                section.AddParagraph(
+                    $"Exporter: \n{partner.Name}\n{Utils.FormatAddress(partner.Address)}\n{partner.PhoneNumber}");
+            exporterSection.Format.Font.Size = 12;
+            exporterSection.Format.SpaceAfter = "2cm";
+        }
+
+        private static void AddTotalSection(List<ProductRow> rows, Section section)
+        {
+            var sum = rows.Sum(r => r.Quantity * r.Price);
+            var exporterSection =
+                section.AddParagraph(
+                    $"Total: {Math.Round(sum, 2)}");
             exporterSection.Format.Font.Size = 12;
             exporterSection.Format.SpaceAfter = "2cm";
         }
@@ -188,7 +199,7 @@ namespace StoreManager.Application.Document.Service
             }
         }
 
-        public Task<byte[]> GeneratePdfFile(BusinessPartnerModel partner, DateOnly dateIssued, List<ProductRow> rows,
+        public Task<byte[]> GeneratePdfFile(Domain.BusinessPartner.Base.Model.BusinessPartner partner, DateOnly dateIssued, List<ProductRow> rows,
             string fileName)
         {
             var doc = new MigraDoc.DocumentObjectModel.Document();
@@ -197,6 +208,7 @@ namespace StoreManager.Application.Document.Service
             // Optional: Add title
             AddTitle(section);
             AddExporterSection(partner, section);
+            AddTotalSection(rows, section);
             var table = AddTable(section);
 
 
@@ -266,7 +278,7 @@ namespace StoreManager.Application.Document.Service
             return Task.FromResult(chunks);
         }
 
-        public async Task<DocumentModel> UploadExport(BusinessPartnerModel partner, DateOnly dateIssued,
+        public async Task<Domain.Document.Model.Document> UploadExport(Domain.BusinessPartner.Base.Model.BusinessPartner partner, DateOnly dateIssued,
             List<ProductRow> rows, string fileName)
         {
             var file = await GeneratePdfFile(partner, dateIssued, rows, fileName);

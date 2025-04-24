@@ -3,9 +3,9 @@ using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Domain.BusinessPartner.Provider.Model
 {
-    public class ProviderModel : BusinessPartnerModel
+    public class Provider : Base.Model.BusinessPartner
     {
         
-        public ICollection<ImportModel> Imports { get; set; } = new List<ImportModel>();
+        public ICollection<Import> Imports { get; set; } = new List<Import>();
     }
 }

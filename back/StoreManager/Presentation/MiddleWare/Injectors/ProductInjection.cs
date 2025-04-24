@@ -1,7 +1,7 @@
 ﻿using StoreManager.Application.Product.Repository;
 using StoreManager.Application.Product.Service;
+using StoreManager.Domain.Product.Service;
 using StoreManager.Infrastructure.Product.Repository;
-using StoreManager.Infrastructure.Product.Service;
 
 namespace StoreManager.Infrastructure.MiddleWare.Injectors;
 
@@ -11,7 +11,7 @@ public static class ProductInjection
         IConfiguration configuration)
     {
         serviceCollection.AddScoped<IProductRepository, ProductRepository>();
-        serviceCollection.AddScoped<IProductService, ProductService>();
+        serviceCollection.AddScoped<IProductBlueprintService, ProductBlueprintService>();
         return serviceCollection;
     }
 }

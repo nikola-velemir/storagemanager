@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.Product.Model;
+using StoreManager.Domain.Product.Model;
 
 namespace StoreManager.Infrastructure.Product.Configuration;
 
-public class ProductComponentsModelConfiguration :IEntityTypeConfiguration<ProductComponentsModel>
+public class ProductBlueprintLineItemsModelConfiguration :IEntityTypeConfiguration<ProductBlueprintLineItems>
 {
-    public void Configure(EntityTypeBuilder<ProductComponentsModel> builder)
+    public void Configure(EntityTypeBuilder<ProductBlueprintLineItems> builder)
     {
         builder.HasKey(pc => new { pc.ProductId, pc.ComponentId });
         builder.HasOne(pc => pc.Product).WithMany(p => p.Components).HasForeignKey(pc => pc.ProductId);

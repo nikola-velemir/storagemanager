@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StoreManager.Infrastructure.User.Model;
 
-namespace StoreManager.Infrastructure.User.Model
+namespace StoreManager.Domain.User.Model
 {
-    public class UserModel : IEquatable<UserModel>
+    public class User : IEquatable<User>
     {
         public int Id { get; set; }
         public string Username { get; set; } = string.Empty;
@@ -10,7 +10,7 @@ namespace StoreManager.Infrastructure.User.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public UserRole Role { get; set; }
-        public UserModel(string username, string password, string firstName, string lastName, UserRole role)
+        public User(string username, string password, string firstName, string lastName, UserRole role)
         {
             Username = username;
             Password = password;
@@ -18,7 +18,7 @@ namespace StoreManager.Infrastructure.User.Model
             LastName = lastName;
             Role = role;
         }
-        public UserModel(int id, string username, string password, string firstName, string lastName, UserRole role)
+        public User(int id, string username, string password, string firstName, string lastName, UserRole role)
         {
             Id = id;
             Username = username;
@@ -30,7 +30,7 @@ namespace StoreManager.Infrastructure.User.Model
 
         public override bool Equals(object? obj)
         {
-            return obj is UserModel model &&
+            return obj is User model &&
                    Id == model.Id &&
                    Username == model.Username &&
                    Password == model.Password &&
@@ -44,7 +44,7 @@ namespace StoreManager.Infrastructure.User.Model
             return HashCode.Combine(Id, Username, Password, FirstName, LastName, Role);
         }
 
-        public bool Equals(UserModel? other)
+        public bool Equals(User? other)
         {
             return other != null &&
              Username == other.Username &&

@@ -4,8 +4,8 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Product.Command;
 using StoreManager.Application.Product.DTO;
 using StoreManager.Application.Product.Repository;
-using StoreManager.Infrastructure.MechanicalComponent.Model;
-using StoreManager.Infrastructure.Product.Model;
+using StoreManager.Domain.MechanicalComponent.Model;
+using StoreManager.Domain.Product.Model;
 
 namespace StoreManager.Application.Product.Handler;
 
@@ -21,10 +21,10 @@ public class CreateProductCommandHandler(
 
         var productId = Guid.NewGuid();
         var components = await mechanicalComponentRepository.FindByIdsAsync(componentIds);
-        var product = new ProductModel
+        var product = new ProductBlueprint
         {
             Identifier = request.Identifier,
-            Components = new List<ProductComponentsModel>(),
+            Components = new List<ProductBlueprintLineItems>(),
             Id = productId,
             Name = request.Name,
             Description = request.Description
@@ -59,13 +59,13 @@ public class CreateProductCommandHandler(
             throw new ValidationException(string.Join(" ", errors));
     }
 
-    private static List<ProductComponentsModel> CreateComponentList(ProductModel product, Guid productId,
-        CreateProductCommand request, List<MechanicalComponentModel> components)
+    private static List<ProductBlueprintLineItems> CreateComponentList(ProductBlueprint product, Guid productId,
+        CreateProductCommand request, List<Domain.MechanicalComponent.Model.MechanicalComponent> components)
     {
         return components.Select(c =>
         {
             var dtoComponent = request.Components.First(dc => Guid.TryParse(dc.Id, out var guid) && guid.Equals(c.Id));
-            return new ProductComponentsModel
+            return new ProductBlueprintLineItems
             {
                 Component = c,
                 Product = product,

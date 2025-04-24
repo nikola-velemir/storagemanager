@@ -5,10 +5,10 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Service;
-using StoreManager.Infrastructure.MechanicalComponent.Model;
 
 namespace StoreManager.Tests.Invoice.Service
 {
@@ -19,19 +19,19 @@ namespace StoreManager.Tests.Invoice.Service
         private Mock<IMechanicalComponentRepository> _mechanicalComponentRepository;
         private Mock<IImportRepository> _invoiceRepository;
 
-        private static readonly ProviderModel provider = new ProviderModel
+        private static readonly Provider provider = new Provider
         {
             Address = "aaa", Type = BusinessPartnerType.Provider, Id = Guid.NewGuid(), Name = "kita",
             PhoneNumber = "adsa"
         };
 
-        private static readonly DocumentModel VALID_DOCUMENT = new DocumentModel
+        private static readonly Domain.Document.Model.Document VALID_DOCUMENT = new Domain.Document.Model.Document
         {
-             Chunks = new List<DocumentChunkModel>(), Type = "pdf",
+             Chunks = new List<DocumentChunk>(), Type = "pdf",
             Date = DateOnly.FromDateTime(DateTime.UtcNow), FileName = "test", Id = Guid.NewGuid()
         };
 
-        private static readonly ImportModel VALID_IMPORT = new ImportModel
+        private static readonly Import VALID_IMPORT = new Import
         {
             Provider = provider,
             ProviderId = provider.Id,
@@ -50,10 +50,10 @@ namespace StoreManager.Tests.Invoice.Service
             new ExtractionMetadata("MC-4001", "B", 121, 1.3)
         };
 
-        private readonly static List<MechanicalComponentModel> COMPONENTS = new List<MechanicalComponentModel>()
+        private readonly static List<Domain.MechanicalComponent.Model.MechanicalComponent> COMPONENTS = new List<Domain.MechanicalComponent.Model.MechanicalComponent>()
         {
-            new MechanicalComponentModel { Id = Guid.NewGuid(), Identifier = "MC-111", Name = "Test" },
-            new MechanicalComponentModel { Id = Guid.NewGuid(), Identifier = "MC-4001", Name = "Test" }
+            new Domain.MechanicalComponent.Model.MechanicalComponent { Id = Guid.NewGuid(), Identifier = "MC-111", Name = "Test" },
+            new Domain.MechanicalComponent.Model.MechanicalComponent { Id = Guid.NewGuid(), Identifier = "MC-4001", Name = "Test" }
         };
 
         [Fact(DisplayName = "Create test - Invalid document id")]
@@ -91,7 +91,7 @@ namespace StoreManager.Tests.Invoice.Service
         private void MockRepository()
         {
             _invoiceRepository.Setup(repo => repo.FindByDocumentId(VALID_DOCUMENT.Id)).ReturnsAsync(VALID_IMPORT);
-            _invoiceRepository.Setup(repo => repo.FindByDocumentId(INVALID_GUID)).ReturnsAsync((ImportModel?)null);
+            _invoiceRepository.Setup(repo => repo.FindByDocumentId(INVALID_GUID)).ReturnsAsync((Import?)null);
             _mechanicalComponentRepository.Setup(repo => repo.CreateFromExtractionMetadataAsync(METADATA_LIST))
                 .ReturnsAsync(COMPONENTS);
             _mechanicalComponentRepository.Setup(repo => repo.FindByIdentifierAsync("MC-111"))

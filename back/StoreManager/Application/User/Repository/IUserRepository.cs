@@ -1,12 +1,13 @@
 ﻿
 
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Application.User.Repository
 {
     public interface IUserRepository
     {
-        Task<UserModel> FindByUsernameAsync(string username);
-        Task<UserModel> CreateAsync(UserModel user);
+        Task<Domain.User.Model.User> FindByUsernameAsync(string username);
+        Task<Domain.User.Model.User> CreateAsync(Domain.User.Model.User user);
     }
 }

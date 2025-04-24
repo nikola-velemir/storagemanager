@@ -24,7 +24,7 @@ public class ExportService(IExportRepository repository, IExporterRepository exp
         var exporterId = Guid.Parse(request.providerId);
         var exporter = await exporterRepository.FindById((exporterId)) ?? throw new NotFoundException("AA");
 
-        var export = await repository.CreateAsync(new ExportModel
+        var export = await repository.CreateAsync(new Domain.Invoice.Export.Model.Export
         {
             Document = null,
             Exporter = exporter,

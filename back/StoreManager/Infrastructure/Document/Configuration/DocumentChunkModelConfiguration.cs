@@ -4,9 +4,9 @@ using StoreManager.Domain.Document.Model;
 
 namespace StoreManager.Infrastructure.Document.Configuration
 {
-    public class DocumentChunkModelConfiguration : IEntityTypeConfiguration<DocumentChunkModel>
+    public class DocumentChunkModelConfiguration : IEntityTypeConfiguration<DocumentChunk>
     {
-        public void Configure(EntityTypeBuilder<DocumentChunkModel> builder)
+        public void Configure(EntityTypeBuilder<DocumentChunk> builder)
         {
             builder.HasKey(d => d.Id);
             builder.HasIndex(d => d.SupaBasePath).IsUnique();

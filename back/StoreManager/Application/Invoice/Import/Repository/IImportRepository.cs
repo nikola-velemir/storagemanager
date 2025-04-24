@@ -5,20 +5,20 @@ namespace StoreManager.Application.Invoice.Import.Repository
 {
     public interface IImportRepository
     {
-        Task<ImportModel> Create(ImportModel import);
-        Task<ImportModel?> FindByDocumentId(Guid documentId);
+        Task<Infrastructure.Invoice.Import.Model.Import> Create(Infrastructure.Invoice.Import.Model.Import import);
+        Task<Infrastructure.Invoice.Import.Model.Import?> FindByDocumentId(Guid documentId);
 
-        Task<(ICollection<ImportModel> Items, int TotalCount)> FindFiltered(
-            ISpecification<ImportModel> spec, string? componentInfo, Guid? providerId, DateOnly? dateIssued,
+        Task<(ICollection<Infrastructure.Invoice.Import.Model.Import> Items, int TotalCount)> FindFiltered(
+            ISpecification<Infrastructure.Invoice.Import.Model.Import> spec, string? componentInfo, Guid? providerId, DateOnly? dateIssued,
             int pageNumber, int pageSize);
 
-        Task<List<ImportModel>> FindAll(ISpecification<ImportModel> spec);
-        Task<ImportModel?> FindById(ISpecification<ImportModel> spec, Guid id);
-        Task<List<ImportModel>> FindByProviderId(ISpecification<ImportModel> spec, Guid id);
+        Task<List<Infrastructure.Invoice.Import.Model.Import>> FindAll(ISpecification<Infrastructure.Invoice.Import.Model.Import> spec);
+        Task<Infrastructure.Invoice.Import.Model.Import?> FindById(ISpecification<Infrastructure.Invoice.Import.Model.Import> spec, Guid id);
+        Task<List<Infrastructure.Invoice.Import.Model.Import>> FindByProviderId(ISpecification<Infrastructure.Invoice.Import.Model.Import> spec, Guid id);
         Task<int> CountImportsThisWeek();
-        Task<int> FindCountForTheDate(DateOnly date);
+        Task<int> FindCountForTheDateAsync(DateOnly date);
         Task<ImportItemModel?> FindByImportAndComponentIdAsync(Guid invoiceId, Guid componentId);
-        Task UpdateAsync(ImportModel import);
+        Task UpdateAsync(Infrastructure.Invoice.Import.Model.Import import);
         Task<double> FindTotalPrice();
         Task<double> FindSumForDate(DateOnly date);
     }

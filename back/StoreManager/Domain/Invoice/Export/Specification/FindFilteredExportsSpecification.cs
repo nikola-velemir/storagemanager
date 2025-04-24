@@ -5,9 +5,9 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Domain.Invoice.Export.Specification;
 
-public class FindFilteredExportsSpecification : ISpecification<ExportModel>
+public class FindFilteredExportsSpecification : ISpecification<Model.Export>
 {
-    public IQueryable<ExportModel> Apply(IQueryable<ExportModel> query)
+    public IQueryable<Model.Export> Apply(IQueryable<Model.Export> query)
     {
         return query
             .Include(e => e.Document)

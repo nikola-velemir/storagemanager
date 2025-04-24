@@ -10,23 +10,23 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
 {
     public sealed class ImportRepository(WarehouseDbContext context) : IImportRepository
     {
-        private readonly DbSet<ImportModel> _imports = context.Imports;
+        private readonly DbSet<Model.Import> _imports = context.Imports;
 
-        public async Task<ImportModel> Create(ImportModel import)
+        public async Task<Model.Import> Create(Model.Import import)
         {
             var savedInstance = await _imports.AddAsync(import);
             await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 
-        public async Task<List<ImportModel>> FindAll(ISpecification<ImportModel> spec)
+        public async Task<List<Model.Import>> FindAll(ISpecification<Model.Import> spec)
         {
             var query = spec.Apply(_imports);
             return await _imports.ToListAsync();
         }
 
-        public async Task<(ICollection<ImportModel> Items, int TotalCount)> FindFiltered(
-            ISpecification<ImportModel> spec, string? componentInfo, Guid? providerId, DateOnly? dateIssued,
+        public async Task<(ICollection<Model.Import> Items, int TotalCount)> FindFiltered(
+            ISpecification<Model.Import> spec, string? componentInfo, Guid? providerId, DateOnly? dateIssued,
             int pageNumber, int pageSize)
         {
             var query = spec.Apply(_imports);
@@ -56,18 +56,18 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
             return (items, totalCount);
         }
 
-        public Task<ImportModel?> FindByDocumentId(Guid documentId)
+        public Task<Model.Import?> FindByDocumentId(Guid documentId)
         {
             return _imports.FirstOrDefaultAsync(i => i.DocumentId.Equals(documentId));
         }
 
-        public Task<ImportModel?> FindById(ISpecification<ImportModel> spec,Guid id)
+        public Task<Model.Import?> FindById(ISpecification<Model.Import> spec,Guid id)
         {
             var query = spec.Apply(_imports);
             return query.FirstOrDefaultAsync(i => i.Id.Equals(id));
         }
 
-        public async Task<List<ImportModel>> FindByProviderId(ISpecification<ImportModel> spec,Guid id)
+        public async Task<List<Model.Import>> FindByProviderId(ISpecification<Model.Import> spec,Guid id)
         {
             var query = spec.Apply(_imports);
             query = query.Where(i => i.Provider.Id.Equals(id)).AsQueryable();
@@ -83,7 +83,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
             return query.CountAsync();
         }
 
-        public Task<int> FindCountForTheDate(DateOnly date)
+        public Task<int> FindCountForTheDateAsync(DateOnly date)
         {
             var query = _imports.Where(i => i.DateIssued.Equals(date));
             return query.CountAsync();
@@ -100,7 +100,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
 
         }
 
-        public async Task UpdateAsync(ImportModel import)
+        public async Task UpdateAsync(Model.Import import)
         {
             _imports.Update(import);
             await context.SaveChangesAsync();

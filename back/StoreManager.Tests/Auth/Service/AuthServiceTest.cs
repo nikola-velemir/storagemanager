@@ -7,6 +7,7 @@ using StoreManager.Application.Auth.Tokens.RefreshToken;
 using StoreManager.Application.User.Repository;
 using StoreManager.Domain.Auth.Service;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.User.Model;
 
 namespace StoreManager.Tests.Auth.Service
@@ -179,7 +180,7 @@ namespace StoreManager.Tests.Auth.Service
         }
         private void MockRefreshTokenRepository()
         {
-            _refreshTokenRepository.Setup(repo => repo.CreateAsync(It.Is<UserModel>(u => u.Equals(AuthServiceTestData.VALID_USER)))).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
+            _refreshTokenRepository.Setup(repo => repo.CreateAsync(It.Is<Domain.User.Model.User>(u => u.Equals(AuthServiceTestData.VALID_USER)))).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
             _refreshTokenRepository.Setup(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.VALID_REFRESH_TOKEN)).ReturnsAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_MODEL);
             _refreshTokenRepository.Setup(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.INVALID_REFRESH_TOKEN)).ReturnsAsync((RefreshTokenModel?)null);
             _refreshTokenRepository.Setup(repo => repo.FindRefreshTokenAsync(AuthServiceTestData.VALID_REFRESH_TOKEN_EXPIRED)).ReturnsAsync(AuthServiceTestData.EXPIRED_REFRESH_TOKEN_MODEL);

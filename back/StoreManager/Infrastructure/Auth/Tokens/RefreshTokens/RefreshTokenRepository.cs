@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Auth.Tokens.RefreshToken;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
+using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.User.Model;
@@ -24,7 +25,7 @@ namespace StoreManager.Infrastructure.Auth.Tokens.RefreshTokens
             _refreshTokenGenerator = refreshTokenGenerator;
         }
 
-        public async Task<RefreshTokenModel> CreateAsync(UserModel user)
+        public async Task<RefreshTokenModel> CreateAsync(Domain.User.Model.User user)
         {
             var token = new RefreshTokenModel
             {

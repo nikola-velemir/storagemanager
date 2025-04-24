@@ -12,21 +12,21 @@ namespace StoreManager.Infrastructure.Document.Repository
 {
     public class DocumentRepository(WarehouseDbContext context) : IDocumentRepository
     {
-        private readonly DbSet<DocumentModel> _files = context.Documents;
-        private readonly DbSet<DocumentChunkModel> _chunks = context.DocumentChunks;
+        private readonly DbSet<Domain.Document.Model.Document> _files = context.Documents;
+        private readonly DbSet<DocumentChunk> _chunks = context.DocumentChunks;
 
-        public Task<DocumentModel?> FindByDocumentId(Guid id)
+        public Task<Domain.Document.Model.Document?> FindByDocumentId(Guid id)
         {
             return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.Id.Equals(id));
         }
 
-        public Task<DocumentModel?> FindByNameAsync(ISpecification<DocumentModel> spec, string fileName)
+        public Task<Domain.Document.Model.Document?> FindByNameAsync(ISpecification<Domain.Document.Model.Document> spec, string fileName)
         {
             var query = spec.Apply(_files);
             return query.FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
 
-        public async Task<DocumentChunkModel> SaveChunkAsync(IFormFile? file, string fileName, int chunkIndex)
+        public async Task<DocumentChunk> SaveChunkAsync(IFormFile? file, string fileName, int chunkIndex)
         {
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
             if (file == null || file.Length == 0)
@@ -38,7 +38,7 @@ namespace StoreManager.Infrastructure.Document.Repository
             {
                 throw new NotFoundException("Invalid file");
             }
-            var chunk = new DocumentChunkModel
+            var chunk = new DocumentChunk
             {
                 ChunkNumber = chunkIndex,
                 DocumentId = foundDoc.Id,
@@ -52,13 +52,13 @@ namespace StoreManager.Infrastructure.Document.Repository
             return savedChunk.Entity;
         }
 
-        public async Task<DocumentModel> SaveFileAsync(string fileName)
+        public async Task<Domain.Document.Model.Document> SaveFileAsync(string fileName)
         {
             var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
 
             var mimeType = MimeMapping.MimeUtility.GetMimeMapping(fileName).Split('/').Last();
 
-            var fileRecord = new DocumentModel
+            var fileRecord = new Domain.Document.Model.Document
             {
                 Date = DateOnly.FromDateTime(DateTime.UtcNow),
                 FileName = parsedFileName,

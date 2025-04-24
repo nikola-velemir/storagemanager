@@ -7,9 +7,9 @@ using StoreManager.Infrastructure.Invoice.Import.Repository;
 namespace StoreManager.Application.Invoice.Import.Handler.Statistics
 {
     public class CountImportsThisWeekHandler(IImportRepository importRepository)
-        : IRequestHandler<CountInvoicesThisWeekQuery, ThisWeekInvoiceCountResponseDto>
+        : IRequestHandler<CountImportsThisWeekQuery, ThisWeekInvoiceCountResponseDto>
     {
-        public async Task<ThisWeekInvoiceCountResponseDto> Handle(CountInvoicesThisWeekQuery request, CancellationToken cancellationToken)
+        public async Task<ThisWeekInvoiceCountResponseDto> Handle(CountImportsThisWeekQuery request, CancellationToken cancellationToken)
         {
             return new ThisWeekInvoiceCountResponseDto(await importRepository.CountImportsThisWeek());
         }

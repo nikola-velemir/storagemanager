@@ -4,9 +4,9 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
 
-public class ImportWithDocument : ISpecification<ImportModel>
+public class ImportWithDocument : ISpecification<Model.Import>
 {
-    public IQueryable<ImportModel> Apply(IQueryable<ImportModel> query)
+    public IQueryable<Model.Import> Apply(IQueryable<Model.Import> query)
     {
        return query.Include(e=>e.Document);
     }

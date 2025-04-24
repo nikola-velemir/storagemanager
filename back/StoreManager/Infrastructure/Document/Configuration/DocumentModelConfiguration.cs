@@ -4,9 +4,9 @@ using StoreManager.Domain.Document.Model;
 
 namespace StoreManager.Infrastructure.Document.Configuration
 {
-    internal sealed class DocumentModelConfiguration : IEntityTypeConfiguration<DocumentModel>
+    internal sealed class DocumentModelConfiguration : IEntityTypeConfiguration<Domain.Document.Model.Document>
     {
-        public void Configure(EntityTypeBuilder<DocumentModel> builder)
+        public void Configure(EntityTypeBuilder<Domain.Document.Model.Document> builder)
         {
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Type).IsRequired();

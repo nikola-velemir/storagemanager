@@ -2,16 +2,16 @@
 using StoreManager.Application.Product.DTO;
 using StoreManager.Application.Product.Repository;
 using StoreManager.Application.Shared;
+using StoreManager.Domain.Product.Model;
+using StoreManager.Domain.Product.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
-using StoreManager.Infrastructure.Product.Model;
-using StoreManager.Infrastructure.Product.Service;
 using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Application.Product.Service;
 
-public class ProductService(
+public class ProductBlueprintService(
     IProductRepository productRepository,
-    IMechanicalComponentRepository mechanicalComponentRepository) : IProductService
+    IMechanicalComponentRepository mechanicalComponentRepository) : IProductBlueprintService
 {
     public async Task CreateProduct(ProductCreateRequestDto dto)
     {
@@ -23,10 +23,10 @@ public class ProductService(
 
         var productId = Guid.NewGuid();
         var components = await mechanicalComponentRepository.FindByIdsAsync(componentIds);
-        var product = new ProductModel
+        var product = new ProductBlueprint
         {
             Identifier = dto.Identifier,
-            Components = new List<ProductComponentsModel>(),
+            Components = new List<ProductBlueprintLineItems>(),
             Id = productId,
             Name = dto.Name,
             Description = dto.Description
@@ -35,7 +35,7 @@ public class ProductService(
         product.Components = components.Select(c =>
         {
             var dtoComponent = dto.Components.First(dc => Guid.TryParse(dc.Id, out var guid) && guid.Equals(c.Id));
-            return new ProductComponentsModel
+            return new ProductBlueprintLineItems
             {
                 Component = c,
                 Product = product,
