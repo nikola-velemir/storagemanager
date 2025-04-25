@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using StoreManager.Application.BusinessPartner.Provider.DTO.Search;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
+using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Command;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
@@ -9,7 +10,7 @@ using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.BusinessPartner.Provider.Handler
 {
-    public class CreateProviderHandler(IProviderRepository providerRepository)
+    public class CreateProviderHandler(IUnitOfWork unitOfWork,IProviderRepository providerRepository)
         : IRequestHandler<CreateProviderCommand, ProviderFindResponseDto>
     {
         public async Task<ProviderFindResponseDto> Handle(CreateProviderCommand request,
@@ -23,6 +24,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler
                 Type = BusinessPartnerType.Provider,
                 PhoneNumber = request.PhoneNumber
             });
+            await unitOfWork.SaveChangesAsync(cancellationToken);
             return new ProviderFindResponseDto(saved.Id, saved.Name, Utils.FormatAddress(saved.Address),
                 saved.PhoneNumber);
         }

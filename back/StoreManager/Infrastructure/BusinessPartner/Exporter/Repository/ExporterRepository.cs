@@ -8,7 +8,6 @@ namespace StoreManager.Infrastructure.BusinessPartner.Exporter.Repository;
 
 public class ExporterRepository(WarehouseDbContext context) : IExporterRepository
 {
-    private readonly WarehouseDbContext _context = context;
     private readonly DbSet<Domain.BusinessPartner.Exporter.Model.Exporter> _exporters = context.Exporters;
 
     public Task<Domain.BusinessPartner.Exporter.Model.Exporter?> FindById(Guid id)
@@ -16,10 +15,9 @@ public class ExporterRepository(WarehouseDbContext context) : IExporterRepositor
         return _exporters.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 
-    public async Task<Domain.BusinessPartner.Exporter.Model.Exporter> Create(Domain.BusinessPartner.Exporter.Model.Exporter exporter)
+    public async Task<Domain.BusinessPartner.Exporter.Model.Exporter> CreateAsync(Domain.BusinessPartner.Exporter.Model.Exporter exporter)
     {
         var savedInstance = await _exporters.AddAsync(exporter);
-        await _context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 

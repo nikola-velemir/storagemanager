@@ -8,10 +8,12 @@ using StoreManager.Application.Document.Repository;
 using StoreManager.Application.Document.Service.FileService;
 using StoreManager.Application.Document.Service.Reader;
 using StoreManager.Application.Invoice.Import.Repository;
+using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Infrastructure;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Service;
@@ -20,6 +22,7 @@ using StoreManager.Infrastructure.MiddleWare.Exceptions;
 namespace StoreManager.Application.Document.Handler
 {
     public class UploadChunkHandler(
+        IUnitOfWork unitOfWork,
         IProviderRepository providerRepository,
         IDocumentRepository documentRepository,
         IImportRepository importRepository,
@@ -77,7 +80,9 @@ namespace StoreManager.Application.Document.Handler
                 await importService.Create(foundFile.Id, metadata);
 
                 await fileService.DeleteAllChunks(foundFile);
-
+                
+                await unitOfWork.SaveChangesAsync(cancellationToken);
+                
                 return Unit.Value;
             }
             catch (Exception)

@@ -4,12 +4,14 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Product.Command;
 using StoreManager.Application.Product.DTO;
 using StoreManager.Application.Product.Repository;
+using StoreManager.Domain;
 using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Domain.Product.Model;
 
 namespace StoreManager.Application.Product.Handler;
 
 public class CreateProductCommandHandler(
+    IUnitOfWork unitOfWork,
     IProductRepository productRepository,
     IMechanicalComponentRepository mechanicalComponentRepository) : IRequestHandler<CreateProductCommand>
 {
@@ -33,6 +35,8 @@ public class CreateProductCommandHandler(
         product.Components = CreateComponentList(product, productId, request, components);
 
         await productRepository.CreateAsync(product);
+        
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 

@@ -1,7 +1,6 @@
 ﻿using StoreManager.Application.User.DTO;
-using StoreManager.Infrastructure.User.Model;
 
-namespace StoreManager.Infrastructure.User.Service
+namespace StoreManager.Domain.User.Service
 {
     public interface IUserService
     {

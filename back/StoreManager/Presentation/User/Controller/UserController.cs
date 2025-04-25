@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StoreManager.Application.User.DTO;
-using StoreManager.Infrastructure.User.Service;
+using StoreManager.Domain.User.Service;
 
 namespace StoreManager.Presentation.User.Controller
 {

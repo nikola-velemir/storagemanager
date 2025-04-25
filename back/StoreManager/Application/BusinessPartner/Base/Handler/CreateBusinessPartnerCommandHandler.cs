@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using StoreManager.Application.BusinessPartner.Base.Command;
 using StoreManager.Application.BusinessPartner.Base.Repository;
 using StoreManager.Application.GeoCoding;
+using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
@@ -11,6 +12,7 @@ using StoreManager.Domain.BusinessPartner.Shared;
 namespace StoreManager.Application.BusinessPartner.Base.Handler;
 
 public class CreateBusinessPartnerCommandHandler(
+    IUnitOfWork unitOfWork,
     IBusinessPartnerRepository repository,
     IGeoCodingService geoCodingService)
     : IRequestHandler<CreateBusinessPartnerCommand>
@@ -50,6 +52,7 @@ public class CreateBusinessPartnerCommandHandler(
         };
 
         await repository.CreateAsync(partner);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 

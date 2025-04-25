@@ -4,7 +4,6 @@ using StoreManager.Application.User.Repository;
 using StoreManager.Application.User.Service;
 using StoreManager.Domain.User.Model;
 using StoreManager.Infrastructure.User.Model;
-using StoreManager.Infrastructure.User.Service;
 
 namespace StoreManager.Tests.User.Service
 {

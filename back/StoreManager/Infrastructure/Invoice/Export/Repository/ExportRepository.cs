@@ -11,12 +11,17 @@ using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Repository;
 
-public class ExportRepository(WarehouseDbContext context) : IExportRepository
+public class ExportRepository : IExportRepository
 
 {
-    private readonly DbSet<Domain.Invoice.Export.Model.Export> _exports = context.Exports;
-    private readonly DbSet<ProductBlueprint> _products = context.ProductBlueprints;
+    private readonly DbSet<Domain.Invoice.Export.Model.Export> _exports ;
+    private readonly DbSet<ProductBlueprint> _products ;
 
+    public ExportRepository(WarehouseDbContext context)
+    {
+        _exports = context.Exports;
+        _products = context.ProductBlueprints;
+    }
     public Task<Domain.Invoice.Export.Model.Export?> FindByIdAsync(Guid id)
     {
         return _exports.FirstOrDefaultAsync(e => e.Id.Equals(id));
@@ -25,7 +30,6 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
     public async Task<Domain.Invoice.Export.Model.Export> CreateAsync(Domain.Invoice.Export.Model.Export export)
     {
         var savedInstance = await _exports.AddAsync(export);
-        await context.SaveChangesAsync();
         return savedInstance.Entity;
     }
 
@@ -79,7 +83,6 @@ public class ExportRepository(WarehouseDbContext context) : IExportRepository
             export.Items.Add(item);
         }
         
-        await context.SaveChangesAsync();
     }
 
     public Task<int> FindCountForDateAsync(DateOnly date)

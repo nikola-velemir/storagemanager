@@ -6,13 +6,18 @@ using StoreManager.Infrastructure.DB;
 
 namespace StoreManager.Infrastructure.Product.Repository;
 
-public class ProductRepository(WarehouseDbContext context) : IProductRepository
+public class ProductBlueprintRepository : IProductRepository
 {
-    private readonly DbSet<ProductBlueprint> _products = context.ProductBlueprints;
+    private readonly DbSet<ProductBlueprint> _blueprints;
+
+    public ProductBlueprintRepository(WarehouseDbContext context)
+    {
+        _blueprints = context.ProductBlueprints;
+    }
 
     public Task<ProductBlueprint?> FindByIdAsync(Guid id)
     {
-        return _products
+        return _blueprints
             .Include(p => p.Exports)
             .ThenInclude(ei => ei.Export)
             .ThenInclude(e => e.Exporter)
@@ -23,15 +28,14 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
 
     public async Task<ProductBlueprint> CreateAsync(ProductBlueprint product)
     {
-        var savedInstance = await _products.AddAsync(product);
-        await context.SaveChangesAsync();
+        var savedInstance = await _blueprints.AddAsync(product);
         return savedInstance.Entity;
     }
 
     public async Task<(ICollection<ProductBlueprint> Items, int TotalCount)> FindFilteredAsync(string? productInfo,
         DateOnly? dateCreated, int pageNumber, int pageSize)
     {
-        var query = _products.Include(p => p.Components).AsQueryable();
+        var query = _blueprints.Include(p => p.Components).AsQueryable();
 
         if (!string.IsNullOrEmpty(productInfo))
         {
@@ -55,7 +59,7 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
 
     public Task<List<ProductBlueprint>> FindByInvoiceIdAsync(Guid invoiceId)
     {
-        var products = _products
+        var products = _blueprints
             .Include(p => p.Exports)
             .Where(p => p.Exports
                 .Any(e => e.ExportId.Equals(invoiceId)));
@@ -64,7 +68,7 @@ public class ProductRepository(WarehouseDbContext context) : IProductRepository
 
     public Task<List<ProductBlueprint>> FindByExporterIdAsync(Guid exporterId)
     {
-        var query = _products
+        var query = _blueprints
             .Include(p => p.Exports)
             .ThenInclude(e => e.Export)
             .Where(p=>p.Exports.Any(e=>e.Export.ExporterId.Equals(exporterId)));
