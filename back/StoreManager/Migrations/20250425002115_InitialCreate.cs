@@ -91,7 +91,7 @@ namespace StoreManager.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Password = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     FirstName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     LastName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Role = table.Column<int>(type: "integer", nullable: false)

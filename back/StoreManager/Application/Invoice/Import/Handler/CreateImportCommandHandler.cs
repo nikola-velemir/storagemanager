@@ -2,12 +2,14 @@
 using StoreManager.Application.Invoice.Import.Command;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.MechanicalComponent.Repository;
+using StoreManager.Domain;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 
 namespace StoreManager.Application.Invoice.Import.Handler
 {
     public class CreateImportCommandHandler(
+        IUnitOfWork unitOfWork,
         IMechanicalComponentRepository mechanicalComponentRepository,
         IImportRepository importRepository)
         : IRequestHandler<CreateImportCommand>
@@ -42,6 +44,8 @@ namespace StoreManager.Application.Invoice.Import.Handler
 //                await importRepository.UpdateAsync(invoice);
             }
 
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+            
             return Unit.Value;
         }
     }

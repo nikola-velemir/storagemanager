@@ -1,7 +1,7 @@
 ﻿using StoreManager.Application.User.Repository;
 using StoreManager.Application.User.Service;
+using StoreManager.Domain.User.Service;
 using StoreManager.Infrastructure.User.Repository;
-using StoreManager.Infrastructure.User.Service;
 
 namespace StoreManager.Infrastructure.MiddleWare.Injectors;
 

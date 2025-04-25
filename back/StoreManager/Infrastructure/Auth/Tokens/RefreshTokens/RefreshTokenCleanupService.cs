@@ -11,7 +11,7 @@ public class RefreshTokenCleanupService : BackgroundService
     public RefreshTokenCleanupService(IServiceProvider serviceProvider, IConfiguration configuration)
     {
         _serviceProvider = serviceProvider;
-        int intervalMinutes = configuration.GetValue<int>("TokenCleanupSettings:CleanupIntervalHours");
+        var intervalMinutes = configuration.GetValue<int>("TokenCleanupSettings:CleanupIntervalHours");
         _cleanupInterval = TimeSpan.FromHours(intervalMinutes);
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

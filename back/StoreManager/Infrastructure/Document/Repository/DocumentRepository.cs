@@ -10,19 +10,24 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Document.Repository
 {
-    public class DocumentRepository(WarehouseDbContext context) : IDocumentRepository
+    public class DocumentRepository : IDocumentRepository
     {
-        private readonly DbSet<Domain.Document.Model.Document> _files = context.Documents;
-        private readonly DbSet<DocumentChunk> _chunks = context.DocumentChunks;
+        private readonly DbSet<Domain.Document.Model.Document> _documents ;
+        private readonly DbSet<DocumentChunk> _chunks ;
 
+        public DocumentRepository(WarehouseDbContext context)
+        {
+            _documents = context.Documents;
+            _chunks = context.DocumentChunks;
+        }
         public Task<Domain.Document.Model.Document?> FindByDocumentId(Guid id)
         {
-            return _files.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.Id.Equals(id));
+            return _documents.Include(doc => doc.Chunks).FirstOrDefaultAsync(doc => doc.Id.Equals(id));
         }
 
         public Task<Domain.Document.Model.Document?> FindByNameAsync(ISpecification<Domain.Document.Model.Document> spec, string fileName)
         {
-            var query = spec.Apply(_files);
+            var query = spec.Apply(_documents);
             return query.FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
 
@@ -48,7 +53,6 @@ namespace StoreManager.Infrastructure.Document.Repository
             };
             var savedChunk = await _chunks.AddAsync(chunk);
 
-            await context.SaveChangesAsync();
             return savedChunk.Entity;
         }
 
@@ -66,8 +70,7 @@ namespace StoreManager.Infrastructure.Document.Repository
                 Id = Guid.NewGuid()
             };
 
-            var savedInstance = await _files.AddAsync(fileRecord);
-            await context.SaveChangesAsync();
+            var savedInstance = await _documents.AddAsync(fileRecord);
 
             return savedInstance.Entity;
         }

@@ -1,14 +1,16 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PdfSharp.Fonts;
 using StoreManager.Application.GeoCoding;
+using StoreManager.Domain;
 using StoreManager.Fonts;
+using StoreManager.Infrastructure;
 using StoreManager.Infrastructure.Context;
-using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.GeoCoding;
 using StoreManager.Infrastructure.MiddleWare.Injectors;
 
-namespace StoreManager.Infrastructure.MiddleWare
+namespace StoreManager.Presentation.MiddleWare
 {
     public static class Injection
     {
@@ -20,6 +22,8 @@ namespace StoreManager.Infrastructure.MiddleWare
 
             services.AddDbContext<WarehouseDbContext>(options => options.UseNpgsql(connectionString));
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPasswordHasher<Domain.User.Model.User>, PasswordHasher<Domain.User.Model.User>>();
             services.InjectAuthDependencies(configuration);
             services.InjectDocumentDependencies(configuration);
             services.InjectUserDependencies(configuration);

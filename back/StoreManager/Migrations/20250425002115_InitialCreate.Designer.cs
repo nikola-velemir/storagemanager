@@ -12,7 +12,7 @@ using StoreManager.Infrastructure.Context;
 namespace StoreManager.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20250424131414_InitialCreate")]
+    [Migration("20250425002115_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -256,8 +256,8 @@ namespace StoreManager.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");

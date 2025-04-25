@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using StoreManager.Application.BusinessPartner.Exporter.Command;
 using StoreManager.Application.BusinessPartner.Exporter.Repository;
+using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Shared;
@@ -9,20 +10,22 @@ using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Application.BusinessPartner.Exporter.Handler;
 
-public class CreateExporterCommandHandler(IExporterRepository repository) : IRequestHandler<CreateExporterCommand>
+public class CreateExporterCommandHandler(IUnitOfWork unitOfWork, IExporterRepository repository)
+    : IRequestHandler<CreateExporterCommand>
 {
     public async Task<Unit> Handle(CreateExporterCommand request, CancellationToken cancellationToken)
     {
         var exporter = new Domain.BusinessPartner.Exporter.Model.Exporter
         {
-            Address = new Address("c","c","C",1,4),
+            Address = new Address("c", "c", "C", 1, 4),
             Id = Guid.NewGuid(),
             Name = request.Name,
             PhoneNumber = request.PhoneNumber,
             Type = BusinessPartnerType.Exporter,
             Exports = new List<Export>()
         };
-        await repository.Create(exporter);
+        await repository.CreateAsync(exporter);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 }

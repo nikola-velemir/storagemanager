@@ -23,7 +23,7 @@ public class ExporterService(IExporterRepository repository) : IExporterService
             Type = BusinessPartnerType.Exporter,
             Exports = new List<Export>()
         };
-        await repository.Create(exporter);
+        await repository.CreateAsync(exporter);
     }
 
     public async Task<FindExporterResponsesDto> FindAll()

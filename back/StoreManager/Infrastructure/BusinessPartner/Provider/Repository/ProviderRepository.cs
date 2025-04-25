@@ -7,20 +7,25 @@ using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
 {
-    public class ProviderRepository(WarehouseDbContext context) : IProviderRepository
+    public class ProviderRepository : IProviderRepository
     {
-        private readonly DbSet<Domain.BusinessPartner.Provider.Model.Provider> _providers = context.Providers;
+        private DbSet<Domain.BusinessPartner.Provider.Model.Provider> _providers;
 
-        public async Task AddInvoiceAsync(Domain.BusinessPartner.Provider.Model.Provider provider, Import import)
+        public ProviderRepository(WarehouseDbContext context)
         {
-            provider.Imports.Add(import);
-            await context.SaveChangesAsync();
+            _providers = context.Providers;
         }
 
-        public async Task<Domain.BusinessPartner.Provider.Model.Provider> CreateAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
+        public Task AddInvoiceAsync(Domain.BusinessPartner.Provider.Model.Provider provider, Import import)
+        {
+            provider.Imports.Add(import);
+            return Task.CompletedTask;
+        }
+
+        public async Task<Domain.BusinessPartner.Provider.Model.Provider> CreateAsync(
+            Domain.BusinessPartner.Provider.Model.Provider provider)
         {
             var savedInstance = await _providers.AddAsync(provider);
-            await context.SaveChangesAsync();
             return savedInstance.Entity;
         }
 
@@ -34,7 +39,8 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
             return await _providers.Include(p => p.Imports).FirstOrDefaultAsync(p => p.Id.Equals(id));
         }
 
-        public async Task<(ICollection<Domain.BusinessPartner.Provider.Model.Provider> Items, int TotalCount)> FindFilteredAsync(string? providerInfo, int pageNumber, int pageSize)
+        public async Task<(ICollection<Domain.BusinessPartner.Provider.Model.Provider> Items, int TotalCount)>
+            FindFilteredAsync(string? providerInfo, int pageNumber, int pageSize)
         {
             var query = _providers.Include(p => p.Imports).AsQueryable();
             if (!string.IsNullOrEmpty(providerInfo))
@@ -42,10 +48,11 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
                 query = query.Where(e =>
                     e.Name.ToLower().Contains(providerInfo.ToLower()) ||
                     e.PhoneNumber.ToLower().Contains(providerInfo.ToLower()) ||
-                    e.Address.Street.ToLower().Contains(providerInfo.ToLower()) || 
+                    e.Address.Street.ToLower().Contains(providerInfo.ToLower()) ||
                     e.Address.City.ToLower().Contains(providerInfo.ToLower()) ||
                     e.Address.StreetNumber.ToLower().Contains(providerInfo.ToLower()));
             }
+
             var count = await query.CountAsync();
             int skip = (pageNumber - 1) * pageSize;
             var items = await query.Skip(skip).Take(pageSize).ToListAsync();
@@ -60,20 +67,22 @@ namespace StoreManager.Infrastructure.BusinessPartner.Provider.Repository
             return query?.Imports.Count ?? 0;
         }
 
-        public async Task<int> FindComponentCountForProviderAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
+        public async Task<int> FindComponentCountForProviderAsync(
+            Domain.BusinessPartner.Provider.Model.Provider provider)
         {
-            var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Imports).ThenInclude(i => i.Items).ThenInclude(ii => ii.Component).FirstOrDefaultAsync();
+            var query = await _providers.Where(p => p.Id.Equals(provider.Id)).Include(p => p.Imports)
+                .ThenInclude(i => i.Items).ThenInclude(ii => ii.Component).FirstOrDefaultAsync();
             if (query is null) return 0;
 
             var components = query.Imports.SelectMany(i => i.Items).Sum(ii => ii.Quantity);
             return components;
         }
 
-        public async Task<Domain.BusinessPartner.Provider.Model.Provider> UpdateAsync(Domain.BusinessPartner.Provider.Model.Provider provider)
+        public  Task<Domain.BusinessPartner.Provider.Model.Provider> UpdateAsync(
+            Domain.BusinessPartner.Provider.Model.Provider provider)
         {
             var savedEntity = _providers.Update(provider);
-            await context.SaveChangesAsync();
-            return savedEntity.Entity;
+            return Task.FromResult(savedEntity.Entity);
         }
     }
 }

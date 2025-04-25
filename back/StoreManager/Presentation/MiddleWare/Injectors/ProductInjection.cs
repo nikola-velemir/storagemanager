@@ -10,7 +10,7 @@ public static class ProductInjection
     public static IServiceCollection InjectProductDependencies(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
-        serviceCollection.AddScoped<IProductRepository, ProductRepository>();
+        serviceCollection.AddScoped<IProductRepository, ProductBlueprintRepository>();
         serviceCollection.AddScoped<IProductBlueprintService, ProductBlueprintService>();
         return serviceCollection;
     }

@@ -1,5 +1,6 @@
 using StoreManager.Infrastructure.Auth;
 using StoreManager.Infrastructure.MiddleWare;
+using StoreManager.Presentation.MiddleWare;
 
 var builder = WebApplication.CreateBuilder(args);
 
