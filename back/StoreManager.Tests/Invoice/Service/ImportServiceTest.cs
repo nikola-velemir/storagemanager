@@ -8,7 +8,6 @@ using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
-using StoreManager.Infrastructure.Invoice.Import.Service;
 
 namespace StoreManager.Tests.Invoice.Service
 {

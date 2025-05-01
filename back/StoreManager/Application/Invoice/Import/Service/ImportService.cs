@@ -5,10 +5,10 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Shared;
 using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Domain.Utils;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
-using StoreManager.Infrastructure.Invoice.Import.Service;
 using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Application.Invoice.Import.Service
@@ -28,15 +28,10 @@ namespace StoreManager.Application.Invoice.Import.Service
             return new ThisWeekInvoiceCountResponseDto(await importRepository.CountImportsThisWeek());
         }
 
-        public async Task Create(Guid id, List<ExtractionMetadata> metadata)
+        public async Task Create(Infrastructure.Invoice.Import.Model.Import invoice, List<ExtractionMetadata> metadata)
         {
-            var invoice = await importRepository.FindByDocumentId(id);
-            if (invoice is null)
-            {
-                return;
-            }
-
-            var components = await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(metadata);
+           
+            await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(metadata);
             foreach (var data in metadata)
             {
                 var component = await mechanicalComponentRepository.FindByIdentifierAsync(data.Identifier);

@@ -8,7 +8,7 @@ namespace StoreManager.Application.Document.Repository
         Task<Domain.Document.Model.Document?> FindByNameAsync(ISpecification<Domain.Document.Model.Document> spec, string fileName);
         Task<Domain.Document.Model.Document> SaveFileAsync(string fileName);
 
-        Task<DocumentChunk> SaveChunkAsync(IFormFile file, string fileName, int chunkIndex);
-
+        Task<DocumentChunk> SaveChunkAsync(Domain.Document.Model.Document foundDoc, IFormFile? file, string fileName,
+            int chunkIndex);
     }
 }

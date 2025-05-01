@@ -17,11 +17,11 @@ using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Document.Reader;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
-using StoreManager.Infrastructure.Invoice.Import.Service;
 
 namespace StoreManager.Tests.Document.Service
 {

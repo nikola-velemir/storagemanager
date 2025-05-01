@@ -31,7 +31,7 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
 
         public async Task<Domain.MechanicalComponent.Model.MechanicalComponent> CreateFromExtractionMetadataAsync(ExtractionMetadata metadata)
         {
-            var foundComponent = await FindByIdentifierAsync(metadata.Identifier);
+            var foundComponent = _components.Local.FirstOrDefault(c=>c.Identifier.ToLower().Equals(metadata.Identifier.ToLower())) ?? await FindByIdentifierAsync(metadata.Identifier);
 
             if (foundComponent != null)
             {

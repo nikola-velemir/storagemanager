@@ -31,18 +31,14 @@ namespace StoreManager.Infrastructure.Document.Repository
             return query.FirstOrDefaultAsync(doc => doc.FileName == fileName);
         }
 
-        public async Task<DocumentChunk> SaveChunkAsync(IFormFile? file, string fileName, int chunkIndex)
+        public async Task<DocumentChunk> SaveChunkAsync(Domain.Document.Model.Document foundDoc, IFormFile? file, string fileName, int chunkIndex)
         {
             var processedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
             if (file == null || file.Length == 0)
             {
                 throw new NotFoundException("Invalid chunk");
             }
-            var foundDoc = await FindByNameAsync(new DocumentWithDocumentChunks(), processedFileName);
-            if (foundDoc == null)
-            {
-                throw new NotFoundException("Invalid file");
-            }
+           
             var chunk = new DocumentChunk
             {
                 ChunkNumber = chunkIndex,

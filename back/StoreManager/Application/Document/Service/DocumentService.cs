@@ -17,9 +17,9 @@ using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
-using StoreManager.Infrastructure.Invoice.Import.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Document.Service
@@ -92,10 +92,11 @@ namespace StoreManager.Application.Document.Service
 
                 var parsedFileName = Regex.Replace(Path.GetFileNameWithoutExtension(fileName), @"[^a-zA-Z0-9]", "");
                 var foundFile = await repository.FindByNameAsync(new DocumentWithDocumentChunks(), parsedFileName);
+                Import? import = null;
                 if (foundFile == null)
                 {
                     foundFile = await repository.SaveFileAsync(fileName);
-                    var invoice = await importRepository.Create(new Import
+                    import = await importRepository.Create(new Import
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
@@ -104,10 +105,14 @@ namespace StoreManager.Application.Document.Service
                         DocumentId = foundFile.Id,
                         Id = Guid.NewGuid()
                     });
-                    await providerRepository.AddInvoiceAsync(provider, invoice);
+                    provider.AddImport(import);
+                }
+                else
+                {
+                    import = await importRepository.FindByDocumentId(foundFile.Id);
                 }
 
-                var savedChunk = await repository.SaveChunkAsync(file, fileName, chunkIndex);
+                var savedChunk = await repository.SaveChunkAsync(foundFile, file, fileName, chunkIndex);
                 await supabase.UploadFileChunk(file, savedChunk);
 
                 await fileService.AppendChunk(file, foundFile);
@@ -123,7 +128,7 @@ namespace StoreManager.Application.Document.Service
 
                     var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                    await importService.Create(foundFile.Id, metadata);
+                    await importService.Create(import, metadata);
 
                     await fileService.DeleteAllChunks(foundFile);
                 }
@@ -289,7 +294,7 @@ namespace StoreManager.Application.Document.Service
 
             for (var i = 0; i < chunks.Count; ++i)
             {
-                var chunk = await repository.SaveChunkAsync(fileChunks[i], fileName, i);
+                var chunk = await repository.SaveChunkAsync(doc, fileChunks[i], fileName, i);
                 await supabase.UploadFileChunk(fileChunks[i], chunk);
             }
 

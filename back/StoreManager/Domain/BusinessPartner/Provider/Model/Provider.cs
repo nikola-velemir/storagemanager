@@ -7,5 +7,10 @@ namespace StoreManager.Domain.BusinessPartner.Provider.Model
     {
         
         public ICollection<Import> Imports { get; set; } = new List<Import>();
+
+        public void AddImport(Import import)
+        {
+            Imports.Add(import);
+        }
     }
 }

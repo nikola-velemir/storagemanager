@@ -8,15 +8,18 @@ using StoreManager.Application.Document.Repository;
 using StoreManager.Application.Document.Service.FileService;
 using StoreManager.Application.Document.Service.Reader;
 using StoreManager.Application.Invoice.Import.Repository;
+using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Domain.Invoice.Base.Repository;
+using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
-using StoreManager.Infrastructure.Invoice.Import.Service;
+using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Document.Handler
@@ -27,6 +30,7 @@ namespace StoreManager.Application.Document.Handler
         IDocumentRepository documentRepository,
         IImportRepository importRepository,
         ICloudStorageService supaService,
+        IMechanicalComponentRepository mechanicalComponentRepository,
         IFileService fileService,
         IDocumentReaderFactory readerFactory,
         IWebHostEnvironment env,
@@ -41,48 +45,57 @@ namespace StoreManager.Application.Document.Handler
 
                 var providerId = Guid.Parse(request.ProviderId);
                 var provider = await providerRepository.FindByIdAsync(providerId);
-                
+
                 var parsedFileName =
                     Regex.Replace(Path.GetFileNameWithoutExtension(request.FileName), @"[^a-zA-Z0-9]", "");
-                var foundFile = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), parsedFileName);
-                if (foundFile == null)
+                var foundDocument =
+                    await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), parsedFileName);
+                Import? import = null;
+                if (foundDocument == null)
                 {
-                    foundFile = await documentRepository.SaveFileAsync(request.FileName);
-                    var invoice = await importRepository.Create(new Import
+                    foundDocument = await documentRepository.SaveFileAsync(request.FileName);
+                    import = await importRepository.Create(new Import
                     {
                         Provider = provider,
                         ProviderId = provider.Id,
                         Type = InvoiceType.Import,
                         DateIssued = DateOnly.FromDateTime(DateTime.UtcNow),
-                        Document = foundFile,
-                        DocumentId = foundFile.Id,
+                        Document = foundDocument,
+                        DocumentId = foundDocument.Id,
                         Id = Guid.NewGuid()
                     });
-                    await providerRepository.AddInvoiceAsync(provider, invoice);
+                    provider.AddImport(import);
+                }
+                else
+                {
+                    import = await importRepository.FindByDocumentId(foundDocument.Id);
                 }
 
-                var savedChunk = await documentRepository.SaveChunkAsync(request.File, request.FileName, request.ChunkIndex);
+                var savedChunk = await documentRepository.SaveChunkAsync(foundDocument, request.File, request.FileName,
+                    request.ChunkIndex);
+
                 await supaService.UploadFileChunk(request.File, savedChunk);
 
-                await fileService.AppendChunk(request.File, foundFile);
+                await fileService.AppendChunk(request.File, foundDocument);
 
                 if (request.ChunkIndex != request.TotalChunks - 1) return Unit.Value;
-                
-                var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundFile.Type));
+
+                var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundDocument.Type));
 
                 var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
 
                 var filePath = Path.Combine(webRootPath,
-                    $"{foundFile.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundFile.Type)}");
+                    $"{foundDocument.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundDocument.Type)}");
 
                 var metadata = documentReader.ExtractDataFromDocument(filePath);
+                 await mechanicalComponentRepository.CreateFromExtractionMetadataAsync((metadata));
+              
+                await importService.Create(import, metadata);
 
-                await importService.Create(foundFile.Id, metadata);
+                await fileService.DeleteAllChunks(foundDocument);
 
-                await fileService.DeleteAllChunks(foundFile);
-                
                 await unitOfWork.SaveChangesAsync(cancellationToken);
-                
+
                 return Unit.Value;
             }
             catch (Exception)

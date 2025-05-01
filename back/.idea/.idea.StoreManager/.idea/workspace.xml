@@ -9,43 +9,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a3165c4-d92a-4166-b83d-7538ad30ca1c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/IUnitOfWork.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/UnitOfWork.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager.Tests/User/Service/UserServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager.Tests/User/Service/UserServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/LoginQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/LoginQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Handler/CreateBusinessPartnerCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Handler/CreateBusinessPartnerCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/CreateExporterCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/CreateExporterCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Repository/IExporterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Repository/IExporterRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/CreateProviderHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/CreateProviderHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager.Tests/Document/Service/DocumentServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager.Tests/Document/Service/DocumentServiceTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager.Tests/Invoice/Service/ImportServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager.Tests/Invoice/Service/ImportServiceTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/CreateProductCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/CreateProductCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/User/Service/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/User/Service/UserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/User/Service/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/User/Service/IUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Auth/Tokens/RefreshTokens/RefreshTokenCleanupService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Auth/Tokens/RefreshTokens/RefreshTokenCleanupService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Auth/Tokens/RefreshTokens/RefreshTokenRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Auth/Tokens/RefreshTokens/RefreshTokenRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Base/Repository/BusinessPartnerRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Base/Repository/BusinessPartnerRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Exporter/Repository/ExporterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Exporter/Repository/ExporterRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Provider/Repository/ProviderRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/BusinessPartner/Provider/Repository/ProviderRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Repository/IDocumentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Repository/IDocumentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Service/DocumentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Service/DocumentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/BusinessPartner/Provider/Model/Provider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/BusinessPartner/Provider/Model/Provider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Import/Service/IImportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Import/Service/IImportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContextFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContextFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Document/Repository/DocumentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Document/Repository/DocumentRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Import/Repository/ImportRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/MechanicalComponent/Repository/MechanicalComponentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/MechanicalComponent/Repository/MechanicalComponentRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Repository/ProductRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Repository/ProductBlueprintRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/User/Configuration/UserModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/User/Configuration/UserModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/User/Repository/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/User/Repository/UserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/20250424131414_InitialCreate.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/20250424131414_InitialCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/WarehouseDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ProductInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ProductInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/UserInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/UserInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/User/Controller/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/User/Controller/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/InvoiceInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/InvoiceInjection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/StoreManager.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/StoreManager.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/react-app/src/infrastructure/Interceptor/DownloadInterceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/infrastructure/Interceptor/DownloadInterceptor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/react-app/src/infrastructure/Interceptor/Interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/infrastructure/Interceptor/Interceptor.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +37,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/74e4c72cd3922ed61496931f33baf4a9b5950edddb6b78bc296241285f25c3/TaskAwaiter.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -67,21 +49,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.StoreManager: http.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/unit-of-work",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.StoreManager: http.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.StoreManager: http">
     <configuration name="StoreManager: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/StoreManager/StoreManager.csproj" />
@@ -129,6 +111,10 @@
       <workItem from="1745446377286" duration="5326000" />
       <workItem from="1745494711556" duration="3701000" />
       <workItem from="1745538072697" duration="2697000" />
+      <workItem from="1745620298481" duration="2193000" />
+      <workItem from="1745626418434" duration="1313000" />
+      <workItem from="1745961017960" duration="1033000" />
+      <workItem from="1746060131412" duration="2541000" />
     </task>
     <servers />
   </component>
@@ -166,6 +152,71 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Presentation/Document/Controller/DocumentController.cs</url>
+          <line>17</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Presentation\Document\Controller\DocumentController.cs" containingFunctionPresentation="Method 'UploadFileFromChunks'">
+            <startOffsets>
+              <option value="629" />
+            </startOffsets>
+            <endOffsets>
+              <option value="726" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs</url>
+          <line>45</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Document\Handler\UploadChunkHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="1930" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1978" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs</url>
+          <line>73</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Document\Handler\UploadChunkHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="3266" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3410" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Infrastructure/Document/Repository/DocumentRepository.cs</url>
+          <line>51</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Infrastructure\Document\Repository\DocumentRepository.cs" containingFunctionPresentation="Method 'SaveChunkAsync'">
+            <startOffsets>
+              <option value="2104" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2129" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs</url>
+          <line>90</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Document\Handler\UploadChunkHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="4117" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4199" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

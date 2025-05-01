@@ -1,10 +1,9 @@
-import axios, { AxiosError } from "axios";
-import { getUser } from "../Auth/AuthContext";
+import axios from "axios";
 import { AuthUser } from "../../model/userModels/AuthUser";
 import { RefreshRequest } from "../../model/userModels/Request/RefreshRequest";
 import { UserService } from "../Auth/UserService";
 
-const API_BASE_URL = "http://localhost:5205/api";
+const API_BASE_URL = "http://192.168.1.3:5205/api";
 
 const downloadApi = axios.create({
   baseURL: API_BASE_URL,
