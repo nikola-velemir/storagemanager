@@ -33,7 +33,7 @@ namespace StoreManager.Application.Auth.Handler
 
             var refreshToken = await refreshTokenRepository.CreateAsync(user);
 
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await unitOfWork.CommitAsync(cancellationToken);
 
             return new LoginResponseDto(accessToken, refreshToken.Token, role);
         }

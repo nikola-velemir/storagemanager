@@ -3,7 +3,7 @@ using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Domain.Invoice.Export.Specification;
-using StoreManager.Domain.Product.Model;
+using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Domain.Utils;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;

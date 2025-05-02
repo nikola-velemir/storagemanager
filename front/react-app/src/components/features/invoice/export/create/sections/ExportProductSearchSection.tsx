@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ExportProductCard from "../cards/ExportProductCard";
-import { ProductSearchResponse } from "../../../../../../model/product/ProductSearchResponse";
-import { ProductService } from "../../../../../../services/ProductService";
+import { ProductSearchResponse } from "../../../../../../model/product/bluePrint/ProductSearchResponse";
+import { ProductService } from "../../../../../../services/products/ProductService";
 import DatePickerComponent from "../../../../../common/inputs/DatePickerComponent";
 import Paginator from "../../../../../common/inputs/Paginator";
 import SearchBox from "../../../../../common/inputs/SearchBox";

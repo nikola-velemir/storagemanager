@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import ProductCreateForm, { ProductCreateFormData } from "./ProductCreateForm";
 import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
-import { ProductCreateRequest } from "../../../../model/product/ProductCreateRequest";
-import { ProductService } from "../../../../services/ProductService";
+import { ProductCreateRequest } from "../../../../model/product/bluePrint/ProductCreateRequest";
+import { ProductService } from "../../../../services/products/ProductService";
 import { toast } from "react-toastify";
 import ComponentSearchSection from "./sections/ComponentSearchSection";
 import SelectedComponentsSection from "./sections/SelectedComponentsSection";

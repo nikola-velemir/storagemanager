@@ -18,6 +18,7 @@ import BusinessPartnersSearch from "../../features/businessPartners/search/Busin
 import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
 import BusinessPartnerCreatePage from "../../features/businessPartners/create/BusinessPartnerCreatePage";
 import BusinessPartnerProfile from "../../features/businessPartners/profile/BusinessPartnerProfile";
+import Foundry from "../../features/product/foundry/Foundry";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -128,6 +129,14 @@ const AnimatedRoutes = () => {
               element={
                 <ContentContainer>
                   <BusinessPartnerCreatePage />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/foundry"
+              element={
+                <ContentContainer>
+                  <Foundry />
                 </ContentContainer>
               }
             />

@@ -4,7 +4,9 @@ using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Invoice.Export.Model;
-using StoreManager.Domain.Product.Model;
+using StoreManager.Domain.Product.Batch;
+using StoreManager.Domain.Product.Batch.Model;
+using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Infrastructure.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
@@ -35,6 +37,7 @@ namespace StoreManager.Infrastructure.Context
         public DbSet<Exporter> Exporters { get; set; }
         public DbSet<ProductBlueprint> ProductBlueprints { get; set; }
         public DbSet<ProductBlueprintLineItems> ProductComponents { get; set; }
+        public DbSet<ProductBatch> ProductBatches { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

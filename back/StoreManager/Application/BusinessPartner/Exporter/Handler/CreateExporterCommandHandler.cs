@@ -25,7 +25,7 @@ public class CreateExporterCommandHandler(IUnitOfWork unitOfWork, IExporterRepos
             Exports = new List<Export>()
         };
         await repository.CreateAsync(exporter);
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
         return Unit.Value;
     }
 }

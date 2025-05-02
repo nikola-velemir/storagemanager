@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import DatePickerComponent from "../../../common/inputs/DatePickerComponent";
 import Paginator from "../../../common/inputs/Paginator";
 import SearchBox from "../../../common/inputs/SearchBox";
-import { ProductSearchResponse } from "../../../../model/product/ProductSearchResponse";
-import { ProductService } from "../../../../services/ProductService";
+import { ProductSearchResponse } from "../../../../model/product/bluePrint/ProductSearchResponse";
+import { ProductService } from "../../../../services/products/ProductService";
 import ProductSearchCard from "./cards/ProductSearchCard";
 export const convertDateToString = (date: Date | null) => {
   if (!date) {

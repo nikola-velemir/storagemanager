@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ProductInfoResponse } from "../../../../model/product/ProductInfoResponse";
-import { ProductService } from "../../../../services/ProductService";
+import { ProductInfoResponse } from "../../../../model/product/bluePrint/ProductInfoResponse";
+import { ProductService } from "../../../../services/products/ProductService";
 import ProductContentTabs from "./ProductContentTabs";
 
 const ProductInfo = () => {

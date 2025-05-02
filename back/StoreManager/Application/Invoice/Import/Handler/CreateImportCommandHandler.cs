@@ -44,7 +44,7 @@ namespace StoreManager.Application.Invoice.Import.Handler
 //                await importRepository.UpdateAsync(invoice);
             }
 
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await unitOfWork.CommitAsync(cancellationToken);
             
             return Unit.Value;
         }

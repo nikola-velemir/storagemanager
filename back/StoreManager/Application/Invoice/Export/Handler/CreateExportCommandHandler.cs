@@ -3,7 +3,7 @@ using StoreManager.Application.BusinessPartner.Exporter.Repository;
 using StoreManager.Application.Invoice.Export.Command;
 using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Invoice.Export.Repository;
-using StoreManager.Application.Product.Repository;
+using StoreManager.Application.Product.Blueprint.Repository;
 using StoreManager.Domain;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Invoice.Export.Model;
@@ -17,7 +17,7 @@ public class CreateExportCommandHandler(
     IUnitOfWork unitOfWork,
     IExporterRepository exporterRepository,
     IExportRepository exportRepository,
-    IProductRepository productRepository,
+    IProductBlueprintRepository productBlueprintRepository,
     IDocumentService documentService)
     : IRequestHandler<CreateExportCommand>
 {
@@ -52,7 +52,7 @@ public class CreateExportCommandHandler(
         });
         await exportRepository.CreateFromProductRowsAsync(export, productRows);
         
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
         return Unit.Value;
     }
 
@@ -65,7 +65,7 @@ public class CreateExportCommandHandler(
 
             var productId = Guid.Parse(p.id);
 
-            var product = await productRepository.FindByIdAsync(productId);
+            var product = await productBlueprintRepository.FindByIdAsync(productId);
             if (product is null) return null;
 
             return new ProductRow

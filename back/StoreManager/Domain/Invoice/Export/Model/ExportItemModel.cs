@@ -1,5 +1,5 @@
 ﻿using StoreManager.Domain.Invoice.Export.Model;
-using StoreManager.Domain.Product.Model;
+using StoreManager.Domain.Product.Blueprint.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Model;
 

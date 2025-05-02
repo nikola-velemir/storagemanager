@@ -24,7 +24,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler
                 Type = BusinessPartnerType.Provider,
                 PhoneNumber = request.PhoneNumber
             });
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await unitOfWork.CommitAsync(cancellationToken);
             return new ProviderFindResponseDto(saved.Id, saved.Name, Utils.FormatAddress(saved.Address),
                 saved.PhoneNumber);
         }

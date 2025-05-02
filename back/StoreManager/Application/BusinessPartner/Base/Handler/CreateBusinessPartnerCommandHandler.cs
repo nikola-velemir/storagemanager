@@ -52,7 +52,7 @@ public class CreateBusinessPartnerCommandHandler(
         };
 
         await repository.CreateAsync(partner);
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.CommitAsync(cancellationToken);
         return Unit.Value;
     }
 

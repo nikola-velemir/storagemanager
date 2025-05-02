@@ -1,4 +1,4 @@
-﻿using StoreManager.Domain.Product.Model;
+﻿using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Domain.MechanicalComponent.Model

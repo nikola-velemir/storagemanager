@@ -1,6 +1,7 @@
 using StoreManager.Infrastructure.Auth;
 using StoreManager.Infrastructure.MiddleWare;
 using StoreManager.Presentation.MiddleWare;
+using StoreManager.Presentation.Product.Batch;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ app.UseMiddleware<ExceptionHandler>();
 app.UseCors("AllowSpecificOrigin");
 
 app.UseRouting();
+app.MapProductBatchApi();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

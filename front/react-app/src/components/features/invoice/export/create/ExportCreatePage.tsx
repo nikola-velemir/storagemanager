@@ -4,7 +4,7 @@ import ExportSelectedProductsSection from "./sections/ExportSelectedProductsSect
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { FindExporterResponse } from "../../../../../model/exporter/FindExporterResponse";
-import { ProductSearchResponse } from "../../../../../model/product/ProductSearchResponse";
+import { ProductSearchResponse } from "../../../../../model/product/bluePrint/ProductSearchResponse";
 import { ExportService } from "../../../../../services/invoice/ExportService";
 
 export interface ProductSelectionTuple {

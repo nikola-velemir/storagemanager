@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ProductInfoComponentResponse } from "../../../../model/product/ProductInfoComponentResponse";
+import { ProductInfoComponentResponse } from "../../../../model/product/bluePrint/ProductInfoComponentResponse";
 import ProductInfoComponentCard from "./cards/ProductInfoComponentCard";
-import { ProductInfoExportResponse } from "../../../../model/product/ProductInfoExportResponse";
+import { ProductInfoExportResponse } from "../../../../model/product/bluePrint/ProductInfoExportResponse";
 import ProductInfoExportCard from "./cards/ProductInfoExportCard";
 
 enum TabState {

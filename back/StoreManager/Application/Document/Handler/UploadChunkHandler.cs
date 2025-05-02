@@ -94,7 +94,7 @@ namespace StoreManager.Application.Document.Handler
 
                 await fileService.DeleteAllChunks(foundDocument);
 
-                await unitOfWork.SaveChangesAsync(cancellationToken);
+                await unitOfWork.CommitAsync(cancellationToken);
 
                 return Unit.Value;
             }
