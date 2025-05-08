@@ -1,8 +1,7 @@
 ﻿using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Shared;
-using StoreManager.Infrastructure.Shared;
 
-namespace StoreManager.Infrastructure.Invoice.Export.Service;
+namespace StoreManager.Domain.Invoice.Export.Service;
 
 public interface IExportService
 {

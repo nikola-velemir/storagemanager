@@ -1,13 +1,15 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using MediatR;
 using StoreManager.Application.Auth.Command;
+using StoreManager.Application.Auth.Errors;
 using StoreManager.Application.Auth.Tokens;
+using StoreManager.Application.Common;
 
 namespace StoreManager.Application.Auth.Handler
 {
-    public class DeAuthenticateCommandHandler(IRedisCacheService redis) : IRequestHandler<DeAuthenticateCommand>
+    public class DeAuthenticateCommandHandler(IRedisCacheService redis) : IRequestHandler<DeAuthenticateCommand,Result>
     {
-        public async Task<Unit> Handle(DeAuthenticateCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeAuthenticateCommand request, CancellationToken cancellationToken)
         {
             var handler = new JwtSecurityTokenHandler();
 
@@ -18,12 +20,12 @@ namespace StoreManager.Application.Auth.Handler
             var jti = jwtToken.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Jti)?.Value;
             if (string.IsNullOrEmpty(jti))
             {
-                throw new BadHttpRequestException("Invalid token");
+                return RefreshTokenErrors.InvalidTokenError;
             }
 
             await redis.RevokeTokenAsync(jti, jwtToken.ValidTo);
             
-            return Unit.Value;
+            return Result.Success();
         }
     }
 }

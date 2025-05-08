@@ -9,11 +9,11 @@ import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
+import { ProviderImportInvolvementResponse } from "../../../../../model/provider/ProviderImportInvolvementResponse";
 import { useNavigate } from "react-router-dom";
-import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
-import { ExporterExportInvolvementResponse } from "../../../../model/exporter/ExporterExportInvolvementResponse";
-import { ExporterProductInvolvementResponse } from "../../../../model/exporter/ExporterProductInvolvementResponse";
+import { ProviderComponentInvolvementResponse } from "../../../../../model/provider/ProviderComponentInvolvementResponse";
+import { ExporterExportInvolvementResponse } from "../../../../../model/exporter/ExporterExportInvolvementResponse";
+import { ExporterProductInvolvementResponse } from "../../../../../model/exporter/ExporterProductInvolvementResponse";
 
 const CustomTooltip = ({
   active,

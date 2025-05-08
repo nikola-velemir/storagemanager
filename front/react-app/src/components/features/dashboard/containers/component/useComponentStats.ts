@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { MechanicalComponentTopFiveQuantityResponse } from "../../../../model/components/MechanicalComponentTopFiveQuantityResponse";
-import { MechanicalComponentService } from "../../../../services/MechanicalComponentService";
+import { MechanicalComponentTopFiveQuantityResponse } from "../../../../../model/components/MechanicalComponentTopFiveQuantityResponse";
+import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
 import { animate, AnimationPlaybackControls } from "framer-motion";
 
 export const useComponentStats = () => {

@@ -1,17 +1,16 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.MechanicalComponent.Command.Search;
 using StoreManager.Application.MechanicalComponent.DTO.Search;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Shared;
-using StoreManager.Infrastructure.Shared;
-using static Supabase.Gotrue.Constants;
 
 namespace StoreManager.Application.MechanicalComponent.Handler.Search
 {
     public class FindFilteredComponentsHandler(IMechanicalComponentRepository repository)
-        : IRequestHandler<FindFilteredComponentsQuery, PaginatedResult<MechanicalComponentSearchResponseDto>>
+        : IRequestHandler<FindFilteredComponentsQuery, Result<PaginatedResult<MechanicalComponentSearchResponseDto>>>
     {
-        public async Task<PaginatedResult<MechanicalComponentSearchResponseDto>> Handle(
+        public async Task<Result<PaginatedResult<MechanicalComponentSearchResponseDto>>> Handle(
             FindFilteredComponentsQuery request, CancellationToken cancellationToken)
         {
             Guid? id = null;
@@ -22,7 +21,7 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Search
 
             var result =
                 await repository.FindFilteredAsync(id, request.ComponentInfo, request.PageNumber, request.PageSize);
-            return new PaginatedResult<MechanicalComponentSearchResponseDto>
+            return Result.Success(new PaginatedResult<MechanicalComponentSearchResponseDto>
             {
                 Items = result.Items.Select(mc =>
                         new MechanicalComponentSearchResponseDto(
@@ -46,7 +45,7 @@ namespace StoreManager.Application.MechanicalComponent.Handler.Search
                 PageNumber = request.PageNumber,
                 PageSize = request.PageSize,
                 TotalCount = result.TotalCount
-            };
+            });
         }
     }
 }

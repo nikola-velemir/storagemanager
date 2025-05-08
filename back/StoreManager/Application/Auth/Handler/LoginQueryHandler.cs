@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using StoreManager.Application.Auth.DTO;
+using StoreManager.Application.Auth.Errors;
 using StoreManager.Application.Auth.Query;
 using StoreManager.Application.Auth.Tokens;
 using StoreManager.Application.Auth.Tokens.RefreshToken;
+using StoreManager.Application.Common;
 using StoreManager.Application.User.Repository;
 using StoreManager.Domain;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
@@ -16,15 +18,15 @@ namespace StoreManager.Application.Auth.Handler
         IUserRepository userRepository,
         IAccessTokenGenerator tokenGenerator,
         IRefreshTokenRepository refreshTokenRepository)
-        : IRequestHandler<LoginQuery, LoginResponseDto?>
+        : IRequestHandler<LoginQuery, Result<LoginResponseDto>>
     {
-        public async Task<LoginResponseDto?> Handle(LoginQuery request, CancellationToken cancellationToken)
+        public async Task<Result<LoginResponseDto>> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
             Validate(request);
             var user = await userRepository.FindByUsernameAsync(request.Username);
             if (!VerifyPassword(user, request.Password))
             {
-                throw new UnauthorizedAccessException("Invalid password");
+                return LoginErrors.IncorrectCredentialsError;
             }
 
 
@@ -35,7 +37,8 @@ namespace StoreManager.Application.Auth.Handler
 
             await unitOfWork.CommitAsync(cancellationToken);
 
-            return new LoginResponseDto(accessToken, refreshToken.Token, role);
+            var response =  new LoginResponseDto(accessToken, refreshToken.Token, role);
+            return Result.Success(response);
         }
 
         private bool VerifyPassword(Domain.User.Model.User user, string providedPassword)

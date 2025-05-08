@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Newtonsoft.Json;
 using StoreManager.Application.BusinessPartner.Base.Command;
+using StoreManager.Application.BusinessPartner.Base.Errors;
 using StoreManager.Application.BusinessPartner.Base.Repository;
+using StoreManager.Application.Common;
 using StoreManager.Application.GeoCoding;
 using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
@@ -15,26 +17,34 @@ public class CreateBusinessPartnerCommandHandler(
     IUnitOfWork unitOfWork,
     IBusinessPartnerRepository repository,
     IGeoCodingService geoCodingService)
-    : IRequestHandler<CreateBusinessPartnerCommand>
+    : IRequestHandler<CreateBusinessPartnerCommand, Result>
 {
-    public async Task<Unit> Handle(CreateBusinessPartnerCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateBusinessPartnerCommand request, CancellationToken cancellationToken)
     {
         var geocodingResponse =
             await geoCodingService.ForwardGeoCode(request.City, request.Street, request.StreetNumber);
-        
-        var coordinates = GetCoordinates(geocodingResponse);
+        (double Latitude, double Longitude)? coordinates = null;
+        try
+        {
+            coordinates = GetCoordinates(geocodingResponse);
+        }
+        catch (Exception)
+        {
+            return BusinessPartnerErrors.InvalidCoordinatesError;
+        }
+
         if (!Enum.TryParse<BusinessPartnerType>(request.Role, out _))
-            throw new InvalidCastException("Could not cast to business partner");
+            return BusinessPartnerErrors.InvalidBusinessPartnerTypeError;
 
         var role = Enum.Parse<BusinessPartnerType>(request.Role);
 
-        var address = new Address(request.City, request.Street, request.StreetNumber, coordinates.Latitude,
-            coordinates.Longitude);
+        var address = new Address(request.City, request.Street, request.StreetNumber, coordinates.Value.Latitude,
+            coordinates.Value.Longitude);
         Domain.BusinessPartner.Base.Model.BusinessPartner partner = role switch
         {
             BusinessPartnerType.Exporter => new Domain.BusinessPartner.Exporter.Model.Exporter
             {
-                Address =address,
+                Address = address,
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 PhoneNumber = request.PhoneNumber,
@@ -53,7 +63,7 @@ public class CreateBusinessPartnerCommandHandler(
 
         await repository.CreateAsync(partner);
         await unitOfWork.CommitAsync(cancellationToken);
-        return Unit.Value;
+        return Result.Success();
     }
 
     private static (double Latitude, double Longitude) GetCoordinates(string responseString)
@@ -63,8 +73,8 @@ public class CreateBusinessPartnerCommandHandler(
 
         if (!responseDictionary.TryGetValue("lat", out var lat) || !responseDictionary.TryGetValue("lon", out var lon))
             throw new InvalidOperationException();
-        var parsedLatitude = ((string)lat).Replace('.',',');
-        var parsedLongitude = ((string)lon).Replace('.',',');
+        var parsedLatitude = ((string)lat).Replace('.', ',');
+        var parsedLongitude = ((string)lon).Replace('.', ',');
         return (double.Parse(parsedLatitude), double.Parse(parsedLongitude));
     }
 }

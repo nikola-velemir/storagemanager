@@ -6,7 +6,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ImportFindCountForDayResponse } from "../../../../model/invoice/import/ImportFindCountForDayResponse";
+import { ImportFindCountForDayResponse } from "../../../../../model/invoice/import/ImportFindCountForDayResponse";
 import { useEffect, useState } from "react";
 
 interface WeeklyImportChartProps {

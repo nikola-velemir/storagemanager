@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StoreManager.Infrastructure.Invoice.Export.Model;
+using StoreManager.Domain.Invoice.Export.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Configuration;
 
-public class ExportItemModelConfiguration : IEntityTypeConfiguration<ExportItemModel>
+public class ExportItemModelConfiguration : IEntityTypeConfiguration<ExportItem>
 {
-    public void Configure(EntityTypeBuilder<ExportItemModel> builder)
+    public void Configure(EntityTypeBuilder<ExportItem> builder)
     {
         builder.HasKey(e => new { e.ExportId, e.ProductId });
 

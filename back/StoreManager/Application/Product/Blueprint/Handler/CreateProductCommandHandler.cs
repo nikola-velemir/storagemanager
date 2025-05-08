@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Product.Blueprint.Command;
 using StoreManager.Application.Product.Blueprint.DTO;
@@ -12,9 +13,9 @@ namespace StoreManager.Application.Product.Blueprint.Handler;
 public class CreateProductCommandHandler(
     IUnitOfWork unitOfWork,
     IProductBlueprintRepository productBlueprintRepository,
-    IMechanicalComponentRepository mechanicalComponentRepository) : IRequestHandler<CreateProductBlueprintCommand>
+    IMechanicalComponentRepository mechanicalComponentRepository) : IRequestHandler<CreateProductBlueprintCommand,Result>
 {
-    public async Task<Unit> Handle(CreateProductBlueprintCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateProductBlueprintCommand request, CancellationToken cancellationToken)
     {
         ValidateRequest(request);
         
@@ -36,7 +37,7 @@ public class CreateProductCommandHandler(
         await productBlueprintRepository.CreateAsync(product);
         
         await unitOfWork.CommitAsync(cancellationToken);
-        return Unit.Value;
+        return Result.Success();
     }
 
     private static void ValidateRequest(CreateProductBlueprintCommand request)

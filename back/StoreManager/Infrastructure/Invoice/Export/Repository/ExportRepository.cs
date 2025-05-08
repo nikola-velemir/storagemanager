@@ -7,21 +7,21 @@ using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Domain.Utils;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.DB;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Repository;
 
 public class ExportRepository : IExportRepository
 
 {
-    private readonly DbSet<Domain.Invoice.Export.Model.Export> _exports ;
-    private readonly DbSet<ProductBlueprint> _products ;
+    private readonly DbSet<Domain.Invoice.Export.Model.Export> _exports;
+    private readonly DbSet<ProductBlueprint> _products;
 
     public ExportRepository(WarehouseDbContext context)
     {
         _exports = context.Exports;
         _products = context.ProductBlueprints;
     }
+
     public Task<Domain.Invoice.Export.Model.Export?> FindByIdAsync(Guid id)
     {
         return _exports.FirstOrDefaultAsync(e => e.Id.Equals(id));
@@ -33,7 +33,8 @@ public class ExportRepository : IExportRepository
         return savedInstance.Entity;
     }
 
-    public async Task<(ICollection<Domain.Invoice.Export.Model.Export> Items, int TotalCount)> FindFilteredAsync(FindFilteredExportsSpecification spec, Guid? exporterId,
+    public async Task<(ICollection<Domain.Invoice.Export.Model.Export> Items, int TotalCount)> FindFilteredAsync(
+        FindFilteredExportsSpecification spec, Guid? exporterId,
         string? productInfo, DateOnly? date, int pageNumber, int pageSize)
     {
         var query = spec.Apply(_exports);
@@ -56,10 +57,11 @@ public class ExportRepository : IExportRepository
 
     public Task<List<Domain.Invoice.Export.Model.Export>> FindByExporterIdAsync(Guid partnerId)
     {
-        return _exports.Where(e=>e.ExporterId.Equals(partnerId)).ToListAsync();
+        return _exports.Where(e => e.ExporterId.Equals(partnerId)).ToListAsync();
     }
 
-    public async Task CreateFromProductRowsAsync(Domain.Invoice.Export.Model.Export export, List<ProductRow> productRows)
+    public async Task CreateFromProductRowsAsync(Domain.Invoice.Export.Model.Export export,
+        List<ProductRow> productRows)
     {
         foreach (var productRow in productRows)
         {
@@ -71,7 +73,16 @@ public class ExportRepository : IExportRepository
                 continue;
             }
 
-            var item = new ExportItemModel
+            var query = _products.Where(p => p.Id.Equals(product.Id));
+            var producedValue = await query.Include(p => p.Batches)
+                .SelectMany(p => p.Batches).SumAsync(p => p.Quantity);
+            var usedValue = await query.Include(p => p.Exports).SelectMany(p => p.Exports).SumAsync(p => p.Quantity);
+            var availableQuantity = producedValue - usedValue;
+
+            if (availableQuantity < productRow.Quantity)
+                throw new ArgumentOutOfRangeException();
+
+            var item = new ExportItem
             {
                 Product = product,
                 Export = export,
@@ -80,9 +91,8 @@ public class ExportRepository : IExportRepository
                 PricePerPiece = productRow.Price,
                 Quantity = productRow.Quantity
             };
-            export.Items.Add(item);
+            export.AddItem(item);
         }
-        
     }
 
     public Task<int> FindCountForDateAsync(DateOnly date)
@@ -93,11 +103,10 @@ public class ExportRepository : IExportRepository
 
     public Task<int> CountExportsThisWeekAsync()
     {
-        
         var startOfWeek = DateOnly.FromDateTime(DateTime.UtcNow.StartOfWeek());
         var endOfWeek = startOfWeek.AddDays(7);
-        
-        var query = _exports.Where(e=>e.DateIssued >= startOfWeek && e.DateIssued < endOfWeek);
+
+        var query = _exports.Where(e => e.DateIssued >= startOfWeek && e.DateIssued < endOfWeek);
         return query.CountAsync();
     }
 }

@@ -1,15 +1,15 @@
 ﻿using MediatR;
+using StoreManager.Application.BusinessPartner.Base.Errors;
 using StoreManager.Application.BusinessPartner.Exporter.Repository;
+using StoreManager.Application.Common;
+using StoreManager.Application.Invoice.Base.Error;
 using StoreManager.Application.Invoice.Export.Command;
 using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Application.Product.Blueprint.Repository;
 using StoreManager.Domain;
 using StoreManager.Domain.Document.Service;
-using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Base;
-using StoreManager.Infrastructure.Invoice.Export.Model;
-using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Invoice.Export.Handler;
 
@@ -19,18 +19,17 @@ public class CreateExportCommandHandler(
     IExportRepository exportRepository,
     IProductBlueprintRepository productBlueprintRepository,
     IDocumentService documentService)
-    : IRequestHandler<CreateExportCommand>
+    : IRequestHandler<CreateExportCommand, Result>
 {
-    public async Task<Unit> Handle(CreateExportCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateExportCommand request, CancellationToken cancellationToken)
     {
         if (!Guid.TryParse(request.ProviderId, out _))
-        {
-            throw new ArgumentException("Invalid provider id");
-        }
+            return BusinessPartnerErrors.PartnerIdParseError;
 
         var exporterId = Guid.Parse(request.ProviderId);
-        var exporter = await exporterRepository.FindById((exporterId)) ??
-                       throw new NotFoundException("Exporter not found");
+        var exporter = await exporterRepository.FindById((exporterId));
+        if (exporter == null)
+            return BusinessPartnerErrors.PartnerNotFoundError;
 
         var exportId = Guid.NewGuid();
 
@@ -38,8 +37,9 @@ public class CreateExportCommandHandler(
         var productRows = await ConvertToProductRows(request.Products);
 
         var dateIssued = DateOnly.FromDateTime(DateTime.UtcNow);
-        
-        var document = await documentService.UploadExport(exporter,dateIssued,productRows, fileId.ToString()+".pdf");
+
+        var document =
+            await documentService.UploadExport(exporter, dateIssued, productRows, fileId.ToString() + ".pdf");
         var export = await exportRepository.CreateAsync(new Domain.Invoice.Export.Model.Export
         {
             Document = document,
@@ -50,10 +50,17 @@ public class CreateExportCommandHandler(
             ExporterId = exporter.Id,
             Type = InvoiceType.Export
         });
-        await exportRepository.CreateFromProductRowsAsync(export, productRows);
-        
+        try
+        {
+            await exportRepository.CreateFromProductRowsAsync(export, productRows);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return InvoiceErrors.QuantityInsufficient;
+        }
+
         await unitOfWork.CommitAsync(cancellationToken);
-        return Unit.Value;
+        return Result.Success();
     }
 
     private async Task<List<ProductRow>> ConvertToProductRows(List<CreateExportRequestProductDto> products)

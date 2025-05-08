@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import ProviderInvolvementPieChart from "./ProviderInvolvementPieChart";
-import { ProviderComponentInvolvementResponse } from "../../../../model/provider/ProviderComponentInvolvementResponse";
-import { ProviderImportInvolvementResponse } from "../../../../model/provider/ProviderImportInvolvementResponse";
-interface ProviderInvolvementCarouselProps {
-  import: ProviderImportInvolvementResponse[];
-  components: ProviderComponentInvolvementResponse[];
+import React, { useEffect, useState } from "react";
+import { ExporterExportInvolvementResponse } from "../../../../../model/exporter/ExporterExportInvolvementResponse";
+import { ExporterProductInvolvementResponse } from "../../../../../model/exporter/ExporterProductInvolvementResponse";
+import ProviderInvolvementPieChart from "../provider/ProviderInvolvementPieChart";
+interface ExporterInvolvementCarouselProps {
+  export: ExporterExportInvolvementResponse[];
+  components: ExporterProductInvolvementResponse[];
 }
 
-const ProviderInvolvementCarousel = ({
-  import: invoice,
+const ExporterInvolvementCarousel = ({
+  export: invoice,
   components,
-}: ProviderInvolvementCarouselProps) => {
+}: ExporterInvolvementCarouselProps) => {
   const [page, setPage] = useState(0);
   const [displayedProvidersByInvoice, setDisplayedProvidersByInvoice] =
-    useState<ProviderImportInvolvementResponse[]>([]);
+    useState<ExporterExportInvolvementResponse[]>([]);
   const [displayedProvidersByComponents, setDisplayedProvidersByComponents] =
-    useState<ProviderComponentInvolvementResponse[]>([]);
+    useState<ExporterProductInvolvementResponse[]>([]);
   useEffect(() => {
     setDisplayedProvidersByInvoice(invoice);
     setDisplayedProvidersByComponents(components);
@@ -160,4 +160,4 @@ const ProviderInvolvementCarousel = ({
   );
 };
 
-export default ProviderInvolvementCarousel;
+export default ExporterInvolvementCarousel;

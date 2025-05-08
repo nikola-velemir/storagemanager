@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.Product.Blueprint.Command;
 using StoreManager.Application.Product.Blueprint.DTO;
 using StoreManager.Application.Product.Blueprint.Repository;
@@ -7,9 +8,10 @@ using StoreManager.Application.Shared;
 namespace StoreManager.Application.Product.Blueprint.Handler;
 
 public class FindFilteredProductsQueryHandler(IProductBlueprintRepository productBlueprintRepository)
-    : IRequestHandler<FindFilteredProductBlueprintsQuery, PaginatedResult<ProductSearchResponseDto>>
+    : IRequestHandler<FindFilteredProductBlueprintsQuery, Result<PaginatedResult<ProductSearchResponseDto>>>
 {
-    public async Task<PaginatedResult<ProductSearchResponseDto>> Handle(FindFilteredProductBlueprintsQuery request,
+    public async Task<Result<PaginatedResult<ProductSearchResponseDto>>> Handle(
+        FindFilteredProductBlueprintsQuery request,
         CancellationToken cancellationToken)
     {
         DateOnly? date = null;
@@ -20,13 +22,13 @@ public class FindFilteredProductsQueryHandler(IProductBlueprintRepository produc
 
         var products = await productBlueprintRepository.FindFilteredAsync(request.ProductInfo, date,
             request.PageNumber, request.PageSize);
-        return new PaginatedResult<ProductSearchResponseDto>
+        return Result.Success(new PaginatedResult<ProductSearchResponseDto>
         {
             Items = products.Items.Select(p => new ProductSearchResponseDto(p.Id, p.Name, p.Identifier, p.DateCreated))
                 .ToList(),
             PageNumber = request.PageNumber,
             PageSize = request.PageSize,
             TotalCount = products.TotalCount
-        };
+        });
     }
 }

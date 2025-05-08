@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 
 namespace StoreManager.Application.Document.Command
 {
@@ -7,5 +8,5 @@ namespace StoreManager.Application.Document.Command
         IFormFile File,
         string FileName,
         int ChunkIndex,
-        int TotalChunks) : IRequest;
+        int TotalChunks) : IRequest<Result>;
 }

@@ -3,6 +3,7 @@ using StoreManager.Application.Invoice.Import.DTO.Statistics;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Shared;
+using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Invoice.Import.Service;
@@ -15,7 +16,8 @@ namespace StoreManager.Application.Invoice.Import.Service
 {
     public class ImportService(
         IMechanicalComponentRepository mechanicalComponentRepository,
-        IImportRepository importRepository)
+        IImportRepository importRepository,
+        IUnitOfWork unitOfWork)
         : IImportService
     {
         private static string FormatAddress(Address address)
@@ -30,8 +32,6 @@ namespace StoreManager.Application.Invoice.Import.Service
 
         public async Task Create(Infrastructure.Invoice.Import.Model.Import invoice, List<ExtractionMetadata> metadata)
         {
-           
-            await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(metadata);
             foreach (var data in metadata)
             {
                 var component = await mechanicalComponentRepository.FindByIdentifierAsync(data.Identifier);
@@ -42,18 +42,19 @@ namespace StoreManager.Application.Invoice.Import.Service
 
                 var foundItem = await importRepository.FindByImportAndComponentIdAsync(invoice.Id, component.Id);
                 if (foundItem is not null) continue;
-                
+
                 invoice.AddItem(new ImportItemModel
                 {
                     Component = component,
-                    ComponentId = component.Id, 
+                    ComponentId = component.Id,
                     Import = invoice,
                     ImportId = invoice.Id,
                     PricePerPiece = data.Price,
                     Quantity = data.Quantity
                 });
-                await importRepository.UpdateAsync(invoice);
             }
+
+            await unitOfWork.CommitAsync();
         }
 
         public async Task<FindCountsForWeekResponseDto> FindCountsForWeek()

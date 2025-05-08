@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "../../../infrastructure/Routes/ProtectedRoute";
-import Dashboard from "../../dashboard/Dashboard";
+import Dashboard from "../../features/dashboard/Dashboard";
 import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../features/users/login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StoreManager.Domain.Invoice.Export.Model;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Infrastructure.Invoice.Export.Configuration;
 
@@ -11,7 +10,7 @@ public class ExportModelConfiguration : IEntityTypeConfiguration<Domain.Invoice.
     {
        builder.ToTable("Exports");
 
-       builder.HasMany<ExportItemModel>(e => e.Items)
+       builder.HasMany<ExportItem>(e => e.Items)
            .WithOne(e => e.Export)
            .HasForeignKey(e => e.ExportId);
 

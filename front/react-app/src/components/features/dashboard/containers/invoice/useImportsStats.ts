@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { ImportFindCountForDayResponse } from "../../../../model/invoice/import/ImportFindCountForDayResponse";
+import { ImportFindCountForDayResponse } from "../../../../../model/invoice/import/ImportFindCountForDayResponse";
 import { animate } from "framer-motion";
-import { ImportService } from "../../../../services/invoice/ImportService";
+import { ImportService } from "../../../../../services/invoice/ImportService";
 
 export const useImportStats = () => {
   const [count, setCount] = useState(0);

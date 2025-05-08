@@ -1,7 +1,7 @@
 ﻿using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Application.Invoice.Export.Service;
+using StoreManager.Domain.Invoice.Export.Service;
 using StoreManager.Infrastructure.Invoice.Export.Repository;
-using StoreManager.Infrastructure.Invoice.Export.Service;
 
 namespace StoreManager.Presentation.MiddleWare.Injectors;
 

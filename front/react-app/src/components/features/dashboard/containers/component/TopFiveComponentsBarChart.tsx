@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { MechanicalComponentTopFiveQuantityResponse } from "../../../../model/components/MechanicalComponentTopFiveQuantityResponse";
+import { MechanicalComponentTopFiveQuantityResponse } from "../../../../../model/components/MechanicalComponentTopFiveQuantityResponse";
 import { useNavigate } from "react-router-dom";
 
 interface TopFiveComponentsBarChartProps {

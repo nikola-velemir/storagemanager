@@ -9,103 +9,126 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a3165c4-d92a-4166-b83d-7538ad30ca1c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Common/Error.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Common/Result.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Batch/Command/CreateProductBatchCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Batch/DTO/CreateProductBatchResponseDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Batch/Error/ProductBatchErrors.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Batch/Handler/CreateProductBatchCommandHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/CreateProductBlueprintCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintsByInvoiceIdQuery.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Common/DomainError.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Common/Result.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Batch/Errors/ProductBatchErrors.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Batch/Model/ProductBatch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Batch/Repository/IProductBatchRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Batch/Service/IProductBatchCheckService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Batch/Service/ProductBatchCheckService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Batch/Configuration/ProductBatchConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Batch/Repository/ProductBatchRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StoreManager/Presentation/Product/Batch/ProductBatchApi.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Errors/LoginErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Errors/RefreshTokenErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Errors/BusinessPartnerErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Errors/DocumentErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Error/InvoiceErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Errors/MechanicalComponentErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Errors/ProductBlueprintErrors.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StoreManager/Presentation/ApiControllerBase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StoreManager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Command/DeAuthenticateCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Command/DeAuthenticateCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/DeAuthenticateCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/DeAuthenticateCommandHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/LoginQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/LoginQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/RefreshAuthenticationQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Handler/RefreshAuthenticationQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Query/LoginQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Query/LoginQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Auth/Query/RefreshAuthenticationQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Auth/Query/RefreshAuthenticationQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Command/CreateBusinessPartnerCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Command/CreateBusinessPartnerCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Command/FindBusinessPartnerProfileQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Command/FindBusinessPartnerProfileQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Handler/CreateBusinessPartnerCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Handler/CreateBusinessPartnerCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Handler/FindBusinessPartnerProfileQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Base/Handler/FindBusinessPartnerProfileQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/CreateExporterCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/CreateExporterCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindAllExportersQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindAllExportersQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindExporterProductInvolvementsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindExporterProductInvolvementsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindFilteredQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindFilteredQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindInvoiceInvolvementsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Command/FindInvoiceInvolvementsQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/CreateExporterCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/CreateExporterCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindAllExportersQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindAllExportersQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindExporterInvoiceInvolvementsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindExporterInvoiceInvolvementsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindExporterProductInvolvementsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindExporterProductInvolvementsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindFilteredQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Handler/FindFilteredQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Exporter/Service/ExporterService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/CreateProviderCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/CreateProviderCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Info/FindProviderProfileQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Info/FindProviderProfileQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Search/FindAllProvidersQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Search/FindAllProvidersQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Search/FindFilteredProvidersQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Search/FindFilteredProvidersQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Search/FindProviderByIdQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Search/FindProviderByIdQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Statistics/FindProviderComponentInvolvementsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Statistics/FindProviderComponentInvolvementsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Statistics/FindProviderInvoiceInvolvementsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Command/Statistics/FindProviderInvoiceInvolvementsQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/CreateProviderHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/CreateProviderHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Info/FindProviderProfileHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Info/FindProviderProfileHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Search/FindAllProviderHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Search/FindAllProviderHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Search/FindFilteredProvidersHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Search/FindFilteredProvidersHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Search/FindProviderByIdHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Search/FindProviderByIdHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Statistics/FindProviderComponentInvolvementsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Statistics/FindProviderComponentInvolvementsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Statistics/FindProviderInvoiceInvolvementsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/BusinessPartner/Provider/Handler/Statistics/FindProviderInvoiceInvolvementsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Command/DownloadChunkQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Command/DownloadChunkQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Command/RequestDownloadQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Command/RequestDownloadQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Command/UploadChunkCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Command/UploadChunkCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/DownloadChunkHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/DownloadChunkHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/RequestDownloadHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/RequestDownloadHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Command/FIndInvoiceTypeQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Command/FindInvoiceTypeQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Command/FindInvoicesByPartnerIdQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Command/FindInvoicesByPartnerIdQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Handler/FindInvoiceTypeQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Handler/FindInvoiceTypeQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Handler/FindInvoicesByPartnerIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Base/Handler/FindInvoicesByPartnerIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/CountExportsThisWeekQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/CountExportsThisWeekQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/CreateExportCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/CreateExportCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/ExportSearchQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/ExportSearchQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/FindExportCountThisWeekQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Command/FindExportCountThisWeekQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CountExportsThisWeekQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CountExportsThisWeekQueryHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/ExportSearchQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/ExportSearchQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/FindExportCountThisWeekQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/FindExportCountThisWeekQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Service/ExportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Service/ExportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/CreateImportCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/CreateImportCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/CreateImportInvoiceFromDocumentCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/CreateImportInvoiceFromDocumentCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Search/FilterImportInvoicesQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Search/FilterImportInvoicesQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/CountImportsThisWeekQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/CountImportsThisWeekQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/FindImportCountThisWeekQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/FindImportCountThisWeekQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/FindTotalInventoryValueQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Command/Statistics/FindTotalInventoryValueQuery.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Command/CreateProductCommand.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Command/FindFilteredProductsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindFilteredProductBlueprintsQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Command/FindProductByInvoiceIdQuery.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Command/FindProductInfoQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintInfoQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Command/FindProductsByPartnerQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintsByPartnerQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/FindProductByInvoiceIdResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/FindProductByInvoiceIdResponseDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/FindProductByInvoiceIdResponsesDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/FindProductByInvoiceIdResponsesDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/FindProductInfoExporterResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/FindProductInfoExporterResponseDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/ProductCreateRequestComponentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/ProductCreateRequestComponentDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/ProductCreateRequestDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/ProductCreateRequestDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/ProductInfoComponentResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/ProductInfoComponentResponseDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/ProductInfoExportResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/ProductInfoExportResponseDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/ProductInfoResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/ProductInfoResponseDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/DTO/ProductSearchResponseDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/DTO/ProductSearchResponseDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/CreateProductCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/CreateProductCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/FindFilteredProductsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindFilteredProductsQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/FindProductByInvoiceIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductByInvoiceIdQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/FindProductInfoQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductInfoQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Handler/FindProductsByPartnerQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductsByPartnerQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Repository/IProductRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Repository/IProductBlueprintRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Service/ProductBlueprintService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Service/ProductBlueprintService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Application/User/Service/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/User/Service/UserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Error/Error.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Error/Result.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/IUnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportItemModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportItemModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/MechanicalComponent/Model/MechanicalComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/MechanicalComponent/Model/MechanicalComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Product/Model/ProductBlueprint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Blueprint/Model/ProductBlueprint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Product/Model/ProductBlueprintLineItems.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Blueprint/Model/ProductBlueprintLineItems.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Product/Service/IProductBlueprintService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Blueprint/Service/IProductBlueprintService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Search/FilterImportQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Search/FilterImportQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/CountImportsThisWeekHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/CountImportsThisWeekHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindImportCountThisWeekQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindImportCountThisWeekQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindTotalInventoryValueQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/Statistics/FindTotalInventoryValueQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Service/ImportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/FindComponentsByPartnerQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/FindComponentsByPartnerQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Info/FindComponentInfoQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Info/FindComponentInfoQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Search/FindComponentByInvoiceIdQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Search/FindComponentByInvoiceIdQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Search/FindFilteredComponentsForProductQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Search/FindFilteredComponentsForProductQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Search/FindFilteredComponentsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Search/FindFilteredComponentsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Statistics/FindComponentQuantitySumQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Statistics/FindComponentQuantitySumQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Statistics/FindTopFiveInQuantityQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Command/Statistics/FindTopFiveInQuantityQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/FinComponentsByPartnerQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/FinComponentsByPartnerQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Info/FindComponentInfoHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Info/FindComponentInfoHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Search/FindByInvoiceIdHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Search/FindByInvoiceIdHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Search/FindFilteredComponentsForProductQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Search/FindFilteredComponentsForProductQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Search/FindFilteredComponentsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Search/FindFilteredComponentsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Statistics/FindComponentQuantitySumHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Statistics/FindComponentQuantitySumHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Statistics/FindTopFiveInQuantityQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/MechanicalComponent/Handler/Statistics/FindTopFiveInQuantityQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/CreateProductBlueprintCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/CreateProductBlueprintCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindFilteredProductBlueprintsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindFilteredProductBlueprintsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintInfoQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintInfoQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintsByInvoiceIdQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintsByInvoiceIdQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintsByPartnerQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Command/FindProductBlueprintsByPartnerQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/CreateProductCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/CreateProductCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindFilteredProductsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindFilteredProductsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductByInvoiceIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductByInvoiceIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductInfoQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductInfoQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductsByPartnerQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/FindProductsByPartnerQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/BusinessPartner/Exporter/Model/Exporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/BusinessPartner/Exporter/Model/Exporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/Export.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/Export.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportItemModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Model/ExportItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Service/IExportService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Service/IExportService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Specification/FindFilteredExportsSpecification.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Invoice/Export/Specification/FindFilteredExportsSpecification.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Domain/Product/Blueprint/Model/ProductBlueprint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Domain/Product/Blueprint/Model/ProductBlueprint.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Context/WarehouseDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Configuration/ExportItemModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Configuration/ExportItemModelConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Configuration/ExportModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Configuration/ExportModelConfiguration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Invoice/Export/Repository/ExportRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Configuration/ProductBlueprintLineItemsModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Blueprint/Configuration/ProductBlueprintLineItemsModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Configuration/ProductBlueprintModelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Blueprint/Configuration/ProductBlueprintModelConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Repository/ProductBlueprintRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/Product/Blueprint/Repository/ProductBlueprintBlueprintRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Infrastructure/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Infrastructure/UnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/20250425002115_InitialCreate.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/20250425002115_InitialCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Migrations/WarehouseDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/DocumentInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/DocumentInjection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Auth/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Auth/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Controller/BusinessPartnerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Controller/BusinessPartnerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Exporter/Controller/ExporterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Exporter/Controller/ExporterController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Provider/Controller/ProviderController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/BusinessPartner/Provider/Controller/ProviderController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Document/Controller/DocumentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Document/Controller/DocumentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Base/Controller/InvoiceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Base/Controller/InvoiceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Export/Controller/ExportController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Export/Controller/ExportController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Import/Controller/ImportController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Invoice/Import/Controller/ImportController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MechanicalComponent/Controller/MechanicalComponentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MechanicalComponent/Controller/MechanicalComponentController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ExportInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ExportInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ExporterInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ExporterInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/InvoiceInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/InvoiceInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/MechanicalComponentInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/MechanicalComponentInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ProductInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ProductInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ProviderInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/ProviderInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/UserInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/MiddleWare/Injectors/UserInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Product/Controller/ProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Product/Blueprint/ProductBlueprintController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StoreManager/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/businessPartners/exporter/profile/ExporterContentTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/businessPartners/exporter/profile/ExporterContentTabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/invoice/export/create/ExportCreatePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/invoice/export/create/ExportCreatePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/invoice/export/create/sections/ExportProductSearchSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/invoice/export/create/sections/ExportProductSearchSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/invoice/import/info/ImportInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/invoice/import/info/ImportInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/product/create/ProductCreatePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/product/create/ProductCreatePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/product/info/ProductContentTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/product/info/ProductContentTabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/product/info/ProductInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/product/info/ProductInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/product/info/cards/ProductInfoExportCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/product/info/cards/ProductInfoExportCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/features/product/search/ProductSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/features/product/search/ProductSearch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/structure/AnimatedRoutes/AnimatedRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/structure/AnimatedRoutes/AnimatedRoutes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/components/structure/Navigation/Sidenav/Sidenav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/react-app/src/components/structure/Navigation/Sidenav/Sidenav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductCreateRequest.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductCreateRequestComponent.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductFilterRequest.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductFindResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductInfoComponentResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductInfoExportResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductInfoExporterResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductInfoResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/model/product/ProductSearchResponse.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/react-app/src/services/ProductService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreManager/Presentation/Product/Blueprint/ProductBlueprintController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StoreManager/Presentation/Product/Blueprint/ProductBlueprintController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,8 +142,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1b81cb3be224213a6a73519b6e340a628d9a1fb8629c351a186a26f6376669/List.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1b81cb3be224213a6a73519b6e340a628d9a1fb8629c351a186a26f6376669/List.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2f2b1d92f1ffcf2dabd664473f8c9dafa6039595ac228ce4b75a0f1619c5991/AsyncTaskMethodBuilderT.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53b0d531c06faf86bf2ae111a9a2dbce4c52a9153feb9966ade60289c71bf52/ExecutionContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5e36f79053446033ddbc7cc8397a3d0627114f46f804559a98a094977b488d/RequestExceptionProcessorBehavior.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/74e4c72cd3922ed61496931f33baf4a9b5950edddb6b78bc296241285f25c3/TaskAwaiter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8789586b575d44528c2aa18853f6eb96f3e8f8d3f4fa7eb9d6a56b54b49d7/Task.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c794baab3518d05f8546334d672798d62c10be97c2de99a62b39b885a637/TaskContinuation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ce37be1a06b16c6faa02038d2cc477dd3bca5b217ceeb41c5f2ad45c1bf9/ServiceProvider.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -132,21 +160,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.StoreManager: http.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/foundry&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.StoreManager: http.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/foundry",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.StoreManager: http">
     <configuration name="StoreManager: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/StoreManager/StoreManager.csproj" />
@@ -200,6 +228,9 @@
       <workItem from="1746060131412" duration="2541000" />
       <workItem from="1746105867824" duration="4664000" />
       <workItem from="1746137450206" duration="6023000" />
+      <workItem from="1746219187943" duration="6256000" />
+      <workItem from="1746312009485" duration="3694000" />
+      <workItem from="1746542009051" duration="2267000" />
     </task>
     <servers />
   </component>
@@ -227,55 +258,42 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/StoreManager/Application/Invoice/Import/Handler/CreateImportCommandHandler.cs</url>
-          <line>22</line>
+          <line>23</line>
           <properties documentPath="D:\sretotest\back\StoreManager\Application\Invoice\Import\Handler\CreateImportCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="908" />
+              <option value="963" />
             </startOffsets>
             <endOffsets>
-              <option value="996" />
+              <option value="1051" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs</url>
-          <line>45</line>
+          <line>39</line>
           <properties documentPath="D:\sretotest\back\StoreManager\Application\Document\Handler\UploadChunkHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="1930" />
+              <option value="1630" />
             </startOffsets>
             <endOffsets>
-              <option value="1978" />
+              <option value="1678" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs</url>
-          <line>73</line>
+          <line>67</line>
           <properties documentPath="D:\sretotest\back\StoreManager\Application\Document\Handler\UploadChunkHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="3266" />
+              <option value="2966" />
             </startOffsets>
             <endOffsets>
-              <option value="3410" />
+              <option value="3110" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/StoreManager/Infrastructure/Document/Repository/DocumentRepository.cs</url>
-          <line>51</line>
-          <properties documentPath="D:\sretotest\back\StoreManager\Infrastructure\Document\Repository\DocumentRepository.cs" containingFunctionPresentation="Method 'SaveChunkAsync'">
-            <startOffsets>
-              <option value="2104" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2129" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/StoreManager/Application/Product/Batch/Handler/CreateProductBatchCommandHandler.cs</url>
@@ -302,6 +320,71 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Presentation/Product/Blueprint/ProductBlueprintController.cs</url>
+          <line>16</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Presentation\Product\Blueprint\ProductBlueprintController.cs" containingFunctionPresentation="Method 'CreateProduct'">
+            <startOffsets>
+              <option value="516" />
+            </startOffsets>
+            <endOffsets>
+              <option value="683" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/CreateProductCommandHandler.cs</url>
+          <line>19</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Product\Blueprint\Handler\CreateProductCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="858" />
+            </startOffsets>
+            <endOffsets>
+              <option value="883" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Product/Blueprint/Handler/CreateProductCommandHandler.cs</url>
+          <line>18</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Product\Blueprint\Handler\CreateProductCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="848" />
+            </startOffsets>
+            <endOffsets>
+              <option value="849" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Invoice/Export/Handler/CreateExportCommandHandler.cs</url>
+          <line>28</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Invoice\Export\Handler\CreateExportCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="1177" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1225" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/StoreManager/Application/Document/Handler/UploadChunkHandler.cs</url>
+          <line>90</line>
+          <properties documentPath="D:\sretotest\back\StoreManager\Application\Document\Handler\UploadChunkHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="4067" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4115" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

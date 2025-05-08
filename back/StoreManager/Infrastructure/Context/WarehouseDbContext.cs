@@ -7,7 +7,6 @@ using StoreManager.Domain.Invoice.Export.Model;
 using StoreManager.Domain.Product.Batch;
 using StoreManager.Domain.Product.Batch.Model;
 using StoreManager.Domain.Product.Blueprint.Model;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Infrastructure.Context
@@ -28,7 +27,7 @@ namespace StoreManager.Infrastructure.Context
         public DbSet<DocumentChunk> DocumentChunks { get; set; }
         public DbSet<Domain.Invoice.Base.Model.Invoice> Invoices { get; set; }
         public DbSet<Export> Exports { get; set; }
-        public DbSet<ExportItemModel> ExportItems { get; set; }
+        public DbSet<ExportItem> ExportItems { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportItemModel> ImportItems { get; set; }
         public DbSet<Domain.MechanicalComponent.Model.MechanicalComponent> MechanicalComponents { get; set; }

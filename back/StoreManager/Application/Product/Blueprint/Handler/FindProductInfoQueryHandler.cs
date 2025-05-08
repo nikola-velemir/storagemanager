@@ -1,15 +1,17 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.Product.Blueprint.Command;
 using StoreManager.Application.Product.Blueprint.DTO;
+using StoreManager.Application.Product.Blueprint.Errors;
 using StoreManager.Application.Product.Blueprint.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Product.Blueprint.Handler;
 
 public class FindProductInfoQueryHandler(IProductBlueprintRepository productBlueprintRepository)
-    : IRequestHandler<FindProductBlueprintInfoQuery, ProductInfoResponseDto>
+    : IRequestHandler<FindProductBlueprintInfoQuery, Result<ProductInfoResponseDto>>
 {
-    public async Task<ProductInfoResponseDto> Handle(FindProductBlueprintInfoQuery request, CancellationToken cancellationToken)
+    public async Task<Result<ProductInfoResponseDto>> Handle(FindProductBlueprintInfoQuery request, CancellationToken cancellationToken)
     {
         Guid? productGuid = null;
         if (!Guid.TryParse(request.Id, out _))
@@ -21,10 +23,9 @@ public class FindProductInfoQueryHandler(IProductBlueprintRepository productBlue
         var product = await productBlueprintRepository.FindByIdAsync(productGuid.Value);
         if (product is null)
         {
-            throw new NotFoundException("Product not found");
+            return ProductBlueprintErrors.ProductBlueprintNotFound;
         }
-
-        return new ProductInfoResponseDto(
+        var response = new ProductInfoResponseDto(
             product.Name,
             product.Description,
             product.Identifier,
@@ -43,5 +44,7 @@ public class FindProductInfoQueryHandler(IProductBlueprintRepository productBlue
                     Utils.FormatAddress(exporter.Address), exporter.PhoneNumber);
                 return new ProductInfoExportResponseDto(e.ExportId, e.Export.DateIssued, exporterDto);
             }).ToList());
+
+        return Result.Success(response);
     }
 }

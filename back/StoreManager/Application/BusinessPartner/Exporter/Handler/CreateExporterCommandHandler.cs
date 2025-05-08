@@ -1,19 +1,19 @@
 ﻿using MediatR;
 using StoreManager.Application.BusinessPartner.Exporter.Command;
 using StoreManager.Application.BusinessPartner.Exporter.Repository;
+using StoreManager.Application.Common;
 using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Domain.Invoice.Export.Model;
-using StoreManager.Infrastructure.Invoice.Export.Model;
 
 namespace StoreManager.Application.BusinessPartner.Exporter.Handler;
 
 public class CreateExporterCommandHandler(IUnitOfWork unitOfWork, IExporterRepository repository)
-    : IRequestHandler<CreateExporterCommand>
+    : IRequestHandler<CreateExporterCommand,Result>
 {
-    public async Task<Unit> Handle(CreateExporterCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CreateExporterCommand request, CancellationToken cancellationToken)
     {
         var exporter = new Domain.BusinessPartner.Exporter.Model.Exporter
         {
@@ -26,6 +26,6 @@ public class CreateExporterCommandHandler(IUnitOfWork unitOfWork, IExporterRepos
         };
         await repository.CreateAsync(exporter);
         await unitOfWork.CommitAsync(cancellationToken);
-        return Unit.Value;
+        return Result.Success();
     }
 }
