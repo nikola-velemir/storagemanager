@@ -20,7 +20,7 @@ public class FinComponentsByPartnerQueryHandler(IMechanicalComponentRepository r
         var components = await repository.FindByProviderIdAsync(providerId);
 
         var response = components
-            .Select(mc => new MechanicalComponentProductSearchResponseDto(mc.Id, mc.Identifier, mc.Name))
+            .Select(mc => new MechanicalComponentProductSearchResponseDto(mc.Id, mc.Identifier, mc.Name,mc.CurrentStock))
             .ToList();
 
         return Result.Success(response);

@@ -104,7 +104,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Equal("Guid cannot be parsed", exception.Message);
             Assert.IsType<InvalidCastException>(exception);
 
-            _documentRepository.Verify(repo => repo.FindByNameAsync( new DocumentWithDocumentChunks(),INVALID_FILE_NAME), Times.Never);
+            _documentRepository.Verify(repo => repo.FindById( new DocumentWithDocumentChunks(),INVALID_FILE_NAME), Times.Never);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()), Times.Never);
         }
 
@@ -119,7 +119,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Equal("Chunk not found", exception.Message);
             Assert.IsType<EntryPointNotFoundException>(exception);
 
-            _documentRepository.Verify(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindById(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()), Times.Never);
         }
 
@@ -135,7 +135,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Null(exception);
 
 
-            _documentRepository.Verify(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindById(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _supaService.Verify(supa => supa.DownloadChunk(It.IsAny<DocumentChunk>()), Times.Once);
         }
 
@@ -150,7 +150,7 @@ namespace StoreManager.Tests.Document.Service
             Assert.Null(exception);
 
 
-            _documentRepository.Verify(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
+            _documentRepository.Verify(repo => repo.FindById(new DocumentWithDocumentChunks(),VALID_FILE_NAME), Times.Once);
             _documentRepository.Verify(repo => repo.SaveFileAsync(VALID_FILE_NAME), Times.Never);
             _invoiceRepository.Verify(repo => repo.Create(VALID_IMPORT), Times.Never);
             _supaService.Verify(supa => supa.UploadFileChunk(It.IsAny<IFormFile>(), It.IsAny<DocumentChunk>()),
@@ -186,8 +186,8 @@ namespace StoreManager.Tests.Document.Service
 
         private Task MockRepository()
         {
-            _documentRepository.Setup(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
-            _documentRepository.Setup(repo => repo.FindByNameAsync(new DocumentWithDocumentChunks(),INVALID_FILE_NAME)).ReturnsAsync((Domain.Document.Model.Document?)null);
+            _documentRepository.Setup(repo => repo.FindById(new DocumentWithDocumentChunks(),VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
+            _documentRepository.Setup(repo => repo.FindById(new DocumentWithDocumentChunks(),INVALID_FILE_NAME)).ReturnsAsync((Domain.Document.Model.Document?)null);
 
             _documentRepository.Setup(repo => repo.SaveFileAsync(VALID_FILE_NAME)).ReturnsAsync(VALID_DOCUMENT);
             _documentRepository.Setup(repo => repo.SaveChunkAsync(VALID_FILE, VALID_FILE_NAME, 0)).ReturnsAsync(VALID_CHUNK);

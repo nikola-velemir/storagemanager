@@ -1,6 +1,6 @@
 ﻿namespace StoreManager.Domain.Product.Blueprint.Model;
 
-public class ProductBlueprintLineItems
+public class ProductBlueprintLineItem
 {
     public required MechanicalComponent.Model.MechanicalComponent Component { get; set; }
     public required ProductBlueprint Product { get; set; }

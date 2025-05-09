@@ -1,19 +1,18 @@
 import { ChangeEvent, useState } from "react";
 import FoundryStepper from "./stepper/FoundryStepper";
 import ProductSearchSection from "./searchSections/ProductSearchSection";
-import { ProductSearchResponse } from "../../../../model/product/bluePrint/ProductSearchResponse";
 import ProductDisplayCard from "./cards/ProductDisplayCard";
 import { toast } from "react-toastify";
 import { ProductBatchService } from "../../../../services/products/ProductBatchService";
-import { AxiosError } from "axios";
+import { ProductSearchWithQuantityResponse } from "../../../../model/product/bluePrint/ProductSearchWithQuantity";
 
 const Foundry = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedProduct, setSelectedProduct] =
-    useState<ProductSearchResponse | null>(null);
+    useState<ProductSearchWithQuantityResponse | null>(null);
 
-  const handleSelectedProductEmit = (p: ProductSearchResponse) => {
+  const handleSelectedProductEmit = (p: ProductSearchWithQuantityResponse) => {
     setCurrentStep(1);
     setSelectedProduct(p);
   };
@@ -35,8 +34,7 @@ const Foundry = () => {
     })
       .then(() => toast.success("Created succesfully"))
       .catch((error) => {
-        console.log(error);
-        if (error.response.data.name == "StockLimitExceeded") {
+        if (error.response.data.name === "StockLimitExceeded") {
           toast.error(error.response.data.description);
           return;
         }
@@ -51,6 +49,8 @@ const Foundry = () => {
           <div className="w-full flex flex-row items-center justify-center">
             <div className="w-4/5">
               <ProductDisplayCard
+                key={selectedProduct.id}
+                quantity={selectedProduct.quantity}
                 date={selectedProduct.dateCreated}
                 id={selectedProduct.id}
                 identifier={selectedProduct.identifier}
@@ -69,6 +69,7 @@ const Foundry = () => {
                 <input
                   onChange={handleQuantityInput}
                   min={1}
+                  max={selectedProduct ? selectedProduct.quantity : 1}
                   type="number"
                   id="number-input"
                   aria-describedby="helper-text-explanation"

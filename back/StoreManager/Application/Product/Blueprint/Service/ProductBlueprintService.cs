@@ -4,6 +4,7 @@ using StoreManager.Application.Product.Blueprint.Repository;
 using StoreManager.Application.Shared;
 using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Domain.Product.Blueprint.Service;
+using StoreManager.Domain.Product.Blueprint.Specification;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Product.Blueprint.Service;
@@ -25,7 +26,7 @@ public class ProductBlueprintService(
         var product = new ProductBlueprint
         {
             Identifier = dto.Identifier,
-            Components = new List<ProductBlueprintLineItems>(),
+            Components = new List<ProductBlueprintLineItem>(),
             Id = productId,
             Name = dto.Name,
             Description = dto.Description
@@ -34,7 +35,7 @@ public class ProductBlueprintService(
         product.Components = components.Select(c =>
         {
             var dtoComponent = dto.Components.First(dc => Guid.TryParse(dc.Id, out var guid) && guid.Equals(c.Id));
-            return new ProductBlueprintLineItems
+            return new ProductBlueprintLineItem
             {
                 Component = c,
                 Product = product,
@@ -57,7 +58,8 @@ public class ProductBlueprintService(
             date = tempDate;
         }
 
-        var products = await productBlueprintRepository.FindFilteredAsync(productInfo, date, pageNumber, pageSize);
+        var products = await productBlueprintRepository.FindFilteredAsync(
+            productInfo, date, pageNumber, pageSize, new ProductBlueprintsWithComponentsSpecification());
         return new PaginatedResult<ProductSearchResponseDto>
         {
             Items = products.Items.Select(p => new ProductSearchResponseDto(p.Id, p.Name, p.Identifier, p.DateCreated))

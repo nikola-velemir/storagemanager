@@ -1,8 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import throttle from "lodash/throttle";
 interface ExportSelectedProductCardProps {
   id: string;
   identifier: string;
   name: string;
+  maxQuantity: number;
   emitProductId: (id: string) => void;
 
   emitProductForValidation: (tup: SelectedProductTuple) => void;
@@ -11,12 +14,14 @@ export interface SelectedProductTuple {
   id: string;
   pricePerPiece: number;
   quantity: number;
+  name: string;
 }
 
 const ExportSelectedProductCard = ({
   id,
   identifier,
   name,
+  maxQuantity,
   emitProductId,
   emitProductForValidation,
 }: ExportSelectedProductCardProps) => {
@@ -26,24 +31,45 @@ const ExportSelectedProductCard = ({
   const [product, setProduct] = useState<SelectedProductTuple>({
     id: id,
     pricePerPiece: 0.0,
+    name: name,
     quantity: 1,
   });
+  const [quantity, setQuantity] = useState<number>(1);
+  const [price, setPrice] = useState<number>(0.0);
+  const throttledToast = useCallback(
+    throttle(() => {
+      toast.info(
+        `Quantity of ${product.name} product cannot exceed ${maxQuantity}`
+      );
+    }, 3000),
+    []
+  );
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const oldState = product;
-    setProduct({
-      id: id,
-      quantity: Number.parseInt(e.target.value),
-      pricePerPiece: oldState.pricePerPiece,
-    });
+    let newValue = Number.parseInt(e.target.value);
+    if (isNaN(newValue)) {
+      setQuantity(newValue);
+
+      return;
+    }
+    if (newValue > maxQuantity) throttledToast();
+
+    const clampedValue = Math.max(1, Math.min(newValue, maxQuantity));
+
+    setQuantity(clampedValue);
   };
+  useEffect(() => {
+    if (isNaN(price) || isNaN(quantity)) return;
+    setProduct({ ...product, pricePerPiece: price, quantity: quantity });
+  }, [price, quantity]);
   useEffect(() => emitProductForValidation(product), [product]);
   const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const oldState = product;
-    setProduct({
-      id: id,
-      quantity: oldState.quantity,
-      pricePerPiece: Number.parseFloat(e.target.value),
-    });
+    let newValue = Number.parseFloat(e.target.value);
+    if (isNaN(newValue)) {
+      setPrice(newValue);
+      return;
+    }
+
+    setPrice(newValue);
   };
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
@@ -97,7 +123,7 @@ const ExportSelectedProductCard = ({
               className="text-base bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="0"
               required
-              value={product.quantity}
+              value={quantity}
               onChange={handleQuantityChange}
               min={1}
             />
@@ -110,7 +136,7 @@ const ExportSelectedProductCard = ({
               className="text-base bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="0"
               required
-              value={product.pricePerPiece}
+              value={price}
               onChange={handlePriceChange}
               min={1}
             />

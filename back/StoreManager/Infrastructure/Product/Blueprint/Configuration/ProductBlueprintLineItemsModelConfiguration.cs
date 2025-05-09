@@ -4,9 +4,9 @@ using StoreManager.Domain.Product.Blueprint.Model;
 
 namespace StoreManager.Infrastructure.Product.Blueprint.Configuration;
 
-public class ProductBlueprintLineItemsModelConfiguration :IEntityTypeConfiguration<ProductBlueprintLineItems>
+public class ProductBlueprintLineItemsModelConfiguration :IEntityTypeConfiguration<ProductBlueprintLineItem>
 {
-    public void Configure(EntityTypeBuilder<ProductBlueprintLineItems> builder)
+    public void Configure(EntityTypeBuilder<ProductBlueprintLineItem> builder)
     {
         builder.HasKey(pc => new { pc.ProductId, pc.ComponentId });
         builder.HasOne(pc => pc.Product).WithMany(p => p.Components).HasForeignKey(pc => pc.ProductId);

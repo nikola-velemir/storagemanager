@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
-import { ProductSearchResponse } from "../../../../../model/product/bluePrint/ProductSearchResponse";
 import DatePickerComponent from "../../../../common/inputs/DatePickerComponent";
 import Paginator from "../../../../common/inputs/Paginator";
 import SearchBox from "../../../../common/inputs/SearchBox";
 import { ProductService } from "../../../../../services/products/ProductService";
 import { convertDateToString } from "../../search/ProductSearch";
 import ProductSearchSectionCard from "../cards/ProductSearchSectionCard";
+import { ProductSearchWithQuantityResponse } from "../../../../../model/product/bluePrint/ProductSearchWithQuantity";
 
 interface ProductSearchSectionProps {
-  emitSelectedProduct: (p: ProductSearchResponse) => void;
+  emitSelectedProduct: (p: ProductSearchWithQuantityResponse) => void;
 }
 const ProductSearchSection = ({
   emitSelectedProduct,
 }: ProductSearchSectionProps) => {
-  const [products, setProducts] = useState<ProductSearchResponse[]>([]);
+  const [products, setProducts] = useState<ProductSearchWithQuantityResponse[]>(
+    []
+  );
   const [totalItems, setTotalItems] = useState<number>(0);
   const [pageSize, setPageSize] = useState(5);
   const [pageNumber, setPageNumber] = useState(1);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [productInfo, setProductInfo] = useState<string | null>(null);
   useEffect(() => {
-    ProductService.findFiltered({
+    ProductService.findFilteredWithMaxQuantity({
       dateCreated: convertDateToString(selectedDate),
       pageNumber: pageNumber,
       pageSize: pageSize,
@@ -61,7 +63,7 @@ const ProductSearchSection = ({
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {products.map((product: ProductSearchResponse) => {
+        {products.map((product: ProductSearchWithQuantityResponse) => {
           return (
             <ProductSearchSectionCard
               emitProductId={handleEmitProduct}

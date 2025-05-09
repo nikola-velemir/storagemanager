@@ -28,6 +28,24 @@ public class ProductBlueprintController(IMediator mediator) : ApiControllerBase
             await mediator.Send(new FindFilteredProductBlueprintsQuery(productInfo, dateCreated, pageNumber, pageSize));
         return FromResult(result);
     }
+    [HttpGet("filtered-with-max-quantity")]
+    public async Task<IActionResult> FindFilteredWithMaxQuantity([FromQuery] string? productInfo, [FromQuery] int pageNumber,
+        [FromQuery] int pageSize, [FromQuery] string? dateCreated)
+    {
+        var result =
+            await mediator.Send(new FindFilteredProductBlueprintWithMaxQuantityQuery(productInfo, dateCreated, pageNumber, pageSize));
+        return FromResult(result);
+    }
+    [HttpGet("filtered-with-quantity")]
+    public async Task<IActionResult> FindFilteredWithQuantity([FromQuery] string? productInfo, [FromQuery] int pageNumber,
+        [FromQuery] int pageSize, [FromQuery] string? dateCreated)
+    {
+        var result =
+            await mediator.Send(new FindFilteredProductBlueprintWithQuantityQuery(productInfo, dateCreated, pageNumber, pageSize));
+        return FromResult(result);
+    }
+
+
 
     [HttpGet("info/{id}")]
     public async Task<IActionResult> FindProductInfo([FromRoute] string id)

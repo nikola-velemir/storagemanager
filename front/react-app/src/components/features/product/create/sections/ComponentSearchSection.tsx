@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { MechanicalComponentSearchResponse } from "../../../../../model/components/search/MechanicalComponentSearchResponse";
 import { ProviderGetResponse } from "../../../../../model/provider/ProviderGetResponse";
 import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
 import Paginator from "../../../../common/inputs/Paginator";
@@ -7,9 +6,12 @@ import SearchBox from "../../../../common/inputs/SearchBox";
 import ComponentSearchSectionCard from "../cards/ComponentSearchSectionCard";
 import { ProviderService } from "../../../../../services/businessPartner/ProviderService";
 import SelectBusinessPartnerBox from "../../../invoice/search/SelectPartnerSearchBox";
+import { MechanicalComponentWithQuantitySearchResponse } from "../../../../../model/components/search/MechanicalComponentWithQuantitySearchResponse";
 
 interface ComponentSearchSectionProps {
-  emitComponent: (component: MechanicalComponentSearchResponse | null) => void;
+  emitComponent: (
+    component: MechanicalComponentWithQuantitySearchResponse | null
+  ) => void;
 }
 
 const ComponentSearchSection = ({
@@ -25,7 +27,7 @@ const ComponentSearchSection = ({
     emitComponent(foundComponent ? foundComponent : null);
   };
   const [components, setComponents] = useState<
-    MechanicalComponentSearchResponse[]
+    MechanicalComponentWithQuantitySearchResponse[]
   >([]);
   const [selectedProvider, setSelectedProvider] =
     useState<ProviderGetResponse | null>(null);
@@ -34,12 +36,13 @@ const ComponentSearchSection = ({
   const [pageSize, setPageSize] = useState(5);
   const [searchText, setSearchText] = useState<string | null>(null);
   useEffect(() => {
-    MechanicalComponentService.findFilteredForProduct({
+    MechanicalComponentService.findFilteredForProductCreation({
       componentInfo: searchText,
       providerId: selectedProvider ? selectedProvider.id : null,
       pageNumber: pageNumber,
       pageSize: pageSize,
     }).then((response) => {
+      console.log(response.data.items);
       setComponents(response.data.items);
       setTotalItems(response.data.totalCount);
     });
@@ -75,17 +78,20 @@ const ComponentSearchSection = ({
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {components.map((component: MechanicalComponentSearchResponse) => {
-          return (
-            <ComponentSearchSectionCard
-              key={component.id}
-              emitComponentId={handleComponentButtonClick}
-              id={component.id}
-              identifier={component.identifier}
-              name={component.name}
-            />
-          );
-        })}
+        {components.map(
+          (component: MechanicalComponentWithQuantitySearchResponse) => {
+            return (
+              <ComponentSearchSectionCard
+                quantity={component.quantity}
+                key={component.id}
+                emitComponentId={handleComponentButtonClick}
+                id={component.id}
+                identifier={component.identifier}
+                name={component.name}
+              />
+            );
+          }
+        )}
       </div>
     </div>
   );

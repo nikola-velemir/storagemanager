@@ -4,6 +4,7 @@ using StoreManager.Application.Product.Blueprint.Command;
 using StoreManager.Application.Product.Blueprint.DTO;
 using StoreManager.Application.Product.Blueprint.Repository;
 using StoreManager.Application.Shared;
+using StoreManager.Domain.Product.Blueprint.Specification;
 
 namespace StoreManager.Application.Product.Blueprint.Handler;
 
@@ -21,7 +22,7 @@ public class FindFilteredProductsQueryHandler(IProductBlueprintRepository produc
         }
 
         var products = await productBlueprintRepository.FindFilteredAsync(request.ProductInfo, date,
-            request.PageNumber, request.PageSize);
+            request.PageNumber, request.PageSize, new ProductBlueprintsWithComponentsSpecification());
         return Result.Success(new PaginatedResult<ProductSearchResponseDto>
         {
             Items = products.Items.Select(p => new ProductSearchResponseDto(p.Id, p.Name, p.Identifier, p.DateCreated))

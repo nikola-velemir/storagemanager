@@ -9,14 +9,15 @@ interface SelectedComponentCardProps {
   id: string;
   name: string;
   identifier: string;
+  quantity: number;
   emitComponentId: (id: string) => void;
-
   emitComponentForValidation: (pair: ComponentQuantityPair) => void;
 }
 const SelectedComponentCard = ({
   id,
   name,
   identifier,
+  quantity,
   emitComponentId,
   emitComponentForValidation,
 }: SelectedComponentCardProps) => {
@@ -77,6 +78,12 @@ const SelectedComponentCard = ({
             <div className="text-sm text-gray-400">
               <span className="font-light">Name:</span>{" "}
               <span className="font-medium text-base text-white">{name}</span>
+            </div>
+            <div className="text-sm text-gray-400">
+              <span className="font-light">Max quantity:</span>
+              <span className="font-medium text-base text-white ml-2">
+                {quantity}
+              </span>
             </div>
           </div>
         </div>

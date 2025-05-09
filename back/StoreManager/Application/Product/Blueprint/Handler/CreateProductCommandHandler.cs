@@ -26,7 +26,7 @@ public class CreateProductCommandHandler(
         var product = new ProductBlueprint
         {
             Identifier = request.Identifier,
-            Components = new List<ProductBlueprintLineItems>(),
+            Components = new List<ProductBlueprintLineItem>(),
             Id = productId,
             Name = request.Name,
             Description = request.Description
@@ -63,13 +63,13 @@ public class CreateProductCommandHandler(
             throw new ValidationException(string.Join(" ", errors));
     }
 
-    private static List<ProductBlueprintLineItems> CreateComponentList(ProductBlueprint product, Guid productId,
+    private static List<ProductBlueprintLineItem> CreateComponentList(ProductBlueprint product, Guid productId,
         CreateProductBlueprintCommand request, List<Domain.MechanicalComponent.Model.MechanicalComponent> components)
     {
         return components.Select(c =>
         {
             var dtoComponent = request.Components.First(dc => Guid.TryParse(dc.Id, out var guid) && guid.Equals(c.Id));
-            return new ProductBlueprintLineItems
+            return new ProductBlueprintLineItem
             {
                 Component = c,
                 Product = product,

@@ -10,7 +10,7 @@ namespace StoreManager.Domain.MechanicalComponent.Model
         public string Name { get; set; } = string.Empty;
         public required int CurrentStock { get; set; }
         public ICollection<ImportItemModel> Items { get; set; } = new List<ImportItemModel>();
-        public ICollection<ProductBlueprintLineItems> Products { get; set; } = new List<ProductBlueprintLineItems>();
+        public ICollection<ProductBlueprintLineItem> Products { get; set; } = new List<ProductBlueprintLineItem>();
 
         public void IncreaseStock(int value) => CurrentStock += value;
         

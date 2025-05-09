@@ -6,7 +6,6 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Application.Shared;
 using StoreManager.Infrastructure.MechanicalComponent.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
-using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Application.MechanicalComponent.Service
 {
@@ -87,7 +86,8 @@ namespace StoreManager.Application.MechanicalComponent.Service
                         new MechanicalComponentProductSearchResponseDto(
                             mc.Id,
                             mc.Identifier,
-                            mc.Name
+                            mc.Name,
+                            mc.CurrentStock
                         )
                     )
                     .ToList(),

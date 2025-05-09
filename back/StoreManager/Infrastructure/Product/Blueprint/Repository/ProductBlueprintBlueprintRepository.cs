@@ -2,6 +2,7 @@
 using StoreManager.Application.Product.Blueprint.Repository;
 using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Infrastructure.Context;
+using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Infrastructure.Product.Blueprint.Repository;
 
@@ -32,9 +33,9 @@ public class ProductBlueprintBlueprintRepository : IProductBlueprintRepository
     }
 
     public async Task<(ICollection<ProductBlueprint> Items, int TotalCount)> FindFilteredAsync(string? productInfo,
-        DateOnly? dateCreated, int pageNumber, int pageSize)
+        DateOnly? dateCreated, int pageNumber, int pageSize, ISpecification<ProductBlueprint> spec)
     {
-        var query = _blueprints.Include(p => p.Components).AsQueryable();
+        var query = spec.Apply(_blueprints.AsQueryable());
 
         if (!string.IsNullOrEmpty(productInfo))
         {
@@ -51,7 +52,7 @@ public class ProductBlueprintBlueprintRepository : IProductBlueprintRepository
 
         var skip = (pageNumber - 1) * pageSize;
         var count = await query.CountAsync();
-        query = query.Skip(skip).Take(pageSize);
+        query = query.Skip(skip).Take(pageSize).AsNoTracking();
 
         return (await query.ToListAsync(), count);
     }

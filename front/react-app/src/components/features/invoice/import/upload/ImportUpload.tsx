@@ -20,7 +20,6 @@ const ImportUpload = () => {
     if (!selectedFile || !providerId) {
       return;
     }
-    console.log(providerId);
     setUploaded(UPLOADING_STATE.UPLOADING);
     DocumentService.uploadDocumentInChunks(
       providerId,

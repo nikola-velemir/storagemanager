@@ -30,7 +30,8 @@ public class FindFilteredComponentsForProductQueryHandler(IMechanicalComponentRe
                     new MechanicalComponentProductSearchResponseDto(
                         mc.Id,
                         mc.Identifier,
-                        mc.Name
+                        mc.Name,
+                        mc.CurrentStock
                     )
                 )
                 .ToList(),

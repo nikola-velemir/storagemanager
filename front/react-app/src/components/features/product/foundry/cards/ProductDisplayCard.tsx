@@ -3,12 +3,14 @@ interface ProductDisplayCardProps {
   identifier: string;
   date: string;
   name: string;
+  quantity: number;
 }
 const ProductDisplayCard = ({
   id,
   identifier,
   date,
   name,
+  quantity,
 }: ProductDisplayCardProps) => {
   return (
     <div className="w-11/12 my-4 bg-gray-700 text-white rounded-2xl shadow-md p-4">
@@ -51,6 +53,10 @@ const ProductDisplayCard = ({
               </span>
             </div>
           </div>
+        </div>
+        <div className="flex flex-col justify-center items-center">
+          <span className="text-gray-500 font-medium">Max quantity:</span>
+          <span>{quantity}</span>
         </div>
       </div>
     </div>

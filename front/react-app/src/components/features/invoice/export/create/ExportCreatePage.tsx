@@ -4,8 +4,9 @@ import ExportSelectedProductsSection from "./sections/ExportSelectedProductsSect
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { FindExporterResponse } from "../../../../../model/exporter/FindExporterResponse";
-import { ProductSearchResponse } from "../../../../../model/product/bluePrint/ProductSearchResponse";
 import { ExportService } from "../../../../../services/invoice/ExportService";
+import { ProductSearchWithQuantityResponse } from "../../../../../model/product/bluePrint/ProductSearchWithQuantity";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export interface ProductSelectionTuple {
   id: string;
@@ -13,9 +14,12 @@ export interface ProductSelectionTuple {
   identifier: string;
   quantity: number;
   price: number;
+  maxQuantity: number;
 }
 
 const ExportCreatePage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [addedProducts, setAddedProducts] = useState<ProductSelectionTuple[]>(
     []
   );
@@ -30,11 +34,17 @@ const ExportCreatePage = () => {
   const handleEmitProducts = (tup: ProductSelectionTuple[]) => {
     setAddedProducts(tup);
   };
-  const handleAddProduct = (p: ProductSearchResponse | null) => {
+  const handleAddProduct = (p: ProductSearchWithQuantityResponse | null) => {
     if (!p) return;
     const found = addedProducts.find((pr) => pr.id === p.id);
     if (found) return;
-    setAddedProducts([...addedProducts, { ...p, price: 0.0, quantity: 0 }]);
+    setAddedProducts([
+      ...addedProducts,
+      { ...p, price: 0.0, quantity: 0, maxQuantity: p.quantity },
+    ]);
+  };
+  const reloadPage = () => {
+    navigate(location.pathname, { replace: true });
   };
   const handleExporterChange = (item: FindExporterResponse | null) =>
     setSelectedExporter(item);
@@ -52,7 +62,10 @@ const ExportCreatePage = () => {
       products: addedProducts,
       providerId: selectedExporter.id,
     })
-      .then(() => toast.success("Export created!"))
+      .then(() => {
+        toast.success("Export created!");
+        reloadPage();
+      })
       .catch(() => toast.error("Something went wrong!"));
   };
   return (

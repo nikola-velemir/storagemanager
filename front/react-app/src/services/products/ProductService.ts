@@ -5,6 +5,7 @@ import { ProductCreateRequest } from "../../model/product/bluePrint/ProductCreat
 import { ProductFilterRequest } from "../../model/product/bluePrint/ProductFilterRequest";
 import { ProductFindResponse } from "../../model/product/bluePrint/ProductFindResponse";
 import { ProductSearchResponse } from "../../model/product/bluePrint/ProductSearchResponse";
+import { ProductSearchWithQuantityResponse } from "../../model/product/bluePrint/ProductSearchWithQuantity";
 
 export class ProductService {
   public static async findByInvoiceId(id: string) {
@@ -19,6 +20,34 @@ export class ProductService {
   public static async findFiltered(filter: ProductFilterRequest) {
     return api.get<PaginatedResponse<ProductSearchResponse>>(
       this.BASE_URL + "/filtered",
+      {
+        params: {
+          pageNumber: filter.pageNumber,
+          pageSize: filter.pageSize,
+          dateCreated: filter.dateCreated,
+          productInfo: filter.productInfo,
+        },
+      }
+    );
+  }
+  public static async findFilteredWithQuantity(filter: ProductFilterRequest) {
+    return api.get<PaginatedResponse<ProductSearchWithQuantityResponse>>(
+      this.BASE_URL + "/filtered-with-quantity",
+      {
+        params: {
+          pageNumber: filter.pageNumber,
+          pageSize: filter.pageSize,
+          dateCreated: filter.dateCreated,
+          productInfo: filter.productInfo,
+        },
+      }
+    );
+  }
+  public static async findFilteredWithMaxQuantity(
+    filter: ProductFilterRequest
+  ) {
+    return api.get<PaginatedResponse<ProductSearchWithQuantityResponse>>(
+      this.BASE_URL + "/filtered-with-max-quantity",
       {
         params: {
           pageNumber: filter.pageNumber,

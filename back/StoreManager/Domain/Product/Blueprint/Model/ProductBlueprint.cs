@@ -11,7 +11,7 @@ public class ProductBlueprint
     public required string Identifier { get; set; }
     public string Description { get; set; } = string.Empty;
     public DateOnly DateCreated { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
-    public ICollection<ProductBlueprintLineItems> Components { get; set; } = new List<ProductBlueprintLineItems>();
+    public ICollection<ProductBlueprintLineItem> Components { get; set; } = new List<ProductBlueprintLineItem>();
     public ICollection<ProductBatch> Batches { get; set; } = new List<ProductBatch>();
     public ICollection<ExportItem> Exports { get; set; } = new List<ExportItem>();
 }

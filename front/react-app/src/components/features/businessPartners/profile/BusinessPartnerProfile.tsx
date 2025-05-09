@@ -16,7 +16,6 @@ const BusinessPartnerProfile = () => {
   useEffect(() => {
     if (!id || id.trim().length === 0) return;
     BusinessPartnerService.findPartnerProfile(id).then((res) => {
-      console.log(res.data);
       setPartner(res.data);
     });
   }, [id]);

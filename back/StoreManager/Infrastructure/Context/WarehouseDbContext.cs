@@ -35,7 +35,7 @@ namespace StoreManager.Infrastructure.Context
         public DbSet<Domain.BusinessPartner.Base.Model.BusinessPartner> BusinessPartners { get; set; }
         public DbSet<Exporter> Exporters { get; set; }
         public DbSet<ProductBlueprint> ProductBlueprints { get; set; }
-        public DbSet<ProductBlueprintLineItems> ProductComponents { get; set; }
+        public DbSet<ProductBlueprintLineItem> ProductComponents { get; set; }
         public DbSet<ProductBatch> ProductBatches { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

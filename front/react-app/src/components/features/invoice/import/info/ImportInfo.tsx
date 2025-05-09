@@ -26,7 +26,6 @@ const ImportInfo = () => {
     DocumentService.downloadFile(id, (percentage) => {
       setProgress(percentage);
     }).then((doc) => {
-      console.log(doc);
       setDocumentSrc(doc);
       setFileType(doc.type);
     });
@@ -39,7 +38,6 @@ const ImportInfo = () => {
       setInvoiceType(r.data.type);
       if (r.data.type === "Import")
         MechanicalComponentService.findByInvoiceId(id).then((response) => {
-          console.log(components);
           setComponents(response.data.responses);
         });
       else
