@@ -29,9 +29,9 @@ public class OutboxWorker(IServiceProvider serviceProvider, ILogger<OutboxWorker
 
                 try
                 {
-                    if (message.Type == "DocumentProcessingRequested")
+                    if (message.Type == "DocumentProcessingRequest")
                     {
-                        var data = JsonSerializer.Deserialize<DocumentProcessingPayload>(message.Payload)!;
+                        var data = JsonSerializer.Deserialize<DocumentProcessingRequest>(message.Payload)!;
                         var readerFactory = scope.ServiceProvider.GetRequiredService<IDocumentReaderFactory>();
                         var mechanicalComponentRepository =
                             scope.ServiceProvider.GetRequiredService<IMechanicalComponentRepository>();
@@ -44,22 +44,29 @@ public class OutboxWorker(IServiceProvider serviceProvider, ILogger<OutboxWorker
 
                         var document =
                             await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), data.FileName);
-                        if(document is null)
-                            break;
-                        var import = await importRepository.FindByDocumentId(data.ImportId);
-
+                        if (document is null){
+                            logger.LogWarning("Document not found for file: {FileName}", data.FileName);
+                            continue;
+                        }
+                        var import = await importRepository.FindByDocumentId(document.Id);
+                        if (import is null)
+                        {
+                            logger.LogWarning("Import not found for document id: {DocumentId}", document.Id);
+                            continue;
+                        }
                         var filePath = Path.Combine(env.WebRootPath, "uploads", "invoice",
                             $"{data.DocumentId}.{DocumentUtils.GetRawMimeType(data.MimeType)}");
 
                         var reader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(data.MimeType));
                         var metadata = reader.ExtractDataFromDocument(filePath);
 
-                        await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(metadata);
-                        await importService.Create(import!, metadata);
+                        var components =
+                            await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(metadata);
+                        await importService.Create(import!, metadata,components);
                         await fileService.DeleteAllChunks(document!);
                         document.IsProcessed = true;
-                        
-                        
+
+
                         await unitOfWork.CommitAsync(stoppingToken);
                     }
 
@@ -75,13 +82,5 @@ public class OutboxWorker(IServiceProvider serviceProvider, ILogger<OutboxWorker
 
             await Task.Delay(TimeSpan.FromMinutes(2), stoppingToken);
         }
-    }
-
-    private class DocumentProcessingPayload
-    {
-        public Guid DocumentId { get; init; }
-        public Guid ImportId { get; init; }
-        public string MimeType { get; init; } = default!;
-        public string FileName { get; init; } = default!;
     }
 }

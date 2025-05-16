@@ -16,6 +16,7 @@ using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Domain.Document.Service;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Domain.Invoice.Import.Model;
 using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
@@ -127,7 +128,7 @@ public class DocumentService(
 
                 var metadata = documentReader.ExtractDataFromDocument(filePath);
 
-                await importService.Create(import, metadata);
+               // await importService.Create(import, metadata);
 
                 await fileService.DeleteAllChunks(foundFile);
             }

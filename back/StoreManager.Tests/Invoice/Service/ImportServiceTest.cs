@@ -5,6 +5,7 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain.BusinessPartner.Base.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
+using StoreManager.Domain.Invoice.Import.Model;
 using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository;

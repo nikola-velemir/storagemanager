@@ -10,7 +10,6 @@ using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Domain.Utils;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Repository.Specification;
-using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Application.Invoice.Import.Service
 {
@@ -30,12 +29,14 @@ namespace StoreManager.Application.Invoice.Import.Service
             return new ThisWeekInvoiceCountResponseDto(await importRepository.CountImportsThisWeek());
         }
 
-        public async Task Create(Infrastructure.Invoice.Import.Model.Import invoice, List<ExtractionMetadata> metadata)
+        public async Task Create(Domain.Invoice.Import.Model.Import invoice, List<ExtractionMetadata> metadata,
+            List<Domain.MechanicalComponent.Model.MechanicalComponent> components)
         {
-            foreach (var data in metadata)
+            foreach (var component in components)
             {
-                var component = await mechanicalComponentRepository.FindByIdentifierAsync(data.Identifier);
-                if (component is null)
+                var data = metadata.FirstOrDefault(c =>
+                    string.Equals(c.Identifier, component.Identifier, StringComparison.OrdinalIgnoreCase));
+                if (data is null)
                 {
                     continue;
                 }
@@ -54,7 +55,6 @@ namespace StoreManager.Application.Invoice.Import.Service
                 });
             }
 
-            await unitOfWork.CommitAsync();
         }
 
         public async Task<FindCountsForWeekResponseDto> FindCountsForWeek()

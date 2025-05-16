@@ -5,6 +5,7 @@ using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Model;
 using StoreManager.Domain.Invoice.Export.Model;
+using StoreManager.Domain.Invoice.Import.Model;
 using StoreManager.Domain.Product.Batch;
 using StoreManager.Domain.Product.Batch.Model;
 using StoreManager.Domain.Product.Blueprint.Model;

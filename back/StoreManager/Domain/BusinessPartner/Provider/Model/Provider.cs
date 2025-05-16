@@ -1,4 +1,5 @@
 ﻿using StoreManager.Domain.BusinessPartner.Base.Model;
+using StoreManager.Domain.Invoice.Import.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 
 namespace StoreManager.Domain.BusinessPartner.Provider.Model

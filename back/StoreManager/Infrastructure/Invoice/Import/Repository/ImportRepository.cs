@@ -10,27 +10,29 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
 {
     public sealed class ImportRepository : IImportRepository
     {
-        private readonly DbSet<Model.Import> _imports;
+        private readonly DbSet<Domain.Invoice.Import.Model.Import> _imports;
+        private readonly DbSet<Domain.Invoice.Base.Model.Invoice> _invoices;
 
         public ImportRepository(WarehouseDbContext context)
         {
             _imports = context.Imports;
+            _invoices = context.Invoices;
         }
 
-        public async Task<Model.Import> Create(Model.Import import)
+        public async Task<Domain.Invoice.Import.Model.Import> Create(Domain.Invoice.Import.Model.Import import)
         {
             var savedInstance = await _imports.AddAsync(import);
             return savedInstance.Entity;
         }
 
-        public async Task<List<Model.Import>> FindAll(ISpecification<Model.Import> spec)
+        public async Task<List<Domain.Invoice.Import.Model.Import>> FindAll(ISpecification<Domain.Invoice.Import.Model.Import> spec)
         {
             var query = spec.Apply(_imports);
             return await _imports.ToListAsync();
         }
 
-        public async Task<(ICollection<Model.Import> Items, int TotalCount)> FindFiltered(
-            ISpecification<Model.Import> spec, string? componentInfo, Guid? providerId, DateOnly? dateIssued,
+        public async Task<(ICollection<Domain.Invoice.Import.Model.Import> Items, int TotalCount)> FindFiltered(
+            ISpecification<Domain.Invoice.Import.Model.Import> spec, string? componentInfo, Guid? providerId, DateOnly? dateIssued,
             int pageNumber, int pageSize)
         {
             var query = spec.Apply(_imports);
@@ -60,18 +62,20 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
             return (items, totalCount);
         }
 
-        public Task<Model.Import?> FindByDocumentId(Guid documentId)
+        public Task<Domain.Invoice.Import.Model.Import?> FindByDocumentId(Guid documentId)
         {
-            return _imports.FirstOrDefaultAsync(i => i.DocumentId.Equals(documentId));
+            return _invoices.OfType<Domain.Invoice.Import.Model.Import>()
+                .Where(i => i.DocumentId == documentId).FirstOrDefaultAsync();
+            
         }
 
-        public Task<Model.Import?> FindById(ISpecification<Model.Import> spec, Guid id)
+        public Task<Domain.Invoice.Import.Model.Import?> FindById(ISpecification<Domain.Invoice.Import.Model.Import> spec, Guid id)
         {
             var query = spec.Apply(_imports);
             return query.FirstOrDefaultAsync(i => i.Id.Equals(id));
         }
 
-        public async Task<List<Model.Import>> FindByProviderId(ISpecification<Model.Import> spec, Guid id)
+        public async Task<List<Domain.Invoice.Import.Model.Import>> FindByProviderId(ISpecification<Domain.Invoice.Import.Model.Import> spec, Guid id)
         {
             var query = spec.Apply(_imports);
             query = query.Where(i => i.Provider.Id.Equals(id)).AsQueryable();
@@ -103,7 +107,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Repository
             return query;
         }
 
-        public Task UpdateAsync(Model.Import import)
+        public Task UpdateAsync(Domain.Invoice.Import.Model.Import import)
         {
             _imports.Update(import);
             return Task.CompletedTask;

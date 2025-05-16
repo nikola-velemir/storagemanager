@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain.Document.Model;
-using StoreManager.Domain.MechanicalComponent.Model;
 using StoreManager.Infrastructure.Context;
 
 namespace StoreManager.Infrastructure.MechanicalComponent.Repository
@@ -9,9 +8,11 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
     public class MechanicalComponentRepository : IMechanicalComponentRepository
     {
         private readonly DbSet<Domain.MechanicalComponent.Model.MechanicalComponent> _components;
-
+        private readonly WarehouseDbContext _context;
         public MechanicalComponentRepository(WarehouseDbContext context)
+        
         {
+            _context = context; 
             _components = context.MechanicalComponents;
         }
 
@@ -29,14 +30,14 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             return savedInstance.Entity;
         }
 
-        public async Task<Domain.MechanicalComponent.Model.MechanicalComponent> CreateFromExtractionMetadataAsync(ExtractionMetadata metadata)
+        public async Task<Domain.MechanicalComponent.Model.MechanicalComponent?> CreateFromExtractionMetadataAsync(ExtractionMetadata metadata)
         {
             var foundComponent = _components.Local.FirstOrDefault(c=>c.Identifier.ToLower().Equals(metadata.Identifier.ToLower())) ?? await FindByIdentifierAsync(metadata.Identifier);
 
             if (foundComponent != null)
             {
                 foundComponent.IncreaseStock(metadata.Quantity);
-                return foundComponent;
+                return null;
             }
 
             var component = new Domain.MechanicalComponent.Model.MechanicalComponent
@@ -55,7 +56,9 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
             var components = new List<Domain.MechanicalComponent.Model.MechanicalComponent>();
             foreach (var data in metadata)
             {
-                components.Add(await CreateFromExtractionMetadataAsync(data));
+                var component = await CreateFromExtractionMetadataAsync(data);
+                if(component is null) continue;
+                components.Add(component);
             }
 
             return components;
@@ -72,9 +75,10 @@ namespace StoreManager.Infrastructure.MechanicalComponent.Repository
                 .FirstOrDefaultAsync(mc => mc.Id.Equals(componentGuid));
         }
 
-        public Task<Domain.MechanicalComponent.Model.MechanicalComponent?> FindByIdentifierAsync(string identifier)
+        public async Task<Domain.MechanicalComponent.Model.MechanicalComponent?> FindByIdentifierAsync(string identifier)
         {
-            return _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier));
+            return await _components.FirstOrDefaultAsync(mc => mc.Identifier.Equals(identifier)) ??
+                   _components.Local.FirstOrDefault(c => c.Identifier.ToLower().Equals(identifier));
         }
 
         public async Task<(ICollection<Domain.MechanicalComponent.Model.MechanicalComponent> Items, int TotalCount)> FindFilteredForProductAsync(

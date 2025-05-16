@@ -12,7 +12,7 @@ public class OutboxRepository(WarehouseDbContext context) : IOutboxRepository
         {
             Id = Guid.NewGuid(),
             Payload = JsonSerializer.Serialize(message),
-            Type = "DocumentProcessingRequested",
+            Type = message.GetType().Name!,
             CreatedAt = DateTime.UtcNow
         };
         await context.OutboxMessages.AddAsync(outboxMessage, cancellationToken);

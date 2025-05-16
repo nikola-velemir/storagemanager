@@ -4,7 +4,7 @@ namespace StoreManager.Infrastructure.Invoice.Import.Model
 {
     public class ImportItemModel
     {
-        public required Import Import { get; set; }
+        public required Domain.Invoice.Import.Model.Import Import { get; set; }
         public required Domain.MechanicalComponent.Model.MechanicalComponent Component { get; set; }
         public required int Quantity { get; set; }
         public required double PricePerPiece { get; set; }

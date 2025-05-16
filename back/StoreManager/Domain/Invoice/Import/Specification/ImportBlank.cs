@@ -4,9 +4,9 @@ using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Domain.Invoice.Import.Specification;
 
-public class ImportBlank : ISpecification<Infrastructure.Invoice.Import.Model.Import>
+public class ImportBlank : ISpecification<Model.Import>
 {
-    public IQueryable<Infrastructure.Invoice.Import.Model.Import> Apply(IQueryable<Infrastructure.Invoice.Import.Model.Import> query)
+    public IQueryable<Model.Import> Apply(IQueryable<Model.Import> query)
     {
         return query;
     }

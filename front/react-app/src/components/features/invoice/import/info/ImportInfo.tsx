@@ -38,6 +38,7 @@ const ImportInfo = () => {
       setInvoiceType(r.data.type);
       if (r.data.type === "Import")
         MechanicalComponentService.findByInvoiceId(id).then((response) => {
+          console.log(response.data.responses);
           setComponents(response.data.responses);
         });
       else

@@ -11,6 +11,7 @@ using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
+using StoreManager.Domain.Invoice.Import.Model;
 using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
@@ -77,10 +78,10 @@ namespace StoreManager.Application.Document.Handler
                 if (request.ChunkIndex != request.TotalChunks - 1) return Result.Success();
 
                 await outboxRepository.InsertOutboxMessagesAsync(
-                    new
+                    new DocumentProcessingRequest
                     {
                         DocumentId = foundDocument.Id,
-                        ImportId = import?.Id,
+                        ImportId = import!.Id,
                         MimeType = foundDocument.Type,
                         FileName = foundDocument.FileName,
                     }, cancellationToken
