@@ -32,7 +32,7 @@ namespace StoreManager.Application.User.Service
             user.Password = hashedPassword;
 
             var createdUser = await repository.CreateAsync(user);
-            await unitOfWork.SaveChangesAsync();
+            await unitOfWork.CommitAsync();
 
             var response = new UserCreateResponseDto(createdUser.Username, createdUser.Password, createdUser.FirstName,
                 createdUser.LastName, createdUser.Role.ToString());

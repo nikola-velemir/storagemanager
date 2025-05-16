@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "../../../infrastructure/Routes/ProtectedRoute";
-import Dashboard from "../../dashboard/Dashboard";
+import Dashboard from "../../features/dashboard/Dashboard";
 import HailFailed from "../../errors/HailFailed";
 import LoginForm from "../../features/users/login/LoginForm/LoginForm";
 import ContentContainer from "../ContentContainer/ContentContainer";
@@ -18,6 +18,7 @@ import BusinessPartnersSearch from "../../features/businessPartners/search/Busin
 import InvoiceSearch from "../../features/invoice/search/InvoiceSearch";
 import BusinessPartnerCreatePage from "../../features/businessPartners/create/BusinessPartnerCreatePage";
 import BusinessPartnerProfile from "../../features/businessPartners/profile/BusinessPartnerProfile";
+import Foundry from "../../features/product/foundry/Foundry";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -128,6 +129,14 @@ const AnimatedRoutes = () => {
               element={
                 <ContentContainer>
                   <BusinessPartnerCreatePage />
+                </ContentContainer>
+              }
+            />
+            <Route
+              path="/foundry"
+              element={
+                <ContentContainer>
+                  <Foundry />
                 </ContentContainer>
               }
             />

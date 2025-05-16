@@ -26,6 +26,7 @@ export class DocumentService {
     const allChunks: Blob[] = [];
     for (let i = 0; i < totalChunks; ++i) {
       const chunk = await this.downloadChunk(invoiceId, i);
+
       allChunks.push(chunk.data);
       onProgress(Math.trunc(((i + 1) / totalChunks) * 100));
     }

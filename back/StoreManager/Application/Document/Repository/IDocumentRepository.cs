@@ -1,8 +1,7 @@
 ﻿using StoreManager.Domain.Document.Model;
 using StoreManager.Infrastructure.Shared;
 
-namespace StoreManager.Application.Document.Repository
-{
+namespace StoreManager.Application.Document.Repository;
     public interface IDocumentRepository
     {
         Task<Domain.Document.Model.Document?> FindByNameAsync(ISpecification<Domain.Document.Model.Document> spec, string fileName);
@@ -11,4 +10,3 @@ namespace StoreManager.Application.Document.Repository
         Task<DocumentChunk> SaveChunkAsync(Domain.Document.Model.Document foundDoc, IFormFile? file, string fileName,
             int chunkIndex);
     }
-}

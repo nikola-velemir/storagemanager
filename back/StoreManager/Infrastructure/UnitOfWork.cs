@@ -7,7 +7,7 @@ public class UnitOfWork(WarehouseDbContext context) : IUnitOfWork
 {
     private readonly WarehouseDbContext _context = context;
 
-    public Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    public Task CommitAsync(CancellationToken cancellationToken = default)
     {
         return _context.SaveChangesAsync(cancellationToken);
     }

@@ -2,13 +2,15 @@
 using StoreManager.Application.BusinessPartner.Provider.Command.Statistics;
 using StoreManager.Application.BusinessPartner.Provider.DTO.Statistics;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
+using StoreManager.Application.Common;
 
 namespace StoreManager.Application.BusinessPartner.Provider.Handler.Statistics
 {
     public class FindProviderInvoiceInvolvementsQueryHandler(IProviderRepository providerRepository)
-        : IRequestHandler<FindProviderInvoiceInvolvementsQuery, ProviderInvoiceInvolvementResponsesDto>
+        : IRequestHandler<FindProviderInvoiceInvolvementsQuery, Result<ProviderInvoiceInvolvementResponsesDto>>
     {
-        public async Task<ProviderInvoiceInvolvementResponsesDto> Handle(FindProviderInvoiceInvolvementsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<ProviderInvoiceInvolvementResponsesDto>> Handle(
+            FindProviderInvoiceInvolvementsQuery request, CancellationToken cancellationToken)
         {
             var providers = await providerRepository.FindAllAsync();
             var responses = new List<ProviderInvoiceInvolvementResponseDto>();
@@ -17,7 +19,8 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler.Statistics
                 var count = await providerRepository.FindInvoiceCountForProviderAsync(provider);
                 responses.Add(new ProviderInvoiceInvolvementResponseDto(provider.Id, provider.Name, count));
             }
-            return new ProviderInvoiceInvolvementResponsesDto(responses);
+
+            return Result.Success(new ProviderInvoiceInvolvementResponsesDto(responses));
         }
     }
 }

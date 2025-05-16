@@ -9,12 +9,11 @@ using StoreManager.Infrastructure.Document.Reader;
 using StoreManager.Infrastructure.Document.Repository;
 using StoreManager.Infrastructure.Document.Storage.Service;
 
-namespace StoreManager.Infrastructure.MiddleWare.Injectors;
+namespace StoreManager.Presentation.MiddleWare.Injectors;
 
 public static class DocumentInjection
 {
-    public static IServiceCollection InjectDocumentDependencies(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection InjectDocumentDependencies(this IServiceCollection services)
     {
 
         services.AddScoped<ICloudStorageService, SupabaseService>();

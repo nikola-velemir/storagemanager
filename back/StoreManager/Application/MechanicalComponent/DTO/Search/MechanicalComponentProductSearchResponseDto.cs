@@ -2,4 +2,4 @@
 
 public sealed record  MechanicalComponentProductSearchResponseDto(Guid Id,
     string Identifier,
-    string Name);
+    string Name, int Quantity);

@@ -92,6 +92,9 @@ namespace StoreManager.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<bool>("IsProcessed")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
@@ -155,6 +158,27 @@ namespace StoreManager.Migrations
                     b.UseTptMappingStrategy();
                 });
 
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Export.Model.ExportItem", b =>
+                {
+                    b.Property<Guid>("ExportId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("PricePerPiece")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ExportId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ExportItems", "public");
+                });
+
             modelBuilder.Entity("StoreManager.Domain.MechanicalComponent.Model.MechanicalComponent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -183,7 +207,29 @@ namespace StoreManager.Migrations
                         });
                 });
 
-            modelBuilder.Entity("StoreManager.Domain.Product.Model.ProductBlueprint", b =>
+            modelBuilder.Entity("StoreManager.Domain.Product.Batch.Model.ProductBatch", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlueprintId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("CreatedOn")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlueprintId");
+
+                    b.ToTable("ProductBatches", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprint", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,7 +261,7 @@ namespace StoreManager.Migrations
                     b.ToTable("ProductBlueprints", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Domain.Product.Model.ProductBlueprintLineItems", b =>
+            modelBuilder.Entity("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprintLineItem", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
@@ -272,27 +318,6 @@ namespace StoreManager.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportItemModel", b =>
-                {
-                    b.Property<Guid>("ExportId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<double>("PricePerPiece")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ExportId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ExportItems", "public");
-                });
-
             modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Import.Model.ImportItemModel", b =>
                 {
                     b.Property<Guid>("ImportId")
@@ -312,6 +337,34 @@ namespace StoreManager.Migrations
                     b.HasIndex("ComponentId");
 
                     b.ToTable("ImportItems", "public");
+                });
+
+            modelBuilder.Entity("StoreManager.outbox.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ProcessedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutboxMessages", "public");
                 });
 
             modelBuilder.Entity("StoreManager.Domain.BusinessPartner.Exporter.Model.Exporter", b =>
@@ -432,26 +485,7 @@ namespace StoreManager.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("StoreManager.Domain.Product.Model.ProductBlueprintLineItems", b =>
-                {
-                    b.HasOne("StoreManager.Domain.MechanicalComponent.Model.MechanicalComponent", "Component")
-                        .WithMany("Products")
-                        .HasForeignKey("ComponentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreManager.Domain.Product.Model.ProductBlueprint", "Product")
-                        .WithMany("Components")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Component");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("StoreManager.Infrastructure.Invoice.Export.Model.ExportItemModel", b =>
+            modelBuilder.Entity("StoreManager.Domain.Invoice.Export.Model.ExportItem", b =>
                 {
                     b.HasOne("StoreManager.Domain.Invoice.Export.Model.Export", "Export")
                         .WithMany("Items")
@@ -459,13 +493,43 @@ namespace StoreManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreManager.Domain.Product.Model.ProductBlueprint", "Product")
+                    b.HasOne("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprint", "Product")
                         .WithMany("Exports")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Export");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("StoreManager.Domain.Product.Batch.Model.ProductBatch", b =>
+                {
+                    b.HasOne("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprint", "Blueprint")
+                        .WithMany("Batches")
+                        .HasForeignKey("BlueprintId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blueprint");
+                });
+
+            modelBuilder.Entity("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprintLineItem", b =>
+                {
+                    b.HasOne("StoreManager.Domain.MechanicalComponent.Model.MechanicalComponent", "Component")
+                        .WithMany("Products")
+                        .HasForeignKey("ComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprint", "Product")
+                        .WithMany("Components")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Component");
 
                     b.Navigation("Product");
                 });
@@ -539,8 +603,10 @@ namespace StoreManager.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("StoreManager.Domain.Product.Model.ProductBlueprint", b =>
+            modelBuilder.Entity("StoreManager.Domain.Product.Blueprint.Model.ProductBlueprint", b =>
                 {
+                    b.Navigation("Batches");
+
                     b.Navigation("Components");
 
                     b.Navigation("Exports");

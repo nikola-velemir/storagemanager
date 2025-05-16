@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.Invoice.Import.Command;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.MechanicalComponent.Repository;
@@ -12,13 +13,13 @@ namespace StoreManager.Application.Invoice.Import.Handler
         IUnitOfWork unitOfWork,
         IMechanicalComponentRepository mechanicalComponentRepository,
         IImportRepository importRepository)
-        : IRequestHandler<CreateImportCommand>
+        : IRequestHandler< CreateImportCommand,Result>
     {
-        public async Task<Unit> Handle(CreateImportCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateImportCommand request, CancellationToken cancellationToken)
         {
             var invoice = await importRepository.FindByDocumentId(request.DocumentId);
 
-            if (invoice is null) return Unit.Value;
+            if (invoice is null) return Result.Success();
 
             await mechanicalComponentRepository.CreateFromExtractionMetadataAsync(request.Metadata);
             foreach (var data in request.Metadata)
@@ -44,9 +45,9 @@ namespace StoreManager.Application.Invoice.Import.Handler
 //                await importRepository.UpdateAsync(invoice);
             }
 
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+            await unitOfWork.CommitAsync(cancellationToken);
             
-            return Unit.Value;
+            return Result.Success();
         }
     }
 }

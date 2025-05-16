@@ -1,19 +1,19 @@
 ﻿using MediatR;
+using StoreManager.Application.BusinessPartner.Provider.Command;
 using StoreManager.Application.BusinessPartner.Provider.DTO.Search;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
+using StoreManager.Application.Common;
 using StoreManager.Domain;
 using StoreManager.Domain.BusinessPartner.Base.Model;
-using StoreManager.Domain.BusinessPartner.Provider.Command;
-using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.BusinessPartner.Shared;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.BusinessPartner.Provider.Handler
 {
-    public class CreateProviderHandler(IUnitOfWork unitOfWork,IProviderRepository providerRepository)
-        : IRequestHandler<CreateProviderCommand, ProviderFindResponseDto>
+    public class CreateProviderHandler(IUnitOfWork unitOfWork, IProviderRepository providerRepository)
+        : IRequestHandler<CreateProviderCommand, Result<ProviderFindResponseDto>>
     {
-        public async Task<ProviderFindResponseDto> Handle(CreateProviderCommand request,
+        public async Task<Result<ProviderFindResponseDto>> Handle(CreateProviderCommand request,
             CancellationToken cancellationToken)
         {
             var saved = await providerRepository.CreateAsync(new Domain.BusinessPartner.Provider.Model.Provider
@@ -24,9 +24,9 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler
                 Type = BusinessPartnerType.Provider,
                 PhoneNumber = request.PhoneNumber
             });
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-            return new ProviderFindResponseDto(saved.Id, saved.Name, Utils.FormatAddress(saved.Address),
-                saved.PhoneNumber);
+            await unitOfWork.CommitAsync(cancellationToken);
+            return Result.Success(new ProviderFindResponseDto(saved.Id, saved.Name, Utils.FormatAddress(saved.Address),
+                saved.PhoneNumber));
         }
 
         private static void ValidateRequest(CreateProviderCommand request)

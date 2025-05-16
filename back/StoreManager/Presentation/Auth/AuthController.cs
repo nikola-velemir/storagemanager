@@ -10,66 +10,38 @@ namespace StoreManager.Presentation.Auth
 {
     [ApiController]
     [Route("api/auth")]
-    public class AuthController(IMediator mediator) : ControllerBase
+    public class AuthController(IMediator mediator) : ApiControllerBase
     {
         [HttpPost("login")]
-        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
         {
-            try
-            {
-                var response = await mediator.Send(new LoginQuery(request.Username, request.Password));
-                return Ok(response);
-            }
-            catch (InvalidOperationException e)
-            {
-                return NotFound(new { message = e.Message });
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                return NotFound(new { message = e.Message });
-            }
+            var response = await mediator.Send(new LoginQuery(request.Username, request.Password));
+            return FromResult(response);
         }
 
         [Authorize]
         [HttpPost("logout")]
-        public async Task<ActionResult> Logout()
+        public async Task<IActionResult> Logout()
         {
             if (!Request.Headers.TryGetValue("Authorization", out StringValues authHeader))
             {
                 return BadRequest("Authorization missing");
             }
-            try
-            {
 
-                var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
 
-                await mediator.Send(new DeAuthenticateCommand(accessToken));
+            var accessToken = authHeader.ToString().Substring("Bearer ".Length).Trim();
 
-                return Ok("Token revoked");
+            var response = await mediator.Send(new DeAuthenticateCommand(accessToken));
+            return FromResult(response);
 
-            }
-            catch (BadHttpRequestException e)
-            {
-                return BadRequest(e.Message);
-            }
         }
 
         [HttpPost("refresh")]
-        public async Task<ActionResult<LoginResponseDto>> Refresh([FromBody] RefreshRequestDto request)
+        public async Task<IActionResult> Refresh([FromBody] RefreshRequestDto request)
         {
-            try
-            {
                 var response = await mediator.Send(new RefreshAuthenticationQuery(request.RefreshToken));
-                return Ok(response);
-            }
-            catch (InvalidOperationException e)
-            {
-                return NotFound(new { message = e.Message });
-            }
-            catch (TimeoutException)
-            {
-                return StatusCode(408, "Refresh timed out");
-            }
+                return FromResult(response);
+
         }
     }
 }

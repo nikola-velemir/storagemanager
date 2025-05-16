@@ -1,37 +1,41 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.Document.Command;
 using StoreManager.Application.Document.DTO;
+using StoreManager.Application.Document.Errors;
 using StoreManager.Application.Document.Repository;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Invoice.Base.Repository;
-using StoreManager.Infrastructure.MiddleWare.Exceptions;
 
 namespace StoreManager.Application.Document.Handler
 {
     public class RequestDownloadHandler(IDocumentRepository documentRepository, IInvoiceRepository importRepository)
-        : IRequestHandler<RequestDownloadQuery, RequestDocumentDownloadResponseDto>
+        : IRequestHandler<RequestDownloadQuery, Result<RequestDocumentDownloadResponseDto>>
     {
-        public async Task<RequestDocumentDownloadResponseDto> Handle(RequestDownloadQuery request, CancellationToken cancellationToken)
+        public async Task<Result<RequestDocumentDownloadResponseDto>> Handle(RequestDownloadQuery request,
+            CancellationToken cancellationToken)
         {
-
             if (!Guid.TryParse(request.InvoiceId, out var tempId))
             {
-                throw new InvalidCastException("Guid cannot be parsed");
+                return DocumentErrors.DocumentIdParseError;
             }
-            var invoiceGuid = Guid.Parse(request.InvoiceId);
 
-            var invoice = await importRepository.FindById(invoiceGuid);
+
+            var invoice = await importRepository.FindById(tempId);
             if (invoice is null)
             {
-                throw new NotFoundException("Invoice not found");
+                return DocumentErrors.DocumentNotFound;
             }
-            var file = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(), invoice.Document.FileName);
+
+            var file = await documentRepository.FindByNameAsync(new DocumentWithDocumentChunks(),
+                invoice.Document.FileName);
             if (file == null)
             {
-                throw new NotFoundException("File not found");
+                return DocumentErrors.DocumentNotFound;
             }
-            return new RequestDocumentDownloadResponseDto(file.FileName, DocumentUtils.GetPresentationalMimeType(file.Type), file.Chunks.Count);
 
+            return Result.Success(new RequestDocumentDownloadResponseDto(file.FileName,
+                DocumentUtils.GetPresentationalMimeType(file.Type), file.Chunks.Count));
         }
     }
 }

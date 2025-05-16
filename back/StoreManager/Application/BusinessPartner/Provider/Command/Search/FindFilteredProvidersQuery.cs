@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using StoreManager.Application.BusinessPartner.Provider.DTO.Search;
+using StoreManager.Application.Common;
 using StoreManager.Application.Shared;
 
 namespace StoreManager.Application.BusinessPartner.Provider.Command.Search
@@ -7,5 +8,5 @@ namespace StoreManager.Application.BusinessPartner.Provider.Command.Search
     public record FindFilteredProvidersQuery(
         string? ProviderName, 
         int PageNumber, 
-        int PageSize) : IRequest<PaginatedResult<ProviderSearchResponseDto>>;
+        int PageSize) : IRequest<Result<PaginatedResult<ProviderSearchResponseDto>>>;
 }

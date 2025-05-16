@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 import { InvoiceFindResponse } from "../../../../../model/invoice/InvoiceFindResponse";
 import { InvoiceService } from "../../../../../services/invoice/InvoiceService";
 import BusinessPartnerProfileInvoiceCard from "../../profile/cards/BusinessPartnerProfileInvoiceCard";
-import { ProductService } from "../../../../../services/ProductService";
-import { ProductFindResponse } from "../../../../../model/product/ProductFindResponse";
+import { ProductService } from "../../../../../services/products/ProductService";
+import { ProductFindResponse } from "../../../../../model/product/bluePrint/ProductFindResponse";
 import ExporterProfileProductCard from "./cards/ExporterProfileProductCard";
 
 enum TabState {

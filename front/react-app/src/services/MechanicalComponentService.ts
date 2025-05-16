@@ -6,6 +6,7 @@ import { MechanicalComponentSearchResponse } from "../model/components/search/Me
 import { PaginatedResponse } from "../model/PaginatedResponse";
 import { MechanicalComponentTopFiveQuantityResponses } from "../model/components/MechanicalComponentTopFiveQuantityResponses";
 import { ComponentInfoResponse } from "../components/features/component/ComponentInfoResponse";
+import { MechanicalComponentWithQuantitySearchResponse } from "../model/components/search/MechanicalComponentWithQuantitySearchResponse";
 
 export interface MechanicalComponentFilterRequest {
   pageSize: number;
@@ -14,7 +15,9 @@ export interface MechanicalComponentFilterRequest {
   componentInfo: string | null;
 }
 export class MechanicalComponentService {
-  static findFilteredForProduct(request: MechanicalComponentFilterRequest) {
+  static async findFilteredForProduct(
+    request: MechanicalComponentFilterRequest
+  ) {
     return api.get<PaginatedResponse<MechanicalComponentSearchResponse>>(
       this.BASE_URL + "/filtered-product",
       {
@@ -26,6 +29,20 @@ export class MechanicalComponentService {
         },
       }
     );
+  }
+  static async findFilteredForProductCreation(
+    request: MechanicalComponentFilterRequest
+  ) {
+    return api.get<
+      PaginatedResponse<MechanicalComponentWithQuantitySearchResponse>
+    >(this.BASE_URL + "/filtered-product", {
+      params: {
+        componentInfo: request.componentInfo,
+        providerId: request.providerId,
+        pageSize: request.pageSize,
+        pageNumber: request.pageNumber,
+      },
+    });
   }
   static findTopFiveInQuantity() {
     return api.get<MechanicalComponentTopFiveQuantityResponses>(

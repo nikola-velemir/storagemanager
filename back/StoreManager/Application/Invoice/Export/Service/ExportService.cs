@@ -3,12 +3,10 @@ using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Application.Shared;
 using StoreManager.Domain.Invoice.Export.Model;
+using StoreManager.Domain.Invoice.Export.Service;
 using StoreManager.Domain.Invoice.Export.Specification;
 using StoreManager.Infrastructure.Invoice.Base;
-using StoreManager.Infrastructure.Invoice.Export.Model;
-using StoreManager.Infrastructure.Invoice.Export.Service;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
-using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Application.Invoice.Export.Service;
 
@@ -33,7 +31,7 @@ public class ExportService(IExportRepository repository, IExporterRepository exp
             DocumentId = Guid.Empty,
             ExporterId = exporter.Id,
             Type = InvoiceType.Export,
-            Items = new List<ExportItemModel>()
+            Items = new List<ExportItem>()
         });
     }
 

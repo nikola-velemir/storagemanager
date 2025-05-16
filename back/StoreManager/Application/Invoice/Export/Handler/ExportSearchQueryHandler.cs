@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.Invoice.Export.Command;
 using StoreManager.Application.Invoice.Export.DTO;
 using StoreManager.Application.Invoice.Export.Repository;
@@ -9,20 +10,21 @@ using StoreManager.Infrastructure.Shared;
 namespace StoreManager.Application.Invoice.Export.Handler;
 
 public class ExportSearchQueryHandler(IExportRepository repository)
-    : IRequestHandler<ExportSearchQuery, PaginatedResult<ExportSearchResponseDto>>
+    : IRequestHandler<ExportSearchQuery, Result<PaginatedResult<ExportSearchResponseDto>>>
 {
-    public async Task<PaginatedResult<ExportSearchResponseDto>> Handle(ExportSearchQuery request,
+    public async Task<Result<PaginatedResult<ExportSearchResponseDto>>> Handle(ExportSearchQuery request,
         CancellationToken cancellationToken)
     {
         Guid? exporterId = null;
         if (Guid.TryParse(request.ExporterId, out _))
             exporterId = Guid.Parse(request.ExporterId);
         DateOnly? date = null;
-        if(DateOnly.TryParse(request.Date, out _))
+        if (DateOnly.TryParse(request.Date, out _))
             date = DateOnly.Parse(request.Date);
-        
-        var result = await repository.FindFilteredAsync(new FindFilteredExportsSpecification(), exporterId,request.ProductInfo, date, request.PageNumber, request.PageSize);
-        return new PaginatedResult<ExportSearchResponseDto>
+
+        var result = await repository.FindFilteredAsync(new FindFilteredExportsSpecification(), exporterId,
+            request.ProductInfo, date, request.PageNumber, request.PageSize);
+        return Result.Success(new PaginatedResult<ExportSearchResponseDto>
         {
             PageNumber = request.PageNumber,
             PageSize = request.PageSize,
@@ -38,6 +40,6 @@ public class ExportSearchQueryHandler(IExportRepository repository)
                 )
             ).ToList(),
             TotalCount = result.TotalCount
-        };
+        });
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using MediatR;
-using Newtonsoft.Json;
-using StoreManager.Application.BusinessPartner.Provider.DTO;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
+using StoreManager.Application.Common;
 using StoreManager.Application.Document.Command;
 using StoreManager.Application.Document.Repository;
 using StoreManager.Application.Document.Service.FileService;
@@ -10,17 +9,13 @@ using StoreManager.Application.Document.Service.Reader;
 using StoreManager.Application.Invoice.Import.Repository;
 using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain;
-using StoreManager.Domain.BusinessPartner.Base.Model;
-using StoreManager.Domain.BusinessPartner.Provider.Model;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
-using StoreManager.Domain.Invoice.Base.Repository;
 using StoreManager.Domain.Invoice.Import.Service;
-using StoreManager.Infrastructure;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
-using StoreManager.Infrastructure.MechanicalComponent.Repository;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
+using StoreManager.outbox;
 
 namespace StoreManager.Application.Document.Handler
 {
@@ -34,10 +29,11 @@ namespace StoreManager.Application.Document.Handler
         IFileService fileService,
         IDocumentReaderFactory readerFactory,
         IWebHostEnvironment env,
+        IOutboxRepository outboxRepository,
         IImportService importService)
-        : IRequestHandler<UploadChunkCommand>
+        : IRequestHandler<UploadChunkCommand, Result>
     {
-        public async Task<Unit> Handle(UploadChunkCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(UploadChunkCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -78,25 +74,21 @@ namespace StoreManager.Application.Document.Handler
 
                 await fileService.AppendChunk(request.File, foundDocument);
 
-                if (request.ChunkIndex != request.TotalChunks - 1) return Unit.Value;
+                if (request.ChunkIndex != request.TotalChunks - 1) return Result.Success();
 
-                var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundDocument.Type));
+                await outboxRepository.InsertOutboxMessagesAsync(
+                    new
+                    {
+                        DocumentId = foundDocument.Id,
+                        ImportId = import?.Id,
+                        MimeType = foundDocument.Type,
+                        FileName = foundDocument.FileName,
+                    }, cancellationToken
+                );
 
-                var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
+                await unitOfWork.CommitAsync(cancellationToken);
 
-                var filePath = Path.Combine(webRootPath,
-                    $"{foundDocument.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundDocument.Type)}");
-
-                var metadata = documentReader.ExtractDataFromDocument(filePath);
-                 await mechanicalComponentRepository.CreateFromExtractionMetadataAsync((metadata));
-              
-                await importService.Create(import, metadata);
-
-                await fileService.DeleteAllChunks(foundDocument);
-
-                await unitOfWork.SaveChangesAsync(cancellationToken);
-
-                return Unit.Value;
+                return Result.Success();
             }
             catch (Exception)
             {

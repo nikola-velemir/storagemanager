@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ProductInfoExporterResponse } from "../../../../../model/product/ProductInfoExporterResponse";
+import { ProductInfoExporterResponse } from "../../../../../model/product/bluePrint/ProductInfoExporterResponse";
 
 interface ProductInfoExportCardProps {
   id: string;

@@ -7,7 +7,7 @@ import { DocumentService } from "../../../../../services/DocumentService";
 import { MechanicalComponentService } from "../../../../../services/MechanicalComponentService";
 import { InvoiceService } from "../../../../../services/invoice/InvoiceService";
 import { ExportSearchProductResponse } from "../../../../../model/invoice/export/ExportSearchProductResponse";
-import { ProductService } from "../../../../../services/ProductService";
+import { ProductService } from "../../../../../services/products/ProductService";
 import ExportSearchProductItem from "../../export/search/cards/ExportSearchProductItem";
 
 const ImportInfo = () => {
@@ -37,9 +37,9 @@ const ImportInfo = () => {
     InvoiceService.findInvoiceType(id).then((r) => {
       setInvoiceType(r.data.type);
       if (r.data.type === "Import")
-        MechanicalComponentService.findByInvoiceId(id).then((response) =>
-          setComponents(response.data.responses)
-        );
+        MechanicalComponentService.findByInvoiceId(id).then((response) => {
+          setComponents(response.data.responses);
+        });
       else
         ProductService.findByInvoiceId(id).then((res) =>
           setProducts(res.data.products)

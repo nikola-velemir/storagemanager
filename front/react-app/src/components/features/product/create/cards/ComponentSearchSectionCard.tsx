@@ -2,6 +2,7 @@ interface ComponentSearchSectionCardProps {
   id: string;
   name: string;
   identifier: string;
+  quantity: number;
   emitComponentId: (id: string) => void;
 }
 
@@ -9,6 +10,7 @@ const ComponentSearchSectionCard = ({
   id,
   name,
   identifier,
+  quantity,
   emitComponentId,
 }: ComponentSearchSectionCardProps) => {
   const handleAddButtonClick = () => {
@@ -42,18 +44,28 @@ const ComponentSearchSectionCard = ({
 
           <div className="space-y-1">
             <div className="text-sm text-gray-400">
-              <span className="font-light">ID:</span>{" "}
-              <span className="font-medium text-base text-white">{id}</span>
+              <span className="font-light">ID:</span>
+              <span className="font-medium text-base text-white ml-2">
+                {id}
+              </span>
             </div>
             <div className="text-sm text-gray-400">
-              <span className="font-light">Identifier:</span>{" "}
-              <span className="font-medium text-base text-white">
+              <span className="font-light">Identifier:</span>
+              <span className="font-medium text-base text-white ml-2">
                 {identifier}
               </span>
             </div>
             <div className="text-sm text-gray-400">
-              <span className="font-light">Name:</span>{" "}
-              <span className="font-medium text-base text-white">{name}</span>
+              <span className="font-light">Name:</span>
+              <span className="font-medium text-base text-white ml-2">
+                {name}
+              </span>
+            </div>
+            <div className="text-sm text-gray-400">
+              <span className="font-light">Max quantity:</span>
+              <span className="font-medium text-base text-white ml-2">
+                {quantity}
+              </span>
             </div>
           </div>
         </div>

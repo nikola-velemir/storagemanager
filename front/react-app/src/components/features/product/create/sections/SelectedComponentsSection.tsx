@@ -29,7 +29,11 @@ const SelectedComponentsSection = ({
     setSelectedComponents((prev) => {
       const updatedComponents = prev.map((component: ComponentWithQuantity) =>
         component.id === pair.id
-          ? { ...component, quantity: pair.quantity }
+          ? {
+              ...component,
+              quantity: pair.quantity,
+              maxQuantity: component.maxQuantity,
+            }
           : component
       );
       emitComponents(updatedComponents);
@@ -44,6 +48,7 @@ const SelectedComponentsSection = ({
             emitComponentForValidation={handleComponentPairEmit}
             key={component.id}
             id={component.id}
+            quantity={component.maxQuantity}
             identifier={component.identifier}
             name={component.name}
             emitComponentId={handleRemoveClick}

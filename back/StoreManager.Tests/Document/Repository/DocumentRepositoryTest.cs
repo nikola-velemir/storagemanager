@@ -44,14 +44,14 @@ namespace StoreManager.Tests.Document.Repository
         [Fact(DisplayName = "Find by name test - invalid name")]
         public async Task FindByName_InvalidNameTest()
         {
-            var result = await _repository.FindByNameAsync(new DocumentWithDocumentChunks(), INVALID_FILE_NAME);
+            var result = await _repository.FindById(new DocumentWithDocumentChunks(), INVALID_FILE_NAME);
             Assert.Null(result);
         }
 
         [Fact(DisplayName = "Find by name test - valid name")]
         public async Task FindByName_ValidNameTest()
         {
-            var result = await _repository.FindByNameAsync(new DocumentWithDocumentChunks(), VALID_FILE_NAME);
+            var result = await _repository.FindById(new DocumentWithDocumentChunks(), VALID_FILE_NAME);
             Assert.NotNull(result);
             Assert.Equal(VALID_DOCUMENT, result);
         }

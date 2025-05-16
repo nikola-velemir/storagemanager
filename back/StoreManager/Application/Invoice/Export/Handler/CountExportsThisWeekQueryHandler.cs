@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.Invoice.Export.Command;
 using StoreManager.Application.Invoice.Export.Repository;
 using StoreManager.Application.Invoice.Import.DTO.Statistics;
@@ -6,11 +7,11 @@ using StoreManager.Application.Invoice.Import.DTO.Statistics;
 namespace StoreManager.Application.Invoice.Export.Handler;
 
 public class CountExportsThisWeekQueryHandler(IExportRepository exportRepository)
-    : IRequestHandler<CountExportsThisWeekQuery, ThisWeekInvoiceCountResponseDto>
+    : IRequestHandler<CountExportsThisWeekQuery, Result<ThisWeekInvoiceCountResponseDto>>
 {
-    public async Task<ThisWeekInvoiceCountResponseDto> Handle(CountExportsThisWeekQuery request,
+    public async Task<Result<ThisWeekInvoiceCountResponseDto>> Handle(CountExportsThisWeekQuery request,
         CancellationToken cancellationToken)
     {
-        return new ThisWeekInvoiceCountResponseDto(await exportRepository.CountExportsThisWeekAsync());
+        return Result.Success(new ThisWeekInvoiceCountResponseDto(await exportRepository.CountExportsThisWeekAsync()));
     }
 }

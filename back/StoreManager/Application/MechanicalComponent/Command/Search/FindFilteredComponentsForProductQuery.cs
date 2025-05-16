@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using StoreManager.Application.Common;
 using StoreManager.Application.MechanicalComponent.DTO.Search;
 using StoreManager.Application.Shared;
 using StoreManager.Infrastructure.Shared;
@@ -9,4 +10,4 @@ public record FindFilteredComponentsForProductQuery(
     string? ProviderId,
     string? ComponentInfo,
     int PageNumber,
-    int PageSize) : IRequest<PaginatedResult<MechanicalComponentProductSearchResponseDto>>;
+    int PageSize) : IRequest<Result<PaginatedResult<MechanicalComponentProductSearchResponseDto>>>;

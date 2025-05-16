@@ -41,6 +41,7 @@ const ExportSelectedProductsSection = ({
     <div className="w-full h-96 flex flex-col items-center overflow-y-scroll">
       {products.map((product: ProductSelectionTuple) => (
         <ExportSelectedProductCard
+          maxQuantity={product.maxQuantity}
           key={product.id}
           emitProductForValidation={handleEmitTuple}
           emitProductId={handleRemoveClick}

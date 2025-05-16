@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import ExportProductCard from "../cards/ExportProductCard";
-import { ProductSearchResponse } from "../../../../../../model/product/ProductSearchResponse";
-import { ProductService } from "../../../../../../services/ProductService";
+import { ProductService } from "../../../../../../services/products/ProductService";
 import DatePickerComponent from "../../../../../common/inputs/DatePickerComponent";
 import Paginator from "../../../../../common/inputs/Paginator";
 import SearchBox from "../../../../../common/inputs/SearchBox";
+import { ProductSearchWithQuantityResponse } from "../../../../../../model/product/bluePrint/ProductSearchWithQuantity";
 export const convertDateToString = (date: Date | null) => {
   if (!date) {
     return null;
@@ -16,20 +16,22 @@ export const convertDateToString = (date: Date | null) => {
 };
 
 interface ExportProductSearchSectionProps {
-  emitProduct: (p: ProductSearchResponse | null) => void;
+  emitProduct: (p: ProductSearchWithQuantityResponse | null) => void;
 }
 
 const ExportProductSearchSection = ({
   emitProduct,
 }: ExportProductSearchSectionProps) => {
-  const [products, setProducts] = useState<ProductSearchResponse[]>([]);
+  const [products, setProducts] = useState<ProductSearchWithQuantityResponse[]>(
+    []
+  );
   const [totalItems, setTotalItems] = useState<number>(0);
   const [pageSize, setPageSize] = useState(5);
   const [pageNumber, setPageNumber] = useState(1);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [productInfo, setProductInfo] = useState<string | null>(null);
   useEffect(() => {
-    ProductService.findFiltered({
+    ProductService.findFilteredWithQuantity({
       dateCreated: convertDateToString(selectedDate),
       pageNumber: pageNumber,
       pageSize: pageSize,
@@ -72,7 +74,7 @@ const ExportProductSearchSection = ({
         />
       </div>
       <div className="h-5/6 overflow-y-auto flex items-center flex-col">
-        {products.map((product: ProductSearchResponse) => {
+        {products.map((product: ProductSearchWithQuantityResponse) => {
           return (
             <ExportProductCard
               emitProductId={handleEmitProductId}

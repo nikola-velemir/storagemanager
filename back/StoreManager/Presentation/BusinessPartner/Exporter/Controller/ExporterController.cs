@@ -8,36 +8,47 @@ namespace StoreManager.Presentation.BusinessPartner.Exporter.Controller;
 
 [ApiController]
 [Route("api/exporters")]
-public class ExporterController(IMediator mediator) : ControllerBase
+public class ExporterController(IMediator mediator) : ApiControllerBase
 {
     [HttpPost("")]
     public async Task<IActionResult> Create([FromBody] ProviderCreateRequestDto request)
     {
-        await mediator.Send(new CreateExporterCommand(request.Name, request.Address, request.PhoneNumber));
-        return Ok();
+        var result = await mediator.Send(new CreateExporterCommand(request.Name, request.Address, request.PhoneNumber));
+        return FromResult(result);
     }
 
     [HttpGet("")]
     public async Task<IActionResult> FindAll()
     {
-        return Ok(await mediator.Send(new FindAllExportersQuery()));
+        var response = await mediator.Send(new FindAllExportersQuery());
+        return FromResult(response);
+
     }
 
     [HttpGet("filtered")]
-    public async Task<IActionResult> FindFiltered([FromQuery] string? exporterInfo, [FromQuery] int pageNumber,[FromQuery] int pageSize)
+    public async Task<IActionResult> FindFiltered([FromQuery] string? exporterInfo, [FromQuery] int pageNumber,
+        [FromQuery] int pageSize)
     {
-        var result = await mediator.Send(new FindFilteredQuery(exporterInfo, PageNumber:pageNumber, PageSize:pageSize));
-        return Ok(result);
+        var result =
+            await mediator.Send(new FindFilteredQuery(exporterInfo, PageNumber: pageNumber, PageSize: pageSize));
+        return FromResult(result);
+
     }
+
     [HttpGet("find-invoice-involvement")]
     public async Task<IActionResult> FindInvoiceInvolvement()
     {
         var result = await mediator.Send(new FindInvoiceInvolvementsQuery());
-        return Ok(result);
+        
+        return FromResult(result);
+
     }
+
     [HttpGet("find-product-involvement")]
     public async Task<IActionResult> FindComponentInvolvement()
     {
-        return Ok(await mediator.Send(new FindExporterProductInvolvementsQuery()));
+        var result = await mediator.Send(new FindExporterProductInvolvementsQuery());
+        return FromResult(result);
+
     }
 }

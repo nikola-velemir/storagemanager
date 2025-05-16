@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using StoreManager.Application.BusinessPartner.Base.Errors;
+using StoreManager.Application.Common;
 using StoreManager.Application.MechanicalComponent.Command;
 using StoreManager.Application.MechanicalComponent.DTO.Search;
 using StoreManager.Application.MechanicalComponent.Repository;
@@ -6,17 +8,21 @@ using StoreManager.Application.MechanicalComponent.Repository;
 namespace StoreManager.Application.MechanicalComponent.Handler;
 
 public class FinComponentsByPartnerQueryHandler(IMechanicalComponentRepository repository)
-    : IRequestHandler<FindComponentsByPartnerQuery, List<MechanicalComponentProductSearchResponseDto>>
+    : IRequestHandler<FindComponentsByPartnerQuery, Result<List<MechanicalComponentProductSearchResponseDto>>>
 {
-    public async Task<List<MechanicalComponentProductSearchResponseDto>> Handle(FindComponentsByPartnerQuery request,
+    public async Task<Result<List<MechanicalComponentProductSearchResponseDto>>> Handle(
+        FindComponentsByPartnerQuery request,
         CancellationToken cancellationToken)
     {
         if (!Guid.TryParse(request.Id, out var providerId))
-            throw new InvalidCastException("Could not cast");
+            return BusinessPartnerErrors.PartnerNotFoundError;
 
         var components = await repository.FindByProviderIdAsync(providerId);
 
-        return components.Select(mc => new MechanicalComponentProductSearchResponseDto(mc.Id, mc.Identifier, mc.Name))
+        var response = components
+            .Select(mc => new MechanicalComponentProductSearchResponseDto(mc.Id, mc.Identifier, mc.Name,mc.CurrentStock))
             .ToList();
+
+        return Result.Success(response);
     }
 }

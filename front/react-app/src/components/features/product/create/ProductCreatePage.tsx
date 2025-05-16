@@ -1,17 +1,19 @@
 import { useCallback, useState } from "react";
 import ProductCreateForm, { ProductCreateFormData } from "./ProductCreateForm";
 import { MechanicalComponentSearchResponse } from "../../../../model/components/search/MechanicalComponentSearchResponse";
-import { ProductCreateRequest } from "../../../../model/product/ProductCreateRequest";
-import { ProductService } from "../../../../services/ProductService";
+import { ProductCreateRequest } from "../../../../model/product/bluePrint/ProductCreateRequest";
+import { ProductService } from "../../../../services/products/ProductService";
 import { toast } from "react-toastify";
 import ComponentSearchSection from "./sections/ComponentSearchSection";
 import SelectedComponentsSection from "./sections/SelectedComponentsSection";
+import { MechanicalComponentWithQuantitySearchResponse } from "../../../../model/components/search/MechanicalComponentWithQuantitySearchResponse";
 
 export interface ComponentWithQuantity {
   id: string;
   name: string;
   identifier: string;
   quantity: number;
+  maxQuantity: number;
 }
 
 const ProductCreatePage = () => {
@@ -30,13 +32,16 @@ const ProductCreatePage = () => {
     []
   );
   const handleAddComponentClick = (
-    e: MechanicalComponentSearchResponse | null
+    e: MechanicalComponentWithQuantitySearchResponse | null
   ) => {
     if (!e) return;
     const found = addedComponents.find((c) => c.id === e.id);
     if (found) return;
 
-    setAddedComponents([...addedComponents, { ...e, quantity: 1 }]);
+    setAddedComponents([
+      ...addedComponents,
+      { ...e, quantity: 1, maxQuantity: e.quantity },
+    ]);
   };
   const handleRemoveComponentClick = (e: ComponentWithQuantity | null) => {
     if (!e) return;

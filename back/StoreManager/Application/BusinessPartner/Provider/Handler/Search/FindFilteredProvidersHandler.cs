@@ -2,19 +2,20 @@
 using StoreManager.Application.BusinessPartner.Provider.Command.Search;
 using StoreManager.Application.BusinessPartner.Provider.DTO.Search;
 using StoreManager.Application.BusinessPartner.Provider.Repository;
+using StoreManager.Application.Common;
 using StoreManager.Application.Shared;
 
 namespace StoreManager.Application.BusinessPartner.Provider.Handler.Search
 {
     public class FindFilteredProvidersHandler(IProviderRepository providerRepository)
-        : IRequestHandler<FindFilteredProvidersQuery, PaginatedResult<ProviderSearchResponseDto>>
+        : IRequestHandler<FindFilteredProvidersQuery, Result<PaginatedResult<ProviderSearchResponseDto>>>
     {
-        public async Task<PaginatedResult<ProviderSearchResponseDto>> Handle(FindFilteredProvidersQuery request,
+        public async Task< Result<PaginatedResult<ProviderSearchResponseDto>>> Handle(FindFilteredProvidersQuery request,
             CancellationToken cancellationToken)
         {
             var result =
                 await providerRepository.FindFilteredAsync(request.ProviderName, request.PageNumber, request.PageSize);
-            return new PaginatedResult<ProviderSearchResponseDto>
+            var paginatedResult = new PaginatedResult<ProviderSearchResponseDto>
             {
                 Items = result.Items.Select(p =>
                     new ProviderSearchResponseDto(
@@ -29,6 +30,7 @@ namespace StoreManager.Application.BusinessPartner.Provider.Handler.Search
                     )
                 ).ToList()
             };
+            return Result.Success(paginatedResult);
         }
     }
 }
