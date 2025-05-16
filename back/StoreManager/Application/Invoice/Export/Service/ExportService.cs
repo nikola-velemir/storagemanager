@@ -7,7 +7,6 @@ using StoreManager.Domain.Invoice.Export.Service;
 using StoreManager.Domain.Invoice.Export.Specification;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
-using StoreManager.Infrastructure.Shared;
 
 namespace StoreManager.Application.Invoice.Export.Service;
 

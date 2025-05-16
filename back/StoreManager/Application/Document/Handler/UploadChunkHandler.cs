@@ -15,6 +15,7 @@ using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
+using StoreManager.outbox;
 
 namespace StoreManager.Application.Document.Handler
 {
@@ -28,8 +29,9 @@ namespace StoreManager.Application.Document.Handler
         IFileService fileService,
         IDocumentReaderFactory readerFactory,
         IWebHostEnvironment env,
+        IOutboxRepository outboxRepository,
         IImportService importService)
-        : IRequestHandler<UploadChunkCommand,Result>
+        : IRequestHandler<UploadChunkCommand, Result>
     {
         public async Task<Result> Handle(UploadChunkCommand request, CancellationToken cancellationToken)
         {
@@ -74,19 +76,15 @@ namespace StoreManager.Application.Document.Handler
 
                 if (request.ChunkIndex != request.TotalChunks - 1) return Result.Success();
 
-                var documentReader = readerFactory.GetReader(DocumentUtils.GetRawMimeType(foundDocument.Type));
-
-                var webRootPath = Path.Combine(env.WebRootPath, "uploads", "invoice");
-
-                var filePath = Path.Combine(webRootPath,
-                    $"{foundDocument.Id.ToString()}.{DocumentUtils.GetRawMimeType(foundDocument.Type)}");
-
-                var metadata = documentReader.ExtractDataFromDocument(filePath);
-                 await mechanicalComponentRepository.CreateFromExtractionMetadataAsync((metadata));
-              
-                await importService.Create(import, metadata);
-
-                await fileService.DeleteAllChunks(foundDocument);
+                await outboxRepository.InsertOutboxMessagesAsync(
+                    new
+                    {
+                        DocumentId = foundDocument.Id,
+                        ImportId = import?.Id,
+                        MimeType = foundDocument.Type,
+                        FileName = foundDocument.FileName,
+                    }, cancellationToken
+                );
 
                 await unitOfWork.CommitAsync(cancellationToken);
 

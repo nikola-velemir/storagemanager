@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Document.Repository;
 using StoreManager.Domain.Document.Model;
-using StoreManager.Domain.Document.Specification;
 using StoreManager.Infrastructure.Context;
-using StoreManager.Infrastructure.DB;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
 using StoreManager.Infrastructure.Shared;
 
@@ -68,7 +66,8 @@ namespace StoreManager.Infrastructure.Document.Repository
                 Date = DateOnly.FromDateTime(DateTime.UtcNow),
                 FileName = parsedFileName,
                 Type = mimeType,
-                Id = Guid.NewGuid()
+                Id = Guid.NewGuid(),
+                IsProcessed = false
             };
 
             var savedInstance = await _documents.AddAsync(fileRecord);

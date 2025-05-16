@@ -9,6 +9,7 @@ using StoreManager.Infrastructure;
 using StoreManager.Infrastructure.Context;
 using StoreManager.Infrastructure.GeoCoding;
 using StoreManager.Infrastructure.MiddleWare.Injectors;
+using StoreManager.outbox;
 using StoreManager.Presentation.MiddleWare.Injectors;
 
 namespace StoreManager.Presentation.MiddleWare
@@ -35,9 +36,12 @@ namespace StoreManager.Presentation.MiddleWare
             services.InjectExporterDependencies();
             services.InjectExportDependencies();
 
+            
+            services.AddScoped<IOutboxRepository, OutboxRepository>();
+            services.AddHostedService<OutboxWorker>();
+            
             services.AddScoped<IGeoCodingService, LocationIqService>();
             services.AddMediatR(typeof(Program));
-
 
             GlobalFontSettings.FontResolver = new FontResolver();
 

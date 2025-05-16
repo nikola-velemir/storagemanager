@@ -8,12 +8,12 @@ import { ProductSearchResponse } from "../../model/product/bluePrint/ProductSear
 import { ProductSearchWithQuantityResponse } from "../../model/product/bluePrint/ProductSearchWithQuantity";
 
 export class ProductService {
+  private static BASE_URL = "/products";
   public static async findByInvoiceId(id: string) {
     return api.get<{ products: ExportSearchProductResponse[] }>(
       this.BASE_URL + "/find-by-invoice/" + id
     );
   }
-  private static BASE_URL = "/products";
   public static async createProduct(request: ProductCreateRequest) {
     return api.post(this.BASE_URL, request);
   }

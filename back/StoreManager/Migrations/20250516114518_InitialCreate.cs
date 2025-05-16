@@ -43,6 +43,7 @@ namespace StoreManager.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    IsProcessed = table.Column<bool>(type: "boolean", nullable: false),
                     FileName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -65,6 +66,23 @@ namespace StoreManager.Migrations
                     table.PrimaryKey("PK_MechanicalComponents", x => x.Id);
                     table.UniqueConstraint("AK_MechanicalComponents_Identifier", x => x.Identifier);
                     table.CheckConstraint("CK_MECHANICAL_COMPONENT_STOCK_NONNEGATIVE", "\"CurrentStock\" >= 0");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OutboxMessages",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    Payload = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ProcessedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Error = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OutboxMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -446,6 +464,10 @@ namespace StoreManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "ImportItems",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "OutboxMessages",
                 schema: "public");
 
             migrationBuilder.DropTable(

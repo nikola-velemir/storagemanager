@@ -34,7 +34,6 @@
     <Folder Include="Presentation\BusinessPartner\Exporter\" />
     <Folder Include="Presentation\BusinessPartner\Provider\" />
     <Folder Include="wwwroot\uploads\" />
-    <Folder Include="wwwroot\uploads\invoice\" />
   </ItemGroup>
 
 </Project>

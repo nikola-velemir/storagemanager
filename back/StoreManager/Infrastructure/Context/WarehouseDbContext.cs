@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreManager.Application.Document;
 using StoreManager.Domain.Auth.Tokens.RefreshToken.Model;
 using StoreManager.Domain.BusinessPartner.Exporter.Model;
 using StoreManager.Domain.BusinessPartner.Provider.Model;
@@ -8,6 +9,7 @@ using StoreManager.Domain.Product.Batch;
 using StoreManager.Domain.Product.Batch.Model;
 using StoreManager.Domain.Product.Blueprint.Model;
 using StoreManager.Infrastructure.Invoice.Import.Model;
+using StoreManager.outbox;
 
 namespace StoreManager.Infrastructure.Context
 {
@@ -20,7 +22,7 @@ namespace StoreManager.Infrastructure.Context
         public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options)
         {
         }
-
+        public DbSet<OutboxMessage> OutboxMessages { get; set; }
         public DbSet<Domain.User.Model.User> Users { get; set; }
         public DbSet<Domain.Document.Model.Document> Documents { get; set; }
         public DbSet<RefreshTokenModel> RefreshTokens { get; set; }

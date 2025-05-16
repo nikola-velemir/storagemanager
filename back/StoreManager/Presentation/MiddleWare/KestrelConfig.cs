@@ -1,4 +1,4 @@
-﻿namespace StoreManager.Infrastructure.MiddleWare
+﻿namespace StoreManager.Presentation.MiddleWare
 {
     public static class KestrelConfig
     {

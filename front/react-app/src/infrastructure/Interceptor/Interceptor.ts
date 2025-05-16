@@ -3,7 +3,7 @@ import { AuthUser } from "../../model/userModels/AuthUser";
 import { RefreshRequest } from "../../model/userModels/Request/RefreshRequest";
 import { UserService } from "../Auth/UserService";
 
-const API_BASE_URL = "http://192.168.1.6:5205/api";
+const API_BASE_URL = "http://192.168.1.9:5205/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
