@@ -16,6 +16,7 @@ const ImportInfo = () => {
   const [components, setComponents] = useState<ImportSearchComponentResponse[]>(
     []
   );
+  const [isProcessed, setIsProcessed] = useState<boolean>(false);
   const [products, setProducts] = useState<ExportSearchProductResponse[]>([]);
   const [documentSrc, setDocumentSrc] = useState<Blob | undefined>(undefined);
   const [fileType, setFileType] = useState("");
@@ -36,15 +37,17 @@ const ImportInfo = () => {
     downloadDoc();
     InvoiceService.findInvoiceType(id).then((r) => {
       setInvoiceType(r.data.type);
-      if (r.data.type === "Import")
-        MechanicalComponentService.findByInvoiceId(id).then((response) => {
-          console.log(response.data.responses);
-          setComponents(response.data.responses);
-        });
-      else
-        ProductService.findByInvoiceId(id).then((res) =>
-          setProducts(res.data.products)
-        );
+      setIsProcessed(r.data.isProcessed);
+      if (r.data.isProcessed)
+        if (r.data.type === "Import")
+          MechanicalComponentService.findByInvoiceId(id).then((response) => {
+            console.log(response.data.responses);
+            setComponents(response.data.responses);
+          });
+        else
+          ProductService.findByInvoiceId(id).then((res) =>
+            setProducts(res.data.products)
+          );
     });
   }, [id, downloadDoc]);
 
@@ -83,7 +86,13 @@ const ImportInfo = () => {
           />
         </div>
         <div className="flex mx-8 flex-col h-5/6 overflow-y-scroll border-t-2 border-b-2 border-white items-center bg-gray-500">
-          {invoiceType === "Import" ? renderComponents() : renderProducts()}
+          {!isProcessed && (
+            <div className="flex flex-row justify-center items-center content-center h-full text-lg font-medium">
+              Invoice document has not yet been processed
+            </div>
+          )}
+          {invoiceType === "Import" && renderComponents()}
+          {invoiceType === "Export" && renderProducts()}
         </div>
       </div>
     </div>
