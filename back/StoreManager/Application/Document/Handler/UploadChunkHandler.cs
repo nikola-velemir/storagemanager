@@ -5,14 +5,11 @@ using StoreManager.Application.Common;
 using StoreManager.Application.Document.Command;
 using StoreManager.Application.Document.Repository;
 using StoreManager.Application.Document.Service.FileService;
-using StoreManager.Application.Document.Service.Reader;
 using StoreManager.Application.Invoice.Import.Repository;
-using StoreManager.Application.MechanicalComponent.Repository;
 using StoreManager.Domain;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Document.Storage.Service;
 using StoreManager.Domain.Invoice.Import.Model;
-using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Invoice.Base;
 using StoreManager.Infrastructure.Invoice.Import.Model;
 using StoreManager.Infrastructure.MiddleWare.Exceptions;
@@ -26,12 +23,8 @@ namespace StoreManager.Application.Document.Handler
         IDocumentRepository documentRepository,
         IImportRepository importRepository,
         ICloudStorageService supaService,
-        IMechanicalComponentRepository mechanicalComponentRepository,
         IFileService fileService,
-        IDocumentReaderFactory readerFactory,
-        IWebHostEnvironment env,
-        IOutboxRepository outboxRepository,
-        IImportService importService)
+        IOutboxRepository outboxRepository)
         : IRequestHandler<UploadChunkCommand, Result>
     {
         public async Task<Result> Handle(UploadChunkCommand request, CancellationToken cancellationToken)

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using StoreManager.Application.Document;
 using StoreManager.Application.Document.Repository;
@@ -10,6 +11,7 @@ using StoreManager.Domain;
 using StoreManager.Domain.Document.Specification;
 using StoreManager.Domain.Invoice.Import.Service;
 using StoreManager.Infrastructure.Context;
+using StoreManager.Infrastructure.Notifications;
 
 namespace StoreManager.outbox;
 
@@ -22,6 +24,10 @@ public class OutboxWorker(IServiceProvider serviceProvider, ILogger<OutboxWorker
         {
             using var scope = serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<WarehouseDbContext>();
+
+            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+            
+            
             var unprocessed = await dbContext.OutboxMessages.Where(x => x.ProcessedAt == null)
                 .Take(10)
                 .ToListAsync(cancellationToken: stoppingToken);
@@ -68,6 +74,8 @@ public class OutboxWorker(IServiceProvider serviceProvider, ILogger<OutboxWorker
 
 
                         await unitOfWork.CommitAsync(stoppingToken);
+
+                        await mediator.Publish(new DocumentProcessedNotification(import.Id, document.FileName),stoppingToken);
                     }
 
                     message.ProcessedAt = DateTime.UtcNow;

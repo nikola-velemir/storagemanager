@@ -23,7 +23,7 @@ namespace StoreManager.Presentation.MiddleWare
                                    throw new InvalidProgramException("Postgres connection not found");
 
             services.AddDbContext<WarehouseDbContext>(options => options.UseNpgsql(connectionString));
-
+            services.AddSignalR();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPasswordHasher<Domain.User.Model.User>, PasswordHasher<Domain.User.Model.User>>();
             services.InjectAuthDependencies(configuration);

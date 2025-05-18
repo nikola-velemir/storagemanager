@@ -1,5 +1,6 @@
 using StoreManager.Infrastructure.Auth;
 using StoreManager.Infrastructure.MiddleWare;
+using StoreManager.Infrastructure.Notifications;
 using StoreManager.Presentation.MiddleWare;
 using StoreManager.Presentation.Product.Batch;
 
@@ -21,6 +22,8 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandler>();
 app.UseCors("AllowSpecificOrigin");
+
+app.MapHub<NotificationsHub>("/hubs/notifications");
 
 app.UseRouting();
 app.MapProductBatchApi();
