@@ -23,6 +23,7 @@ function App() {
     };
     checkOnline();
   }, []);
+
   useAuthRedirect(); // Attach the logout listener
   useHailFailedRedirect();
   return (

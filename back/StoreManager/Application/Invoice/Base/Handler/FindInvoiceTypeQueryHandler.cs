@@ -22,6 +22,6 @@ public class FindInvoiceTypeQueryHandler(IInvoiceRepository repository)
         if (invoice is null)
             return InvoiceErrors.InvoiceNotFound;
 
-        return Result.Success(new InvoiceFindTypeResponseDto(invoice.Type.ToString()));
+        return Result.Success(new InvoiceFindTypeResponseDto(invoice.Type.ToString(), invoice.Document.IsProcessed));
     }
 }

@@ -3,6 +3,7 @@ import { InvoiceFindResponse } from "../../model/invoice/InvoiceFindResponse";
 
 interface InvoiceTypeResponse {
   type: string;
+  isProcessed: boolean;
 }
 
 export class InvoiceService {
