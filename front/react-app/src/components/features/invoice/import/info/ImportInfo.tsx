@@ -40,10 +40,9 @@ const ImportInfo = () => {
       setIsProcessed(r.data.isProcessed);
       if (r.data.isProcessed)
         if (r.data.type === "Import")
-          MechanicalComponentService.findByInvoiceId(id).then((response) => {
-            console.log(response.data.responses);
-            setComponents(response.data.responses);
-          });
+          MechanicalComponentService.findByInvoiceId(id).then((response) =>
+            setComponents(response.data.responses)
+          );
         else
           ProductService.findByInvoiceId(id).then((res) =>
             setProducts(res.data.products)
