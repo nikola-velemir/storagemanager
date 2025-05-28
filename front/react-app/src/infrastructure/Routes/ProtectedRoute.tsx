@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import { useAuth } from "../Auth/AuthContext";
 import { UserService } from "../Auth/UserService";
 
 type ProtectedRouteProps = {
@@ -9,6 +8,7 @@ type ProtectedRouteProps = {
 
 const ProtectedRoute = ({ redirectPath = "/login" }: ProtectedRouteProps) => {
   const user = UserService.getUser();
+  console.log(user);
   if (!user) {
     return <Navigate to={redirectPath} replace />;
   }

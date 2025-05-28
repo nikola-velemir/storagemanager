@@ -11,6 +11,7 @@ import ResponseModal from "../../../../common/modals/ResponseModal/ResponseModal
 import SuccessButton from "../../../../common/buttons/SuccessButton/SuccessButton";
 import api from "../../../../../infrastructure/Interceptor/Interceptor";
 import { Modal } from "flowbite-react";
+import { UserService } from "../../../../../infrastructure/Auth/UserService";
 
 interface LoginErrors {
   username: string;
@@ -100,7 +101,7 @@ const LoginForm = () => {
     AuthService.login(credentials)
       .then((next) => {
         setTimeout(() => {
-          userContext.setUser(next.data);
+          UserService.setUser(next.data);
           handleModalResponse(ModalState.SUCCESS);
         }, 1000);
       })

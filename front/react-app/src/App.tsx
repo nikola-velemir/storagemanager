@@ -7,6 +7,8 @@ import {
   useHailFailedRedirect,
 } from "./infrastructure/Routes/RedirectHook";
 import AnimatedRoutes from "./components/structure/AnimatedRoutes/AnimatedRoutes";
+import { setupNotifications } from "./infrastructure/Notifications/notificationService";
+import { useNavigate } from "react-router-dom";
 const hailApp = async () => {
   try {
     await api.get("/hail");
@@ -15,6 +17,7 @@ const hailApp = async () => {
   }
 };
 function App() {
+  const navigate = useNavigate();
   useEffect(() => {
     const checkOnline = async () => {
       try {
@@ -23,7 +26,9 @@ function App() {
     };
     checkOnline();
   }, []);
-
+  useEffect(() => {
+    setupNotifications(navigate);
+  }, [navigate]);
   useAuthRedirect(); // Attach the logout listener
   useHailFailedRedirect();
   return (
